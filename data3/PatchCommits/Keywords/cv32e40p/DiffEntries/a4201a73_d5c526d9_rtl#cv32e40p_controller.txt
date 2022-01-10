@@ -1,0 +1,15 @@
+a4201a73030f8dfc997867e69e76b59952a70b7c
+Merge pull request #514 from silabs-PaulZ/fix_todo__exc_cause
+diff --git a/rtl/cv32e40p_controller.sv b/rtl/cv32e40p_controller.sv
+index 4ef1bd5..fd88aae 100644
+--- a/rtl/cv32e40p_controller.sv
++++ b/rtl/cv32e40p_controller.sv
+@@ -1021,8 +1021,6 @@ module cv32e40p_controller import cv32e40p_pkg::*;
+                   pc_set_o              = 1'b1;
+                   trap_addr_mux_o       = TRAP_MACHINE;
+                   exc_pc_mux_o          = debug_mode_q ? EXC_PC_DBE : EXC_PC_EXCEPTION;
+-                  // TODO: why is this here, signal only needed for async exceptions
+-                  exc_cause_o           = EXC_CAUSE_ECALL_MMODE;
+ 
+                   if (debug_single_step_i && ~debug_mode_q)
+                       ctrl_fsm_ns = DBG_TAKEN_IF;

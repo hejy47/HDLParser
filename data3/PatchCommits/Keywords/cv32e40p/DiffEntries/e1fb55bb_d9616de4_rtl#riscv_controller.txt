@@ -1,0 +1,15 @@
+e1fb55bb7cbcca1f43dea37210048f69f4b44674
+merge fix error pmp
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 326bfa8..fd9c3df 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -284,8 +284,6 @@ module riscv_controller
+       begin
+         is_decoding_o = 1'b0;
+         instr_req_o   = 1'b0;
+-        pc_mux_o      = PC_BOOT;
+-        pc_set_o      = 1'b1;
+         if (fetch_enable_i == 1'b1)
+         begin
+           ctrl_fsm_ns = BOOT_SET;

@@ -1,0 +1,15 @@
+05f534dafc3c0fa6b031fbb4410d1aec8e85da01
+Fixes #94. Bug in codec generation for integer_vectors with min valued elements.
+diff --git a/vunit/vhdl/com/src/com_string.vhd b/vunit/vhdl/com/src/com_string.vhd
+index 47892882..028505f1 100644
+--- a/vunit/vhdl/com/src/com_string.vhd
++++ b/vunit/vhdl/com/src/com_string.vhd
+@@ -134,7 +134,7 @@ package body com_string_pkg is
+   function to_detailed_string (
+     constant data : integer_vector)
+     return string is
+-    variable element : string(1 to 2 + data'length * 11);
++    variable element : string(1 to 2 + data'length * 12);
+     variable l       : line;
+     variable length  : natural;
+   begin

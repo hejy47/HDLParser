@@ -1,0 +1,16 @@
+78b14f9803c5f3a67303e84d2d75a4be9289857c
+axi_ad9625: Fix the interface instance
+diff --git a/library/axi_ad9625/axi_ad9625.v b/library/axi_ad9625/axi_ad9625.v
+index 95ca2e13..f272254a 100644
+--- a/library/axi_ad9625/axi_ad9625.v
++++ b/library/axi_ad9625/axi_ad9625.v
+@@ -143,8 +143,7 @@ module axi_ad9625 #(
+   assign adc_valid = 1'b1;
+ 
+   axi_ad9625_if #(
+-    .ID (ID),
+-    .DELAY_REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY))
++    .ID (ID))
+   i_if (
+     .rx_clk (rx_clk),
+     .rx_sof (rx_sof),

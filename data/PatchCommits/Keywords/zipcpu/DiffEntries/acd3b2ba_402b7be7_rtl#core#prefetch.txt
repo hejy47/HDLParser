@@ -1,0 +1,15 @@
+acd3b2bacab6fe1b92a9166bf68ef3dd0f315f76
+Fixed prefetch, so it won't declare an error if the address changes mid cycle
+diff --git a/rtl/core/prefetch.v b/rtl/core/prefetch.v
+index 19a35dc..9284688 100644
+--- a/rtl/core/prefetch.v
++++ b/rtl/core/prefetch.v
+@@ -120,7 +120,7 @@ module	prefetch(i_clk, i_rst, i_ce, i_stalled_n, i_pc, i_aux,
+ 		if ((o_wb_cyc)&&(i_wb_ack))
+ 		begin
+ 			o_valid <= (i_pc == o_wb_addr)&&(~i_wb_err);
+-			o_illegal <= i_wb_err;
++			o_illegal <= (i_wb_err)&&(i_pc == o_wb_addr);
+ 		end else if (i_stalled_n)
+ 		begin
+ 			o_valid <= 1'b0;

@@ -1,0 +1,14 @@
+9d5b5b68bf80188adf28b509de20a55177905a5e
+[rstmgr / top] Add reset bypass during test
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+index bad7e2e9d..c7974b0a6 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+@@ -216,6 +216,7 @@ module top_earlgrey_asic (
+     .dio_attr_o      ( dio_attr      ),
+ 
+     // DFT signals
++    .scan_rst_ni     ( 1'b1          ),
+     .scanmode_i      ( 1'b0          )
+   );
+ 

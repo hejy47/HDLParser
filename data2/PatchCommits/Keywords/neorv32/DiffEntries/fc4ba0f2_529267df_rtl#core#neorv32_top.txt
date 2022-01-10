@@ -1,0 +1,14 @@
+fc4ba0f2e9d27e05bc45f5963d02c4755bc95b72
+v1.5.6.7: added option to configure "async" Wishbone RX path
+diff --git a/rtl/core/neorv32_top.vhd b/rtl/core/neorv32_top.vhd
+index 9eb1f11..68c8095 100644
+--- a/rtl/core/neorv32_top.vhd
++++ b/rtl/core/neorv32_top.vhd
+@@ -739,7 +739,6 @@ begin
+   if (MEM_EXT_EN = true) generate
+     neorv32_wishbone_inst: neorv32_wishbone
+     generic map (
+-      WB_PIPELINED_MODE => wb_pipe_mode_c,    -- false: classic/standard wishbone mode, true: pipelined wishbone mode
+       -- Internal instruction memory --
+       MEM_INT_IMEM_EN   => MEM_INT_IMEM_EN,   -- implement processor-internal instruction memory
+       MEM_INT_IMEM_SIZE => MEM_INT_IMEM_SIZE, -- size of processor-internal instruction memory in bytes

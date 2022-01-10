@@ -1,0 +1,15 @@
+cf0db8ec36686beb22638f3b7ded7c223314e695
+fix controller condition to be inside a HWLP
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 608e374..236b657 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -349,7 +349,7 @@ module riscv_controller
+     hwlp_end1_geq_pc        = hwlp_end_addr_i[1] >= pc_id_i;
+ 
+     is_hwlp_illegal         = 1'b0;
+-    is_hwloop_body          = ((hwlp_start0_leq_pc || hwlp_end0_geq_pc) && hwlp_counter0_gt_1) ||  ((hwlp_start1_leq_pc || hwlp_end1_geq_pc) && hwlp_counter1_gt_1);
++    is_hwloop_body          = ((hwlp_start0_leq_pc && hwlp_end0_geq_pc) && hwlp_counter0_gt_1) ||  ((hwlp_start1_leq_pc && hwlp_end1_geq_pc) && hwlp_counter1_gt_1);
+ 
+     hwlp_dec_cnt_o          = '0;
+     hwlp_jump_o             = 1'b0;

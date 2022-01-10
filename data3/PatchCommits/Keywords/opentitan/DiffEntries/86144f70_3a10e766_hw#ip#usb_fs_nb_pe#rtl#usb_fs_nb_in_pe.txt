@@ -1,0 +1,15 @@
+86144f7033cb38171990fb9bd5f5f0f8f85f0c5d
+[usbdev] Fix issues discovered with linter
+diff --git a/hw/ip/usb_fs_nb_pe/rtl/usb_fs_nb_in_pe.sv b/hw/ip/usb_fs_nb_pe/rtl/usb_fs_nb_in_pe.sv
+index c52d13258..5e5317a8d 100644
+--- a/hw/ip/usb_fs_nb_pe/rtl/usb_fs_nb_in_pe.sv
++++ b/hw/ip/usb_fs_nb_pe/rtl/usb_fs_nb_in_pe.sv
+@@ -130,7 +130,7 @@ module usb_fs_nb_in_pe #(
+     rx_pkt_valid_i &&
+     rx_pid == UsbPidAck;
+ 
+-  assign more_data_to_send = in_ep_has_data_i && ~in_ep_data_done_i[in_ep_index];  // lint: in_ep_index range was checked
++  assign more_data_to_send = in_ep_has_data_i[in_ep_index] && ~in_ep_data_done_i[in_ep_index];  // lint: in_ep_index range was checked
+ 
+   assign tx_data_avail_o = (in_xfr_state == StSendData) && more_data_to_send;
+ 

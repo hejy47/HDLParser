@@ -1,0 +1,26 @@
+4798f27d213d0a6101866f328387c02c890b1aa0
+[flash] Improve flash ECC handling based on transasction attribute
+diff --git a/hw/ip/flash_ctrl/rtl/flash_phy.sv b/hw/ip/flash_ctrl/rtl/flash_phy.sv
+index 227204882..f878dd5d9 100644
+--- a/hw/ip/flash_ctrl/rtl/flash_phy.sv
++++ b/hw/ip/flash_ctrl/rtl/flash_phy.sv
+@@ -14,6 +14,7 @@ module flash_phy import flash_ctrl_pkg::*; (
+   input clk_i,
+   input rst_ni,
+   input host_req_i,
++  input tlul_pkg::tl_type_e host_req_type_i,
+   input [BusAddrW-1:0] host_addr_i,
+   output logic host_req_rdy_o,
+   output logic host_req_done_o,
+@@ -189,9 +190,11 @@ module flash_phy import flash_ctrl_pkg::*; (
+       .scramble_en_i(flash_ctrl_i.scramble_en),
+       .ecc_en_i(flash_ctrl_i.ecc_en),
+       .he_en_i(flash_ctrl_i.he_en),
++      .ecc_multi_err_en_i(flash_ctrl_i.ecc_multi_err_en),
+       // host request must be suppressed if response fifo cannot hold more
+       // otherwise the flash_phy_core and flash_phy will get out of sync
+       .host_req_i(host_req),
++      .host_req_type_i,
+       .host_scramble_en_i(host_scramble_en),
+       .host_ecc_en_i(host_ecc_en),
+       .host_addr_i(host_addr_i[0 +: BusBankAddrW]),

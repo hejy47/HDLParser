@@ -1,0 +1,15 @@
+4c8cf57cecc70dc315b3567891583953eb4294d0
+Fixed the lock capability for ZipSystem addresses
+diff --git a/rtl/core/pipemem.v b/rtl/core/pipemem.v
+index 0355a4a..6682433 100644
+--- a/rtl/core/pipemem.v
++++ b/rtl/core/pipemem.v
+@@ -212,7 +212,7 @@ module	pipemem(i_clk, i_rst, i_pipe_stb, i_lock,
+ 		always @(posedge i_clk)
+ 		begin
+ 			lock_gbl <= (i_lock)&&((r_wb_cyc_gbl)||(lock_gbl));
+-			lock_lcl <= (i_lock)&&((r_wb_cyc_lcl)||(lock_gbl));
++			lock_lcl <= (i_lock)&&((r_wb_cyc_lcl)||(lock_lcl));
+ 		end
+ 
+ 		assign	o_wb_cyc_gbl = (r_wb_cyc_gbl)||(lock_gbl);

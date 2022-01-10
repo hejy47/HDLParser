@@ -1,0 +1,33 @@
+cead186836a9713a34e5581b3d30d8bf35b5f9a2
+Add Synopsys VCS Support for Ibex Simple System
+diff --git a/shared/rtl/sim/simulator_ctrl.sv b/shared/rtl/sim/simulator_ctrl.sv
+index 002845a4..555025e7 100644
+--- a/shared/rtl/sim/simulator_ctrl.sv
++++ b/shared/rtl/sim/simulator_ctrl.sv
+@@ -36,7 +36,7 @@ module simulator_ctrl #(
+   localparam SIM_CTRL_ADDR = 1;
+ 
+   logic [7:0] ctrl_addr;
+-  logic [2:0] sim_finish;
++  logic [2:0] sim_finish = 3'b000;
+ 
+   integer log_fd;
+ 
+@@ -78,9 +78,7 @@ module simulator_ctrl #(
+         endcase
+       end
+     end
+-  end
+ 
+-  always_ff @(posedge clk_i or negedge rst_ni) begin
+     if (sim_finish != 'b0) begin
+       sim_finish <= sim_finish + 1;
+     end
+@@ -88,6 +86,7 @@ module simulator_ctrl #(
+       $finish;
+     end
+   end
++
+   assign rdata_o = '0;
+ endmodule
+ 

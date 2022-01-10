@@ -1,0 +1,16 @@
+f38bd3644210db5615a4b9efc47b4921a03fef18
+Merge pull request #383 from Silabs-ArjanB/ArjanB_mtvec_fix
+diff --git a/rtl/cv32e40p_cs_registers.sv b/rtl/cv32e40p_cs_registers.sv
+index 3ba96c1..a64bd52 100644
+--- a/rtl/cv32e40p_cs_registers.sv
++++ b/rtl/cv32e40p_cs_registers.sv
+@@ -1006,7 +1006,8 @@ end else begin //PULP_SECURE == 0
+       end
+       // mtvec: machine trap-handler base address
+       CSR_MTVEC: if (csr_we_int) begin
+-        mtvec_n    = csr_wdata_int[31:8];
++        mtvec_n      = csr_wdata_int[31:8];
++        mtvec_mode_n = {1'b0, csr_wdata_int[0]}; // Only direct and vectored mode are supported
+       end
+       // mscratch: machine scratch
+       CSR_MSCRATCH: if (csr_we_int) begin

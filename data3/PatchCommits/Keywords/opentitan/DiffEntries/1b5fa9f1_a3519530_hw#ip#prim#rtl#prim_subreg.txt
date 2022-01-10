@@ -1,0 +1,15 @@
+1b5fa9f1ebf0a9520ef6ea6faf1f1a2397a349c1
+[verible/style] This corrects several style linter warnings/errors
+diff --git a/hw/ip/prim/rtl/prim_subreg.sv b/hw/ip/prim/rtl/prim_subreg.sv
+index 0d2f42b66..ce2b55b83 100644
+--- a/hw/ip/prim/rtl/prim_subreg.sv
++++ b/hw/ip/prim/rtl/prim_subreg.sv
+@@ -5,7 +5,7 @@
+ // Register slice conforming to Comportibility guide.
+ 
+ module prim_subreg #(
+-  parameter                DW       = 32  ,
++  parameter int            DW       = 32  ,
+   parameter                SWACCESS = "RW",  // {RW, RO, WO, W1C, W1S, W0C, RC}
+   parameter logic [DW-1:0] RESVAL   = '0     // Reset value
+ ) (

@@ -1,0 +1,15 @@
+92e9ebb031c9c90db52a3f3985afa352285c8497
+[aes] Use fresh, random intermediate masks in "noreuse" Canright S-Box
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+index b8ba806bb..74d0229e8 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+@@ -250,7 +250,7 @@ module top_earlgrey_asic (
+ 
+   top_earlgrey #(
+     .AesMasking(1'b1),
+-    .AesSBoxImpl(aes_pkg::SBoxImplCanrightMasked),
++    .AesSBoxImpl(aes_pkg::SBoxImplCanrightMaskedNoreuse),
+     .SecAesStartTriggerDelay(0),
+     .SecAesAllowForcingMasks(1'b0),
+     .KmacEnMasking(1),  // DOM AND + Masking scheme

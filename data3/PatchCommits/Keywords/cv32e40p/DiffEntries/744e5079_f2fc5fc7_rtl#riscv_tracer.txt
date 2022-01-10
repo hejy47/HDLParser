@@ -1,0 +1,23 @@
+744e507907cb9af832a9573314e16f55ef4264b9
+Merge pull request #313 from davideschiavone/fix#302
+diff --git a/rtl/riscv_tracer.sv b/rtl/riscv_tracer.sv
+index ba46dee..7cba438 100644
+--- a/rtl/riscv_tracer.sv
++++ b/rtl/riscv_tracer.sv
+@@ -56,6 +56,7 @@ module riscv_tracer (
+   input  logic        dret,
+   input  logic        ecall,
+   input  logic        ebreak,
++  input  logic        fence,
+ 
+   input  logic [31:0] rs1_value,
+   input  logic [31:0] rs2_value,
+@@ -907,7 +908,7 @@ module riscv_tracer (
+     instr_trace_t trace;
+ 
+     // special case for WFI because we don't wait for unstalling there
+-    if ( (id_valid || pipe_flush || mret || uret || ecall || ebreak || dret) && is_decoding)
++    if ( (id_valid || pipe_flush || mret || uret || ecall || ebreak || dret || fence) && is_decoding)
+     begin
+       trace = new ();
+ 

@@ -1,0 +1,18 @@
+2777249b654e83506b22c1ac24a5e8f753ed83f3
+[rtl/core] reworked reset system
+diff --git a/rtl/core/neorv32_cpu.vhd b/rtl/core/neorv32_cpu.vhd
+index 605ed48..137e5c5 100644
+--- a/rtl/core/neorv32_cpu.vhd
++++ b/rtl/core/neorv32_cpu.vhd
+@@ -168,6 +168,11 @@ begin
+ 
+   -- Sanity Checks --------------------------------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
++  -- hardware reset notifier --
++  assert not (def_rst_val_c  = '-') report "NEORV32 CPU CONFIG NOTE: Using NO hardware reset for uncritical registers (default, might reduce area footprint)." severity note;
++  assert not (def_rst_val_c  = '0') report "NEORV32 CPU CONFIG NOTE: Using defined hardware reset for uncritical registers (non-default, might increase area footprint)." severity note;
++  assert not ((def_rst_val_c /= '-') and (def_rst_val_c /= '0')) report "NEORV32 CPU CONFIG ERROR! Invalid configuration of package <def_rst_val_c> constant (has to be '-' or '0')." severity error;
++
+   -- CSR system --
+   assert not (CPU_EXTENSION_RISCV_Zicsr = false) report "NEORV32 CPU CONFIG WARNING! No exception/interrupt/trap/privileged features available when CPU_EXTENSION_RISCV_Zicsr = false." severity warning;
+ 

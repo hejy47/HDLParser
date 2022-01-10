@@ -1,0 +1,15 @@
+c34ac9a09a303a104cb4bb1f6ba2d466308dedb2
+[rtl] fence.i will trap if Zifencei is disabled
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index 724a6e6..11ca6b6 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -64,7 +64,7 @@ package neorv32_package is
+   -- Architecture Constants (do not modify!) ------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+   constant data_width_c : natural := 32; -- native data path width - do not change!
+-  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01060010"; -- no touchy!
++  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01060011"; -- no touchy!
+   constant archid_c     : natural := 19; -- official NEORV32 architecture ID - hands off!
+ 
+   -- External Interface Types ---------------------------------------------------------------

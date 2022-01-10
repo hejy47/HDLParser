@@ -1,0 +1,15 @@
+258d09a37506b2636adc49c93a9682831afad258
+Fixed an errant blocking assignmeent in the updated ziptimer.v
+diff --git a/rtl/peripherals/ziptimer.v b/rtl/peripherals/ziptimer.v
+index c955c84..3c777db 100644
+--- a/rtl/peripherals/ziptimer.v
++++ b/rtl/peripherals/ziptimer.v
+@@ -156,7 +156,7 @@ module	ziptimer(i_clk, i_reset, i_ce,
+ 	reg	r_zero  = 1'b1;
+ 	always @(posedge i_clk)
+ 		if (i_reset)
+-			r_zero = 1'b1;
++			r_zero <= 1'b1;
+ 		else if (wb_write)
+ 			r_zero <= (i_wb_data[(VW-1):0] == 0);
+ 		else if ((r_running)&&(i_ce))

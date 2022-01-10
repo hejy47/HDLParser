@@ -1,0 +1,16 @@
+20e9f00a022eba1cbe93442efed2e7ea72e6350c
+[rtl] fixed missing flash_sdi_i signal #145
+diff --git a/rtl/processor_templates/neorv32_ProcessorTop_UP5KDemo.vhd b/rtl/processor_templates/neorv32_ProcessorTop_UP5KDemo.vhd
+index 1ea3646..7c0a8be 100644
+--- a/rtl/processor_templates/neorv32_ProcessorTop_UP5KDemo.vhd
++++ b/rtl/processor_templates/neorv32_ProcessorTop_UP5KDemo.vhd
+@@ -151,7 +151,8 @@ begin
+   spi_sck_o   <= con_spi_sck;
+   spi_sdo_o   <= con_spi_sdo;
+   spi_csn_o   <= con_spi_csn(1);
+-  con_spi_sdi <= spi_sdi_i;
++
++  con_spi_sdi <= flash_sdi_i when (con_spi_csn(0) = '0') else spi_sdi_i;
+ 
+   -- GPIO --
+   gpio_o <= con_gpio_o(3 downto 0);

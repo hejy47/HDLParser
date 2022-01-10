@@ -1,0 +1,24 @@
+2d48fb3665412e4011c3bb3f70bf5079e091fbd4
+This bug comes when an interrupt arrives in the middle of HWLoop
+diff --git a/riscv_prefetch_buffer.sv b/riscv_prefetch_buffer.sv
+index 7c53716..91cd8bb 100644
+--- a/riscv_prefetch_buffer.sv
++++ b/riscv_prefetch_buffer.sv
+@@ -121,7 +121,7 @@ module riscv_prefetch_buffer
+     unique case (hwlp_CS)
+       HWLP_NONE: begin
+         if (hwloop_i) begin
+-          hwlp_masked = 1'b1;
++          hwlp_masked = ~instr_addr_q[1];;
+ 
+           if (fetch_is_hwlp)
+             hwlp_NS = HWLP_FETCHING;
+@@ -172,7 +172,7 @@ module riscv_prefetch_buffer
+ 
+       default: begin
+         hwlp_masked = 1'b0;
+-        
++
+         hwlp_NS = HWLP_NONE;
+       end
+     endcase

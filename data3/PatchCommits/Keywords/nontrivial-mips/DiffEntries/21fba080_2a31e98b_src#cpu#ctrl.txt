@@ -1,0 +1,15 @@
+21fba080d5175233b52b534a37663bab140b08a1
+Fix exception in pipe-a.
+diff --git a/src/cpu/ctrl.sv b/src/cpu/ctrl.sv
+index 3d8305a..9a4723f 100644
+--- a/src/cpu/ctrl.sv
++++ b/src/cpu/ctrl.sv
+@@ -60,7 +60,7 @@ end
+ always_comb begin
+ 	flush = '0;
+ 	if(except_req.valid) begin
+-		flush = { 3'b111, except_req.alpha_taken };
++		flush = { 2'b11, {2{except_req.alpha_taken}} };
+ 	end else if(flush_mispredict) begin
+ 		flush = 4'b1100;
+ 	end

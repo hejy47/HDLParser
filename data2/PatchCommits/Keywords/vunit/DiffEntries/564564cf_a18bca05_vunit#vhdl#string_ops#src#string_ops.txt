@@ -1,0 +1,17 @@
+564564cf7a426ffc620502f60e82eb65e69b89ef
+Fixed string_ops bug.
+diff --git a/vunit/vhdl/string_ops/src/string_ops.vhd b/vunit/vhdl/string_ops/src/string_ops.vhd
+index 3cd0ecd8..102b21d4 100644
+--- a/vunit/vhdl/string_ops/src/string_ops.vhd
++++ b/vunit/vhdl/string_ops/src/string_ops.vhd
+@@ -534,6 +534,10 @@ package body string_ops is
+       return start_pos;
+     end if;
+ 
++    if s = "" then
++      return 0;
++    end if;
++
+     o := offset(s, start_pos);
+     while o <= offset(s, stop_pos) - substring'length + 1 loop
+       if slice(s, o, substring'length) = substring then

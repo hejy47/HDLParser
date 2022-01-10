@@ -1,0 +1,96 @@
+======Commit: c3e5722c======
+======Short Message======
+Merge pull request #42 from sequoiar/patch-1
+======Full Message======
+Merge pull request #42 from sequoiar/patch-1
+
+fixed as DingDing QR code
+
+
+======Commit: f3a03843======
+======Short Message======
+fixed as DiangDiang QR code
+======Full Message======
+fixed as DiangDiang QR code
+
+avoid scan with other app
+
+
+======Commit: 34c9d832======
+======Short Message======
+Merge pull request #38 from HandsomeAssassin/master
+======Full Message======
+Merge pull request #38 from HandsomeAssassin/master
+
+repair gpio init error
+
+
+======Commit: 1c3b278b======
+======Short Message======
+repair gpio init error
+======Full Message======
+repair gpio init error
+
+
+
+======Commit: db92f68f======
+======Short Message======
+Merge pull request #33 from PYGC/patch-1
+======Full Message======
+Merge pull request #33 from PYGC/patch-1
+
+Update Srec2vmem.py
+
+
+======Commit: 46e61e6f======
+======Short Message======
+Merge pull request #30 from birdshanshan/patch-6
+======Full Message======
+Merge pull request #30 from birdshanshan/patch-6
+
+Update README.md
+
+
+======Commit: be49f58a======
+======Short Message======
+Merge pull request #29 from birdshanshan/patch-5
+======Full Message======
+Merge pull request #29 from birdshanshan/patch-5
+
+Update Makefile
+
+
+======Commit: 6dd90fd9======
+======Short Message======
+Merge pull request #28 from birdshanshan/patch-4
+======Full Message======
+Merge pull request #28 from birdshanshan/patch-4
+
+Create Srec2vmem.py
+
+
+======Commit: bbc4968d======
+======Short Message======
+fix(iverilog): remove static from tb (#22)
+======Full Message======
+fix(iverilog): remove static from tb (#22)
+
+
+
+
+======Commit: f5f347a8======
+======Short Message======
+rmove .gitignore and fix test driver cdk build config err. (#3)
+======Full Message======
+rmove .gitignore and fix test driver cdk build config err. (#3)
+
+
+
+
+======Commit: 829f11fe======
+======Short Message======
+fix syntax description
+======Full Message======
+fix syntax description
+
+

@@ -1,0 +1,14 @@
+0274b4846261e0199ba87d7a49eb3e737ade5078
+Stretched instr_valid_irq_flush_q pulse so that it is not missed if the instruction after a IRQ_FLUSH to DECODE transition experiences stalls (fix for #449 and partial fix for 439-442
+diff --git a/rtl/cv32e40p_id_stage.sv b/rtl/cv32e40p_id_stage.sv
+index 4aa4026..3b8884f 100644
+--- a/rtl/cv32e40p_id_stage.sv
++++ b/rtl/cv32e40p_id_stage.sv
+@@ -1328,6 +1328,7 @@ module cv32e40p_id_stage import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*
+     .load_stall_o                   ( load_stall             ),
+ 
+     .id_ready_i                     ( id_ready_o             ),
++    .id_valid_i                     ( id_valid_o             ),
+ 
+     .ex_valid_i                     ( ex_valid_i             ),
+ 

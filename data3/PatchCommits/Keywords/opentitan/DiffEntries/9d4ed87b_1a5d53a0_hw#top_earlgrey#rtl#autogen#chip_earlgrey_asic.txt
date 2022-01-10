@@ -1,0 +1,20 @@
+9d4ed87ba4fb454d15e9395430a7203fae62276b
+[top] Correct parameter defaults in top_earlgrey
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+index 48cf27772..4a5444c05 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+@@ -1073,13 +1073,6 @@ module chip_earlgrey_asic (
+   //////////////////////
+ 
+   top_earlgrey #(
+-    .AesMasking(1'b1),
+-    .AesSBoxImpl(aes_pkg::SBoxImplDom),
+-    .SecAesStartTriggerDelay(0),
+-    .SecAesAllowForcingMasks(1'b0),
+-    .KmacReuseShare(0),
+-    .SramCtrlRetAonInstrExec(0),
+-    .SramCtrlMainInstrExec(1),
+     .PinmuxAonTargetCfg(PinmuxTargetCfg)
+   ) top_earlgrey (
+     .rst_ni                       ( aon_pok                    ),

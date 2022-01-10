@@ -1,0 +1,42 @@
+90b6c2bd97717bd8bf5f5276ebec49f6b10ecbf6
+[fpga] Route UART Tx to second pin on ChipWhisperer board for debugging
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_cw305.sv b/hw/top_earlgrey/rtl/top_earlgrey_cw305.sv
+index 561313f63..873b05407 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_cw305.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_cw305.sv
+@@ -45,8 +45,9 @@ module top_earlgrey_cw305 #(
+   inout               IO_GP13,
+   inout               IO_GP14,
+   inout               IO_GP15,
+-  // chipwhisperer IO
+-  output              TIO_CLKOUT
++  // ChipWhisperer IO
++  output              TIO_CLKOUT,
++  output              IO_UTX_DEBUG
+ );
+ 
+   import top_earlgrey_pkg::*;
+@@ -66,8 +67,6 @@ module top_earlgrey_cw305 #(
+   logic [padctrl_reg_pkg::NDioPads-1:0] dio_oe_core, dio_oe_padring;
+   logic [padctrl_reg_pkg::NDioPads-1:0] dio_in_core, dio_in_padring;
+ 
+-  assign TIO_CLKOUT = IO_CLK;
+-
+   padring #(
+     // MIOs 31:20 are currently not
+     // connected to pads and hence tied off
+@@ -309,4 +308,14 @@ module top_earlgrey_cw305 #(
+     end
+   end
+ 
++  //////////////////////
++  // ChipWhisperer IO //
++  //////////////////////
++
++  // Clock ouput to capture board.
++  assign TIO_CLKOUT = IO_CLK;
++
++  // UART Tx for debugging. The UART itself is connected to the capture board.
++  assign IO_UTX_DEBUG = top_earlgrey.cio_uart_tx_d2p;
++
+ endmodule : top_earlgrey_cw305

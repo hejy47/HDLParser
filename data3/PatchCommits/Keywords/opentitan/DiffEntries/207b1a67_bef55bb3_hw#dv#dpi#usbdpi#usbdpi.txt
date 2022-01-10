@@ -1,0 +1,14 @@
+207b1a678932f3c9ae1ada1fe2db5377c2ddeb1d
+[usbdev] ISO endpoint fixes, add out_err interrupt
+diff --git a/hw/dv/dpi/usbdpi/usbdpi.sv b/hw/dv/dpi/usbdpi/usbdpi.sv
+index 0f3d88a9e..8f4b3045e 100644
+--- a/hw/dv/dpi/usbdpi/usbdpi.sv
++++ b/hw/dv/dpi/usbdpi/usbdpi.sv
+@@ -82,6 +82,7 @@ module usbdpi #(
+       d_int <= 0;
+       dp_int <= 0;
+       dn_int <= 0;
++      sense_p2d <= 0;
+     end
+   end
+ 

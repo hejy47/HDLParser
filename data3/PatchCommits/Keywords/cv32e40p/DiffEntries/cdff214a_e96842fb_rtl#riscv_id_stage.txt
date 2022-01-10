@@ -1,0 +1,67 @@
+cdff214a1a083cf7d7546509022dd3b1b8c6937a
+Merge pull request #342 from silabs-PaulZ/dret_illegal_insn
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index cb20e43..72bf5d7 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -57,14 +57,14 @@ module riscv_id_stage
+   parameter APU_NARGS_CPU     =  3,
+   parameter APU_WOP_CPU       =  6,
+   parameter APU_NDSFLAGS_CPU  = 15,
+-  parameter APU_NUSFLAGS_CPU  =  5
++  parameter APU_NUSFLAGS_CPU  =  5,
++  parameter DEBUG_TRIGGER_EN  =  1
+ )
+ (
+     input  logic        clk,
+     input  logic        rst_n,
+ 
+     input  logic        test_en_i,
+-    input  logic        fregfile_disable_i,
+ 
+     input  logic        fetch_enable_i,
+     output logic        ctrl_busy_o,
+@@ -231,6 +231,7 @@ module riscv_id_stage
+     input  logic        debug_single_step_i,
+     input  logic        debug_ebreakm_i,
+     input  logic        debug_ebreaku_i,
++    input  logic        trigger_match_i,
+ 
+     // Forward Signals
+     input  logic [5:0]  regfile_waddr_wb_i,
+@@ -325,7 +326,7 @@ module riscv_id_stage
+   logic        regfile_fp_c;
+   logic        regfile_fp_d;
+ 
+-  logic        fregfile_ena; // whether the fp register file is enabled
++  logic        fregfile_ena; // whether the fp register file is enabled/present
+ 
+   logic [5:0]  regfile_waddr_id;
+   logic [5:0]  regfile_alu_waddr_id;
+@@ -498,7 +499,7 @@ module riscv_id_stage
+   //-- FPU Register file enable:
+   //-- Taken from Cluster Config Reg if FPU reg file exists, or always disabled
+   //-----------------------------------------------------------------------------
+-  assign fregfile_ena = FPU && !PULP_ZFINX ? ~fregfile_disable_i : '0;
++  assign fregfile_ena = FPU && !PULP_ZFINX ? 1'b1 : 1'b0;
+ 
+   //---------------------------------------------------------------------------
+   // source register selection regfile_fp_x=1 <=> REG_x is a FP-register
+@@ -1041,7 +1042,8 @@ module riscv_id_stage
+       .SHARED_INT_DIV      ( SHARED_INT_DIV       ),
+       .SHARED_FP_DIVSQRT   ( SHARED_FP_DIVSQRT    ),
+       .WAPUTYPE            ( WAPUTYPE             ),
+-      .APU_WOP_CPU         ( APU_WOP_CPU          )
++      .APU_WOP_CPU         ( APU_WOP_CPU          ),
++      .DEBUG_TRIGGER_EN    ( DEBUG_TRIGGER_EN     )
+       )
+   decoder_i
+   (
+@@ -1267,6 +1269,7 @@ module riscv_id_stage
+     .debug_single_step_i            ( debug_single_step_i    ),
+     .debug_ebreakm_i                ( debug_ebreakm_i        ),
+     .debug_ebreaku_i                ( debug_ebreaku_i        ),
++    .trigger_match_i                ( trigger_match_i        ),
+ 
+     // CSR Controller Signals
+     .csr_save_cause_o               ( csr_save_cause_o       ),

@@ -1,0 +1,33 @@
+f9fe66694d7ff6489edadbf99f4947509e8b9c6a
+axi_logic_anlayzer: Fix trigger AND logic
+diff --git a/library/axi_logic_analyzer/axi_logic_analyzer_trigger.v b/library/axi_logic_analyzer/axi_logic_analyzer_trigger.v
+index 48e03880..cb7df5d7 100644
+--- a/library/axi_logic_analyzer/axi_logic_analyzer_trigger.v
++++ b/library/axi_logic_analyzer/axi_logic_analyzer_trigger.v
+@@ -74,16 +74,16 @@ module axi_logic_analyzer_trigger (
+ 
+   always @(*) begin
+     case (trigger_logic)
+-      0: trigger_active = | ((edge_detect & edge_detect_enable) |
+-                          (rise_edge & rise_edge_enable) |
+-                          (fall_edge & fall_edge_enable) |
+-                          (low_level & low_level_enable) |
+-                          (high_level & high_level_enable));
+-      1: trigger_active = | (((edge_detect & edge_detect_enable) | !(|edge_detect_enable)) &
+-                          ((rise_edge & rise_edge_enable) | !(|rise_edge_enable)) &
+-                          ((fall_edge & fall_edge_enable) | !(|fall_edge_enable)) &
+-                          ((low_level & low_level_enable) | !(|low_level_enable)) &
+-                          ((high_level & high_level_enable) | !(|high_level_enable)));
++      0: trigger_active = |((edge_detect & edge_detect_enable) |
++                            (rise_edge & rise_edge_enable) |
++                            (fall_edge & fall_edge_enable) |
++                            (low_level & low_level_enable) |
++                            (high_level & high_level_enable));
++      1: trigger_active = &((edge_detect | ~edge_detect_enable) &
++                            (rise_edge | ~rise_edge_enable) &
++                            (fall_edge | ~fall_edge_enable) &
++                            (low_level | ~low_level_enable) &
++                            (high_level | ~high_level_enable));
+       default: trigger_active = 1'b1;
+     endcase
+   end

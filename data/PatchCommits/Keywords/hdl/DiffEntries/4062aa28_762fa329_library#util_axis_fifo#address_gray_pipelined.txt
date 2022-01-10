@@ -1,0 +1,15 @@
+4062aa2860b84399e6ce96b8c618a96ad6b98934
+util_axis_fifo: Fix reset signal
+diff --git a/library/util_axis_fifo/address_gray_pipelined.v b/library/util_axis_fifo/address_gray_pipelined.v
+index a4e3e90c..7637943e 100644
+--- a/library/util_axis_fifo/address_gray_pipelined.v
++++ b/library/util_axis_fifo/address_gray_pipelined.v
+@@ -140,7 +140,7 @@ end
+ 
+ always @(posedge m_axis_aclk)
+ begin
+-	if (s_axis_aresetn == 1'b0) begin
++	if (m_axis_aresetn == 1'b0) begin
+ 		m_axis_valid <= 1'b0;
+ 		m_axis_level <= 'h00;
+ 	end else begin

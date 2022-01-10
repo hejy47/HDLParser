@@ -1,0 +1,112 @@
+======Commit: d3394f80======
+======Short Message======
+Fix Picture
+======Full Message======
+Fix Picture
+
+
+
+======Commit: ef78e95b======
+======Short Message======
+Fix Picture
+======Full Message======
+Fix Picture
+
+
+
+======Commit: c5d8bdd9======
+======Short Message======
+Fix Picture
+======Full Message======
+Fix Picture
+
+
+
+======Commit: e4c94261======
+======Short Message======
+Set Nucleikit as Default
+======Full Message======
+Set Nucleikit as Default
+
+
+
+======Commit: 9df477dc======
+======Short Message======
+Fix for E203 RISC-V Hbird Demoboard
+======Full Message======
+Fix for E203 RISC-V Hbird Demoboard
+
+
+
+======Commit: 1e459f06======
+======Short Message======
+minor fixing
+======Full Message======
+minor fixing
+
+
+
+======Commit: bb5a33b2======
+======Short Message======
+fixed a minor tb issue
+======Full Message======
+fixed a minor tb issue
+
+
+
+======Commit: 5d59b095======
+======Short Message======
+change the core number by default to e203
+======Full Message======
+change the core number by default to e203
+
+
+
+======Commit: 6f533c40======
+======Short Message======
+the original freedom-e310 chisel generated QSPI have a bug in Quad-mode, fix it here
+======Full Message======
+the original freedom-e310 chisel generated QSPI have a bug in Quad-mode, fix it here
+
+
+
+======Commit: 76c46481======
+======Short Message======
+fixed a typo
+======Full Message======
+fixed a typo
+
+
+
+======Commit: 4189a5fb======
+======Short Message======
+fixed a minor typo
+======Full Message======
+fixed a minor typo
+
+
+
+======Commit: 4202a1eb======
+======Short Message======
+Fixed a typo in the doc
+======Full Message======
+Fixed a typo in the doc
+
+
+
+======Commit: 64aaf89d======
+======Short Message======
+fix a mis-spell
+======Full Message======
+fix a mis-spell
+
+
+
+======Commit: 71fa5992======
+======Short Message======
+fix a typo in tb
+======Full Message======
+fix a typo in tb
+
+
+

@@ -1,0 +1,722 @@
+d710dc821b9e7beef0725052c99d152817934514
+Merge remote-tracking branch 'origin/fix_loadstall' into dbg_dev
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 8b86a83..a9b3a72 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -17,6 +17,7 @@
+ //                 Sven Stucki - svstucki@student.ethz.ch                     //
+ //                 Michael Gautschi - gautschi@iis.ee.ethz.ch                 //
+ //                 Davide Schiavone - pschiavo@iis.ee.ethz.ch                 //
++//                 Robert Balas - balasr@iis.ee.ethz.ch                       //
+ //                                                                            //
+ // Design Name:    Main controller                                            //
+ // Project Name:   RI5CY                                                      //
+@@ -49,6 +50,9 @@ module riscv_controller
+   input  logic        ecall_insn_i,               // ecall encountered an mret instruction
+   input  logic        mret_insn_i,                // decoder encountered an mret instruction
+   input  logic        uret_insn_i,                // decoder encountered an uret instruction
++
++  input  logic        dret_insn_i,                // decoder encountered an dret instruction
++
+   input  logic        pipe_flush_i,               // decoder wants to do a pipe flush
+   input  logic        ebrk_insn_i,                // decoder encountered an ebreak instruction
+   input  logic        csr_status_i,               // decoder encountered an csr status instruction
+@@ -105,6 +109,16 @@ module riscv_controller
+   output logic        exc_ack_o,
+   output logic        exc_kill_o,
+ 
++  // Debug Signal
++  output logic         debug_mode_o,
++  output logic [2:0]   debug_cause_o,
++  output logic         debug_csr_save_o,
++  input  logic         debug_req_i,
++  input  logic         debug_single_step_i,
++  input  logic         debug_ebreakm_i,
++  input  logic         debug_ebreaku_i,
++
++
+   output logic        csr_save_if_o,
+   output logic        csr_save_id_o,
+   output logic        csr_save_ex_o,
+@@ -112,17 +126,11 @@ module riscv_controller
+   output logic        csr_irq_sec_o,
+   output logic        csr_restore_mret_id_o,
+   output logic        csr_restore_uret_id_o,
+-  output logic        csr_save_cause_o,
+ 
+-  // Debug Signals
+-  input  logic        dbg_req_i,                  // a trap was hit, so we have to flush EX and WB
+-  output logic        dbg_ack_o,                  // we stopped and give control to debug now
++  output logic        csr_restore_dret_id_o,
+ 
+-  input  logic        dbg_stall_i,                // Pipeline stall is requested
+-  input  logic        dbg_jump_req_i,             // Change PC to value from debug unit
++  output logic        csr_save_cause_o,
+ 
+-  input  logic [DBG_SETS_W-1:0] dbg_settings_i,
+-  output logic        dbg_trap_o,
+ 
+   // Regfile target
+   input  logic        regfile_we_id_i,            // currently decoded we enable
+@@ -176,14 +184,16 @@ module riscv_controller
+                       DECODE,
+                       IRQ_TAKEN_ID, IRQ_TAKEN_IF, IRQ_FLUSH, ELW_EXE,
+                       FLUSH_EX, FLUSH_WB,
+-                      DBG_SIGNAL, DBG_SIGNAL_SLEEP, DBG_SIGNAL_ELW,
+-                      DBG_WAIT, DBG_WAIT_BRANCH, DBG_WAIT_ELW } ctrl_fsm_cs, ctrl_fsm_ns;
++                      DBG_TAKEN_ID, DBG_TAKEN_IF, DBG_FLUSH, DBG_WAIT_BRANCH } ctrl_fsm_cs, ctrl_fsm_ns;
+ 
+   logic jump_done, jump_done_q, jump_in_dec, branch_in_id;
+   logic boot_done, boot_done_q;
+   logic irq_enable_int;
+   logic data_err_q;
+ 
++  logic debug_mode_q, debug_mode_n;
++  logic ebrk_force_debug_mode;
++
+ `ifndef SYNTHESIS
+   // synopsys translate_off
+   // make sure we are called later so that we do not generate messages for
+@@ -223,6 +233,9 @@ module riscv_controller
+     csr_save_ex_o          = 1'b0;
+     csr_restore_mret_id_o  = 1'b0;
+     csr_restore_uret_id_o  = 1'b0;
++
++    csr_restore_dret_id_o  = 1'b0;
++
+     csr_save_cause_o       = 1'b0;
+ 
+     exc_cause_o            = '0;
+@@ -243,7 +256,6 @@ module riscv_controller
+ 
+     halt_if_o              = 1'b0;
+     halt_id_o              = 1'b0;
+-    dbg_ack_o              = 1'b0;
+     irq_ack_o              = 1'b0;
+     irq_id_o               = irq_id_ctrl_i;
+     boot_done              = 1'b0;
+@@ -251,6 +263,12 @@ module riscv_controller
+     branch_in_id           = jump_in_id_i == BRANCH_COND;
+     irq_enable_int         =  ((u_IE_i | irq_sec_ctrl_i) & current_priv_lvl_i == PRIV_LVL_U) | (m_IE_i & current_priv_lvl_i == PRIV_LVL_M);
+ 
++    ebrk_force_debug_mode  = (debug_ebreakm_i && current_priv_lvl_i == PRIV_LVL_M) ||
++                             (debug_ebreaku_i && current_priv_lvl_i == PRIV_LVL_U);
++    debug_csr_save_o       = 1'b0;
++    debug_cause_o          = DBG_CAUSE_EBREAK;
++    debug_mode_n           = debug_mode_q;
++
+     // a trap towards the debug unit is generated when one of the
+     // following conditions are true:
+     // - ebreak instruction encountered
+@@ -258,7 +276,7 @@ module riscv_controller
+     // - illegal instruction exception and IIE bit is set
+     // - IRQ and INTE bit is set and no exception is currently running
+     // - Debuger requests halt
+-    dbg_trap_o             = 1'b0;
++
+     perf_pipeline_stall_o  = 1'b0;
+ 
+     unique case (ctrl_fsm_cs)
+@@ -268,11 +286,8 @@ module riscv_controller
+         is_decoding_o = 1'b0;
+         instr_req_o   = 1'b0;
+         if (fetch_enable_i == 1'b1)
++        begin
+           ctrl_fsm_ns = BOOT_SET;
+-        else if (dbg_req_i) begin
+-          // just go to debug even when we did not yet get a fetch enable
+-          // this means that the NPC will not be set yet
+-          ctrl_fsm_ns = DBG_SIGNAL;
+         end
+       end
+ 
+@@ -284,7 +299,7 @@ module riscv_controller
+         pc_mux_o      = PC_BOOT;
+         pc_set_o      = 1'b1;
+         boot_done     = 1'b1;
+-        ctrl_fsm_ns = FIRST_FETCH;
++        ctrl_fsm_ns   = FIRST_FETCH;
+       end
+ 
+       WAIT_SLEEP:
+@@ -307,19 +322,14 @@ module riscv_controller
+         instr_req_o   = 1'b0;
+         halt_if_o     = 1'b1;
+         halt_id_o     = 1'b1;
+-        dbg_trap_o    = dbg_settings_i[DBG_SETS_SSTE];
+ 
+-        if (dbg_req_i) begin
+-          // debug request, now we need to check if we should stay sleeping or
+-          // go to normal processing later
+-          ctrl_fsm_ns = DBG_SIGNAL_SLEEP;
+-        end else begin
+-          // no debug request incoming, normal execution flow
+-          if (irq_i)
+-          begin
+-            ctrl_fsm_ns  = FIRST_FETCH;
+-          end
++
++        // normal execution flow
++        // in debug mode or single step mode we leave immediately (wfi=nop)
++        if (irq_i || (debug_req_i || debug_mode_q || debug_single_step_i)) begin
++          ctrl_fsm_ns  = FIRST_FETCH;
+         end
++
+       end
+ 
+       FIRST_FETCH:
+@@ -327,7 +337,7 @@ module riscv_controller
+         is_decoding_o = 1'b0;
+         first_fetch_o = 1'b1;
+         // Stall because of IF miss
+-        if ((id_ready_i == 1'b1) && (dbg_stall_i == 1'b0))
++        if ((id_ready_i == 1'b1) )
+         begin
+           ctrl_fsm_ns = DECODE;
+         end
+@@ -340,6 +350,14 @@ module riscv_controller
+           halt_if_o   = 1'b1;
+           halt_id_o   = 1'b1;
+         end
++
++        if (debug_req_i & (~debug_mode_q))
++        begin
++          ctrl_fsm_ns = DBG_TAKEN_IF;
++          halt_if_o   = 1'b1;
++          halt_id_o   = 1'b1;
++        end
++
+       end
+ 
+       DECODE:
+@@ -353,14 +371,11 @@ module riscv_controller
+ 
+             pc_mux_o      = PC_BRANCH;
+             pc_set_o      = 1'b1;
+-            dbg_trap_o    = dbg_settings_i[DBG_SETS_SSTE];
++
+             // if we want to debug, flush the pipeline
+             // the current_pc_if will take the value of the next instruction to
+             // be executed (NPC)
+-            if (dbg_req_i)
+-            begin
+-              ctrl_fsm_ns = DBG_SIGNAL;
+-            end
++
+           end  //taken branch
+ 
+           else if (data_err_i)
+@@ -410,15 +425,26 @@ module riscv_controller
+ 
+               //irq_req_ctrl_i comes from a FF in the interrupt controller
+               //irq_enable_int: check again irq_enable_int because xIE could have changed
+-              irq_req_ctrl_i & irq_enable_int:
++              //don't serve in debug mode
++              irq_req_ctrl_i & irq_enable_int & (~debug_req_i) & (~debug_mode_q):
+               begin
+                 //Serving the external interrupt
+                 halt_if_o     = 1'b1;
+                 halt_id_o     = 1'b1;
+                 ctrl_fsm_ns   = IRQ_FLUSH;
+-                //dbg_trap_o    = dbg_settings_i[DBG_SETS_IRQ];
++
++              end
++
++
++              debug_req_i & (~debug_mode_q):
++              begin
++                //Serving the debug
++                halt_if_o     = 1'b1;
++                halt_id_o     = 1'b1;
++                ctrl_fsm_ns   = DBG_FLUSH;
+               end
+ 
++
+               default:
+               begin
+ 
+@@ -434,7 +460,8 @@ module riscv_controller
+                   ctrl_fsm_ns       = FLUSH_EX;
+ 
+                 end else begin
+-                  //decondig block
++
++                  //decoding block
+                   unique case (1'b1)
+ 
+                     jump_in_dec: begin
+@@ -448,9 +475,31 @@ module riscv_controller
+                         pc_set_o    = 1'b1;
+                         jump_done   = 1'b1;
+                       end
+-                      dbg_trap_o    = dbg_settings_i[DBG_SETS_SSTE];
++
++                    end
++                    ebrk_insn_i: begin
++                      halt_if_o     = 1'b1;
++                      halt_id_o     = 1'b1;
++
++                      if (debug_mode_q)
++                        // we got back to the park loop in the debug rom
++                        ctrl_fsm_ns = DBG_FLUSH;
++
++                      else if (ebrk_force_debug_mode)
++                        // debug module commands us to enter debug mode anyway
++                        ctrl_fsm_ns  = DBG_FLUSH;
++
++                      else begin
++                        // otherwise just a normal ebreak exception
++                        csr_save_id_o     = 1'b1;
++                        csr_save_cause_o  = 1'b1;
++
++                        ctrl_fsm_ns = FLUSH_EX;
++                        csr_cause_o = EXC_CAUSE_BREAKPOINT;
++                      end
++
+                     end
+-                    pipe_flush_i | ebrk_insn_i: begin
++                    pipe_flush_i: begin
+                       halt_if_o     = 1'b1;
+                       halt_id_o     = 1'b1;
+                       ctrl_fsm_ns   = FLUSH_EX;
+@@ -463,12 +512,13 @@ module riscv_controller
+                       csr_cause_o   = current_priv_lvl_i == PRIV_LVL_U ? EXC_CAUSE_ECALL_UMODE : EXC_CAUSE_ECALL_MMODE;
+                       ctrl_fsm_ns   = FLUSH_EX;
+                     end
+-                    mret_insn_i | uret_insn_i: begin
++                    mret_insn_i | uret_insn_i | dret_insn_i: begin
+                       halt_if_o     = 1'b1;
+                       halt_id_o     = 1'b1;
+ 
+                       csr_restore_uret_id_o = uret_insn_i;
+                       csr_restore_mret_id_o = mret_insn_i;
++                      csr_restore_dret_id_o = dret_insn_i;
+ 
+                       ctrl_fsm_ns   = FLUSH_EX;
+                     end
+@@ -479,36 +529,30 @@ module riscv_controller
+                     data_load_event_i: begin
+                       ctrl_fsm_ns   = id_ready_i ? ELW_EXE : DECODE;
+                       halt_if_o     = 1'b1;
+-                      dbg_trap_o    = dbg_settings_i[DBG_SETS_SSTE];
+                     end
+-                    default:
+-                      dbg_trap_o    = dbg_settings_i[DBG_SETS_SSTE];
+-                  endcase
++                    default:;
++
++                  endcase // unique case (1'b1)
+                 end
+ 
+-                if (dbg_req_i)
+-                begin
+-                  // take care of debug
+-                  // branch conditional will be handled in next state
+-                  // halt pipeline immediately
+-                  halt_if_o = 1'b1;
+-
+-                  // make sure the current instruction has been executed
+-                  // before changing state to non-decode
+-                  if (id_ready_i) begin
+-                    unique case(1'b1)
+-                      branch_in_id:
+-                        ctrl_fsm_ns = DBG_WAIT_BRANCH;
+-                      mret_insn_i | uret_insn_i | ecall_insn_i | pipe_flush_i | ebrk_insn_i | illegal_insn_i | csr_status_i | instr_multicycle_i:
+-                        //these instructions accept the Dbg after flushing
+-                        //for csr_status instructions, id_ready is 1 so they can change state to FLUSH_EX
+-                        ctrl_fsm_ns = FLUSH_EX;
+-                      default:
+-                        ctrl_fsm_ns = DBG_SIGNAL;
+-                    endcase
+-                  end
++                if (debug_single_step_i & ~debug_mode_q) begin
++                    // prevent any more instructions from executing
++                    halt_if_o = 1'b1;
++
++                    // make sure the current instruction has been executed
++                    if (id_ready_i) begin
++                        unique case(1'b1)
++                        branch_in_id:
++                            ctrl_fsm_ns = DBG_WAIT_BRANCH;
++                        default:
++                            ctrl_fsm_ns = DBG_FLUSH;
++                        endcase // unique case (1'b1)
++                    end
++
+                 end
+-              end //decondig block
++
++
++              end //decoding block
+             endcase
+           end  //valid block
+           else begin
+@@ -517,87 +561,6 @@ module riscv_controller
+           end
+       end
+ 
+-      // a branch was in ID when a debug trap is hit
+-      DBG_WAIT_BRANCH:
+-      begin
+-        is_decoding_o = 1'b0;
+-        halt_if_o = 1'b1;
+-
+-        if (branch_taken_ex_i) begin
+-          // there is a branch in the EX stage that is taken
+-          pc_mux_o = PC_BRANCH;
+-          pc_set_o = 1'b1;
+-        end
+-
+-        ctrl_fsm_ns = DBG_SIGNAL;
+-      end
+-
+-      // now we can signal to the debugger that our pipeline is empty and it
+-      // can examine our current state
+-      DBG_SIGNAL:
+-      begin
+-        is_decoding_o = 1'b0;
+-
+-        dbg_ack_o   = 1'b1;
+-        halt_if_o   = 1'b1;
+-        ctrl_fsm_ns = DBG_WAIT;
+-      end
+-
+-      DBG_SIGNAL_SLEEP:
+-      begin
+-        is_decoding_o = 1'b0;
+-
+-        dbg_ack_o  = 1'b1;
+-        halt_if_o  = 1'b1;
+-
+-        ctrl_fsm_ns = DBG_WAIT;
+-      end
+-
+-      DBG_SIGNAL_ELW:
+-      begin
+-        is_decoding_o = 1'b0;
+-
+-        dbg_ack_o  = 1'b1;
+-        halt_if_o  = 1'b1;
+-
+-        ctrl_fsm_ns = DBG_WAIT_ELW;
+-      end
+-
+-      DBG_WAIT_ELW:
+-      begin
+-        is_decoding_o = 1'b0;
+-
+-        halt_if_o = 1'b1;
+-
+-        if (dbg_jump_req_i) begin
+-          pc_mux_o     = PC_DBG_NPC;
+-          pc_set_o     = 1'b1;
+-          ctrl_fsm_ns  = DBG_WAIT;
+-        end
+-
+-        if (dbg_stall_i == 1'b0) begin
+-          ctrl_fsm_ns = ELW_EXE;
+-        end
+-      end
+-
+-      // The Debugger is active in this state
+-      // we wait until it is done and go back to DECODE
+-      DBG_WAIT:
+-      begin
+-        is_decoding_o = 1'b0;
+-        halt_if_o     = 1'b1;
+-
+-        if (dbg_jump_req_i) begin
+-          pc_mux_o     = PC_DBG_NPC;
+-          pc_set_o     = 1'b1;
+-          ctrl_fsm_ns  = DBG_WAIT;
+-        end
+-
+-        if (dbg_stall_i == 1'b0) begin
+-          //go to RESET if we used the debugger to initialize the core
+-          ctrl_fsm_ns = boot_done_q ? DECODE : RESET;
+-        end
+-      end
+ 
+       // flush the pipeline, insert NOP into EX stage
+       FLUSH_EX:
+@@ -643,7 +606,7 @@ module riscv_controller
+             csr_cause_o       = data_we_ex_i ? EXC_CAUSE_STORE_FAULT : EXC_CAUSE_LOAD_FAULT;
+             ctrl_fsm_ns       = FLUSH_WB;
+ 
+-        end  //data erro
++        end  //data error
+         else begin
+           if(irq_i & irq_enable_int) begin
+             ctrl_fsm_ns = IRQ_TAKEN_ID;
+@@ -671,11 +634,16 @@ module riscv_controller
+           ctrl_fsm_ns = IRQ_FLUSH;
+           // if from the ELW EXE we go to IRQ_FLUSH, it is assumed that if there was an IRQ req together with the grant and IE was valid, then
+           // there must be no hazard due to xIE
+-        else if (dbg_req_i)
+-          ctrl_fsm_ns = DBG_SIGNAL_ELW;
++
+         else
+           ctrl_fsm_ns = ELW_EXE;
+ 
++        // Debug
++        // TODO: not sure if this breaks something or if we need that
++        // this path used to be DBG_FLUSH -> DECODE
++        // if (debug_req_i & (~debug_mode_q))
++        //   ctrl_fsm_ns = DBG_FLUSH;
++
+         perf_pipeline_stall_o = data_load_event_i;
+       end
+ 
+@@ -727,7 +695,6 @@ module riscv_controller
+ 
+         irq_ack_o         = 1'b1;
+         exc_ack_o         = 1'b1;
+-
+         ctrl_fsm_ns       = DECODE;
+       end
+ 
+@@ -749,7 +716,7 @@ module riscv_controller
+             //little hack during testing
+             exc_pc_mux_o          = EXC_PC_EXCEPTION;
+             exc_cause_o           = data_we_ex_i ? EXC_CAUSE_LOAD_FAULT : EXC_CAUSE_STORE_FAULT;
+-            dbg_trap_o            = dbg_settings_i[DBG_SETS_SSTE];
++
+         end
+         else if (is_fetch_failed_i) begin
+             //data_error
+@@ -758,18 +725,27 @@ module riscv_controller
+             trap_addr_mux_o       = TRAP_MACHINE;
+             exc_pc_mux_o          = EXC_PC_EXCEPTION;
+             exc_cause_o           = EXC_CAUSE_INSTR_FAULT;
+-            dbg_trap_o            = dbg_settings_i[DBG_SETS_SSTE];
++
+         end
+         else begin
+           unique case(1'b1)
++            ebrk_insn_i: begin
++                //ebreak
++                pc_mux_o              = PC_EXCEPTION;
++                pc_set_o              = 1'b1;
++                trap_addr_mux_o       = TRAP_MACHINE;
++                exc_pc_mux_o          = EXC_PC_EXCEPTION;
++
++            end
+             ecall_insn_i: begin
+                 //ecall
+                 pc_mux_o              = PC_EXCEPTION;
+                 pc_set_o              = 1'b1;
+                 trap_addr_mux_o       = TRAP_MACHINE;
+                 exc_pc_mux_o          = EXC_PC_EXCEPTION;
++                // TODO: why is this here, signal only needed for async exceptions
+                 exc_cause_o           = EXC_CAUSE_ECALL_MMODE;
+-                dbg_trap_o            = dbg_settings_i[DBG_SETS_ECALL] | dbg_settings_i[DBG_SETS_SSTE];
++
+             end
+             illegal_insn_i: begin
+                 //exceptions
+@@ -777,29 +753,34 @@ module riscv_controller
+                 pc_set_o              = 1'b1;
+                 trap_addr_mux_o       = TRAP_MACHINE;
+                 exc_pc_mux_o          = EXC_PC_EXCEPTION;
+-                dbg_trap_o            = dbg_settings_i[DBG_SETS_EILL] | dbg_settings_i[DBG_SETS_SSTE];
++
+             end
+             mret_insn_i: begin
+                 //mret
+                 pc_mux_o              = PC_MRET;
+                 pc_set_o              = 1'b1;
+-                dbg_trap_o            = dbg_settings_i[DBG_SETS_SSTE];
++
+             end
+             uret_insn_i: begin
+                 //uret
+                 pc_mux_o              = PC_URET;
+                 pc_set_o              = 1'b1;
+-                dbg_trap_o            = dbg_settings_i[DBG_SETS_SSTE];
++
+             end
+-            ebrk_insn_i: begin
+-                dbg_trap_o    = dbg_settings_i[DBG_SETS_EBRK] | dbg_settings_i[DBG_SETS_SSTE];
+-                exc_cause_o   = EXC_CAUSE_BREAKPOINT;
++            dret_insn_i: begin
++                //dret
++                //TODO: is illegal when not in debug mode
++                pc_mux_o              = PC_DRET;
++                pc_set_o              = 1'b1;
++                debug_mode_n          = 1'b0;
++
+             end
++
+             csr_status_i: begin
+-                dbg_trap_o    = dbg_settings_i[DBG_SETS_SSTE];
++
+             end
+             pipe_flush_i: begin
+-                dbg_trap_o    = dbg_settings_i[DBG_SETS_SSTE];
++
+             end
+             default:;
+           endcase
+@@ -807,19 +788,111 @@ module riscv_controller
+         end
+ 
+         if(~pipe_flush_i) begin
+-          if(dbg_req_i)
+-            ctrl_fsm_ns = DBG_SIGNAL;
+-          else
+-            ctrl_fsm_ns = DECODE;
++          ctrl_fsm_ns = DECODE;
+         end else begin
+-          if(dbg_req_i)
+-            ctrl_fsm_ns = DBG_SIGNAL_SLEEP;
+-          else
+-            ctrl_fsm_ns = WAIT_SLEEP;
++          ctrl_fsm_ns = WAIT_SLEEP;
++        end
++
++      end
++
++      // a branch was in ID when a trying to go to debug rom wait until we can
++      // determine branch target address (for saving into dpc) before proceeding
++      DBG_WAIT_BRANCH:
++      begin
++        is_decoding_o = 1'b0;
++        halt_if_o = 1'b1;
++
++        if (branch_taken_ex_i) begin
++          // there is a branch in the EX stage that is taken
++          pc_mux_o = PC_BRANCH;
++          pc_set_o = 1'b1;
+         end
+ 
++        ctrl_fsm_ns = DBG_FLUSH;
++      end
++
++      // We enter this state when we encounter
++      // 1. ebreak during debug mode
++      // 2. ebreak with forced entry into debug mode (ebreakm or ebreaku set).
++      // 3. halt request during decode
++      // Regular ebreak's go through FLUSH_EX and FLUSH_WB.
++      // For 1. we don't update dcsr and dpc while for 2. and 3. we do
++      // (debug-spec p.39). Critically dpc is set to the address of ebreak and
++      // not to the next instruction's (which is why we save the pc in id).
++      DBG_TAKEN_ID:
++      begin
++        is_decoding_o     = 1'b0;
++        pc_set_o          = 1'b1;
++        pc_mux_o          = PC_EXCEPTION;
++        exc_pc_mux_o      = EXC_PC_DBD;
++        if ((debug_req_i && (~debug_mode_q)) ||
++            (ebrk_insn_i && ebrk_force_debug_mode && (~debug_mode_q))) begin
++            csr_save_cause_o = 1'b1;
++            csr_save_id_o    = 1'b1;
++            debug_csr_save_o = 1'b1;
++            if (debug_req_i)
++                debug_cause_o = DBG_CAUSE_HALTREQ;
++            if (ebrk_insn_i)
++                debug_cause_o = DBG_CAUSE_EBREAK;
++        end
++        ctrl_fsm_ns  = DECODE;
++        debug_mode_n = 1'b1;
+       end
+ 
++      DBG_TAKEN_IF:
++      begin
++        is_decoding_o     = 1'b0;
++        pc_set_o          = 1'b1;
++        pc_mux_o          = PC_EXCEPTION;
++        exc_pc_mux_o      = EXC_PC_DBD;
++        csr_save_cause_o  = 1'b1;
++        debug_csr_save_o  = 1'b1;
++        if (debug_single_step_i)
++            debug_cause_o = DBG_CAUSE_STEP;
++        if (debug_req_i)
++            debug_cause_o = DBG_CAUSE_HALTREQ;
++        if (ebrk_insn_i)
++            debug_cause_o = DBG_CAUSE_EBREAK;
++        csr_save_if_o   = 1'b1;
++        ctrl_fsm_ns     = DECODE;
++        debug_mode_n    = 1'b1;
++      end
++
++      DBG_FLUSH:
++      begin
++        is_decoding_o = 1'b0;
++
++        halt_if_o   = 1'b1;
++        halt_id_o   = 1'b1;
++
++        perf_pipeline_stall_o = data_load_event_i;
++
++        if (data_err_i)
++        begin //data error
++            // the current LW or SW have been blocked by the PMP
++            csr_save_ex_o     = 1'b1;
++            csr_save_cause_o  = 1'b1;
++            data_err_ack_o    = 1'b1;
++            //no jump in this stage as we have to wait one cycle to go to Machine Mode
++            csr_cause_o       = data_we_ex_i ? EXC_CAUSE_STORE_FAULT : EXC_CAUSE_LOAD_FAULT;
++            ctrl_fsm_ns       = FLUSH_WB;
++
++        end  //data erro
++        else begin
++          // TODO: remove this redundant condition. This is a reminder of the
++          // removal from the ELW transition into DBG_*
++          if(debug_mode_q) begin
++            ctrl_fsm_ns = DBG_TAKEN_ID;
++          end else if (debug_single_step_i)begin
++            // save the next instruction when single stepping
++            ctrl_fsm_ns  = DBG_TAKEN_IF;
++          end else begin
++            ctrl_fsm_ns  = DBG_TAKEN_ID;
++          end
++        end
++      end
++      // Debug end
++
+       default: begin
+         is_decoding_o = 1'b0;
+         instr_req_o = 1'b0;
+@@ -933,6 +1006,8 @@ module riscv_controller
+       jump_done_q    <= 1'b0;
+       boot_done_q    <= 1'b0;
+       data_err_q     <= 1'b0;
++
++      debug_mode_q   <= 1'b0;
+     end
+     else
+     begin
+@@ -943,6 +1018,8 @@ module riscv_controller
+ 
+       data_err_q     <= data_err_i;
+ 
++      debug_mode_q   <=  debug_mode_n;
++
+     end
+   end
+ 
+@@ -951,6 +1028,9 @@ module riscv_controller
+   assign perf_jr_stall_o  = jr_stall_o;
+   assign perf_ld_stall_o  = load_stall_o;
+ 
++  // debug mode
++  assign debug_mode_o = debug_mode_q;
++
+ 
+   //----------------------------------------------------------------------------
+   // Assertions
+@@ -961,12 +1041,6 @@ module riscv_controller
+   assert property (
+     @(posedge clk) (branch_taken_ex_i) |=> (~branch_taken_ex_i) ) else $warning("Two branches back-to-back are taken");
+   assert property (
+-    @(posedge clk) (~(dbg_req_i & irq_req_ctrl_i)) ) else $warning("Both dbg_req_i and irq_req_ctrl_i are active");
+-  always @ (posedge clk)
+-  begin
+-    if (data_err_i == 1)
+-       CHECK_CONTROLLER_STATUS: assert (ctrl_fsm_cs == DECODE)
+-    else $warning("An LSU error must not come when the controller is not in DECODE stage %t",$time);
+-  end
++    @(posedge clk) (~('0 & irq_req_ctrl_i)) ) else $warning("Both dbg_req_i and irq_req_ctrl_i are active");
+   `endif
+ endmodule // controller

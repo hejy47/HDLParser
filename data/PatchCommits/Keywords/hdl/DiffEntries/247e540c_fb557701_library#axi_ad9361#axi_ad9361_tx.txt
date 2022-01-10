@@ -1,0 +1,14 @@
+247e540cf0f406ac0057b78022c0003df958eb2b
+hdl/library- fix syntax errors/synthesis warnings
+diff --git a/library/axi_ad9361/axi_ad9361_tx.v b/library/axi_ad9361/axi_ad9361_tx.v
+index d7e489ae..74f7166b 100644
+--- a/library/axi_ad9361/axi_ad9361_tx.v
++++ b/library/axi_ad9361/axi_ad9361_tx.v
+@@ -344,6 +344,7 @@ module axi_ad9361_tx #(
+     .dac_status_ovf (dac_dovf),
+     .dac_status_unf (dac_dunf),
+     .dac_clk_ratio (32'd1),
++    .up_dac_ce (),
+     .up_drp_sel (),
+     .up_drp_wr (),
+     .up_drp_addr (),

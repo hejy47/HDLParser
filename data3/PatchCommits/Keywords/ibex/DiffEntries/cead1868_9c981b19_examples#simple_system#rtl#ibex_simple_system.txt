@@ -1,0 +1,41 @@
+cead186836a9713a34e5581b3d30d8bf35b5f9a2
+Add Synopsys VCS Support for Ibex Simple System
+diff --git a/examples/simple_system/rtl/ibex_simple_system.sv b/examples/simple_system/rtl/ibex_simple_system.sv
+index 80dafc5c..79651a9f 100644
+--- a/examples/simple_system/rtl/ibex_simple_system.sv
++++ b/examples/simple_system/rtl/ibex_simple_system.sv
+@@ -21,10 +21,7 @@ module ibex_simple_system (
+   parameter bit RV32E = 0;
+   parameter bit RV32M = 1;
+ 
+-  logic clk_sys, rst_sys_n;
+-
+-  assign clk_sys = IO_CLK;
+-  assign rst_sys_n = IO_RST_N;
++  logic clk_sys = 1'b0, rst_sys_n;
+ 
+   typedef enum {
+     CoreD,
+@@ -69,6 +66,22 @@ module ibex_simple_system (
+   assign cfg_device_addr_mask[SimCtrl] = ~32'h3FF; // 1 kB
+ 
+ 
++  `ifdef VERILATOR
++    assign clk_sys = IO_CLK;
++    assign rst_sys_n = IO_RST_N;
++  `else
++    initial begin
++      rst_sys_n = 1'b0;
++      device_err = '{default:1'b0};
++      #8
++      rst_sys_n = 1'b1;
++    end
++    always begin
++      #1 clk_sys = 1'b0;
++      #1 clk_sys = 1'b1;
++    end
++  `endif
++
+   bus #(
+     .NrDevices   (NrDevices),
+     .NrHosts     (NrHosts  ),

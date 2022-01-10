@@ -1,0 +1,30 @@
+81ade7f26c75ec34ecba4eda44aa8d3a0daf20d1
+axi_dacfifo: Fix resets
+diff --git a/library/axi_dacfifo/axi_dacfifo_dac.v b/library/axi_dacfifo/axi_dacfifo_dac.v
+index 37f725a0..9c175aea 100644
+--- a/library/axi_dacfifo/axi_dacfifo_dac.v
++++ b/library/axi_dacfifo/axi_dacfifo_dac.v
+@@ -48,6 +48,7 @@ module axi_dacfifo_dac (
+   axi_xfer_req,
+ 
+   dac_clk,
++  dac_rst,
+   dac_valid,
+   dac_data,
+   dac_xfer_out,
+@@ -81,6 +82,7 @@ module axi_dacfifo_dac (
+   // dac read
+ 
+   input                               dac_clk;
++  input                               dac_rst;
+   input                               dac_valid;
+   output  [(DAC_DATA_WIDTH-1):0]      dac_data;
+   output                              dac_xfer_out;
+@@ -100,7 +102,6 @@ module axi_dacfifo_dac (
+   reg                                 axi_almost_empty  = 1'b0;
+   reg                                 axi_dwovf = 1'b0;
+ 
+-  reg                                 dac_rst = 'd0;
+   reg                                 dac_rd = 'd0;
+   reg                                 dac_rd_d = 'd0;
+   reg     [(DAC_DATA_WIDTH-1):0]      dac_rdata_d = 'd0;

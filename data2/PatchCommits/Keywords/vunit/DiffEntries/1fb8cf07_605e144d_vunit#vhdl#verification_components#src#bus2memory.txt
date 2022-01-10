@@ -1,0 +1,15 @@
+1fb8cf07c2dc93562ec0f067d13d6a541bfd5e99
+Integrated AXI protocol checker into other AXI VCs. Some lint fixing.
+diff --git a/vunit/vhdl/verification_components/src/bus2memory.vhd b/vunit/vhdl/verification_components/src/bus2memory.vhd
+index 651038f5..f1795512 100644
+--- a/vunit/vhdl/verification_components/src/bus2memory.vhd
++++ b/vunit/vhdl/verification_components/src/bus2memory.vhd
+@@ -30,7 +30,7 @@ begin
+     variable data  : std_logic_vector(data_length(bus_handle)-1 downto 0);
+     constant blen : natural := byte_length(bus_handle);
+   begin
+-    loop
++    while true loop
+       receive(net, bus_handle.p_actor, request_msg);
+       msg_type := message_type(request_msg);
+ 

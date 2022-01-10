@@ -1,0 +1,202 @@
+======Commit: 2a2c7254======
+======Short Message======
+Fix a URL typo.
+======Full Message======
+Fix a URL typo.
+
+
+
+======Commit: 7c769aa9======
+======Short Message======
+verilator: Enhance testbench to verify output and return with appropriate error codes.
+======Full Message======
+verilator: Enhance testbench to verify output and return with appropriate error codes.
+
+
+
+======Commit: 4abb54e4======
+======Short Message======
+Fix traceplayer tests to add time for interrupt pin to go low.
+======Full Message======
+Fix traceplayer tests to add time for interrupt pin to go low.
+
+
+
+======Commit: d34be22c======
+======Short Message======
+Change the DEFAULT_SYSTEMC to one that will actually work.
+======Full Message======
+Change the DEFAULT_SYSTEMC to one that will actually work.
+
+
+
+======Commit: 4e7c0f6c======
+======Short Message======
+Re-apply RANDFUNC fix after 64-bit cleanup, for Questa build.
+======Full Message======
+Re-apply RANDFUNC fix after 64-bit cleanup, for Questa build.
+
+
+
+======Commit: d21ddb0f======
+======Short Message======
+tree.make: use Makefile to generate tree.make with default tools set
+======Full Message======
+tree.make: use Makefile to generate tree.make with default tools set
+
+
+
+======Commit: 42db63a4======
+======Short Message======
+eperl: fix syntax in plugin with new options
+======Full Message======
+eperl: fix syntax in plugin with new options
+
+
+
+======Commit: b684e8d7======
+======Short Message======
+VCP: fix bug when vcp process with eperl code
+======Full Message======
+VCP: fix bug when vcp process with eperl code
+
+
+
+======Commit: 2da8f2e9======
+======Short Message======
+Infrastructure upgrade for build/make
+======Full Message======
+Infrastructure upgrade for build/make
+
+1, update bin/eperl to support plugin, and write a flop plugin in eplugin.pm
+2, update bin/tmake with -only option to run only one task without its dependency
+3 update bin/depth to get relative path from/to Top Of Tree(TOT)
+4, fix one issue in etc/build.config that vmod_nvdla_rubik is missing to build
+5, centralize ENV tool setup in tree.make
+6, fix a bug in defgen when define without value
+
+
+
+======Commit: 6f2c23e2======
+======Short Message======
+synth_tb: Fix up warning in bit width for write data counter.
+======Full Message======
+synth_tb: Fix up warning in bit width for write data counter.
+
+
+
+======Commit: 341df78f======
+======Short Message======
+Working changes for cvsram.
+======Full Message======
+Working changes for cvsram.
+
+Many changes to axi slave and memory model. Added passing sanity3_cvsram to regress target. Removed slave_cfg plusargs from default and change slave_mem_cfg to match. Reduced reg_poll_interval to 55 which is slightly less than two interrupts fired (58 cycles between)
+
+
+
+======Commit: a1517e59======
+======Short Message======
+Starting to make changes for dealing with burst length.
+======Full Message======
+Starting to make changes for dealing with burst length.
+
+DBB only uses burst length of 0 (1 txn) but CVSRAM uses 3 (4 txns) for reads. AXI slave and mem model need to be updated to deal with non-zero burst length. All sizes are fixed to 64B so I'm ignoring aw/rsize in the slave for now
+
+
+
+======Commit: dfc86874======
+======Short Message======
+Update NV_NVDLA_partition_p.sdc
+======Full Message======
+Update NV_NVDLA_partition_p.sdc
+
+fix null collection result of [get_ports nvdla_core_rstn], use internal pin instead.
+
+
+======Commit: d0f3bae6======
+======Short Message======
+Update NV_NVDLA_partition_o.sdc
+======Full Message======
+Update NV_NVDLA_partition_o.sdc
+
+fix null collection result of [get_ports nvdla_core_rstn], use internal pin instead.
+
+
+======Commit: 885bb1da======
+======Short Message======
+Update NV_NVDLA_partition_m.sdc
+======Full Message======
+Update NV_NVDLA_partition_m.sdc
+
+fix null collection result of [get_ports nvdla_core_rstn], use internal pin instead.
+
+
+======Commit: 340172f4======
+======Short Message======
+Update NV_NVDLA_partition_a.sdc
+======Full Message======
+Update NV_NVDLA_partition_a.sdc
+
+fix null collection result of [get_ports nvdla_core_rstn], use internal pin instead.
+
+
+======Commit: 7fda3f4e======
+======Short Message======
+Update NV_NVDLA_partition_c.sdc
+======Full Message======
+Update NV_NVDLA_partition_c.sdc
+
+fix null collection result of [get_ports nvdla_core_rstn], use internal pin instead.
+
+
+======Commit: b0f08545======
+======Short Message======
+Update NV_NVDLA_partition_a.sdc
+======Full Message======
+Update NV_NVDLA_partition_a.sdc
+
+fix null collection result of [get_ports nvdla_core_rstn], use internal pin instead.
+
+
+======Commit: 2046f410======
+======Short Message======
+Rename the default output BUILD directory from osdla_syn_<timestamp> to nvdla_syn_<timestamp>. Cosmetic change.
+======Full Message======
+Rename the default output BUILD directory from osdla_syn_<timestamp> to nvdla_syn_<timestamp>. Cosmetic change.
+
+
+
+======Commit: 5d6de06a======
+======Short Message======
+non-VCS compiler fixes
+======Full Message======
+non-VCS compiler fixes
+
+
+
+======Commit: 43ae5e3c======
+======Short Message======
+Cast modName assignments as an int since it's declared as reg. VCS shows no warnings either way but it fixes Questa compile. Fixes #5
+======Full Message======
+Cast modName assignments as an int since it's declared as reg. VCS shows no warnings either way but it fixes Questa compile. Fixes #5
+
+
+
+======Commit: 593b792e======
+======Short Message======
+Remove GetArgValPLI, it was used functionally the same as $value$plusargs with more possibility for compile issues. Fixes #4
+======Full Message======
+Remove GetArgValPLI, it was used functionally the same as $value$plusargs with more possibility for compile issues. Fixes #4
+Remove file gen comments and unused tb_top.vc
+
+
+
+======Commit: 1c6f6b9f======
+======Short Message======
+Adds +define+DESIGNWARE_NOEXIST to VCS command line if DESIGNWARE_NOEXIST variable was set to 1. Fixes issue #3
+======Full Message======
+Adds +define+DESIGNWARE_NOEXIST to VCS command line if DESIGNWARE_NOEXIST variable was set to 1. Fixes issue #3
+
+
+

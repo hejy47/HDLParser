@@ -1,0 +1,183 @@
+======Commit: d6b6584b======
+======Short Message======
+Fix for the VC707 project. UART pins were backwards. Firmware appears to be working now.
+======Full Message======
+Fix for the VC707 project. UART pins were backwards. Firmware appears to be working now.
+
+
+
+======Commit: 27c05db8======
+======Short Message======
+Patched checksum calculation for multi-FPGA device chains in jtag_comm.v
+======Full Message======
+Patched checksum calculation for multi-FPGA device chains in jtag_comm.v
+
+
+
+======Commit: 154f0c3b======
+======Short Message======
+Another patch for multi-FPGA device chains in jtag_comm.v.
+======Full Message======
+Another patch for multi-FPGA device chains in jtag_comm.v.
+
+
+
+======Commit: 70c61e57======
+======Short Message======
+Testing patch for JTAG Comm module when multiple FPGAs are in a single chain.
+======Full Message======
+Testing patch for JTAG Comm module when multiple FPGAs are in a single chain.
+
+
+
+======Commit: de150717======
+======Short Message======
+Added testbench for job queueing and pushing and fixed a bug.
+======Full Message======
+Added testbench for job queueing and pushing and fixed a bug.
+
+
+
+======Commit: 2b290422======
+======Short Message======
+Working on a new JTAG communication method for Spartan-6 devices. Seems to be working, though it has some bugs and needs a lot of polish.
+======Full Message======
+Working on a new JTAG communication method for Spartan-6 devices. Seems to be working, though it has some bugs and needs a lot of polish.
+
+
+
+======Commit: d09f2a14======
+======Short Message======
+Fixed a typo regarding LOOP_LOG2.
+======Full Message======
+Fixed a typo regarding LOOP_LOG2.
+
+
+
+======Commit: 321300ea======
+======Short Message======
+Quick bugfix on Altera mining script. Added timeout to HTTP requests.
+======Full Message======
+Quick bugfix on Altera mining script. Added timeout to HTTP requests.
+
+
+
+======Commit: 6791f4c8======
+======Short Message======
+Many improvements to the Altera mining script. Split pool information out into config.tcl, with a config.example.tcl. Split the code up into mine.tcl, json_rpc.tcl, utils.tcl, and jtag_comm.tcl. Created a generic API for communicating with the FPGA, to abstract away firmware and chip specific details. Removed the dependency on TclCurl and using tcl's builtin http package instead. Cleaned out all the debugging output to console. Added estimation of hashrate based on chip's reported nonce, as well as an estimate based on number of submitted shares. Added tracking of accepted and rejected shares. Output to console is now timestamped. Console output is similar to poclbm's now. mine.tcl warns the user if the chip's current firmware won't report the actual hashrate. Added better error handling and reporting. Handling of getwork and submitting shares should also be a bit better. The generic FPGA API also allows moving the firmware to a hardware queue based system, without too many changes to the mining script.
+======Full Message======
+Many improvements to the Altera mining script. Split pool information out into config.tcl, with a config.example.tcl. Split the code up into mine.tcl, json_rpc.tcl, utils.tcl, and jtag_comm.tcl. Created a generic API for communicating with the FPGA, to abstract away firmware and chip specific details. Removed the dependency on TclCurl and using tcl's builtin http package instead. Cleaned out all the debugging output to console. Added estimation of hashrate based on chip's reported nonce, as well as an estimate based on number of submitted shares. Added tracking of accepted and rejected shares. Output to console is now timestamped. Console output is similar to poclbm's now. mine.tcl warns the user if the chip's current firmware won't report the actual hashrate. Added better error handling and reporting. Handling of getwork and submitting shares should also be a bit better. The generic FPGA API also allows moving the firmware to a hardware queue based system, without too many changes to the mining script.
+
+
+
+======Commit: 41576ba6======
+======Short Message======
+LX150_makomk_Test: Fixed various bugs for LOOP_LOG2=0. Design successfully compiles with LOOP_LOG2=0, and has been verified on live hardware.
+======Full Message======
+LX150_makomk_Test: Fixed various bugs for LOOP_LOG2=0. Design successfully compiles with LOOP_LOG2=0, and has been verified on live hardware.
+
+
+
+======Commit: ed9c8c2e======
+======Short Message======
+LX150_makomk_Test: Added a testbench. Hacked together a fix for a bug in the K constant code. It was picking the wrong K constants. The fix works for LOOP_LOG2=1 and should work for LOOP_LOG2=0, but it won't work for other values of LOOP_LOG2. The code right now compiled just fine in ISE, and passed a testbench on the live hardware.
+======Full Message======
+LX150_makomk_Test: Added a testbench. Hacked together a fix for a bug in the K constant code. It was picking the wrong K constants. The fix works for LOOP_LOG2=1 and should work for LOOP_LOG2=0, but it won't work for other values of LOOP_LOG2. The code right now compiled just fine in ISE, and passed a testbench on the live hardware.
+
+
+
+======Commit: 6d6a429b======
+======Short Message======
+Added LX150_makomk_Test. Tests makomk's code on a Xilinx Spartan 6 LX150T. Currently the code fits at LOOP_LOG2 and compiles correctly. 50MHz. However the chip does not return correct Golden Nonces. Need to debug in simulation.
+======Full Message======
+Added LX150_makomk_Test. Tests makomk's code on a Xilinx Spartan 6 LX150T. Currently the code fits at LOOP_LOG2 and compiles correctly. 50MHz. However the chip does not return correct Golden Nonces. Need to debug in simulation.
+
+
+
+======Commit: f9c0eb97======
+======Short Message======
+fixed small omissions/typos
+======Full Message======
+fixed small omissions/typos
+
+
+
+======Commit: 6bbcbdf2======
+======Short Message======
+fixing q_nonce initialization
+======Full Message======
+fixing q_nonce initialization
+
+
+
+======Commit: c91e061f======
+======Short Message======
+fixed q_nonce initialization
+======Full Message======
+fixed q_nonce initialization
+
+
+
+======Commit: bcda56c2======
+======Short Message======
+Updated the DE2-115 50MHash SOF binary, and fixed a small bug in the mine.tcl script.
+======Full Message======
+Updated the DE2-115 50MHash SOF binary, and fixed a small bug in the mine.tcl script.
+
+
+
+======Commit: ada8fafb======
+======Short Message======
+A few modifications to udif's patch. Moved testing to a separate testbench. Created a testbenches folder with the first testbench in it. Tested udif's patch and it works for all LOOP_LOG2 settings from 0 to 5. Added golden_nonce adjustment code so the mining script no longer has to make the adjustments. Mining script updated with TODOs and removed the golden_nonce adjustments.
+======Full Message======
+A few modifications to udif's patch. Moved testing to a separate testbench. Created a testbenches folder with the first testbench in it. Tested udif's patch and it works for all LOOP_LOG2 settings from 0 to 5. Added golden_nonce adjustment code so the mining script no longer has to make the adjustments. Mining script updated with TODOs and removed the golden_nonce adjustments.
+
+
+
+======Commit: 6b617a44======
+======Short Message======
+Yet another fix for loop rolling code.
+======Full Message======
+Yet another fix for loop rolling code.
+
+This time the change seems to work:
+1. Install Icarus verilog 0.9.4 (http://iverilog.icarus.com/)
+2. go to source directory.
+3. run icarus:
+   iverilog -DSIM sha*.v fpgaminer_top.v
+4. run with:
+   a.out
+
+You can use gtkwave.exe (if you are a Windows user,
+it is bundled with the Windows MinGW-based icarus binary
+(http://bleyer.org/icarus/)
+
+
+
+======Commit: 87ca4576======
+======Short Message======
+Fix last commit
+======Full Message======
+Fix last commit
+
+Last commit was untested and it seems there was a mistake in the loop index code.
+This code is still untested though!
+
+
+
+======Commit: 795f8161======
+======Short Message======
+Fixing README.md so it renders correctly on github.
+======Full Message======
+Fixing README.md so it renders correctly on github.
+
+
+
+======Commit: f513d353======
+======Short Message======
+Fixing README.md so it renders correctly on github.
+======Full Message======
+Fixing README.md so it renders correctly on github.
+
+
+

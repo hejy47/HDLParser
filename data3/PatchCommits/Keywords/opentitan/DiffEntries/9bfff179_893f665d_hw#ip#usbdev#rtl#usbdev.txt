@@ -1,0 +1,16 @@
+9bfff17967efdb125f406365413c682e1cc5c3e6
+[prim] Fix prim_ram_2p_async_adv reset
+diff --git a/hw/ip/usbdev/rtl/usbdev.sv b/hw/ip/usbdev/rtl/usbdev.sv
+index aaa3dbbf8..4f1a21830 100644
+--- a/hw/ip/usbdev/rtl/usbdev.sv
++++ b/hw/ip/usbdev/rtl/usbdev.sv
+@@ -433,7 +433,8 @@ module usbdev (
+   ) u_memory_2p (
+     .clk_a_i    (clk_i),
+     .clk_b_i    (clk_usb_48mhz_i),
+-    .rst_ni     (rst_ni),
++    .rst_a_ni   (rst_ni),
++    .rst_b_ni   (rst_ni),
+     .a_req_i    (mem_a_req),
+     .a_write_i  (mem_a_write),
+     .a_addr_i   (mem_a_addr),

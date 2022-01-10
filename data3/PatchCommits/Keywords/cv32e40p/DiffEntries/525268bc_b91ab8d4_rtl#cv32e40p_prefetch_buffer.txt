@@ -1,0 +1,15 @@
+525268bc0520bf6ff726ee56f375f8381c93e052
+Merge from master plus misa fix
+diff --git a/rtl/cv32e40p_prefetch_buffer.sv b/rtl/cv32e40p_prefetch_buffer.sv
+index e2d61bc..1193fa9 100644
+--- a/rtl/cv32e40p_prefetch_buffer.sv
++++ b/rtl/cv32e40p_prefetch_buffer.sv
+@@ -169,7 +169,7 @@ module cv32e40p_prefetch_buffer
+   // Assertions
+   //----------------------------------------------------------------------------
+ 
+-`ifndef VERILATOR
++`ifdef CV32E40P_ASSERT_ON
+ 
+   // Check that branch target address is half-word aligned (RV32-C)
+   property p_branch_halfword_aligned;

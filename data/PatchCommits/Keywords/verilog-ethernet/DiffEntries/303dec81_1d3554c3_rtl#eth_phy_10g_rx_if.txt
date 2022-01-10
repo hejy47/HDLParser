@@ -1,0 +1,15 @@
+303dec816548404af956fec51ee513e85d922831
+Sum errors across data and header
+diff --git a/rtl/eth_phy_10g_rx_if.v b/rtl/eth_phy_10g_rx_if.v
+index 996afcf..cbd0d2a 100644
+--- a/rtl/eth_phy_10g_rx_if.v
++++ b/rtl/eth_phy_10g_rx_if.v
+@@ -158,7 +158,7 @@ integer i;
+ always @* begin
+     rx_error_count_1_temp = 0;
+     rx_error_count_2_temp = 0;
+-    for (i = 0; i < DATA_WIDTH; i = i + 1) begin
++    for (i = 0; i < DATA_WIDTH+HDR_WIDTH; i = i + 1) begin
+         if (i & 1) begin
+             rx_error_count_1_temp = rx_error_count_1_temp + prbs31_data[i];
+         end else begin

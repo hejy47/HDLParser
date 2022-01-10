@@ -1,0 +1,27 @@
+70f58125f22c8690f30601bfb083bd5d679e39bd
+fixed alu_ff for uneven numbers. not used in alu. but still nicer like this
+diff --git a/riscv_alu.sv b/riscv_alu.sv
+index b92381f..8bdd8f2 100644
+--- a/riscv_alu.sv
++++ b/riscv_alu.sv
+@@ -1084,17 +1084,17 @@ module alu_ff
+     if (level == NUM_LEVELS-1) begin
+       for (k = 0; k < 2**level; k++) begin
+         // if two successive indices are still in the vector...
+-        if (k * 2 < LEN) begin
++        if (k * 2 < LEN-1) begin
+           assign sel_nodes[2**level-1+k]   = in_i[k*2] | in_i[k*2+1];
+           assign index_nodes[2**level-1+k] = (in_i[k*2] == 1'b1) ? index_lut[k*2] : index_lut[k*2+1];
+         end
+         // if only the first index is still in the vector...
+-        if (k * 2 == LEN) begin
++        if (k * 2 == LEN-1) begin
+           assign sel_nodes[2**level-1+k]   = in_i[k*2];
+           assign index_nodes[2**level-1+k] = index_lut[k*2];
+         end
+         // if index is out of range
+-        if (k * 2 > LEN) begin
++        if (k * 2 > LEN-1) begin
+           assign sel_nodes[2**level-1+k]   = 1'b0;
+           assign index_nodes[2**level-1+k] = '0;
+         end

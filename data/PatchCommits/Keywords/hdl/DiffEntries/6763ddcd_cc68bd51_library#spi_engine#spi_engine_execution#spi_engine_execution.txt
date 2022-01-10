@@ -1,0 +1,25 @@
+6763ddcda90951167637a29162394127c35c4bf3
+spi_engine_execution: Fix cs signal generation
+diff --git a/library/spi_engine/spi_engine_execution/spi_engine_execution.v b/library/spi_engine/spi_engine_execution/spi_engine_execution.v
+index 342c44e2..00c6052b 100644
+--- a/library/spi_engine/spi_engine_execution/spi_engine_execution.v
++++ b/library/spi_engine/spi_engine_execution/spi_engine_execution.v
+@@ -166,6 +166,9 @@ wire trigger_rx_s;
+ wire last_sdi_bit;
+ wire end_of_sdi_latch;
+ 
++(* direct_enable = "yes" *) wire cs_gen;
++
++assign cs_gen = inst_d1 == CMD_CHIPSELECT && cs_sleep_counter_compare == 1'b1;
+ assign cmd_ready = idle;
+ 
+ always @(posedge clk) begin
+@@ -288,7 +291,7 @@ end
+ always @(posedge clk) begin
+   if (resetn == 1'b0) begin
+     cs <= 'hff;
+-  end else if (inst_d1 == CMD_CHIPSELECT && cs_sleep_counter_compare == 1'b1) begin
++  end else if (cs_gen) begin
+     cs <= cmd_d1[NUM_OF_CS-1:0];
+   end
+ end

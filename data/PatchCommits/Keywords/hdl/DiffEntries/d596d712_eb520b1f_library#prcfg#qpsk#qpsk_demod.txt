@@ -1,0 +1,17 @@
+d596d7128561ea8a237910735eb3f2173c38104d
+prcfg_qpsk: Swap the I/Q pair nets between the filter and the demodulator.
+diff --git a/library/prcfg/qpsk/qpsk_demod.v b/library/prcfg/qpsk/qpsk_demod.v
+index d6b6432c..7d22110c 100644
+--- a/library/prcfg/qpsk/qpsk_demod.v
++++ b/library/prcfg/qpsk/qpsk_demod.v
+@@ -66,8 +66,8 @@ module qpsk_demod (
+     .enb_1_1_1(data_valid),
+     .In1_re(data_qpsk_i),
+     .In1_im(data_qpsk_q),
+-    .Out1_im(filtered_data_i),
+-    .Out1_re(filtered_data_q)
++    .Out1_re(filtered_data_i),
++    .Out1_im(filtered_data_q)
+   );
+ 
+   QPSK_Demodulator_Baseband i_qpsk_demod(

@@ -1,0 +1,16 @@
+e373b8595419ea1f7287840b4571d11998a35d89
+axi_dmac: Fix Vivado warnings
+diff --git a/library/axi_dmac/src_fifo_inf.v b/library/axi_dmac/src_fifo_inf.v
+index 4e6ef964..bffb2c26 100644
+--- a/library/axi_dmac/src_fifo_inf.v
++++ b/library/axi_dmac/src_fifo_inf.v
+@@ -141,7 +141,8 @@ dmac_data_mover # (
+ 	.s_axi_data(buffer),
+ 	.m_axi_ready(fifo_ready),
+ 	.m_axi_valid(fifo_valid),
+-	.m_axi_data(fifo_data)
++	.m_axi_data(fifo_data),
++	.m_axi_last()
+ );
+ 
+ endmodule

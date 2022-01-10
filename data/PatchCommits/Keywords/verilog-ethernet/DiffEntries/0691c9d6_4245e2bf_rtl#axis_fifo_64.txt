@@ -1,0 +1,15 @@
+0691c9d61b102cdbb3ed73a449786ba096d86a08
+Fix output pipeline issue
+diff --git a/rtl/axis_fifo_64.v b/rtl/axis_fifo_64.v
+index ca7217b..03d3394 100644
+--- a/rtl/axis_fifo_64.v
++++ b/rtl/axis_fifo_64.v
+@@ -130,7 +130,7 @@ always @* begin
+ 
+     mem_read_data_valid_next = mem_read_data_valid_reg;
+ 
+-    if (output_axis_tready | ~output_axis_tvalid) begin
++    if (store_output | ~mem_read_data_valid_reg) begin
+         // output data not valid OR currently being transferred
+         if (~empty) begin
+             // not empty, perform read

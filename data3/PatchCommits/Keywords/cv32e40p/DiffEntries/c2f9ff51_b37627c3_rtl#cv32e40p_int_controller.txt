@@ -1,0 +1,15 @@
+c2f9ff51240bd07b33b9e1f58c11b107db1bba87
+Merge pull request #419 from silabs-PaulZ/irq_debug_fsm_fix
+diff --git a/rtl/cv32e40p_int_controller.sv b/rtl/cv32e40p_int_controller.sv
+index dc39a1a..c7bdaaa 100644
+--- a/rtl/cv32e40p_int_controller.sv
++++ b/rtl/cv32e40p_int_controller.sv
+@@ -103,6 +103,8 @@ else
+           exc_ctrl_cs <= IDLE;
+         end
+ 
++        default: ;
++
+       endcase
+ 
+     end

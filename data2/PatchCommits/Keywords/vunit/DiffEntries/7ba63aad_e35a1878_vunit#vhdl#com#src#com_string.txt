@@ -1,0 +1,15 @@
+7ba63aadaa8732e4359abd41672a8458858d3cbf
+Fixed lint issues in com package.
+diff --git a/vunit/vhdl/com/src/com_string.vhd b/vunit/vhdl/com/src/com_string.vhd
+index d5d9f6bc..b1db55bc 100644
+--- a/vunit/vhdl/com/src/com_string.vhd
++++ b/vunit/vhdl/com/src/com_string.vhd
+@@ -86,7 +86,7 @@ package body com_string_pkg is
+   function to_detailed_string (
+     constant data : real)
+     return string is
+-    variable f64 : float64;
++    constant f64 : float64 := (others => '0');
+   begin
+     return to_string(to_float(data, f64));
+   end;

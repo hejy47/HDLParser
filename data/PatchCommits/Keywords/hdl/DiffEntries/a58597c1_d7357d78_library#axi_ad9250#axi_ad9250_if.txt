@@ -1,0 +1,23 @@
+a58597c13a9aefe6c8f1d6e1341f68a072b67d06
+ad9250 - build fixes
+diff --git a/library/axi_ad9250/axi_ad9250_if.v b/library/axi_ad9250/axi_ad9250_if.v
+index ad8f71d0..0b8e603f 100644
+--- a/library/axi_ad9250/axi_ad9250_if.v
++++ b/library/axi_ad9250/axi_ad9250_if.v
+@@ -87,6 +87,7 @@ module axi_ad9250_if (
+   wire    [15:0]  adc_data_a_s0_s;
+   wire    [15:0]  adc_data_b_s1_s;
+   wire    [15:0]  adc_data_b_s0_s;
++  wire    [63:0]  rx_data_s;
+ 
+   // adc clock is the reference clock
+ 
+@@ -121,7 +122,7 @@ module axi_ad9250_if (
+   genvar n;
+ 
+   generate
+-  for (n = 0; n < 4; n = n + 1) begin: g_xcvr_if
++  for (n = 0; n < 2; n = n + 1) begin: g_xcvr_if
+   ad_xcvr_rx_if #(.DEVICE_TYPE (DEVICE_TYPE)) i_xcvr_if (
+     .rx_clk (rx_clk),
+     .rx_ip_sof (rx_sof),

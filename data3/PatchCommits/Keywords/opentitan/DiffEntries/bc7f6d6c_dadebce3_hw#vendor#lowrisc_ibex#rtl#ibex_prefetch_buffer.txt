@@ -1,0 +1,15 @@
+bc7f6d6cde2259f2741e40112f2ff4c6871d0d75
+Update lowrisc_ibex to lowRISC/ibex@6d9e1ac
+diff --git a/hw/vendor/lowrisc_ibex/rtl/ibex_prefetch_buffer.sv b/hw/vendor/lowrisc_ibex/rtl/ibex_prefetch_buffer.sv
+index f206b2ad6..1eae0b7c4 100644
+--- a/hw/vendor/lowrisc_ibex/rtl/ibex_prefetch_buffer.sv
++++ b/hw/vendor/lowrisc_ibex/rtl/ibex_prefetch_buffer.sv
+@@ -286,7 +286,7 @@ module ibex_prefetch_buffer #(
+   // Push a new entry to the FIFO once complete (and not cancelled by a branch)
+   assign fifo_valid = rvalid_or_pmp_err & ~branch_discard_q[0];
+ 
+-  assign fifo_addr = branch_mispredict_i ? branch_mispredict_addr : addr_i;
++  assign fifo_addr = branch_i ? addr_i : branch_mispredict_addr;
+ 
+   ///////////////
+   // Registers //

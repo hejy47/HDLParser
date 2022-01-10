@@ -1,0 +1,19 @@
+9dac22c814627324ffc9c748a89627135b234d01
+fmcomms2: ZC702 fixed GPIOs in top file
+diff --git a/projects/fmcomms2/zc702/system_top.v b/projects/fmcomms2/zc702/system_top.v
+index 9926a830..ec95a367 100644
+--- a/projects/fmcomms2/zc702/system_top.v
++++ b/projects/fmcomms2/zc702/system_top.v
+@@ -167,9 +167,9 @@ module system_top (
+ 
+   // internal signals
+ 
+-  wire    [48:0]  gpio_i;
+-  wire    [48:0]  gpio_o;
+-  wire    [48:0]  gpio_t;
++  wire    [63:0]  gpio_i;
++  wire    [63:0]  gpio_o;
++  wire    [63:0]  gpio_t;
+ 
+   wire            spi_udc_csn_tx;
+   wire            spi_udc_csn_rx;

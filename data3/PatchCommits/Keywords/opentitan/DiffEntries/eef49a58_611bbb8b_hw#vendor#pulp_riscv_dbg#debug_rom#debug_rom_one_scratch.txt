@@ -1,0 +1,16 @@
+eef49a584162a29737680efa7101b19c63f8fb88
+Update pulp_riscv_dbg to pulp-platform/riscv-dbg@e67a0a7
+diff --git a/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom_one_scratch.sv b/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom_one_scratch.sv
+index 78d47be60..af7e67c72 100644
+--- a/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom_one_scratch.sv
++++ b/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom_one_scratch.sv
+@@ -23,7 +23,8 @@ module debug_rom_one_scratch (
+ 
+   localparam int unsigned RomSize = 13;
+ 
+-  const logic [RomSize-1:0][63:0] mem = {
++  logic [RomSize-1:0][63:0] mem;
++  assign mem = {
+     64'h00000000_7b200073,
+     64'h7b202473_10802423,
+     64'hf1402473_ab1ff06f,

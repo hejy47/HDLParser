@@ -1,0 +1,14 @@
+493fc1d48b8b34a944fad0ddfb240d7db084dede
+axi_*: Fix instantiation of up_[adc|dac]_[common|channel]
+diff --git a/library/axi_ad9361/axi_ad9361_tx_channel.v b/library/axi_ad9361/axi_ad9361_tx_channel.v
+index f444873b..c38b5c5d 100644
+--- a/library/axi_ad9361/axi_ad9361_tx_channel.v
++++ b/library/axi_ad9361/axi_ad9361_tx_channel.v
+@@ -354,6 +354,7 @@ module axi_ad9361_tx_channel #(
+   assign up_rdata = (DISABLE == 1) ? 32'd0 : up_rdata_s;
+ 
+   up_dac_channel #(
++    .COMMON_ID (6'h11),
+     .CHANNEL_ID (CHANNEL_ID),
+     .DDS_DISABLE (DDS_DISABLE),
+     .USERPORTS_DISABLE (USERPORTS_DISABLE),

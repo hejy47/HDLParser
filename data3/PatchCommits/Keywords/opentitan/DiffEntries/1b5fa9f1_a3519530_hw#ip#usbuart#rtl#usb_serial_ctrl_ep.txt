@@ -1,0 +1,18 @@
+1b5fa9f1ebf0a9520ef6ea6faf1f1a2397a349c1
+[verible/style] This corrects several style linter warnings/errors
+diff --git a/hw/ip/usbuart/rtl/usb_serial_ctrl_ep.sv b/hw/ip/usbuart/rtl/usb_serial_ctrl_ep.sv
+index 70353ab33..4e769fb8e 100644
+--- a/hw/ip/usbuart/rtl/usb_serial_ctrl_ep.sv
++++ b/hw/ip/usbuart/rtl/usb_serial_ctrl_ep.sv
+@@ -3,9 +3,9 @@
+ // -- conform to lowRISC coding style
+ 
+ module usb_serial_ctrl_ep  #(
+-  parameter MaxPktSizeByte = 32,
++  parameter int unsigned MaxPktSizeByte = 32,
+   // localparam below here
+-  parameter PktW = $clog2(MaxPktSizeByte)
++  parameter int unsigned PktW = $clog2(MaxPktSizeByte)
+ ) (
+   input              clk_i,
+   input              rst_ni,

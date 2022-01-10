@@ -1,0 +1,16 @@
+c71e1689d71ba3b822fd143dde6841ad489850e2
+[spi_host] Minor lint fixes
+diff --git a/hw/ip/spi_host/rtl/spi_host_core.sv b/hw/ip/spi_host/rtl/spi_host_core.sv
+index 95a493dd4..4bc6e3c8c 100644
+--- a/hw/ip/spi_host/rtl/spi_host_core.sv
++++ b/hw/ip/spi_host/rtl/spi_host_core.sv
+@@ -6,8 +6,7 @@
+ //
+ 
+ module spi_host_core #(
+-  parameter  int NumCS     = 1,
+-  localparam int CSW       = prim_util_pkg::vbits(NumCS)
++  parameter  int NumCS     = 1
+ ) (
+   input                             clk_i,
+   input                             rst_ni,

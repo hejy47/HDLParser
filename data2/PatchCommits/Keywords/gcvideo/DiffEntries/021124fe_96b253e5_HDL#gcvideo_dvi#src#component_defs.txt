@@ -1,0 +1,21 @@
+021124fea6246e9f063fb0e5ab10ef3b7eae4ebc
+Add console mode detection for Wii
+diff --git a/HDL/gcvideo_dvi/src/component_defs.vhd b/HDL/gcvideo_dvi/src/component_defs.vhd
+index 6232b8e..537dce1 100644
+--- a/HDL/gcvideo_dvi/src/component_defs.vhd
++++ b/HDL/gcvideo_dvi/src/component_defs.vhd
+@@ -308,6 +308,14 @@ package component_defs is
+     );
+   end component;
+ 
++  component ConsoleModeDetect is
++    port (
++      Clock      : in  std_logic;
++      I2S_LRClock: in  std_logic;
++      ConsoleMode: out console_mode_t
++    );
++  end component;
++
+ end component_defs;
+ 
+ package body component_defs is

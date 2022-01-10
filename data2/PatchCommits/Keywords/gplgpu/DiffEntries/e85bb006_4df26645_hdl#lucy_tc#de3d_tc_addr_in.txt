@@ -1,0 +1,21 @@
+e85bb0065a2d9e05d344cc3c1301ad7dd49d34be
+Fixed blocking/ non-blocking problem which affected simulation.
+diff --git a/hdl/lucy_tc/de3d_tc_addr_in.v b/hdl/lucy_tc/de3d_tc_addr_in.v
+index 533eaa0..309c512 100755
+--- a/hdl/lucy_tc/de3d_tc_addr_in.v
++++ b/hdl/lucy_tc/de3d_tc_addr_in.v
+@@ -289,10 +289,10 @@ always @(posedge de_clk) begin
+ 			end
+     		default:
+ 			begin
+-				 ee_tag_adr_rd = ul_tag_adr_bpt[5:1];
+-				 oe_tag_adr_rd = ur_tag_adr_bpt[5:1];
+-				 eo_tag_adr_rd = ll_tag_adr_bpt[5:1];
+-				 oo_tag_adr_rd = lr_tag_adr_bpt[5:1];
++				 ee_tag_adr_rd <= ul_tag_adr_bpt[5:1];
++				 oe_tag_adr_rd <= ur_tag_adr_bpt[5:1];
++				 eo_tag_adr_rd <= ll_tag_adr_bpt[5:1];
++				 oo_tag_adr_rd <= lr_tag_adr_bpt[5:1];
+ 			end
+   		endcase
+ 	end

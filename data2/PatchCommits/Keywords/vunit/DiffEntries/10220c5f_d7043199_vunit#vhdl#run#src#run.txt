@@ -1,0 +1,28 @@
+10220c5fb7cd6c1e095a4b41087c48aa05e30c59
+Deprecated external_error flag to test_runner_cleanup
+diff --git a/vunit/vhdl/run/src/run.vhd b/vunit/vhdl/run/src/run.vhd
+index 2da1104c..80ede371 100644
+--- a/vunit/vhdl/run/src/run.vhd
++++ b/vunit/vhdl/run/src/run.vhd
+@@ -91,8 +91,7 @@ package body run_pkg is
+   end test_runner_setup;
+ 
+   procedure test_runner_cleanup (
+-    signal runner: inout runner_sync_t;
+-    constant external_failure : in boolean := false) is
++    signal runner: inout runner_sync_t) is
+ 
+   begin
+     set_phase(runner_state, test_runner_cleanup);
+@@ -110,11 +109,6 @@ package body run_pkg is
+       return;
+     end if;
+ 
+-    if external_failure then
+-      core_pkg.core_failure("External failure.");
+-      return;
+-    end if;
+-
+     runner.exit_without_errors <= true;
+     runner.locks(test_runner_setup to test_runner_cleanup) <= (others => (false, false));
+     wait for 0 ns;

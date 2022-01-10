@@ -1,0 +1,18 @@
+4c0f9a65f178b9a01edcc6c49da3b5982f59329d
+axi_dmac: fix non-blocking assignment in combinatorial block
+diff --git a/library/axi_dmac/axi_dmac_burst_memory.v b/library/axi_dmac/axi_dmac_burst_memory.v
+index f5cd8581..bf80f112 100644
+--- a/library/axi_dmac/axi_dmac_burst_memory.v
++++ b/library/axi_dmac/axi_dmac_burst_memory.v
+@@ -207,9 +207,9 @@ assign src_data_request_id = src_dest_id;
+ 
+ always @(*) begin
+   if (src_last_beat == 1'b1) begin
+-    src_id_next <= inc_id(src_id);
++    src_id_next = inc_id(src_id);
+   end else begin
+-    src_id_next <= src_id;
++    src_id_next = src_id;
+   end
+ end
+ 

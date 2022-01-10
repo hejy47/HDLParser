@@ -1,0 +1,278 @@
+======Commit: 143929c4======
+======Short Message======
+Merge pull request #20 from cousteaulecommandant/patch-1
+======Full Message======
+Merge pull request #20 from cousteaulecommandant/patch-1
+
+fpga_make.sh: /bin/sh -> /bin/bash
+
+
+======Commit: 33aa6e8b======
+======Short Message======
+fpga_make.sh: /bin/sh -> /bin/bash
+======Full Message======
+fpga_make.sh: /bin/sh -> /bin/bash
+
+Since this script uses nonstandard "bashisms" (`[[ ]]`) and is called directly as `./fpga_make.sh` it should begin with `#!/bin/bash` rather than `#!/bin/sh` for systems in which `bash` is not the default shell.
+
+
+======Commit: 6ed88045======
+======Short Message======
+Merge pull request #12 from d1duarte/patch-4
+======Full Message======
+Merge pull request #12 from d1duarte/patch-4
+
+Corrected the 'v_RCP_F32' instruction so it produces the correct resu…
+
+
+======Commit: ba98a6e0======
+======Short Message======
+A variety of data width fixes. Use more wildcards in sensitivity lists to shut up warnings in Vivado.
+======Full Message======
+A variety of data width fixes. Use more wildcards in sensitivity lists to shut up warnings in Vivado.
+
+
+
+======Commit: dd0bd018======
+======Short Message======
+Fix inferred latch of VGPR address in LSU opcode decoder. Just use wildcard for sensitivity list in decode flag generator.
+======Full Message======
+Fix inferred latch of VGPR address in LSU opcode decoder. Just use wildcard for sensitivity list in decode flag generator.
+
+
+
+======Commit: 1e2cc293======
+======Short Message======
+More syntax error fixes and a logic bug with the mb to mem interface.
+======Full Message======
+More syntax error fixes and a logic bug with the mb to mem interface.
+
+
+
+======Commit: 35a502c7======
+======Short Message======
+Fix syntax errors.
+======Full Message======
+Fix syntax errors.
+
+
+
+======Commit: e291fd52======
+======Short Message======
+Fix up a couple of net names.
+======Full Message======
+Fix up a couple of net names.
+
+
+
+======Commit: 68f9aab7======
+======Short Message======
+Merge pull request #10 from d1duarte/patch-3
+======Full Message======
+Merge pull request #10 from d1duarte/patch-3
+
+Added the missing ports for the programmable reset
+
+
+======Commit: aaff57a4======
+======Short Message======
+Fix up address calculations for buffered operations.
+======Full Message======
+Fix up address calculations for buffered operations.
+
+
+
+======Commit: f2cf263f======
+======Short Message======
+Modify the testbench to start to be able to deal with the new style of memory operations. Minor fixes to the LSU to get it to properly calculate SGPR addresses.
+======Full Message======
+Modify the testbench to start to be able to deal with the new style of memory operations. Minor fixes to the LSU to get it to properly calculate SGPR addresses.
+
+
+
+======Commit: c25c2720======
+======Short Message======
+First pass in fixing tracemon to properly monitor memory operations again. Not working yet due to slight mismatch in pipeline sequences tracemon is expecting relative to what the current LSU is doing. Tracemon probably needs to be rethought to how it will track memory operations.
+======Full Message======
+First pass in fixing tracemon to properly monitor memory operations again. Not working yet due to slight mismatch in pipeline sequences tracemon is expecting relative to what the current LSU is doing. Tracemon probably needs to be rethought to how it will track memory operations.
+
+
+
+======Commit: 98bceede======
+======Short Message======
+Significantly overhaul the LSU. It now responds properly to memory requests and is considerably easier to debug. Unit tests still fail but that is likely more due to the framework's issues than the instructions themselves failing.
+======Full Message======
+Significantly overhaul the LSU. It now responds properly to memory requests and is considerably easier to debug. Unit tests still fail but that is likely more due to the framework's issues than the instructions themselves failing.
+
+
+
+======Commit: 3202bd28======
+======Short Message======
+Merge pull request #8 from d1duarte/patch-1
+======Full Message======
+Merge pull request #8 from d1duarte/patch-1
+
+Add Memory mapped reset and direct vector read to NEKO from MicroBlaze
+
+
+======Commit: a811e69d======
+======Short Message======
+Significantly simplify the salu controller logic and reduce the possibility of copy/paste errors.
+======Full Message======
+Significantly simplify the salu controller logic and reduce the possibility of copy/paste errors.
+
+
+
+======Commit: a4c84389======
+======Short Message======
+Merge pull request #1 from d1duarte/patch-2
+======Full Message======
+Merge pull request #1 from d1duarte/patch-2
+
+Added interface ports for vector read
+
+
+======Commit: 8d669cc2======
+======Short Message======
+Fix very stupid oversight in the FPGA compute unit wrapper. One of these days this wrapper will no longer be necessary. Hopefully.
+======Full Message======
+Fix very stupid oversight in the FPGA compute unit wrapper. One of these days this wrapper will no longer be necessary. Hopefully.
+
+
+
+======Commit: bbe25746======
+======Short Message======
+Fix zeroing out the write enable port.
+======Full Message======
+Fix zeroing out the write enable port.
+
+
+
+======Commit: a2cd138f======
+======Short Message======
+Fixed typo in siagen.cpp, add debug entry to siagen Makefile
+======Full Message======
+Fixed typo in siagen.cpp, add debug entry to siagen Makefile
+
+
+
+======Commit: da12f1c5======
+======Short Message======
+Explicitly zero out write lines to register file in the default case. Fixes cbranch_vccz unit test.
+======Full Message======
+Explicitly zero out write lines to register file in the default case. Fixes cbranch_vccz unit test.
+
+
+
+======Commit: f1a471ad======
+======Short Message======
+Fix vector instruction unit tests by properly filling in the VGPR at the start of the test.
+======Full Message======
+Fix vector instruction unit tests by properly filling in the VGPR at the start of the test.
+
+
+
+======Commit: fc36ba10======
+======Short Message======
+Duplicate sgpr busy table decoder fix in the vgpr's.
+======Full Message======
+Duplicate sgpr busy table decoder fix in the vgpr's.
+
+
+
+======Commit: 08ac111c======
+======Short Message======
+Correctly zero out output when no sgpr addresses are valid. Fixes unit tests.
+======Full Message======
+Correctly zero out output when no sgpr addresses are valid. Fixes unit tests.
+
+
+
+======Commit: 65cfce51======
+======Short Message======
+Corrected Makefile errors
+======Full Message======
+Corrected Makefile errors
+
+
+
+======Commit: ff2b0996======
+======Short Message======
+Refactor flag_generator.v so that adding new instructions does not rely on error-prone copy/paste.
+======Full Message======
+Refactor flag_generator.v so that adding new instructions does not rely on error-prone copy/paste.
+
+
+
+======Commit: 4ba9ea88======
+======Short Message======
+Fix build on Linux where gcc apparently enforces character arrays as arrays for initialization purposes.
+======Full Message======
+Fix build on Linux where gcc apparently enforces character arrays as arrays for initialization purposes.
+
+
+
+======Commit: 3e94ff61======
+======Short Message======
+Overhaul how instructions are generated to make life much, much simpler for future expansion. Also added Windows support since debugging in Visual Studio is a lot easier.
+======Full Message======
+Overhaul how instructions are generated to make life much, much simpler for future expansion. Also added Windows support since debugging in Visual Studio is a lot easier.
+
+
+
+======Commit: b6e9a4ab======
+======Short Message======
+Remove perl generator snippet from VGPR as the current configuration does not need it and it is causing an extraneous error to be emitted.
+======Full Message======
+Remove perl generator snippet from VGPR as the current configuration does not need it and it is causing an extraneous error to be emitted.
+
+
+
+======Commit: 3c259236======
+======Short Message======
+Reenable dispatcher build as its lack is breaking other things.
+======Full Message======
+Reenable dispatcher build as its lack is breaking other things.
+
+
+
+======Commit: 2403d18b======
+======Short Message======
+0.3-fpga tag source code fixes
+======Full Message======
+0.3-fpga tag source code fixes
+
+
+
+======Commit: 06988910======
+======Short Message======
+Source code fix for memory module and testbench
+======Full Message======
+Source code fix for memory module and testbench
+
+
+
+======Commit: 0894af96======
+======Short Message======
+Source code fixes to get everything to compile with the Xilinx toolchain and also use block RAMs instead of flipflops for the register files.
+======Full Message======
+Source code fixes to get everything to compile with the Xilinx toolchain and also use block RAMs instead of flipflops for the register files.
+
+
+
+======Commit: 6446365d======
+======Short Message======
+Fix scripts used for running unit tests.
+======Full Message======
+Fix scripts used for running unit tests.
+
+
+
+======Commit: aa62491c======
+======Short Message======
+Adding hardware dispatcher
+======Full Message======
+Adding hardware dispatcher
+
+
+

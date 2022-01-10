@@ -1,0 +1,16 @@
+9fe94508e27130df2f408a587b5e5fdf7ca3c81f
+[usbuart] Fix driver conflict
+diff --git a/hw/ip/usbuart/rtl/usbuart_core.sv b/hw/ip/usbuart/rtl/usbuart_core.sv
+index 3fea50f23..a8c1add39 100644
+--- a/hw/ip/usbuart/rtl/usbuart_core.sv
++++ b/hw/ip/usbuart/rtl/usbuart_core.sv
+@@ -458,7 +458,7 @@ module usbuart_core (
+     .usb_suspend_i          (                        )
+   );
+ 
+-  assign cio_usb_dp_o = cio_oe;
+-  assign cio_usb_dn_o = cio_oe;
++  assign cio_usb_dp_en_o = cio_oe;
++  assign cio_usb_dn_en_o = cio_oe;
+ 
+ endmodule

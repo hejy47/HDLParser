@@ -1,0 +1,14 @@
+f501b332c4ed2e55d4ab9ad424a3b03fec21b5c5
+:bug: fix csr_status for MEPC
+diff --git a/rtl/cv32e40p_decoder.sv b/rtl/cv32e40p_decoder.sv
+index d813dc4..972b204 100644
+--- a/rtl/cv32e40p_decoder.sv
++++ b/rtl/cv32e40p_decoder.sv
+@@ -2786,6 +2786,7 @@ module cv32e40p_decoder import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*;
+           if(~csr_illegal)
+             if (instr_rdata_i[31:20] == CSR_MSTATUS   ||
+                 instr_rdata_i[31:20] == CSR_USTATUS   ||
++                instr_rdata_i[31:20] == CSR_MEPC      ||
+                 instr_rdata_i[31:20] == CSR_UEPC      ||
+                 // Debug registers
+                 instr_rdata_i[31:20] == CSR_DCSR      ||

@@ -1,0 +1,15 @@
+1a1923390afef703c5f3ac580836021fc8a8e3ec
+Merge pull request #434 from bradleyharden/test_modelsim_fixup
+diff --git a/vunit/vhdl/verification_components/src/axi_write_slave.vhd b/vunit/vhdl/verification_components/src/axi_write_slave.vhd
+index 8f15724d..a74a6462 100644
+--- a/vunit/vhdl/verification_components/src/axi_write_slave.vhd
++++ b/vunit/vhdl/verification_components/src/axi_write_slave.vhd
+@@ -57,7 +57,7 @@ architecture a of axi_write_slave is
+     data : integer_vector_ptr_t;
+   end record;
+ 
+-  procedure push_burst_data(queue : queue_t; burst_data : burst_data_t) is
++  procedure push_burst_data(queue : queue_t; variable burst_data : inout burst_data_t) is
+   begin
+      push_integer(queue, burst_data.length);
+      push_integer_vector_ptr_ref(queue, burst_data.address);

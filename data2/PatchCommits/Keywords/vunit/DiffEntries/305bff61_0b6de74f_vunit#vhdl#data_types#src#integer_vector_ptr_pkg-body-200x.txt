@@ -1,0 +1,15 @@
+305bff61c43a4817f91b64490a7b10486de80412
+Fix Riviera-PRO compilation issues.
+diff --git a/vunit/vhdl/data_types/src/integer_vector_ptr_pkg-body-200x.vhd b/vunit/vhdl/data_types/src/integer_vector_ptr_pkg-body-200x.vhd
+index 65d7d0ff..d81be617 100644
+--- a/vunit/vhdl/data_types/src/integer_vector_ptr_pkg-body-200x.vhd
++++ b/vunit/vhdl/data_types/src/integer_vector_ptr_pkg-body-200x.vhd
+@@ -141,7 +141,7 @@ package body integer_vector_ptr_pkg is
+   end;
+ 
+   impure function to_integer_vector_ptr (
+-    value : integer
++    value : val_t
+   ) return ptr_t is begin
+     -- @TODO maybe assert that the ref is valid
+     return (ref => value);

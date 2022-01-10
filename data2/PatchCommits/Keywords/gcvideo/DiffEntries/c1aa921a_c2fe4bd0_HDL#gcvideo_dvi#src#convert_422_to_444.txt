@@ -1,0 +1,15 @@
+c1aa921a24fdf7487b026b956f7d9984a1cb4ba5
+Fix delayline_bool/_unsigned low delay instances
+diff --git a/HDL/gcvideo_dvi/src/convert_422_to_444.vhd b/HDL/gcvideo_dvi/src/convert_422_to_444.vhd
+index 6392f58..f04b7fd 100644
+--- a/HDL/gcvideo_dvi/src/convert_422_to_444.vhd
++++ b/HDL/gcvideo_dvi/src/convert_422_to_444.vhd
+@@ -53,7 +53,7 @@ end convert_422_to_444;
+ architecture Behavioral of convert_422_to_444 is
+ 
+   -- delay in (enabled) clock cycles for untouched signals
+-  constant Delayticks: Natural := 3;
++  constant Delayticks: Natural := 4;
+ 
+   -- stored color signals
+   signal current_c1: unsigned(7 downto 0) := (others => '1');

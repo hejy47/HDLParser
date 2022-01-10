@@ -1,0 +1,51 @@
+5e66305364a6530635a84366539fcd4275e81048
+Merge pull request #261 from davideschiavone/fix255
+diff --git a/rtl/riscv_tracer.sv b/rtl/riscv_tracer.sv
+index 80a10ec..f319d0d 100644
+--- a/rtl/riscv_tracer.sv
++++ b/rtl/riscv_tracer.sv
+@@ -643,8 +643,14 @@ module riscv_tracer (
+           6'b101100: begin mnemonic = "pv.insert";   str_imm = $sformatf("0x%0d", imm_vs_type); end
+ 
+           // shuffle/pack
+-          6'b110000: begin mnemonic = "pv.shuffle";   end
+-          6'b110000: begin mnemonic = "pv.shufflei0"; str_imm = $sformatf("0x%0d", imm_shuffle_type);  end
++          6'b110000: begin
++            if (instr[14:12] == 3'b001) begin
++                mnemonic = "pv.shuffle";
++            end else begin
++                mnemonic = "pv.shufflei0";
++                str_imm = $sformatf("0x%0d", imm_shuffle_type);
++            end
++          end
+           6'b111010: begin mnemonic = "pv.shufflei1"; str_imm = $sformatf("0x%0d", imm_shuffle_type);  end
+           6'b111100: begin mnemonic = "pv.shufflei2"; str_imm = $sformatf("0x%0d", imm_shuffle_type);  end
+           6'b111110: begin mnemonic = "pv.shufflei3"; str_imm = $sformatf("0x%0d", imm_shuffle_type);  end
+@@ -745,9 +751,9 @@ module riscv_tracer (
+   always_ff @(posedge clk, negedge rst_n)
+   begin
+     if (rst_n == 1'b0)
+-      cycles = 0;
++      cycles <= 0;
+     else
+-      cycles = cycles + 1;
++      cycles <= cycles + 1;
+   end
+ 
+   // open/close output file for writing
+@@ -814,6 +820,7 @@ module riscv_tracer (
+   string insn_disas;
+   logic [31:0] insn_pc;
+   logic [31:0] insn_val;
++  reg_t insn_regs_write[$];
+ 
+   // virtual EX/WB pipeline
+   initial
+@@ -837,6 +844,7 @@ module riscv_tracer (
+       insn_disas = trace.str;
+       insn_pc    = trace.pc;
+       insn_val   = trace.instr;
++      insn_regs_write = trace.regs_write;
+       -> retire;
+     end
+   end

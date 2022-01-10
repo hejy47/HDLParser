@@ -1,0 +1,30 @@
+67e74177494e5e577a4b589cd2f2a97f9d3c2c0c
+Fix Verible lint issues
+diff --git a/shared/rtl/sim/simulator_ctrl.sv b/shared/rtl/sim/simulator_ctrl.sv
+index 81d03e2d..be4a04df 100644
+--- a/shared/rtl/sim/simulator_ctrl.sv
++++ b/shared/rtl/sim/simulator_ctrl.sv
+@@ -38,8 +38,8 @@ module simulator_ctrl #(
+   output logic [31:0] rdata_o
+ );
+ 
+-  localparam CHAR_OUT_ADDR = 0;
+-  localparam SIM_CTRL_ADDR = 2;
++  localparam logic [7:0] CHAR_OUT_ADDR = 8'h0;
++  localparam logic [7:0] SIM_CTRL_ADDR = 8'h2;
+ 
+   logic [7:0] ctrl_addr;
+   logic [2:0] sim_finish = 3'b000;
+@@ -81,6 +81,7 @@ module simulator_ctrl #(
+               sim_finish <= 3'b001;
+             end
+           end
++          default: ;
+         endcase
+       end
+     end
+@@ -95,4 +96,3 @@ module simulator_ctrl #(
+ 
+   assign rdata_o = '0;
+ endmodule
+-

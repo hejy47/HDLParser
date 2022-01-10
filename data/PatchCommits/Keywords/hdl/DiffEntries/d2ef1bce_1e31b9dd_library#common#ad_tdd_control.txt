@@ -1,0 +1,17 @@
+d2ef1bcef5c4120363154811e2ab666e2a1e3b91
+library/commmon: Fix data width warnings
+diff --git a/library/common/ad_tdd_control.v b/library/common/ad_tdd_control.v
+index 31658982..7eabbd76 100644
+--- a/library/common/ad_tdd_control.v
++++ b/library/common/ad_tdd_control.v
+@@ -92,8 +92,8 @@ module ad_tdd_control#(
+   output      [23:0]      tdd_counter_status);
+ 
+ 
+-  localparam          ON = 1;
+-  localparam          OFF = 0;
++  localparam  [ 0:0]      ON = 1;
++  localparam  [ 0:0]      OFF = 0;
+ 
+   // tdd control related
+ 

@@ -1,0 +1,29 @@
+668a9c910490ebe463cf453fc396278dd1cf9f8b
+fix issue #47: read of performance counter does not increment cycle counter
+diff --git a/rtl/riscv_cs_registers.sv b/rtl/riscv_cs_registers.sv
+index 2839c6d..10fb8a0 100644
+--- a/rtl/riscv_cs_registers.sv
++++ b/rtl/riscv_cs_registers.sv
+@@ -1108,7 +1108,7 @@ end //PULP_SECURE
+       CSR_OP_SET:   csr_wdata_int = csr_wdata_i | csr_rdata_o;
+       CSR_OP_CLEAR: csr_wdata_int = (~csr_wdata_i) & csr_rdata_o;
+ 
+-      CSR_OP_NONE: begin
++      CSR_OP_READ: begin
+         csr_wdata_int = csr_wdata_i;
+         csr_we_int    = 1'b0;
+       end
+@@ -1474,13 +1474,6 @@ end //PULP_SECURE
+ 
+   // ------------------------
+   // next value for performance counters and control registers
+-  //
+-  // NOTE: a CSR read (CSRR), assembles into a CSR read and set (CSRRI)
+-  //  with the set value being 0 (x0). This null write causes the
+-  //  write enable to assert which preempts the counter increment.
+-  //  In essence, a read will block a counter increment.
+-  //  TBD:FIXME: to fix this, perhaps we need to create and decode a READ cs_op
+-  //   when CSRRI occurs with the rs being x0.
+   always_comb
+     begin
+       mcountinhibit_n = mcountinhibit_q;

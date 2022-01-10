@@ -1,0 +1,15 @@
+53b29e2c610e43593eede09fcfca116efe29ae5e
+[rtl/core/neorv32_package.vhd] added missing default value of top's "wb_tag_i" signal
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index 0383644..7a5f77f 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -931,7 +931,7 @@ package neorv32_package is
+       wb_sel_o    : out std_ulogic_vector(03 downto 0); -- byte enable
+       wb_stb_o    : out std_ulogic; -- strobe
+       wb_cyc_o    : out std_ulogic; -- valid cycle
+-      wb_tag_i    : in  std_ulogic; -- response tag
++      wb_tag_i    : in  std_ulogic := '0'; -- response tag
+       wb_ack_i    : in  std_ulogic := '0'; -- transfer acknowledge
+       wb_err_i    : in  std_ulogic := '0'; -- transfer error
+       -- Advanced memory control signals (available if MEM_EXT_EN = true) --

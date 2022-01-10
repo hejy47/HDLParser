@@ -1,0 +1,22 @@
+928932c6be4e19a783e710bf80d3d1dc39e46220
+Merge pull request #272 from lucabertaccini/fix267
+diff --git a/rtl/riscv_tracer.sv b/rtl/riscv_tracer.sv
+index ca1683f..d80f014 100644
+--- a/rtl/riscv_tracer.sv
++++ b/rtl/riscv_tracer.sv
+@@ -813,6 +813,7 @@ module riscv_tracer (
+   string insn_disas;
+   logic [31:0] insn_pc;
+   logic [31:0] insn_val;
++  reg_t insn_regs_write[$];
+ 
+   // virtual EX/WB pipeline
+   initial
+@@ -836,6 +837,7 @@ module riscv_tracer (
+       insn_disas = trace.str;
+       insn_pc    = trace.pc;
+       insn_val   = trace.instr;
++      insn_regs_write = trace.regs_write;
+       -> retire;
+     end
+   end

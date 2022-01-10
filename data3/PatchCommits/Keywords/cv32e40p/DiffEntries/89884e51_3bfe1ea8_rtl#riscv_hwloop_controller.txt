@@ -1,0 +1,39 @@
+89884e515cfacdf56aced3fa9b8f84a8c59662da
+fixed WAIT RVALID on hwloop branches during stalls on iMem
+diff --git a/rtl/riscv_hwloop_controller.sv b/rtl/riscv_hwloop_controller.sv
+index 6e2b1ee..ba2d9a2 100644
+--- a/rtl/riscv_hwloop_controller.sv
++++ b/rtl/riscv_hwloop_controller.sv
+@@ -32,7 +32,7 @@ module riscv_hwloop_controller
+   input  logic                     rst_n,
+ 
+   input  logic                     id_valid_i,
+-  // from id stage
++  input  logic                     instr_valid_i,
+   input  logic [31:0]              current_pc_i,
+ 
+   // from hwloop_regs
+@@ -71,7 +71,7 @@ module riscv_hwloop_controller
+         pc_is_end_addr[i]    = 1'b0;
+         counter_not_zero[i]  = hwlp_counter_i[i][31:2] != 30'h0;
+ 
+-        if (current_pc_i + 4 == hwlp_end_addr_i[i]) begin
++        if ((current_pc_i + 4 == hwlp_end_addr_i[i]) && id_valid_i ) begin
+           if (counter_not_zero[i]) begin
+             pc_is_end_addr[i] = 1'b1;
+           end else begin
+@@ -112,10 +112,10 @@ module riscv_hwloop_controller
+        pc_is_end_addr_pc_q <= '0;
+        hwlp_targ_addr_q    <= '0;
+     end else begin
+-      if((|pc_is_end_addr))
+-          hwlp_targ_addr_q  <= hwlp_targ_addr_o;
+-        pc_is_end_addr_pc_q    <= pc_is_end_addr;
+-
++      if(instr_valid_i) begin
++          hwlp_targ_addr_q    <= hwlp_targ_addr_o;
++          pc_is_end_addr_pc_q <= pc_is_end_addr;
++      end
+     end
+   end
+ 

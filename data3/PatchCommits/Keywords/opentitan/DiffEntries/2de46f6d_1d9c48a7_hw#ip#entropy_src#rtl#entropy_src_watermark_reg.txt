@@ -1,0 +1,15 @@
+2de46f6dd9a3db8d3425364c0b834d63d0b7a3b6
+[entropy_src/rtl] fixes to address issue #3511
+diff --git a/hw/ip/entropy_src/rtl/entropy_src_watermark_reg.sv b/hw/ip/entropy_src/rtl/entropy_src_watermark_reg.sv
+index aa8a12e09..1de4934da 100755
+--- a/hw/ip/entropy_src/rtl/entropy_src_watermark_reg.sv
++++ b/hw/ip/entropy_src/rtl/entropy_src_watermark_reg.sv
+@@ -6,7 +6,7 @@
+ //
+ 
+ module entropy_src_watermark_reg #(
+-  parameter int unsigned RegWidth = 16,
++  parameter int RegWidth = 16,
+   parameter bit HighWatermark = 1
+ ) (
+   input logic                   clk_i,

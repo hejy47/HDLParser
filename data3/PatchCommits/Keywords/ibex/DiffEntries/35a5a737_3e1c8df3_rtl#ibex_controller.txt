@@ -1,0 +1,14 @@
+35a5a737a73af8627dea77a828335f70790d7458
+Do not set PC when setting exceptions registers in single stepping
+diff --git a/rtl/ibex_controller.sv b/rtl/ibex_controller.sv
+index 67207fa4..bded9c64 100644
+--- a/rtl/ibex_controller.sv
++++ b/rtl/ibex_controller.sv
+@@ -497,6 +497,7 @@ module ibex_controller (
+         // single stepping
+         // set exception registers, but do not jump into handler (debug-spec p.44).
+         if (debug_single_step_i && !debug_mode_q) begin
++          pc_set_o    = 1'b0;
+           ctrl_fsm_ns = DBG_TAKEN_IF;
+         end
+       end // FLUSH

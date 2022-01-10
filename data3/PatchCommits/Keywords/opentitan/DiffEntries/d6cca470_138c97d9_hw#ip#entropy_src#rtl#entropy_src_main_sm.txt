@@ -1,0 +1,15 @@
+d6cca470fc37b7755480cfb61016854a6b3835b4
+[entropy_src/rtl] fix for bypass mode
+diff --git a/hw/ip/entropy_src/rtl/entropy_src_main_sm.sv b/hw/ip/entropy_src/rtl/entropy_src_main_sm.sv
+index 52010fc3b..20b2baae6 100644
+--- a/hw/ip/entropy_src/rtl/entropy_src_main_sm.sv
++++ b/hw/ip/entropy_src/rtl/entropy_src_main_sm.sv
+@@ -152,6 +152,8 @@ module entropy_src_main_sm #(
+       StartupHTStart: begin
+         if (!enable_i || sfifo_esfinal_full_i) begin
+           state_d = Idle;
++        end else if (bypass_mode_i) begin
++          state_d = BootHTRunning;
+         end else begin
+           sha3_start_o = 1'b1;
+           state_d = StartupPhase1;

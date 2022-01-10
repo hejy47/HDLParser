@@ -1,0 +1,24 @@
+de1507179cf3b0417769c0d1c5fcbb2840f9d5f1
+Added testbench for job queueing and pushing and fixed a bug.
+diff --git a/src/uart_comm.v b/src/uart_comm.v
+index 56797db..97d5cce 100644
+--- a/src/uart_comm.v
++++ b/src/uart_comm.v
+@@ -189,7 +189,7 @@ module uart_comm (
+ 				else if (msg_type == MSG_PUSH_JOB && msg_length == (JOB_SIZE/8 + 8))
+ 				begin
+ 					queued_job_en <= 1'b0;
+-					current_job <= msg_data[JOB_SIZE-1:0];
++					current_job <= msg_data[MSG_BUF_LEN*8-32-1:MSG_BUF_LEN*8-32-JOB_SIZE];
+ 					new_work_flag <= ~new_work_flag;
+ 
+ 					msg_type <= MSG_ACK;
+@@ -197,7 +197,7 @@ module uart_comm (
+ 				else if (msg_type == MSG_QUEUE_JOB && msg_length == (JOB_SIZE/8 + 8))
+ 				begin
+ 					queued_job_en <= 1'b1;
+-					queued_job <= msg_data[JOB_SIZE-1:0];
++					queued_job <= msg_data[MSG_BUF_LEN*8-32-1:MSG_BUF_LEN*8-32-JOB_SIZE];
+ 
+ 					msg_type <= MSG_ACK;
+ 				end

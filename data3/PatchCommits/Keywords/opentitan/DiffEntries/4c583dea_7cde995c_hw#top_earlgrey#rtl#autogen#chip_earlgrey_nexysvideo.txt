@@ -1,0 +1,17 @@
+4c583deabbfc7ffa8a74a37c0ebfaef84ce1f59e
+[top] Connect RomCtrlSkipCheck
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
+index 16c3ffb0b..15682f021 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
+@@ -15,7 +15,9 @@ module chip_earlgrey_nexysvideo #(
+   parameter BootRomInitFile = "boot_rom_fpga_nexysvideo.32.vmem",
+   // Path to a VMEM file containing the contents of the emulated OTP, which will be
+   // baked into the FPGA bitstream.
+-  parameter OtpCtrlMemInitFile = "otp_img_fpga_nexysvideo.vmem"
++  parameter OtpCtrlMemInitFile = "otp_img_fpga_nexysvideo.vmem",
++  // TODO: Remove this 0 once infra is ready
++  parameter bit RomCtrlSkipCheck = 1
+ ) (
+   // Dedicated Pads
+   inout POR_N, // Manual Pad

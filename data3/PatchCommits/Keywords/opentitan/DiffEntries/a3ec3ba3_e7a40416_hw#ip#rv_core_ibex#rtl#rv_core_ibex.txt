@@ -1,0 +1,26 @@
+a3ec3ba3f5f6eda1529c0ac53716459bab5140c2
+[Ibex] Expose PMP-related parameters in wrapper
+diff --git a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+index 4845102aa..e21c534e0 100644
+--- a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
++++ b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+@@ -9,6 +9,9 @@
+  * Instruction and data bus are 32 bit wide TileLink-UL (TL-UL).
+  */
+ module rv_core_ibex #(
++  parameter bit          PMPEnable        = 1'b0,
++  parameter int unsigned PMPGranularity   = 0,
++  parameter int unsigned PMPNumRegions    = 4,
+   parameter int unsigned MHPMCounterNum   = 8,
+   parameter int unsigned MHPMCounterWidth = 40,
+   parameter bit RV32E                     = 0,
+@@ -106,6 +109,9 @@ module rv_core_ibex #(
+ `endif
+ 
+   ibex_core #(
++     .PMPEnable        ( PMPEnable         ),
++     .PMPGranularity   ( PMPGranularity    ),
++     .PMPNumRegions    ( PMPNumRegions     ),
+      .MHPMCounterNum   ( MHPMCounterNum    ),
+      .MHPMCounterWidth ( MHPMCounterWidth  ),
+      .RV32E            ( RV32E             ),

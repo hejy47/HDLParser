@@ -1,0 +1,15 @@
+9baf91033902edb69ccc0302cd942cd89e9a4786
+axi_logic_analyzer: Fix push-pull/open-drain selection
+diff --git a/library/axi_logic_analyzer/axi_logic_analyzer.v b/library/axi_logic_analyzer/axi_logic_analyzer.v
+index c57fe3b1..3b58ab89 100644
+--- a/library/axi_logic_analyzer/axi_logic_analyzer.v
++++ b/library/axi_logic_analyzer/axi_logic_analyzer.v
+@@ -192,7 +192,7 @@ module axi_logic_analyzer (
+ 
+   generate
+   for (i = 0 ; i < 16; i = i + 1) begin
+-    assign data_t[i] = od_pp_n[i] ? io_selection[i] & !data_o[i] : io_selection[i];
++    assign data_t[i] = od_pp_n[i] ? io_selection[i] | data_o[i] : io_selection[i];
+     always @(posedge clk_out) begin
+       data_o[i] <= overwrite_enable[i] ? overwrite_data[i] : data_r[i];
+     end

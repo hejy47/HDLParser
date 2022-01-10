@@ -1,0 +1,14 @@
+19037e55d5f1ab00669a8871fd9587b0d3ff30bd
+fix port connection
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 6453c5d..8b86a83 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -125,6 +125,7 @@ module riscv_controller
+   output logic        dbg_trap_o,
+ 
+   // Regfile target
++  input  logic        regfile_we_id_i,            // currently decoded we enable
+   input  logic [5:0]  regfile_alu_waddr_id_i,     // currently decoded target address
+ 
+   // Forwarding signals from regfile

@@ -1,0 +1,14 @@
+12cce14e3355f5df1c1d2c533a9686b88cc84b93
+[tlul] Add memory transmission integrity checks
+diff --git a/hw/ip/prim_generic/rtl/prim_generic_flash.sv b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+index 8483fbdc7..154f7faf6 100644
+--- a/hw/ip/prim_generic/rtl/prim_generic_flash.sv
++++ b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+@@ -151,6 +151,7 @@ module prim_generic_flash #(
+     .addr_o(cfg_addr),
+     .wdata_o(cfg_wdata),
+     .wmask_o(),
++    .intg_error_o(),
+     .rdata_i(cfg_rdata),
+     .rvalid_i(cfg_rvalid),
+     .rerror_i('0)

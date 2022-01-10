@@ -1,0 +1,22 @@
+68f9aab77aca5baaa62ada395d7de944f3b7551a
+Merge pull request #10 from d1duarte/patch-3
+diff --git a/scripts/xilinx/axi_slave_v1_0.v b/scripts/xilinx/axi_slave_v1_0.v
+index e7fd194..8f4d3fc 100644
+--- a/scripts/xilinx/axi_slave_v1_0.v
++++ b/scripts/xilinx/axi_slave_v1_0.v
+@@ -45,6 +45,7 @@
+         output wire mb2fpgamem_data_we,
+         output wire mb2fpgamem_ack,
+         output wire mb2fpgamem_done,
++        output wire [0:0] peripheral_aresetn,
+         
+         input wire [3:0] fpgamem2mb_op,
+         input wire [31:0] fpgamem2mb_data,
+@@ -124,6 +125,7 @@
+         .mb2fpgamem_data_we(mb2fpgamem_data_we),
+         .mb2fpgamem_ack(mb2fpgamem_ack),
+         .mb2fpgamem_done(mb2fpgamem_done),
++        .peripheral_aresetn(peripheral_aresetn),
+         
+         .fpgamem2mb_op(fpgamem2mb_op),
+         .fpgamem2mb_data(fpgamem2mb_data),

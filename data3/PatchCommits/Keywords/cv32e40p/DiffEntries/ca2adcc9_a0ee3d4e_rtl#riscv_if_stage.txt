@@ -1,0 +1,23 @@
+ca2adcc972d3233c7cc9fae92d5fea83a4547aee
+fixed a bug in rtl/riscv_if_stage.sv, hwlp_branch
+diff --git a/rtl/riscv_if_stage.sv b/rtl/riscv_if_stage.sv
+index 2cf924e..c7f50a9 100644
+--- a/rtl/riscv_if_stage.sv
++++ b/rtl/riscv_if_stage.sv
+@@ -221,11 +221,13 @@ module riscv_if_stage
+ 
+         // Prefetch Buffer Status
+         .busy_o            ( prefetch_busy               )
+-      );
++       );
++       
++       assign hwlp_branch = 1'b0;
++       
+     end
+   endgenerate
+-
+-
++  
+   // offset FSM state
+   always_ff @(posedge clk, negedge rst_n)
+   begin

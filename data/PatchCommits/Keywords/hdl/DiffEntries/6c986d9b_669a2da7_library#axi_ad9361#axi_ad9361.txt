@@ -1,0 +1,14 @@
+6c986d9b6a4386cd90337b60de386865e2f09772
+hdl/library- fix syntax errors/synthesis warnings
+diff --git a/library/axi_ad9361/axi_ad9361.v b/library/axi_ad9361/axi_ad9361.v
+index e96c32a2..1be238c9 100644
+--- a/library/axi_ad9361/axi_ad9361.v
++++ b/library/axi_ad9361/axi_ad9361.v
+@@ -404,6 +404,7 @@ module axi_ad9361 #(
+     .tdd_mode (tdd_mode_s),
+     .mmcm_rst (mmcm_rst),
+     .up_clk (up_clk),
++    .up_rstn (up_rstn),
+     .up_enable (up_enable),
+     .up_txnrx (up_txnrx),
+     .up_adc_dld (up_adc_dld_s[6:0]),

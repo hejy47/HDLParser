@@ -1,0 +1,15 @@
+78d6e2c7e4f718b603014dad936405df163514a3
+Merge pull request #515 from silabs-PaulZ/fix_todo__dret_not_debug_mode
+diff --git a/rtl/cv32e40p_controller.sv b/rtl/cv32e40p_controller.sv
+index 980283f..7d7a58d 100644
+--- a/rtl/cv32e40p_controller.sv
++++ b/rtl/cv32e40p_controller.sv
+@@ -1021,8 +1021,6 @@ module cv32e40p_controller import cv32e40p_pkg::*;
+                   pc_set_o              = 1'b1;
+                   trap_addr_mux_o       = TRAP_MACHINE;
+                   exc_pc_mux_o          = debug_mode_q ? EXC_PC_DBE : EXC_PC_EXCEPTION;
+-                  // TODO: why is this here, signal only needed for async exceptions
+-                  exc_cause_o           = EXC_CAUSE_ECALL_MMODE;
+ 
+                   if (debug_single_step_i && ~debug_mode_q)
+                       ctrl_fsm_ns = DBG_TAKEN_IF;

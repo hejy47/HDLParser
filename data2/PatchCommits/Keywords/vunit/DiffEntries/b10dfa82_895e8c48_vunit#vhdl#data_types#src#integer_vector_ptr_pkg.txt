@@ -1,0 +1,15 @@
+b10dfa82f68217bbf9eb88905c16118d36592d3c
+Fixed Aldec compile issue.
+diff --git a/vunit/vhdl/data_types/src/integer_vector_ptr_pkg.vhd b/vunit/vhdl/data_types/src/integer_vector_ptr_pkg.vhd
+index 88892726..b86a279e 100644
+--- a/vunit/vhdl/data_types/src/integer_vector_ptr_pkg.vhd
++++ b/vunit/vhdl/data_types/src/integer_vector_ptr_pkg.vhd
+@@ -37,7 +37,7 @@ package integer_vector_ptr_pkg is
+   ) return integer;
+ 
+   impure function to_integer_vector_ptr (
+-    value : integer
++    value : val_t
+   ) return ptr_t;
+ 
+   impure function new_integer_vector_ptr (

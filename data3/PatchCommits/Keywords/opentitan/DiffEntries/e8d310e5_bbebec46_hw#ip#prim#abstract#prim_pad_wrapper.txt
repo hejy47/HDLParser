@@ -1,0 +1,15 @@
+e8d310e5b61710c1a484ede8125c70ca313ada34
+[padctrl] Add padctrl implementation
+diff --git a/hw/ip/prim/abstract/prim_pad_wrapper.sv b/hw/ip/prim/abstract/prim_pad_wrapper.sv
+index 04ca0df10..b8dc6e879 100644
+--- a/hw/ip/prim/abstract/prim_pad_wrapper.sv
++++ b/hw/ip/prim/abstract/prim_pad_wrapper.sv
+@@ -8,7 +8,7 @@
+ // prim_pad_wrapper using the generic implementation
+ module prim_pad_wrapper #(
+   parameter              Impl   = "generic",
+-  parameter int unsigned AttrDw = 7
++  parameter int unsigned AttrDw = 6
+ ) (
+   inout  wire        inout_io, // bidirectional pad
+   output logic       in_o,     // input data

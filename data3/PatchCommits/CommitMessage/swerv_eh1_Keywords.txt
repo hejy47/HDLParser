@@ -1,0 +1,161 @@
+======Commit: 03f31d2f======
+======Short Message======
+Merge pull request #36 from mgielda/patch-1
+======Full Message======
+Merge pull request #36 from mgielda/patch-1
+
+Fix name of CHIPS Alliance
+
+
+======Commit: f0f8537b======
+======Short Message======
+Fix name of CHIPS Alliance
+======Full Message======
+Fix name of CHIPS Alliance
+
+Signed-off-by: Michael Gielda <mgielda@antmicro.com>
+
+
+======Commit: 4964714a======
+======Short Message======
+Merge pull request #30 from ed-at-sf/patch-1
+======Full Message======
+Merge pull request #30 from ed-at-sf/patch-1
+
+Fix link to new repo
+
+
+======Commit: 74ee8ff2======
+======Short Message======
+Fix link to new repo
+======Full Message======
+Fix link to new repo
+
+The link to the new repo (in the chipsalliance github) is broken.
+
+
+======Commit: 3ef7e65f======
+======Short Message======
+Merge pull request #26 from wsnyder/fix-verilator-dupvar
+======Full Message======
+Merge pull request #26 from wsnyder/fix-verilator-dupvar
+
+Fix Verilator future duplicate declaration error
+
+
+======Commit: ee5f7fe2======
+======Short Message======
+Fix Verilator future duplicate declaration error
+======Full Message======
+Fix Verilator future duplicate declaration error
+
+
+
+======Commit: d9204cf2======
+======Short Message======
+Update RISC-V_SweRV_EH1_PRM.pdf
+======Full Message======
+Update RISC-V_SweRV_EH1_PRM.pdf
+
+Fixed link to RISC-V Debug spec
+
+
+
+======Commit: 86192299======
+======Short Message======
+Merge pull request #15 from tomverbeure/ret_stack_size
+======Full Message======
+Merge pull request #15 from tomverbeure/ret_stack_size
+
+Fix swerv.config help for ret_stack_size
+
+
+======Commit: a774b88d======
+======Short Message======
+Fix swerv.config help for ret_stack_size
+======Full Message======
+Fix swerv.config help for ret_stack_size
+
+
+
+======Commit: cfc6311e======
+======Short Message======
+Fixed Capture IR value error for TAP controller
+======Full Message======
+Fixed Capture IR value error for TAP controller
+
+
+======Commit: 5b7a0b8f======
+======Short Message======
+Fixes to allow simulations for irun to work properly
+======Full Message======
+Fixes to allow simulations for irun to work properly
+Testbench needs to be re-written to work without so many ifdef VERILATORs
+
+
+
+======Commit: 45076a58======
+======Short Message======
+Updated makefile for build bug
+======Full Message======
+Updated makefile for build bug
+
+
+======Commit: e8232bf8======
+======Short Message======
+Patch for issue#8 
+======Full Message======
+Patch for issue#8 
+
+
+======Commit: 226acf52======
+======Short Message======
+Merge pull request #9 from parthpower/master
+======Full Message======
+Merge pull request #9 from parthpower/master
+
+Fixed #7 Makefile Issue for Verilator
+
+
+======Commit: 23e80539======
+======Short Message======
+Make C++ files for default verilator target
+======Full Message======
+Make C++ files for default verilator target
+
+
+======Commit: b195d57b======
+======Short Message======
+Fixed #7
+======Full Message======
+Fixed #7
+
+- Added `CFLAGS` for C++11 to fix auto variables does not name a type error when compiling verilator generated C++. 
+- Added missing $(define) and `common_defines.vh` for `verilator` target.
+
+
+======Commit: 1a514ab6======
+======Short Message======
+Merge pull request #5 from manegspb/patch-1
+======Full Message======
+Merge pull request #5 from manegspb/patch-1
+
+Fix small typo
+
+
+======Commit: c241b13d======
+======Short Message======
+Fix small typo
+======Full Message======
+Fix small typo
+
+
+======Commit: 3b55cc8e======
+======Short Message======
+Merge pull request #3 from 0xflotus/patch-1
+======Full Message======
+Merge pull request #3 from 0xflotus/patch-1
+
+did you mean 'adding/removing'?
+
+

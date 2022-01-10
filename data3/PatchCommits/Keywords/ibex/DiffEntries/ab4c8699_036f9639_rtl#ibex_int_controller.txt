@@ -1,0 +1,15 @@
+ab4c8699fbc854220749c49c67fa0b860a69711d
+Simplify default assignments to enum types
+diff --git a/rtl/ibex_int_controller.sv b/rtl/ibex_int_controller.sv
+index 9b59e94d..f235161b 100644
+--- a/rtl/ibex_int_controller.sv
++++ b/rtl/ibex_int_controller.sv
+@@ -87,7 +87,7 @@ module ibex_int_controller (
+       end
+ 
+       default: begin
+-        exc_ctrl_ns = exc_ctrl_e'({$bits(exc_ctrl_e){1'bX}});
++        exc_ctrl_ns = exc_ctrl_e'(1'bX);
+       end
+     endcase
+   end

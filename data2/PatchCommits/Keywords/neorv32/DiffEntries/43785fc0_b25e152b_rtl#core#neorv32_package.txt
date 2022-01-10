@@ -1,0 +1,15 @@
+43785fc05b8e5543d85c65858823da4568bf9a28
+fixed error in external memory interface (error during instruction fetch)
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index 74eea0d..f5c550a 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -41,7 +41,7 @@ package neorv32_package is
+   -- Architecture Constants -----------------------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+   constant data_width_c : natural := 32; -- data width - do not change!
+-  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01040309"; -- no touchy!
++  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01040400"; -- no touchy!
+   constant pmp_max_r_c  : natural := 8; -- max PMP regions - FIXED!
+ 
+   -- Architecture Configuration -------------------------------------------------------------

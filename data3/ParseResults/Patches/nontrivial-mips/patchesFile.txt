@@ -1,0 +1,255 @@
+CommitId: dfe362b9190478194b9c6ad345cadfb3af6b3af1
+Trying to fix D$ timing (WIP)
+--- a/src/utils/dual_port_ram.sv
++++ b/src/utils/dual_port_ram.sv
+@@ -4,7 +4,9 @@ module dual_port_ram #(
+ 	// $bits(dtype) * SIZE = bits of the block RAM
+ 	parameter int unsigned SIZE       = 1024,
+ 	parameter type dtype              = logic [DATA_WIDTH-1:0],
+-	parameter int unsigned LATENCY    = 1
++	parameter int unsigned LATENCY    = 1,
++    parameter int unsigned LATENCY_A  = LATENCY,
++    parameter int unsigned LATENCY_B  = LATENCY
+ ) (
+ 	input  logic  clk,
+ 	input  logic  rst,
+
+ParseResult:
+INS HdlIdDef@@LATENCY_A to params
+HdlIdDef: LATENCY_A
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: int
+            HdlOp: MAP_ASSOCIATION
+                list: ops
+                    HdlValueId: signed
+    HdlValueId: LATENCY
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@LATENCY_B to params
+HdlIdDef: LATENCY_B
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: int
+            HdlOp: MAP_ASSOCIATION
+                list: ops
+                    HdlValueId: signed
+    HdlValueId: LATENCY
+    HdlDirection: INTERNAL
+
+
+CommitId: dfe362b9190478194b9c6ad345cadfb3af6b3af1
+Trying to fix D$ timing (WIP)
+--- a/src/utils/dual_port_ram.sv
++++ b/src/utils/dual_port_ram.sv
+@@ -85,7 +87,9 @@ module dual_port_lutram #(
+ 	// $bits(dtype) * SIZE = bits of the block RAM
+ 	parameter int unsigned SIZE       = 1024,
+ 	parameter type dtype              = logic [DATA_WIDTH-1:0],
+-	parameter int unsigned LATENCY    = 1
++	parameter int unsigned LATENCY    = 1,
++    parameter int unsigned LATENCY_A  = LATENCY,
++    parameter int unsigned LATENCY_B  = LATENCY
+ ) (
+ 	input  logic  clk,
+ 	input  logic  rst,
+
+ParseResult:
+INS HdlIdDef@@LATENCY_A to params
+HdlIdDef: LATENCY_A
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: int
+            HdlOp: MAP_ASSOCIATION
+                list: ops
+                    HdlValueId: signed
+    HdlValueId: LATENCY
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@LATENCY_B to params
+HdlIdDef: LATENCY_B
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: int
+            HdlOp: MAP_ASSOCIATION
+                list: ops
+                    HdlValueId: signed
+    HdlValueId: LATENCY
+    HdlDirection: INTERNAL
+
+
+CommitId: f5908f7bc61935ddf2a6ecd89a794cc6c4e050a3
+Fix CP2: address -> chip [func bitstream]
+--- a/src/asic/asic.sv
++++ b/src/asic/asic.sv
+@@ -17,7 +17,7 @@ logic [31:0] rdata_n;
+ logic [31:0] aes_rdata;
+ 
+ always_comb begin
+-	unique case(address)
++	unique case(chip)
+ 		AES_CHIP: rdata_n = aes_rdata;
+ 		default:  rdata_n = '0;
+ 	endcase
+ParseResult:
+UPD HdlStmCase@@address to chip
+
+UPD HdlStmCase@@address to address
+    UPD HdlValueId@@address to chip
+
+
+CommitId: 0b74b6b2bda63d59c5a1ef49f1a4e6c74bec07d1
+Fix FIFO
+--- a/src/utils/fifo_v3.sv
++++ b/src/utils/fifo_v3.sv
+@@ -108,7 +108,7 @@ module fifo_v3 #(
+     end
+ 
+     // sequential process
+-    always_ff @(posedge clk_i_i) begin
++    always_ff @(posedge clk_i) begin
+         if(rst_i) begin
+             read_pointer_q  <= '0;
+             write_pointer_q <= '0;
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlOp@@RISING to RISING
+        UPD HdlValueId@@clk_i_i to clk_i
+
+
+CommitId: 0b74b6b2bda63d59c5a1ef49f1a4e6c74bec07d1
+Fix FIFO
+--- a/src/utils/fifo_v3.sv
++++ b/src/utils/fifo_v3.sv
+@@ -126,7 +126,7 @@ module fifo_v3 #(
+         end
+     end
+ 
+-    always_ff @(posedge clk_i_i) begin
++    always_ff @(posedge clk_i) begin
+         if(rst_i) begin
+             mem_q <= '0;
+         end else if (!gate_clock) begin
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlOp@@RISING to RISING
+        UPD HdlValueId@@clk_i_i to clk_i
+
+UPD HdlStmProcess@@ to 
+    UPD HdlOp@@RISING to RISING
+        UPD HdlValueId@@clk_i_i to clk_i
+
+
+CommitId: f47e4719349c15fdb3a2d514f7e87de8f26edafc
+Fixing some warnings
+--- a/src/cache/dcache_fifo.sv
++++ b/src/cache/dcache_fifo.sv
+@@ -121,7 +121,7 @@ always_comb begin
+     end
+ end
+ 
+-always_ff @(posedge clk or posedge rst) begin
++always_ff @(posedge clk) begin
+     if(rst) begin
+         head <= '0;
+         tail <= '0;
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlOp@@RISING from sensitivity
+    HdlOp: RISING
+        list: ops
+            HdlValueId: rst
+
+
+CommitId: f47e4719349c15fdb3a2d514f7e87de8f26edafc
+Fixing some warnings
+--- a/src/cache/dcache_fifo.sv
++++ b/src/cache/dcache_fifo.sv
+@@ -135,7 +135,7 @@ always_ff @(posedge clk or posedge rst) begin
+     end
+ end
+ 
+-always_ff @(posedge clk or posedge rst) begin
++always_ff @(posedge clk) begin
+     if(rst) begin
+         mem <= '0;
+     end else if(written || pushed) begin
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlOp@@RISING from sensitivity
+    HdlOp: RISING
+        list: ops
+            HdlValueId: rst
+
+UPD HdlStmProcess@@ to 
+    DEL HdlOp@@RISING from sensitivity
+    HdlOp: RISING
+        list: ops
+            HdlValueId: rst
+
+
+CommitId: 065b29c5cb5f8c3ca7febcadf220243782b62055
+Fix some errors to run functional test
+--- a/loongson/soc_axi_func/rtl/myCPU/mycpu_top.sv
++++ b/loongson/soc_axi_func/rtl/myCPU/mycpu_top.sv
+@@ -4,7 +4,7 @@ module mycpu_top #(
+ ) (
+     // external signals
+     input  wire        aclk   ,
+-    input  wire        reset_n,
++    input  wire        aresetn,
+     input  wire [6 :0] intr   ,
+ 
+ 	// AXI AR signals
+
+ParseResult:
+UPD HdlIdDef@@reset_n to aresetn
+
+
+CommitId: 6cc6a53fa8bdeb0e167ac7567d5a60c3cccac031
+(Persumably) fixes D$ write-back
+--- a/src/cache/fifo.sv
++++ b/src/cache/fifo.sv
+@@ -46,7 +46,7 @@ logic [DEPTH-1:0] hit;
+ logic [DEPTH-1:0] hit_non_pop;
+ for(genvar i = 0; i < DEPTH; i++) begin
+     assign hit[i] = valid[i] && mem[i][DATA_WIDTH +: TAG_WIDTH] == query_tag;
+-    assign hit_non_pop[i] = (pop && i == head) ? 1'b0 : hit[i];
++    assign hit_non_pop[i] = (pop && head == i[ADDR_WIDTH-1:0]) ? 1'b0 : hit[i];
+ end
+ 
+ assign query_found = |hit;
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlOp@@AND_LOG to AND_LOG
+            UPD HdlOp@@EQ to EQ
+                INS list@@ops to EQ
+                INS HdlValueId@@head to ops
+                INS HdlOp@@INDEX to ops
+                UPD HdlOp@@INDEX to INDEX
+                    INS HdlOp@@DOWNTO to ops
+                    UPD HdlOp@@DOWNTO to DOWNTO
+                        INS list@@ops to DOWNTO
+                        INS HdlOp@@SUB to ops
+                        INS HdlValueInt@@0 to ops
+                        UPD HdlOp@@SUB to SUB
+                            INS list@@ops to SUB
+                            INS HdlValueInt@@1 to ops
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlOp@@AND_LOG to AND_LOG
+            UPD HdlOp@@EQ to EQ
+                MOV list@@ops to EQ
+                list: ops
+                    HdlValueId: i
+                    HdlValueId: head
+                UPD HdlValueId@@head to ADDR_WIDTH
+                MOV HdlValueId@@head to ops
+                HdlValueId: head
+
+

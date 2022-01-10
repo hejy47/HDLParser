@@ -1,0 +1,16 @@
+53c1546040f6ea6ddf556424a35dfdaced7da34a
+Merge pull request #378 from eschmidscs/wbm_wait
+diff --git a/vunit/vhdl/verification_components/src/wishbone_master.vhd b/vunit/vhdl/verification_components/src/wishbone_master.vhd
+index 8db2e19c..f93970c7 100644
+--- a/vunit/vhdl/verification_components/src/wishbone_master.vhd
++++ b/vunit/vhdl/verification_components/src/wishbone_master.vhd
+@@ -98,6 +98,9 @@ begin
+         request_msg := null_msg;
+ 
+       elsif msg_type = wait_until_idle_msg then
++        if cycle then
++          wait until not cycle;
++        end if;
+         handle_wait_until_idle(net, msg_type, request_msg);
+ 
+       else

@@ -1,0 +1,22 @@
+b94961402cab9729cac4b0692a0710a840b108f0
+[RTL] Fix ebreak behaviour in U-mode
+diff --git a/rtl/ibex_cs_registers.sv b/rtl/ibex_cs_registers.sv
+index c48334fc..7ca67537 100644
+--- a/rtl/ibex_cs_registers.sv
++++ b/rtl/ibex_cs_registers.sv
+@@ -67,6 +67,7 @@ module ibex_cs_registers #(
+     output logic [31:0]          csr_depc_o,
+     output logic                 debug_single_step_o,
+     output logic                 debug_ebreakm_o,
++    output logic                 debug_ebreaku_o,
+ 
+     input  logic [31:0]          pc_if_i,
+     input  logic [31:0]          pc_id_i,
+@@ -570,6 +571,7 @@ module ibex_cs_registers #(
+   assign csr_mstatus_tw_o    = mstatus_q.tw;
+   assign debug_single_step_o = dcsr_q.step;
+   assign debug_ebreakm_o     = dcsr_q.ebreakm;
++  assign debug_ebreaku_o     = dcsr_q.ebreaku;
+ 
+   assign irq_pending_o = csr_msip_o | csr_mtip_o | csr_meip_o | (|csr_mfip_o);
+ 

@@ -1,0 +1,15 @@
+7e8495f8fc5a8f3b308d40df470f690717b5dc9e
+Merge branch 'master' into tmp_fix_issue#56
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index 2df6e92..e5e2414 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -1534,6 +1534,8 @@ module riscv_id_stage
+ 
+         mult_en_ex_o                <= 1'b0;
+ 
++        alu_en_ex_o                 <= 1'b1;
++
+       end else if (csr_access_ex_o) begin
+        //In the EX stage there was a CSR access, to avoid multiple
+        //writes to the RF, disable regfile_alu_we_ex_o.

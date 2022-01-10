@@ -1,0 +1,14 @@
+96969079cebad0350eb2ccd790699502344cb3d7
+a5soc: fixes for 14.0 and spi conflicts
+diff --git a/projects/fmcjesdadc1/common/fmcjesdadc1_spi.v b/projects/fmcjesdadc1/common/fmcjesdadc1_spi.v
+index e283bb66..2ce55a50 100644
+--- a/projects/fmcjesdadc1/common/fmcjesdadc1_spi.v
++++ b/projects/fmcjesdadc1/common/fmcjesdadc1_spi.v
+@@ -86,6 +86,7 @@ module fmcjesdadc1_spi (
+   always @(posedge spi_clk or posedge spi_csn) begin
+     if (spi_csn == 1'b1) begin
+       spi_count <= 6'd0;
++      spi_devid <= 8'd0;
+       spi_rd_wr_n <= 1'd0;
+     end else begin
+       spi_count <= spi_count + 1'b1;

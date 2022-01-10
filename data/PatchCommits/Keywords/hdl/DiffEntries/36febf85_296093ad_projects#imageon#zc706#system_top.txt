@@ -1,0 +1,30 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/projects/imageon/zc706/system_top.v b/projects/imageon/zc706/system_top.v
+index 9b45c023..f8a26049 100644
+--- a/projects/imageon/zc706/system_top.v
++++ b/projects/imageon/zc706/system_top.v
+@@ -80,6 +80,7 @@ module system_top (
+   hdmi_rx_clk,
+   hdmi_rx_data,
+   hdmi_rx_int,
++  hdmi_rx_spdif,
+ 
+   hdmi_tx_clk,
+   hdmi_tx_data,
+@@ -128,6 +129,7 @@ module system_top (
+   input           hdmi_rx_clk;
+   input   [15:0]  hdmi_rx_data;
+   inout           hdmi_rx_int;
++  input           hdmi_rx_spdif;
+ 
+   output          hdmi_tx_clk;
+   output  [15:0]  hdmi_tx_data;
+@@ -222,6 +224,7 @@ module system_top (
+     .ps_intr_10 (1'b0),
+     .ps_intr_13 (1'b0),
+     .spdif (hdmi_tx_spdif),
++    .spdif_rx (hdmi_rx_spdif),
+     .spi0_clk_i (1'b0),
+     .spi0_clk_o (),
+     .spi0_csn_0_o (),

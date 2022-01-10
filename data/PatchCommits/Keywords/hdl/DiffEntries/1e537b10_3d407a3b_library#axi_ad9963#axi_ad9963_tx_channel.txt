@@ -1,0 +1,15 @@
+1e537b1083ecde14a66eb7612c3a17caa45f0ad0
+axi_ad9963: Fix warnings
+diff --git a/library/axi_ad9963/axi_ad9963_tx_channel.v b/library/axi_ad9963/axi_ad9963_tx_channel.v
+index 124eacf0..4d301716 100644
+--- a/library/axi_ad9963/axi_ad9963_tx_channel.v
++++ b/library/axi_ad9963/axi_ad9963_tx_channel.v
+@@ -93,7 +93,7 @@ module axi_ad9963_tx_channel #(
+ 
+   wire            dac_iqcor_valid_s;
+   wire    [15:0]  dac_iqcor_data_s;
+-  wire    [15:0]  dac_dds_data_s;
++  wire    [11:0]  dac_dds_data_s;
+   wire    [15:0]  dac_dds_scale_1_s;
+   wire    [15:0]  dac_dds_init_1_s;
+   wire    [15:0]  dac_dds_incr_1_s;

@@ -1,0 +1,14 @@
+9d6c93a5d860e45405e133558f55722aec3cfe04
+Fix warnings
+diff --git a/library/axi_ad9162/axi_ad9162_core.v b/library/axi_ad9162/axi_ad9162_core.v
+index 7bfbbdcd..8f855571 100644
+--- a/library/axi_ad9162/axi_ad9162_core.v
++++ b/library/axi_ad9162/axi_ad9162_core.v
+@@ -166,6 +166,7 @@ module axi_ad9162_core (
+       .dac_rst (dac_rst),
+       .dac_sync (dac_sync_s),
+       .dac_frame (),
++      .dac_clksel (),
+       .dac_par_type (),
+       .dac_par_enb (),
+       .dac_r1_mode (),

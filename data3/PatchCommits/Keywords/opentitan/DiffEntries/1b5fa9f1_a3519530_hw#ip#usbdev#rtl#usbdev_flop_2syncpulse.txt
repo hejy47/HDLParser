@@ -1,0 +1,15 @@
+1b5fa9f1ebf0a9520ef6ea6faf1f1a2397a349c1
+[verible/style] This corrects several style linter warnings/errors
+diff --git a/hw/ip/usbdev/rtl/usbdev_flop_2syncpulse.sv b/hw/ip/usbdev/rtl/usbdev_flop_2syncpulse.sv
+index 2147be7aa..a75572604 100644
+--- a/hw/ip/usbdev/rtl/usbdev_flop_2syncpulse.sv
++++ b/hw/ip/usbdev/rtl/usbdev_flop_2syncpulse.sv
+@@ -5,7 +5,7 @@
+ // Generic double-synchronizer flop followed by pulse generation
+ 
+ module usbdev_flop_2syncpulse #(
+-  parameter Width = 16
++  parameter int unsigned Width = 16
+ ) (
+   input  logic             clk_i,    // receive clock
+   input  logic             rst_ni,

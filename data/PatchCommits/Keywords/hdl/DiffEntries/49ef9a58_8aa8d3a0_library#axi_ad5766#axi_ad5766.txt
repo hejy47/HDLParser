@@ -1,0 +1,15 @@
+49ef9a589b2784f15b8f3e8a798b882055455d2b
+axi_ad5766: Fix parameter name for up_dac_common
+diff --git a/library/axi_ad5766/axi_ad5766.v b/library/axi_ad5766/axi_ad5766.v
+index 0ae21a72..ed37d8bb 100644
+--- a/library/axi_ad5766/axi_ad5766.v
++++ b/library/axi_ad5766/axi_ad5766.v
+@@ -346,7 +346,7 @@ module axi_ad5766 #(
+     .up_rack (up_rack_s[1]));
+ 
+   up_dac_common #(
+-    .DAC_COMMON_ID (0)
++    .COMMON_ID (0)
+   ) i_dac_common (
+     .mmcm_rst (),
+     .dac_clk (spi_clk),

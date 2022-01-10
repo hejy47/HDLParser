@@ -1,0 +1,5 @@
+,HdlOp-MemberAccessing,HdlOp-RANGE,HdlOp-TO,HdlOp-InfixExpression,HdlOp-MAP_ASSOCIATION,HdlOp-DOWNTO,HdlOp-TERNARY
+update,17,3.0,3.0,10,1.0,4.0,2.0
+delete,11,,,3,,1.0,1.0
+insert,3,,,3,,,
+move,2,,,1,,,

@@ -1,0 +1,18 @@
+018224303044d31d8cebc512000d3aba9c88eb67
+Merge remote-tracking branch 'origin/xret_fix' into vega_dbg_dev_xret_fix
+diff --git a/verilator-model/dp_ram.sv b/verilator-model/dp_ram.sv
+index 0082bfe..fffe0f1 100644
+--- a/verilator-model/dp_ram.sv
++++ b/verilator-model/dp_ram.sv
+@@ -34,9 +34,9 @@ module dp_ram
+   localparam bytes = 2**ADDR_WIDTH;
+ 
+   logic [7:0] mem[bytes];
+-  logic [19:0] addr_b_int;
++  logic [ADDR_WIDTH-1:0] addr_b_int;
+ 
+-  always_comb addr_b_int = {addr_b_i[19:2], 2'b0};
++  always_comb addr_b_int = {addr_b_i[ADDR_WIDTH-1:2], 2'b0};
+ 
+   always @(posedge clk)
+   begin

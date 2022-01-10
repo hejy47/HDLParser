@@ -1,0 +1,20 @@
+c3405e8b1b7bdcf5cb6ffd8518c086b419aaab1b
+fixed merge with master
+diff --git a/rtl/riscv_cs_registers.sv b/rtl/riscv_cs_registers.sv
+index 975f422..546095c 100644
+--- a/rtl/riscv_cs_registers.sv
++++ b/rtl/riscv_cs_registers.sv
+@@ -124,10 +124,10 @@ module riscv_cs_registers
+ );
+ 
+   localparam N_APU_CNT       = (APU==1) ? 4 : 0;
+-  localparam N_PERF_COUNTERS = 13 + N_EXT_CNT + N_APU_CNT;
++  localparam N_PERF_COUNTERS = 12 + N_EXT_CNT + N_APU_CNT;
+ 
+-  localparam PERF_EXT_ID   = 12;
+-  localparam PERF_APU_ID   = PERF_EXT_ID + 1 + N_EXT_CNT;
++  localparam PERF_EXT_ID     = 12;
++  localparam PERF_APU_ID     = PERF_EXT_ID + N_EXT_CNT;
+ 
+ 
+ `ifdef ASIC_SYNTHESIS

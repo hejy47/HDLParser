@@ -1,0 +1,17 @@
+a78627343d6da8c50c52f4a11aa624b5d84858de
+Change default target parameter
+diff --git a/example/NexysVideo/fpga/rtl/fpga.v b/example/NexysVideo/fpga/rtl/fpga.v
+index 160b337..e9cef29 100644
+--- a/example/NexysVideo/fpga/rtl/fpga.v
++++ b/example/NexysVideo/fpga/rtl/fpga.v
+@@ -328,7 +328,9 @@ phy_rx_ctl_idelay
+     .REGRST(1'b0)
+ );
+ 
+-fpga_core
++fpga_core #(
++    .TARGET("XILINX")
++)
+ core_inst (
+     /*
+      * Clock: 125MHz

@@ -1,0 +1,15 @@
+84aa0b06741c83e703a4e104bc7fa7e120743d40
+[ast] AscentLint error fixes (more)
+diff --git a/hw/top_earlgrey/ip/ast/rtl/rglts_pdm_3p3v.sv b/hw/top_earlgrey/ip/ast/rtl/rglts_pdm_3p3v.sv
+index 5691e6cbb..c298ffb4d 100644
+--- a/hw/top_earlgrey/ip/ast/rtl/rglts_pdm_3p3v.sv
++++ b/hw/top_earlgrey/ip/ast/rtl/rglts_pdm_3p3v.sv
+@@ -71,7 +71,7 @@ assign main_pwr_dly_o = mr_vcc_dly && mr_pd_dly;
+ 
+ logic vcaon_pok_h;
+ 
+-vcaon_pok u_vcaon_pok (
++vcaon_pgd u_vcaon_pok (
+   .vcaon_pok_o ( vcaon_pok_h )
+ );
+ 

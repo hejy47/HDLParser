@@ -1,0 +1,24 @@
+0b74b6b2bda63d59c5a1ef49f1a4e6c74bec07d1
+Fix FIFO
+diff --git a/src/utils/fifo_v3.sv b/src/utils/fifo_v3.sv
+index e2d97a0..c9d8b74 100644
+--- a/src/utils/fifo_v3.sv
++++ b/src/utils/fifo_v3.sv
+@@ -108,7 +108,7 @@ module fifo_v3 #(
+     end
+ 
+     // sequential process
+-    always_ff @(posedge clk_i_i) begin
++    always_ff @(posedge clk_i) begin
+         if(rst_i) begin
+             read_pointer_q  <= '0;
+             write_pointer_q <= '0;
+@@ -126,7 +126,7 @@ module fifo_v3 #(
+         end
+     end
+ 
+-    always_ff @(posedge clk_i_i) begin
++    always_ff @(posedge clk_i) begin
+         if(rst_i) begin
+             mem_q <= '0;
+         end else if (!gate_clock) begin

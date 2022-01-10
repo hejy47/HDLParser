@@ -1,0 +1,14 @@
+2ea3d8c939ea10238743d3d9c3dc234e13e76bbe
+Fix delayslot.
+diff --git a/src/cpu/mem/instr_mem.sv b/src/cpu/mem/instr_mem.sv
+index 9726495..efaba5d 100644
+--- a/src/cpu/mem/instr_mem.sv
++++ b/src/cpu/mem/instr_mem.sv
+@@ -12,6 +12,7 @@ uint32_t data_rd;
+ assign op = data.decoded.op;
+ assign data_rd = data.memreq.uncached ? uncached_rddata : cached_rddata;
+ assign result.hiloreq = data.hiloreq;
++assign result.pc = data.pc;
+ 
+ logic [1:0] addr_offset;
+ uint32_t aligned_data_rd, unaligned_data_rd, ext_sel;

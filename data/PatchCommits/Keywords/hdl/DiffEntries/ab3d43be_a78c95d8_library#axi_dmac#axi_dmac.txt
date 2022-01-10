@@ -1,0 +1,24 @@
+ab3d43be71df5233c4e63d27232a6c129b629928
+up_axi.v: fixed bus width definition
+diff --git a/library/axi_dmac/axi_dmac.v b/library/axi_dmac/axi_dmac.v
+index 9c128059..95b3f8fe 100644
+--- a/library/axi_dmac/axi_dmac.v
++++ b/library/axi_dmac/axi_dmac.v
+@@ -69,7 +69,7 @@ module axi_dmac #(
+   input s_axi_aresetn,
+ 
+   input         s_axi_awvalid,
+-  input  [11:0] s_axi_awaddr,
++  input  [10:0] s_axi_awaddr,
+   output        s_axi_awready,
+   input   [2:0] s_axi_awprot,
+   input         s_axi_wvalid,
+@@ -80,7 +80,7 @@ module axi_dmac #(
+   output [ 1:0] s_axi_bresp,
+   input         s_axi_bready,
+   input         s_axi_arvalid,
+-  input  [11:0] s_axi_araddr,
++  input  [10:0] s_axi_araddr,
+   output        s_axi_arready,
+   input   [2:0] s_axi_arprot,
+   output        s_axi_rvalid,

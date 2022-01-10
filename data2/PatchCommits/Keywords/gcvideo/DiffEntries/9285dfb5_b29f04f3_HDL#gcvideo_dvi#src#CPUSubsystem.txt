@@ -1,0 +1,26 @@
+9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+diff --git a/HDL/gcvideo_dvi/src/CPUSubsystem.vhd b/HDL/gcvideo_dvi/src/CPUSubsystem.vhd
+index 2c4cebd..416a4db 100644
+--- a/HDL/gcvideo_dvi/src/CPUSubsystem.vhd
++++ b/HDL/gcvideo_dvi/src/CPUSubsystem.vhd
+@@ -59,8 +59,7 @@ entity CPUSubsystem is
+     OSDRamAddr       : in  std_logic_vector(10 downto 0);
+     OSDRamData       : out std_logic_vector(8 downto 0);
+     OSDSettings      : out OSDSettings_t;
+-    VSettings        : out VideoSettings_t;
+-    ImageControls    : out ImageControls_t
++    VSettings        : out VideoSettings_t
+   );
+ end CPUSubsystem;
+ 
+@@ -210,8 +209,7 @@ begin
+     ZPUBusOut        => VideoIFOut,
+     IRQ              => VSyncIRQ,
+     VSettings        => vid_settings,
+-    OSDSettings      => OSDSettings,
+-    ImageControls    => ImageControls
++    OSDSettings      => OSDSettings
+   );
+   VSettings <= vid_settings;
+ 

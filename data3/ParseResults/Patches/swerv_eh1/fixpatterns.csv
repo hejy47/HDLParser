@@ -1,0 +1,5 @@
+,update,insert
+HdlOp-Assignment-HdlStmCase,2,
+HdlOp-MemberAccessing-HdlOp-Assignment,1,1.0
+HdlOp-MemberAccessing-HdlOp-MemberAccessing,1,1.0
+HdlOp-InfixExpression-HdlOp-MemberAccessing,1,1.0

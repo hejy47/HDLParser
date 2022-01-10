@@ -1,0 +1,22 @@
+41d4fa5fbd7f5d3fafa6aac85a9f027a7004d684
+[hw, rv_core_ibex] Enable hardware breakpoints
+diff --git a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+index 0022dcc78..90edc6af2 100644
+--- a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
++++ b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+@@ -16,6 +16,7 @@ module rv_core_ibex #(
+   parameter int unsigned MHPMCounterWidth = 40,
+   parameter bit          RV32E            = 0,
+   parameter bit          RV32M            = 1,
++  parameter bit          DbgTriggerEn     = 1'b1,
+   parameter int unsigned DmHaltAddr       = 32'h1A110800,
+   parameter int unsigned DmExceptionAddr  = 32'h1A110808,
+   parameter bit          PipeLine         = 0
+@@ -116,6 +117,7 @@ module rv_core_ibex #(
+      .MHPMCounterWidth ( MHPMCounterWidth  ),
+      .RV32E            ( RV32E             ),
+      .RV32M            ( RV32M             ),
++     .DbgTriggerEn     ( DbgTriggerEn      ),
+      .DmHaltAddr       ( DmHaltAddr        ),
+      .DmExceptionAddr  ( DmExceptionAddr   )
+   ) u_core (

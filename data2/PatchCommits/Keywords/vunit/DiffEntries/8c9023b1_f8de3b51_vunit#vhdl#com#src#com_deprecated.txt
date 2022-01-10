@@ -1,0 +1,14 @@
+8c9023b123bad4fbab2f8a520899503c4a022bd8
+Fixed some linting issues.
+diff --git a/vunit/vhdl/com/src/com_deprecated.vhd b/vunit/vhdl/com/src/com_deprecated.vhd
+index 4a6654a5..eaacc51f 100644
+--- a/vunit/vhdl/com/src/com_deprecated.vhd
++++ b/vunit/vhdl/com/src/com_deprecated.vhd
+@@ -315,7 +315,6 @@ package body com_deprecated_pkg is
+     variable message      : inout message_ptr_t;
+     constant timeout      : in    time    := max_timeout_c;
+     constant keep_message : in    boolean := true) is
+-    variable receipt : receipt_t;
+   begin
+     send(net, receiver, inbox, message, timeout, keep_message);
+   end;

@@ -1,0 +1,15 @@
+b9f2d2450f755cb8c9cf7d020abc230e4cfd5614
+[rtl/prim_alert_sender] Allow ping_req to stay high without error
+diff --git a/hw/ip/prim/rtl/prim_esc_sender.sv b/hw/ip/prim/rtl/prim_esc_sender.sv
+index aae622edb..7fa354c17 100644
+--- a/hw/ip/prim/rtl/prim_esc_sender.sv
++++ b/hw/ip/prim/rtl/prim_esc_sender.sv
+@@ -114,7 +114,7 @@ module prim_esc_sender
+       Idle: begin
+         if (esc_req_i) begin
+           state_d = CheckEscRespHi;
+-        end else if (ping_req_i) begin
++        end else if (ping_req_d & ~ping_req_q) begin
+           state_d = CheckPingResp0;
+         end
+         // any assertion of the response signal

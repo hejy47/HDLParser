@@ -1,0 +1,2014 @@
+CommitId: b076d72806fb84ee0557a75f871aef0ba0d6a66b
+Fixed PCPI instr prefetching
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -164,8 +164,7 @@ module picorv32 #(
+ 	reg mem_do_wdata;
+ 
+ 	wire mem_busy = |{mem_do_prefetch, mem_do_rinst, mem_do_rdata, mem_do_wdata};
+-
+-	wire mem_done = mem_ready && ((mem_state[0] && (mem_do_rinst || mem_do_rdata)) || mem_state == 2);
++	wire mem_done = (mem_ready && |mem_state && (mem_do_rinst || mem_do_rdata || mem_do_wdata)) || (&mem_state && mem_do_rinst);
+ 
+ 	assign mem_la_write = resetn && !mem_state && mem_do_wdata;
+ 	assign mem_la_read = resetn && !mem_state && (mem_do_rinst || mem_do_prefetch || mem_do_rdata);
+ParseResult:
+INS HdlIdDef@@mem_done to objs
+
+UPD HdlIdDef@@mem_done to mem_done
+    INS HdlOp@@OR_LOG to mem_done
+    INS HdlDirection@@INTERNAL to mem_done
+    UPD HdlOp@@OR_LOG to OR_LOG
+        INS list@@ops to OR_LOG
+        INS HdlOp@@AND_LOG to ops
+        INS HdlOp@@AND_LOG to ops
+        HdlOp: AND_LOG
+            list: ops
+                HdlOp: AND_UNARY
+                    list: ops
+                        HdlValueId: mem_state
+                HdlValueId: mem_do_rinst
+        UPD HdlOp@@AND_LOG to AND_LOG
+            INS list@@ops to AND_LOG
+            INS HdlOp@@AND_LOG to ops
+            HdlOp: AND_LOG
+                list: ops
+                    HdlValueId: mem_ready
+                    HdlOp: OR_UNARY
+                        list: ops
+                            HdlValueId: mem_state
+            UPD HdlOp@@OR_LOG to OR_LOG
+                INS HdlValueId@@mem_do_wdata to ops
+
+UPD HdlIdDef@@mem_done to mem_done
+    UPD HdlOp@@AND_LOG to AND_LOG
+        UPD HdlOp@@OR_LOG to OR_LOG
+            UPD HdlOp@@AND_LOG to OR_LOG
+            MOV HdlOp@@AND_LOG to ops
+            HdlOp: AND_LOG
+                list: ops
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: mem_state
+                            HdlValueInt: 0
+                    HdlOp: OR_LOG
+                        list: ops
+                            HdlValueId: mem_do_rinst
+                            HdlValueId: mem_do_rdata
+            UPD HdlOp@@AND_LOG to AND_LOG
+                DEL HdlOp@@INDEX from ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_state
+                        HdlValueInt: 0
+            DEL HdlOp@@EQ from ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: mem_state
+                    HdlValueInt: 2
+            DEL list@@ops from OR_LOG
+        DEL HdlValueId@@mem_ready from ops
+        DEL HdlOp@@OR_LOG from ops
+        DEL list@@ops from AND_LOG
+    DEL HdlOp@@AND_LOG from mem_done
+    DEL HdlDirection@@INTERNAL from mem_done
+
+DEL HdlIdDef@@mem_done from objs
+
+
+CommitId: 7fc2cbd72a63228e85a002aac80104febf8b41ba
+More RVFI bugfixes
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1487,8 +1487,8 @@ module picorv32 #(
+ 								`debug($display("LD_RS2: %2d 0x%08x", decoded_rs2, cpuregs_rs2);)
+ 								reg_sh <= cpuregs_rs2;
+ 								reg_op2 <= cpuregs_rs2;
+-								dbg_rs2val <= cpuregs_rs1;
+-								dbg_rs2val_valid <= 0;
++								dbg_rs2val <= cpuregs_rs2;
++								dbg_rs2val_valid <= 1;
+ 								if (pcpi_int_ready) begin
+ 									mem_do_rinst <= 1;
+ 									pcpi_valid <= 0;
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: 7fc2cbd72a63228e85a002aac80104febf8b41ba
+More RVFI bugfixes
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1625,7 +1625,7 @@ module picorv32 #(
+ 							reg_sh <= cpuregs_rs2;
+ 							reg_op2 <= cpuregs_rs2;
+ 							dbg_rs2val <= cpuregs_rs2;
+-							dbg_rs2val_valid <= 0;
++							dbg_rs2val_valid <= 1;
+ 							(* parallel_case *)
+ 							case (1'b1)
+ 								is_sb_sh_sw: begin
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: 7fc2cbd72a63228e85a002aac80104febf8b41ba
+More RVFI bugfixes
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1655,7 +1655,7 @@ module picorv32 #(
+ 				reg_sh <= cpuregs_rs2;
+ 				reg_op2 <= cpuregs_rs2;
+ 				dbg_rs2val <= cpuregs_rs2;
+-				dbg_rs2val_valid <= 0;
++				dbg_rs2val_valid <= 1;
+ 
+ 				(* parallel_case *)
+ 				case (1'b1)
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: fb3178c4b7d5244050b4438ec617f19d53024627
+Fixed dbg_ signals: no latches (formal verification doesn't like latches)
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -597,13 +597,34 @@ module picorv32 #(
+ 		if (instr_timer)    new_ascii_instr = "timer";
+ 	end
+ 
++	reg [63:0] q_dbg_ascii_instr;
++	reg [31:0] q_dbg_insn_imm;
++	reg [31:0] q_dbg_insn_opcode;
++	reg [4:0] q_dbg_insn_rs1;
++	reg [4:0] q_dbg_insn_rs2;
++	reg [4:0] q_dbg_insn_rd;
++
+ 	always @(posedge clk) begin
++		q_dbg_ascii_instr <= dbg_ascii_instr;
++		q_dbg_insn_imm <= dbg_insn_imm;
++		q_dbg_insn_opcode <= dbg_insn_opcode;
++		q_dbg_insn_rs1 <= dbg_insn_rs1;
++		q_dbg_insn_rs2 <= dbg_insn_rs2;
++		q_dbg_insn_rd <= dbg_insn_rd;
++
+ 		if (decoder_trigger && !decoder_pseudo_trigger) begin
+ 			dbg_insn_addr <= next_pc;
+ 		end
+ 	end
+ 
+ 	always @* begin
++		dbg_ascii_instr = q_dbg_ascii_instr;
++		dbg_insn_imm = q_dbg_insn_imm;
++		dbg_insn_opcode = q_dbg_insn_opcode;
++		dbg_insn_rs1 = q_dbg_insn_rs1;
++		dbg_insn_rs2 = q_dbg_insn_rs2;
++		dbg_insn_rd = q_dbg_insn_rd;
++
+ 		if (decoder_trigger_q && !decoder_pseudo_trigger_q) begin
+ 			dbg_ascii_instr = new_ascii_instr;
+ 			if (&mem_rdata_q[1:0])
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: dbg_ascii_instr
+                HdlValueId: q_dbg_ascii_instr
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: dbg_insn_imm
+                HdlValueId: q_dbg_insn_imm
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: dbg_insn_opcode
+                HdlValueId: q_dbg_insn_opcode
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: dbg_insn_rs1
+                HdlValueId: q_dbg_insn_rs1
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: dbg_insn_rs2
+                HdlValueId: q_dbg_insn_rs2
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: dbg_insn_rd
+                HdlValueId: q_dbg_insn_rd
+
+
+CommitId: aa17d587843a78e3d49b5e24bc5e4ab76e8c6383
+Bugfix in C.SRAI implementation
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -276,7 +276,7 @@ module picorv32 #(
+ 								mem_rdata_q[31:25] <= 7'b0000000;
+ 								mem_rdata_q[14:12] <= 3'b 101;
+ 							end
+-							if (mem_rdata_latched[11:10] == 2'b00) begin // C.SRAI
++							if (mem_rdata_latched[11:10] == 2'b01) begin // C.SRAI
+ 								mem_rdata_q[31:25] <= 7'b0100000;
+ 								mem_rdata_q[14:12] <= 3'b 101;
+ 							end
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    INS HdlStmCaseType@@CASE to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@EQ to EQ
+        UPD HdlValueInt@@00 to 01
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    DEL HdlStmCaseType@@CASE from {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: 65e72ea49e7a15b56ad27eceef1e94f213234b4f
+Merge pull request #156 from dehann/patch-1
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -17,7 +17,7 @@
+  *
+  */
+ 
+-module simpleuart (
++module simpleuart #(parameter integer DEFAULT_DIV = 1) (
+ 	input clk,
+ 	input resetn,
+ 
+
+ParseResult:
+INS HdlIdDef@@DEFAULT_DIV to params
+HdlIdDef: DEFAULT_DIV
+    HdlValueId: integer
+    HdlValueInt: 1
+    HdlDirection: INTERNAL
+
+
+CommitId: 65e72ea49e7a15b56ad27eceef1e94f213234b4f
+Merge pull request #156 from dehann/patch-1
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -54,7 +54,7 @@ module simpleuart (
+ 
+ 	always @(posedge clk) begin
+ 		if (!resetn) begin
+-			cfg_divider <= 1;
++			cfg_divider <= DEFAULT_DIV;
+ 		end else begin
+ 			if (reg_div_we[0]) cfg_divider[ 7: 0] <= reg_div_di[ 7: 0];
+ 			if (reg_div_we[1]) cfg_divider[15: 8] <= reg_div_di[15: 8];
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@DEFAULT_DIV to 
+
+UPD HdlStmAssign@@ to 
+    DEL HdlValueInt@@1 from 
+
+
+CommitId: 824a5c801194299f89f4fd8844c1fbcd1bdf4e21
+Merge pull request #158 from rxrbln/uart
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -17,7 +17,7 @@
+  *
+  */
+ 
+-module simpleuart (
++module simpleuart #(parameter integer DEFAULT_DIV = 1) (
+ 	input clk,
+ 	input resetn,
+ 
+
+ParseResult:
+INS HdlIdDef@@DEFAULT_DIV to params
+HdlIdDef: DEFAULT_DIV
+    HdlValueId: integer
+    HdlValueInt: 1
+    HdlDirection: INTERNAL
+
+
+CommitId: 824a5c801194299f89f4fd8844c1fbcd1bdf4e21
+Merge pull request #158 from rxrbln/uart
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -54,7 +54,7 @@ module simpleuart (
+ 
+ 	always @(posedge clk) begin
+ 		if (!resetn) begin
+-			cfg_divider <= 1;
++			cfg_divider <= DEFAULT_DIV;
+ 		end else begin
+ 			if (reg_div_we[0]) cfg_divider[ 7: 0] <= reg_div_di[ 7: 0];
+ 			if (reg_div_we[1]) cfg_divider[15: 8] <= reg_div_di[15: 8];
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@DEFAULT_DIV to 
+
+UPD HdlStmAssign@@ to 
+    DEL HdlValueInt@@1 from 
+
+
+CommitId: 16f97a86a1e8c4a7582e55a6c7e4d4430b076fe5
+Reset bugfix (bug found via scripts/smt2-bmc/mem_equiv.*)
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -175,7 +175,7 @@ module picorv32 #(
+ 	reg mem_do_wdata;
+ 
+ 	wire mem_busy = |{mem_do_prefetch, mem_do_rinst, mem_do_rdata, mem_do_wdata};
+-	wire mem_done = (mem_ready && |mem_state && (mem_do_rinst || mem_do_rdata || mem_do_wdata)) || (&mem_state && mem_do_rinst);
++	wire mem_done = resetn && ((mem_ready && |mem_state && (mem_do_rinst || mem_do_rdata || mem_do_wdata)) || (&mem_state && mem_do_rinst));
+ 
+ 	assign mem_la_write = resetn && !mem_state && mem_do_wdata;
+ 	assign mem_la_read = resetn && !mem_state && (mem_do_rinst || mem_do_prefetch || mem_do_rdata);
+ParseResult:
+UPD HdlIdDef@@mem_done to mem_done
+    INS HdlOp@@AND_LOG to mem_done
+    UPD HdlOp@@AND_LOG to AND_LOG
+        INS list@@ops to AND_LOG
+        INS HdlValueId@@resetn to ops
+
+UPD HdlIdDef@@mem_done to mem_done
+    MOV HdlOp@@OR_LOG to mem_done
+    HdlOp: OR_LOG
+        list: ops
+            HdlOp: AND_LOG
+                list: ops
+                    HdlOp: AND_LOG
+                        list: ops
+                            HdlValueId: mem_ready
+                            HdlOp: OR_UNARY
+                                list: ops
+                                    HdlValueId: mem_state
+                    HdlOp: OR_LOG
+                        list: ops
+                            HdlOp: OR_LOG
+                                list: ops
+                                    HdlValueId: mem_do_rinst
+                                    HdlValueId: mem_do_rdata
+                            HdlValueId: mem_do_wdata
+            HdlOp: AND_LOG
+                list: ops
+                    HdlOp: AND_UNARY
+                        list: ops
+                            HdlValueId: mem_state
+                    HdlValueId: mem_do_rinst
+
+
+CommitId: 9c028fc965e8913d82df2fde951102d8a12ff474
+Added missing LD_RS1 debug statements
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -719,9 +719,11 @@ module picorv32 #(
+ 				case (1'b1)
+ 					(CATCH_ILLINSN || WITH_PCPI) && instr_trap: begin
+ 						if (WITH_PCPI) begin
++							`debug($display("LD_RS1: %2d 0x%08x", decoded_rs1, decoded_rs1 ? cpuregs[decoded_rs1] : 0);)
+ 							reg_op1 <= decoded_rs1 ? cpuregs[decoded_rs1] : 0;
+ 							if (ENABLE_REGS_DUALPORT) begin
+ 								pcpi_valid <= 1;
++								`debug($display("LD_RS2: %2d 0x%08x", decoded_rs2, decoded_rs2 ? cpuregs[decoded_rs2] : 0);)
+ 								reg_sh <= decoded_rs2 ? cpuregs[decoded_rs2] : 0;
+ 								reg_op2 <= decoded_rs2 ? cpuregs[decoded_rs2] : 0;
+ 								if (pcpi_int_ready) begin
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: 9c028fc965e8913d82df2fde951102d8a12ff474
+Added missing LD_RS1 debug statements
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -773,12 +775,14 @@ module picorv32 #(
+ 						cpu_state <= cpu_state_exec;
+ 					end
+ 					ENABLE_IRQ && ENABLE_IRQ_QREGS && instr_getq: begin
+-						reg_out <= cpuregs[decoded_rs1];
++						`debug($display("LD_RS1: %2d 0x%08x", decoded_rs1, decoded_rs1 ? cpuregs[decoded_rs1] : 0);)
++						reg_out <= decoded_rs1 ? cpuregs[decoded_rs1] : 0;
+ 						latched_store <= 1;
+ 						cpu_state <= cpu_state_fetch;
+ 					end
+ 					ENABLE_IRQ && ENABLE_IRQ_QREGS && instr_setq: begin
+-						reg_out <= cpuregs[decoded_rs1];
++						`debug($display("LD_RS1: %2d 0x%08x", decoded_rs1, decoded_rs1 ? cpuregs[decoded_rs1] : 0);)
++						reg_out <= decoded_rs1 ? cpuregs[decoded_rs1] : 0;
+ 						latched_rd <= latched_rd | irqregs_offset;
+ 						latched_store <= 1;
+ 						cpu_state <= cpu_state_fetch;
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: cpuregs
+            HdlValueId: decoded_rs1
+    HdlValueId: reg_out
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlValueId@@decoded_rs1 to ops
+        INS HdlValueInt@@0 to ops
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: cpuregs
+            HdlValueId: decoded_rs1
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: cpuregs
+            HdlValueId: decoded_rs1
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: 9c028fc965e8913d82df2fde951102d8a12ff474
+Added missing LD_RS1 debug statements
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -788,18 +792,21 @@ module picorv32 #(
+ 						irq_active <= 0;
+ 						latched_branch <= 1;
+ 						latched_store <= 1;
+-						reg_out <= cpuregs[decoded_rs1];
++						`debug($display("LD_RS1: %2d 0x%08x", decoded_rs1, decoded_rs1 ? cpuregs[decoded_rs1] : 0);)
++						reg_out <= decoded_rs1 ? cpuregs[decoded_rs1] : 0;
+ 						cpu_state <= cpu_state_fetch;
+ 					end
+ 					ENABLE_IRQ && instr_maskirq: begin
+ 						latched_store <= 1;
+ 						reg_out <= irq_mask;
++						`debug($display("LD_RS1: %2d 0x%08x", decoded_rs1, decoded_rs1 ? cpuregs[decoded_rs1] : 0);)
+ 						irq_mask <= (decoded_rs1 ? cpuregs[decoded_rs1] : 0) | MASKED_IRQ;
+ 						cpu_state <= cpu_state_fetch;
+ 					end
+ 					ENABLE_IRQ && ENABLE_IRQ_TIMER && instr_timer: begin
+ 						latched_store <= 1;
+ 						reg_out <= timer;
++						`debug($display("LD_RS1: %2d 0x%08x", decoded_rs1, decoded_rs1 ? cpuregs[decoded_rs1] : 0);)
+ 						timer <= decoded_rs1 ? cpuregs[decoded_rs1] : 0;
+ 						cpu_state <= cpu_state_fetch;
+ 					end
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: cpuregs
+            HdlValueId: decoded_rs1
+    HdlValueId: reg_out
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlValueId@@decoded_rs1 to ops
+        INS HdlValueInt@@0 to ops
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: cpuregs
+            HdlValueId: decoded_rs1
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: 4101cfe8105c0442be88a938ca10b73ee08037b7
+Fixed the nontrivial compressed ISA bug found by tracecmp2
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -296,8 +296,9 @@ module picorv32 #(
+ 	reg mem_do_rdata;
+ 	reg mem_do_wdata;
+ 
+-	reg mem_la_secondword;
++	reg mem_la_secondword, mem_la_firstword_reg, last_mem_valid;
+ 	wire mem_la_firstword = COMPRESSED_ISA && (mem_do_prefetch || mem_do_rinst) && next_pc[1] && !mem_la_secondword;
++	wire mem_la_firstword_xfer = COMPRESSED_ISA && mem_xfer && (!last_mem_valid ? mem_la_firstword : mem_la_firstword_reg);
+ 
+ 	reg prefetched_high_word;
+ 	reg clear_prefetched_high_word;
+
+ParseResult:
+INS HdlStmProcess@@ to objs
+HdlStmProcess
+    list: sensitivity
+        HdlOp: RISING
+            list: ops
+                HdlValueId: clk
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmIf
+                HdlOp: NEG_LOG
+                    list: ops
+                        HdlValueId: resetn
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 0
+                            HdlValueId: mem_la_firstword_reg
+                        HdlStmAssign
+                            HdlValueInt: 0
+                            HdlValueId: last_mem_valid
+                list: elifs
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmIf
+                            HdlOp: NEG_LOG
+                                list: ops
+                                    HdlValueId: last_mem_valid
+                            HdlStmAssign: if_true
+                                HdlValueId: mem_la_firstword
+                                HdlValueId: mem_la_firstword_reg
+                            list: elifs
+                        HdlStmAssign
+                            HdlOp: AND_LOG
+                                list: ops
+                                    HdlValueId: mem_valid
+                                    HdlOp: NEG_LOG
+                                        list: ops
+                                            HdlValueId: mem_ready
+                            HdlValueId: last_mem_valid
+
+
+CommitId: 54a8e4b311e207fa1d07226627dbf9dea6c13836
+Fixed catching jumps to misaligned insn
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1564,7 +1564,7 @@ module picorv32 #(
+ 						latched_branch <= 1;
+ 						latched_store <= 1;
+ 						`debug($display("LD_RS1: %2d 0x%08x", decoded_rs1, cpuregs_rs1);)
+-						reg_out <= cpuregs_rs1;
++						reg_out <= CATCH_MISALIGN ? (cpuregs_rs1 & 32'h fffffffe) : cpuregs_rs1;
+ 						dbg_rs1val <= cpuregs_rs1;
+ 						dbg_rs1val_valid <= 1;
+ 						cpu_state <= cpu_state_fetch;
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: da3749819197875c10eeec54551401ac19090902
+Two minor bugfixes
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1494,7 +1494,7 @@ module picorv32 #(
+ 						timer <= cpuregs_rs1;
+ 						cpu_state <= cpu_state_fetch;
+ 					end
+-					is_lb_lh_lw_lbu_lhu: begin
++					is_lb_lh_lw_lbu_lhu && !instr_trap: begin
+ 						`debug($display("LD_RS1: %2d 0x%08x", decoded_rs1, cpuregs_rs1);)
+ 						reg_op1 <= cpuregs_rs1;
+ 						cpu_state <= cpu_state_ldmem;
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: da3749819197875c10eeec54551401ac19090902
+Two minor bugfixes
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1525,7 +1525,7 @@ module picorv32 #(
+ 							reg_op2 <= cpuregs_rs2;
+ 							(* parallel_case *)
+ 							case (1'b1)
+-								is_sb_sh_sw: begin
++								is_sb_sh_sw && !instr_trap: begin
+ 									cpu_state <= cpu_state_stmem;
+ 									mem_do_rinst <= 1;
+ 								end
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: fce9656604316712df0b0ab87f6cd0ba708aa68c
+Bugfix in memory interface (related to compressed ISA)
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -188,11 +188,11 @@ module picorv32 #(
+ 	reg [15:0] mem_16bit_buffer;
+ 
+ 	wire mem_busy = |{mem_do_prefetch, mem_do_rinst, mem_do_rdata, mem_do_wdata};
+-	wire mem_done = resetn && ((mem_ready && |mem_state && (mem_do_rinst || mem_do_rdata || mem_do_wdata)) || (&mem_state && mem_do_rinst)) && !mem_la_firstword;
++	wire mem_done = resetn && ((mem_valid && mem_ready && |mem_state && (mem_do_rinst || mem_do_rdata || mem_do_wdata)) || (&mem_state && mem_do_rinst)) && !mem_la_firstword;
+ 
+ 	assign mem_la_write = resetn && !mem_state && mem_do_wdata;
+-	assign mem_la_read = resetn && ((!mem_state && (mem_do_rinst || mem_do_prefetch || mem_do_rdata)) || (mem_ready && mem_la_firstword && !mem_la_secondword));
+-	assign mem_la_addr = (mem_do_prefetch || mem_do_rinst) ? {next_pc[31:2] + (mem_ready && mem_la_firstword), 2'b00} : {reg_op1[31:2], 2'b00};
++	assign mem_la_read = resetn && ((!mem_state && (mem_do_rinst || mem_do_prefetch || mem_do_rdata)) || (mem_valid && mem_ready && mem_la_firstword && !mem_la_secondword));
++	assign mem_la_addr = (mem_do_prefetch || mem_do_rinst) ? {next_pc[31:2] + (mem_valid && mem_ready && mem_la_firstword), 2'b00} : {reg_op1[31:2], 2'b00};
+ 
+ 	wire [31:0] mem_rdata_latched_noshuffle;
+ 	assign mem_rdata_latched_noshuffle = ((mem_valid && mem_ready) || LATCHED_MEM_RDATA) ? mem_rdata : mem_rdata_q;
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@AND_LOG to AND_LOG
+        UPD HdlOp@@OR_LOG to OR_LOG
+            UPD HdlOp@@AND_LOG to AND_LOG
+                UPD HdlOp@@AND_LOG to AND_LOG
+                    INS HdlOp@@AND_LOG to ops
+                    UPD HdlOp@@AND_LOG to AND_LOG
+                        INS list@@ops to AND_LOG
+                        INS HdlValueId@@mem_valid to ops
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlOp@@CONCAT to CONCAT
+            UPD HdlOp@@ADD to ADD
+                UPD HdlOp@@AND_LOG to AND_LOG
+                    INS HdlOp@@AND_LOG to ops
+                    UPD HdlOp@@AND_LOG to AND_LOG
+                        INS list@@ops to AND_LOG
+                        INS HdlValueId@@mem_valid to ops
+
+UPD HdlIdDef@@mem_done to mem_done
+    UPD HdlOp@@AND_LOG to AND_LOG
+        UPD HdlOp@@AND_LOG to AND_LOG
+            UPD HdlOp@@OR_LOG to OR_LOG
+                UPD HdlOp@@AND_LOG to AND_LOG
+                    UPD HdlOp@@AND_LOG to AND_LOG
+                        INS HdlOp@@AND_LOG to ops
+                        UPD HdlOp@@AND_LOG to AND_LOG
+                            INS list@@ops to AND_LOG
+                            INS HdlValueId@@mem_valid to ops
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@AND_LOG to AND_LOG
+        UPD HdlOp@@OR_LOG to OR_LOG
+            UPD HdlOp@@AND_LOG to AND_LOG
+                UPD HdlOp@@AND_LOG to AND_LOG
+                    MOV HdlValueId@@mem_ready to ops
+                    HdlValueId: mem_ready
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlOp@@CONCAT to CONCAT
+            UPD HdlOp@@ADD to ADD
+                UPD HdlOp@@AND_LOG to AND_LOG
+                    MOV HdlValueId@@mem_ready to ops
+                    HdlValueId: mem_ready
+
+UPD HdlIdDef@@mem_done to mem_done
+    UPD HdlOp@@AND_LOG to AND_LOG
+        UPD HdlOp@@AND_LOG to AND_LOG
+            UPD HdlOp@@OR_LOG to OR_LOG
+                UPD HdlOp@@AND_LOG to AND_LOG
+                    UPD HdlOp@@AND_LOG to AND_LOG
+                        MOV HdlValueId@@mem_ready to ops
+                        HdlValueId: mem_ready
+
+
+CommitId: 38d51a33839f1c7407e42bb51a6104a8bad88aec
+Deassert pcpi_valid upon asserting sbreak IRQ
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1270,6 +1270,7 @@ module picorv32 #(
+ 									cpu_state <= cpu_state_fetch;
+ 								end else
+ 								if (CATCH_ILLINSN && pcpi_timeout) begin
++								    pcpi_valid <= 0;
+ 									`debug($display("SBREAK OR UNSUPPORTED INSN AT 0x%08x", reg_pc);)
+ 									if (ENABLE_IRQ && !irq_mask[irq_sbreak] && !irq_active) begin
+ 										next_irq_pending[irq_sbreak] = 1;
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: 38d51a33839f1c7407e42bb51a6104a8bad88aec
+Deassert pcpi_valid upon asserting sbreak IRQ
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1419,6 +1420,7 @@ module picorv32 #(
+ 							cpu_state <= cpu_state_fetch;
+ 						end else
+ 						if (CATCH_ILLINSN && pcpi_timeout) begin
++							pcpi_valid <= 0;
+ 							`debug($display("SBREAK OR UNSUPPORTED INSN AT 0x%08x", reg_pc);)
+ 							if (ENABLE_IRQ && !irq_mask[irq_sbreak] && !irq_active) begin
+ 								next_irq_pending[irq_sbreak] = 1;
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: 409d0dfd6772551e2ce77502e368973c447cbeb8
+Merge pull request #145 from Novakov/patch-1
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -17,7 +17,7 @@
+  *
+  */
+ 
+-module simpleuart (
++module simpleuart #(parameter integer DEFAULT_DIV = 1) (
+ 	input clk,
+ 	input resetn,
+ 
+
+ParseResult:
+INS HdlIdDef@@DEFAULT_DIV to params
+HdlIdDef: DEFAULT_DIV
+    HdlValueId: integer
+    HdlValueInt: 1
+    HdlDirection: INTERNAL
+
+
+CommitId: 409d0dfd6772551e2ce77502e368973c447cbeb8
+Merge pull request #145 from Novakov/patch-1
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -54,7 +54,7 @@ module simpleuart (
+ 
+ 	always @(posedge clk) begin
+ 		if (!resetn) begin
+-			cfg_divider <= 1;
++			cfg_divider <= DEFAULT_DIV;
+ 		end else begin
+ 			if (reg_div_we[0]) cfg_divider[ 7: 0] <= reg_div_di[ 7: 0];
+ 			if (reg_div_we[1]) cfg_divider[15: 8] <= reg_div_di[15: 8];
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@DEFAULT_DIV to 
+
+UPD HdlStmAssign@@ to 
+    DEL HdlValueInt@@1 from 
+
+
+CommitId: ef8014eebd35552aa8dde4bfddf9d7e27b5d1645
+Bugfix in C.ADDI4SPN implementation
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -240,7 +240,7 @@ module picorv32 #(
+ 					case (mem_rdata_latched[15:13])
+ 						3'b000: begin // C.ADDI4SPN
+ 							mem_rdata_q[14:12] <= 3'b000;
+-							mem_rdata_q[31:20] <= {mem_rdata_latched[10:7], mem_rdata_latched[12:11], mem_rdata_latched[5], mem_rdata_latched[6]};
++							mem_rdata_q[31:20] <= {mem_rdata_latched[10:7], mem_rdata_latched[12:11], mem_rdata_latched[5], mem_rdata_latched[6], 2'b00};
+ 						end
+ 						3'b010: begin // C.LW
+ 							mem_rdata_q[31:20] <= {mem_rdata_latched[5], mem_rdata_latched[12:10], mem_rdata_latched[6], 2'b00};
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    INS HdlStmCaseType@@CASE to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@CONCAT to 
+    UPD HdlOp@@CONCAT to CONCAT
+        INS list@@ops to CONCAT
+        INS HdlValueInt@@00 to ops
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@CONCAT to 
+    HdlOp: CONCAT
+        list: ops
+            HdlOp: CONCAT
+                list: ops
+                    HdlOp: CONCAT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: mem_rdata_latched
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 10
+                                            HdlValueInt: 7
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: mem_rdata_latched
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 12
+                                            HdlValueInt: 11
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: mem_rdata_latched
+                            HdlValueInt: 5
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: mem_rdata_latched
+                    HdlValueInt: 6
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    DEL HdlStmCaseType@@CASE from {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: ef8014eebd35552aa8dde4bfddf9d7e27b5d1645
+Bugfix in C.ADDI4SPN implementation
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -565,7 +565,7 @@ module picorv32 #(
+ 							3'b000: begin // C.ADDI4SPN
+ 								is_alu_reg_imm <= |mem_rdata_latched[12:5];
+ 								decoded_rs1 <= 2;
+-								decoded_rd <= 8 + mem_rdata_latched[9:7];
++								decoded_rd <= 8 + mem_rdata_latched[4:2];
+ 							end
+ 							3'b010: begin // C.LW
+ 								is_lb_lh_lw_lbu_lhu <= 1;
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: a7ff70dfb44cf127a318c6c70497a503fa7002a7
+added default clk divider parameter to simpleuart
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -17,7 +17,7 @@
+  *
+  */
+ 
+-module simpleuart (
++module simpleuart #(parameter integer DEFAULT_DIV = 1) (
+ 	input clk,
+ 	input resetn,
+ 
+
+ParseResult:
+INS HdlIdDef@@DEFAULT_DIV to params
+HdlIdDef: DEFAULT_DIV
+    HdlValueId: integer
+    HdlValueInt: 1
+    HdlDirection: INTERNAL
+
+
+CommitId: a7ff70dfb44cf127a318c6c70497a503fa7002a7
+added default clk divider parameter to simpleuart
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -54,7 +54,7 @@ module simpleuart (
+ 
+ 	always @(posedge clk) begin
+ 		if (!resetn) begin
+-			cfg_divider <= 1;
++			cfg_divider <= DEFAULT_DIV;
+ 		end else begin
+ 			if (reg_div_we[0]) cfg_divider[ 7: 0] <= reg_div_di[ 7: 0];
+ 			if (reg_div_we[1]) cfg_divider[15: 8] <= reg_div_di[15: 8];
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@DEFAULT_DIV to 
+
+UPD HdlStmAssign@@ to 
+    DEL HdlValueInt@@1 from 
+
+
+CommitId: 789a411eadaedbc44417ae595f3410e65f89cfc3
+Bugfix for CATCH_ILLINSN <-> WITH_PCPI interaction
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -485,7 +485,7 @@ module picorv32 #(
+ 	reg is_alu_reg_reg;
+ 	reg is_compare;
+ 
+-	assign instr_trap = (CATCH_ILLINSN || ENABLE_PCPI) && !{instr_lui, instr_auipc, instr_jal, instr_jalr,
++	assign instr_trap = (CATCH_ILLINSN || WITH_PCPI) && !{instr_lui, instr_auipc, instr_jal, instr_jalr,
+ 			instr_beq, instr_bne, instr_blt, instr_bge, instr_bltu, instr_bgeu,
+ 			instr_lb, instr_lh, instr_lw, instr_lbu, instr_lhu, instr_sb, instr_sh, instr_sw,
+ 			instr_addi, instr_slti, instr_sltiu, instr_xori, instr_ori, instr_andi, instr_slli, instr_srli, instr_srai,
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@AND_LOG to AND_LOG
+        UPD HdlOp@@OR_LOG to OR_LOG
+            UPD HdlValueId@@ENABLE_PCPI to WITH_PCPI
+
+
+CommitId: 89ad9fc85a4e89a8ae1ac977412d54de274ed02d
+Fix bug in picosoc spimemio and some cleanups in hx8kdemo
+--- a/picosoc/spimemio.v
++++ b/picosoc/spimemio.v
+@@ -105,6 +105,7 @@ module spimemio (
+ 			state <= 0;
+ 			xfer_resetn <= 0;
+ 			rd_valid <= 0;
++			buffer_wen <= 0;
+ 			din_cont <= 0;
+ 			din_qspi <= 0;
+ 			din_ddr <= 0;
+
+ParseResult:
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueInt: 0
+    HdlValueId: buffer_wen
+
+
+CommitId: 89ad9fc85a4e89a8ae1ac977412d54de274ed02d
+Fix bug in picosoc spimemio and some cleanups in hx8kdemo
+--- a/picosoc/spimemio.v
++++ b/picosoc/spimemio.v
+@@ -220,6 +221,7 @@ module spimemio (
+ 				rd_inc <= 0;
+ 				rd_valid <= 0;
+ 				xfer_resetn <= 0;
++				buffer_wen <= 0;
+ 				state <= 4;
+ 			end
+ 		end
+ParseResult:
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueInt: 0
+    HdlValueId: buffer_wen
+
+
+CommitId: 89ad9fc85a4e89a8ae1ac977412d54de274ed02d
+Fix bug in picosoc spimemio and some cleanups in hx8kdemo
+--- a/picosoc/hx8kdemo.v
++++ b/picosoc/hx8kdemo.v
+@@ -62,22 +62,31 @@ module hx8kdemo (
+ 	reg  [31:0] iomem_rdata;
+ 
+ 	reg [31:0] gpio;
++	reg [4:0] gpio_shr;
+ 
+-	assign leds = gpio >> 12;
++	assign leds = gpio >> gpio_shr;
+ 
+ 	always @(posedge clk) begin
+-		iomem_ready <= 0;
+-		if (iomem_valid && !iomem_ready && iomem_addr[31:24] == 8'h 02) begin
+-			iomem_ready <= 1;
+-			iomem_rdata <= gpio;
+-			if (iomem_wstrb[0]) gpio[ 7: 0] <= iomem_wdata[ 7: 0];
+-			if (iomem_wstrb[1]) gpio[15: 8] <= iomem_wdata[15: 8];
+-			if (iomem_wstrb[2]) gpio[23:16] <= iomem_wdata[23:16];
+-			if (iomem_wstrb[3]) gpio[31:24] <= iomem_wdata[31:24];
++		if (!resetn) begin
++			gpio <= 0;
++			gpio_shr <= 0;
++		end else begin
++			iomem_ready <= 0;
++			if (iomem_valid && !iomem_ready && iomem_addr[31:24] == 8'h 02) begin
++				iomem_ready <= 1;
++				iomem_rdata <= gpio;
++				if (iomem_wstrb[0]) gpio[ 7: 0] <= iomem_wdata[ 7: 0];
++				if (iomem_wstrb[1]) gpio[15: 8] <= iomem_wdata[15: 8];
++				if (iomem_wstrb[2]) gpio[23:16] <= iomem_wdata[23:16];
++				if (iomem_wstrb[3]) gpio[31:24] <= iomem_wdata[31:24];
++			end
++			if (&leds && gpio_shr < 10) begin
++				gpio_shr <= gpio_shr + 1;
++			end
+ 		end
+ 	end
+ 
+-	picosoc uut (
++	picosoc soc (
+ 		.clk          (clk         ),
+ 		.resetn       (resetn      ),
+ 
+ParseResult:
+INS HdlIdDef@@gpio_shr to objs
+HdlIdDef: gpio_shr
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: reg
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 4
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@SRL to SRL
+        INS HdlValueId@@gpio_shr to ops
+
+INS HdlStmIf@@ to body
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@NEG_LOG to 
+    HdlOp: NEG_LOG
+        list: ops
+            HdlValueId: resetn
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: gpio
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: gpio_shr
+    INS list@@elifs to 
+
+UPD HdlStmProcess@@ to 
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: iomem_ready
+            HdlStmIf
+                HdlOp: AND_LOG
+                    list: ops
+                        HdlOp: AND_LOG
+                            list: ops
+                                HdlValueId: iomem_valid
+                                HdlOp: NEG_LOG
+                                    list: ops
+                                        HdlValueId: iomem_ready
+                        HdlOp: EQ
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: iomem_addr
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlValueInt: 31
+                                                HdlValueInt: 24
+                                HdlValueInt:  02
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 1
+                            HdlValueId: iomem_ready
+                        HdlStmAssign
+                            HdlValueId: gpio
+                            HdlValueId: iomem_rdata
+                        HdlStmIf
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: iomem_wstrb
+                                    HdlValueInt: 0
+                            HdlStmAssign: if_true
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: iomem_wdata
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlValueInt: 7
+                                                HdlValueInt: 0
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: gpio
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlValueInt: 7
+                                                HdlValueInt: 0
+                            list: elifs
+                        HdlStmIf
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: iomem_wstrb
+                                    HdlValueInt: 1
+                            HdlStmAssign: if_true
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: iomem_wdata
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlValueInt: 15
+                                                HdlValueInt: 8
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: gpio
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlValueInt: 15
+                                                HdlValueInt: 8
+                            list: elifs
+                        HdlStmIf
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: iomem_wstrb
+                                    HdlValueInt: 2
+                            HdlStmAssign: if_true
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: iomem_wdata
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlValueInt: 23
+                                                HdlValueInt: 16
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: gpio
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlValueInt: 23
+                                                HdlValueInt: 16
+                            list: elifs
+                        HdlStmIf
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: iomem_wstrb
+                                    HdlValueInt: 3
+                            HdlStmAssign: if_true
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: iomem_wdata
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlValueInt: 31
+                                                HdlValueInt: 24
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: gpio
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlValueInt: 31
+                                                HdlValueInt: 24
+                            list: elifs
+                list: elifs
+
+INS HdlStmIf@@ to body
+HdlStmIf
+    HdlOp: AND_LOG
+        list: ops
+            HdlOp: AND_UNARY
+                list: ops
+                    HdlValueId: leds
+            HdlOp: LT
+                list: ops
+                    HdlValueId: gpio_shr
+                    HdlValueInt: 10
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: ADD
+                    list: ops
+                        HdlValueId: gpio_shr
+                        HdlValueInt: 1
+                HdlValueId: gpio_shr
+    list: elifs
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@SRL to SRL
+        DEL HdlValueInt@@12 from ops
+
+
+CommitId: 436544ccab9dcef61d074feda19e52c94fdb5c1b
+Fix decoding of C.ADDI instruction
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -890,11 +890,9 @@ module picorv32 #(
+ 					2'b01: begin // Quadrant 1
+ 						case (mem_rdata_latched[15:13])
+ 							3'b000: begin // C.NOP / C.ADDI
+-								if (!mem_rdata_latched[12:2] || mem_rdata_latched[11:7]) begin
+-									is_alu_reg_imm <= 1;
+-									decoded_rd <= mem_rdata_latched[11:7];
+-									decoded_rs1 <= mem_rdata_latched[11:7];
+-								end
++								is_alu_reg_imm <= 1;
++								decoded_rd <= mem_rdata_latched[11:7];
++								decoded_rs1 <= mem_rdata_latched[11:7];
+ 							end
+ 							3'b001: begin // C.JAL
+ 								instr_jal <= 1;
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: dea9b88249f9ad6946211ace129193677483d2f4
+Fix bug in PicoSoC spimemio
+--- a/picosoc/spimemio.v
++++ b/picosoc/spimemio.v
+@@ -433,7 +433,7 @@ module spimemio_xfer (
+ 
+ 	assign din_ready = din_valid && resetn && next_fetch;
+ 
+-	assign dout_valid = xfer_ddr_q ? fetch && !last_fetch : next_fetch && !fetch;
++	assign dout_valid = (xfer_ddr_q ? fetch && !last_fetch : next_fetch && !fetch) && resetn;
+ 	assign dout_data = ibuffer;
+ 	assign dout_tag = xfer_tag_q;
+ 
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@AND_LOG to 
+    UPD HdlOp@@AND_LOG to AND_LOG
+        INS list@@ops to AND_LOG
+        INS HdlValueId@@resetn to ops
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@TERNARY to 
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: xfer_ddr_q
+            HdlOp: AND_LOG
+                list: ops
+                    HdlValueId: fetch
+                    HdlOp: NEG_LOG
+                        list: ops
+                            HdlValueId: last_fetch
+            HdlOp: AND_LOG
+                list: ops
+                    HdlValueId: next_fetch
+                    HdlOp: NEG_LOG
+                        list: ops
+                            HdlValueId: fetch
+
+
+CommitId: ef86b30b2598df6993a473222ebe355b0348e226
+Fixed some linter warnings in picorv32.v
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -362,18 +362,18 @@ module picorv32 #(
+ 				mem_la_wdata = {2{reg_op2[15:0]}};
+ 				mem_la_wstrb = reg_op1[1] ? 4'b1100 : 4'b0011;
+ 				case (reg_op1[1])
+-					1'b0: mem_rdata_word = mem_rdata[15: 0];
+-					1'b1: mem_rdata_word = mem_rdata[31:16];
++					1'b0: mem_rdata_word = {16'b0, mem_rdata[15: 0]};
++					1'b1: mem_rdata_word = {16'b0, mem_rdata[31:16]};
+ 				endcase
+ 			end
+ 			2: begin
+ 				mem_la_wdata = {4{reg_op2[7:0]}};
+ 				mem_la_wstrb = 4'b0001 << reg_op1[1:0];
+ 				case (reg_op1[1:0])
+-					2'b00: mem_rdata_word = mem_rdata[ 7: 0];
+-					2'b01: mem_rdata_word = mem_rdata[15: 8];
+-					2'b10: mem_rdata_word = mem_rdata[23:16];
+-					2'b11: mem_rdata_word = mem_rdata[31:24];
++					2'b00: mem_rdata_word = {24'b0, mem_rdata[ 7: 0]};
++					2'b01: mem_rdata_word = {24'b0, mem_rdata[15: 8]};
++					2'b10: mem_rdata_word = {24'b0, mem_rdata[23:16]};
++					2'b11: mem_rdata_word = {24'b0, mem_rdata[31:24]};
+ 				endcase
+ 			end
+ 		endcase
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    INS HdlStmCaseType@@CASE to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    DEL HdlStmCaseType@@CASE from {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: ef86b30b2598df6993a473222ebe355b0348e226
+Fixed some linter warnings in picorv32.v
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -391,14 +391,14 @@ module picorv32 #(
+ 					case (mem_rdata_latched[15:13])
+ 						3'b000: begin // C.ADDI4SPN
+ 							mem_rdata_q[14:12] <= 3'b000;
+-							mem_rdata_q[31:20] <= {mem_rdata_latched[10:7], mem_rdata_latched[12:11], mem_rdata_latched[5], mem_rdata_latched[6], 2'b00};
++							mem_rdata_q[31:20] <= {2'b0, mem_rdata_latched[10:7], mem_rdata_latched[12:11], mem_rdata_latched[5], mem_rdata_latched[6], 2'b00};
+ 						end
+ 						3'b010: begin // C.LW
+-							mem_rdata_q[31:20] <= {mem_rdata_latched[5], mem_rdata_latched[12:10], mem_rdata_latched[6], 2'b00};
++							mem_rdata_q[31:20] <= {5'b0, mem_rdata_latched[5], mem_rdata_latched[12:10], mem_rdata_latched[6], 2'b00};
+ 							mem_rdata_q[14:12] <= 3'b 010;
+ 						end
+ 						3'b 110: begin // C.SW
+-							{mem_rdata_q[31:25], mem_rdata_q[11:7]} <= {mem_rdata_latched[5], mem_rdata_latched[12:10], mem_rdata_latched[6], 2'b00};
++							{mem_rdata_q[31:25], mem_rdata_q[11:7]} <= {5'b0, mem_rdata_latched[5], mem_rdata_latched[12:10], mem_rdata_latched[6], 2'b00};
+ 							mem_rdata_q[14:12] <= 3'b 010;
+ 						end
+ 					endcase
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    INS HdlStmCaseType@@CASE to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    DEL HdlStmCaseType@@CASE from {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: fe1ee2c739c9225eec1dfc8729d8635c253259c9
+Merge pull request #152 from RolinBert/master
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -17,7 +17,7 @@
+  *
+  */
+ 
+-module simpleuart (
++module simpleuart #(parameter integer DEFAULT_DIV = 1) (
+ 	input clk,
+ 	input resetn,
+ 
+
+ParseResult:
+INS HdlIdDef@@DEFAULT_DIV to params
+HdlIdDef: DEFAULT_DIV
+    HdlValueId: integer
+    HdlValueInt: 1
+    HdlDirection: INTERNAL
+
+
+CommitId: fe1ee2c739c9225eec1dfc8729d8635c253259c9
+Merge pull request #152 from RolinBert/master
+--- a/picosoc/simpleuart.v
++++ b/picosoc/simpleuart.v
+@@ -54,7 +54,7 @@ module simpleuart (
+ 
+ 	always @(posedge clk) begin
+ 		if (!resetn) begin
+-			cfg_divider <= 1;
++			cfg_divider <= DEFAULT_DIV;
+ 		end else begin
+ 			if (reg_div_we[0]) cfg_divider[ 7: 0] <= reg_div_di[ 7: 0];
+ 			if (reg_div_we[1]) cfg_divider[15: 8] <= reg_div_di[15: 8];
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@DEFAULT_DIV to 
+
+UPD HdlStmAssign@@ to 
+    DEL HdlValueInt@@1 from 
+
+
+CommitId: bb9ebeb9e37bc6103f527b434a13d9b4889a796b
+Fixed jalr, c_jalr, and c_jr insns (bug discovered by riscv-formal)
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1430,7 +1430,7 @@ module picorv32 #(
+ 				(* parallel_case *)
+ 				case (1'b1)
+ 					latched_branch: begin
+-						current_pc = latched_store ? (latched_stalu ? alu_out_q : reg_out) : reg_next_pc;
++						current_pc = latched_store ? (latched_stalu ? alu_out_q : reg_out) & ~1 : reg_next_pc;
+ 						`debug($display("ST_RD:  %2d 0x%08x, BRANCH 0x%08x", latched_rd, reg_pc + (latched_compr ? 2 : 4), current_pc);)
+ 					end
+ 					latched_store && !latched_branch: begin
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    INS HdlStmCaseType@@CASE to cpu_state
+    INS HdlValueId@@cpu_state to cpu_state
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+UPD HdlStmCase@@cpu_state to cpu_state
+    DEL HdlStmCaseType@@CASE from cpu_state
+    DEL HdlValueId@@cpu_state from cpu_state
+
+
+CommitId: 262a9085bb730df84866f48934cf76ebbc19311e
+Streamlined debug signals
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -110,8 +111,9 @@ module picorv32 #(
+ 	reg [31:0] cpuregs [0:regfile_size-1];
+ 	reg [4:0] reg_sh;
+ 
+-	reg [31:0] current_insn;
+-	reg [31:0] current_insn_addr;
++	reg [31:0] next_insn_opcode;
++	reg [31:0] dbg_insn_opcode;
++	reg [31:0] dbg_insn_addr;
+ 
+ 	assign pcpi_rs1 = reg_op1;
+ 	assign pcpi_rs2 = reg_op2;
+
+ParseResult:
+INS HdlIdDef@@next_insn_opcode to objs
+HdlIdDef: next_insn_opcode
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: reg
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+UPD HdlIdDef@@current_insn to dbg_insn_opcode
+
+UPD HdlIdDef@@current_insn_addr to dbg_insn_addr
+
+
+CommitId: 262a9085bb730df84866f48934cf76ebbc19311e
+Streamlined debug signals
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -533,9 +533,13 @@ module picorv32 #(
+ 	assign is_rdcycle_rdcycleh_rdinstr_rdinstrh = |{instr_rdcycle, instr_rdcycleh, instr_rdinstr, instr_rdinstrh};
+ 
+ 	reg [63:0] new_ascii_instr;
+-	`FORMAL_KEEP reg [63:0] ascii_instr;
++	`FORMAL_KEEP reg [63:0] dbg_ascii_instr;
++	`FORMAL_KEEP reg [31:0] dbg_insn_imm;
++	`FORMAL_KEEP reg [4:0] dbg_insn_rs1;
++	`FORMAL_KEEP reg [4:0] dbg_insn_rs2;
++	`FORMAL_KEEP reg [4:0] dbg_insn_rd;
+ 
+-	always @(posedge clk) begin
++	always @* begin
+ 		new_ascii_instr = "";
+ 
+ 		if (instr_lui)      new_ascii_instr = "lui";
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    INS list@@sensitivity to 
+    list: sensitivity
+        HdlAll
+
+UPD HdlStmProcess@@ to 
+    MOV list@@sensitivity to 
+    list: sensitivity
+        HdlOp: RISING
+            list: ops
+                HdlValueId: clk
+
+
+CommitId: 262a9085bb730df84866f48934cf76ebbc19311e
+Streamlined debug signals
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -612,8 +645,6 @@ module picorv32 #(
+ 		is_compare <= |{is_beq_bne_blt_bge_bltu_bgeu, instr_slti, instr_slt, instr_sltiu, instr_sltu};
+ 
+ 		if (mem_do_rinst && mem_done) begin
+-			current_insn  <= mem_rdata_latched;
+-
+ 			instr_lui     <= mem_rdata_latched[6:0] == 7'b0110111;
+ 			instr_auipc   <= mem_rdata_latched[6:0] == 7'b0010111;
+ 			instr_jal     <= mem_rdata_latched[6:0] == 7'b1101111;
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: bf9687028df7570e7524a8a7b43f9c180c6dd1c7
+Fix decoding of illegal/reserved opcodes as other valid opcodes
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -835,7 +835,7 @@ module picorv32 #(
+ 			instr_lui     <= mem_rdata_latched[6:0] == 7'b0110111;
+ 			instr_auipc   <= mem_rdata_latched[6:0] == 7'b0010111;
+ 			instr_jal     <= mem_rdata_latched[6:0] == 7'b1101111;
+-			instr_jalr    <= mem_rdata_latched[6:0] == 7'b1100111;
++			instr_jalr    <= mem_rdata_latched[6:0] == 7'b1100111 && mem_rdata_latched[14:12] == 3'b000;
+ 			instr_retirq  <= mem_rdata_latched[6:0] == 7'b0001011 && mem_rdata_latched[31:25] == 7'b0000010 && ENABLE_IRQ;
+ 			instr_waitirq <= mem_rdata_latched[6:0] == 7'b0001011 && mem_rdata_latched[31:25] == 7'b0000100 && ENABLE_IRQ;
+ 
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]} 
+    INS HdlStmBlock@@SEQ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+INS HdlStmIf@@ to body
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]} 
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 1
+                HdlValueId: is_alu_reg_imm
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_rdata_latched
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 11
+                                HdlValueInt: 7
+                HdlValueId: decoded_rd
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_rdata_latched
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 11
+                                HdlValueInt: 7
+                HdlValueId: decoded_rs1
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmIf
+                HdlOp: EQ
+                    list: ops
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: mem_rdata_latched
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlValueInt: 11
+                                        HdlValueInt: 7
+                        HdlValueInt: 2
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 1
+                            HdlValueId: is_alu_reg_imm
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: mem_rdata_latched
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 11
+                                            HdlValueInt: 7
+                            HdlValueId: decoded_rd
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: mem_rdata_latched
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 11
+                                            HdlValueInt: 7
+                            HdlValueId: decoded_rs1
+                list: elifs
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 1
+                            HdlValueId: instr_lui
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: mem_rdata_latched
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 11
+                                            HdlValueInt: 7
+                            HdlValueId: decoded_rd
+                        HdlStmAssign
+                            HdlValueInt: 0
+                            HdlValueId: decoded_rs1
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@OR_LOG to 
+    HdlOp: OR_LOG
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: mem_rdata_latched
+                    HdlValueInt: 12
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: mem_rdata_latched
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 6
+                            HdlValueInt: 2
+    INS list@@elifs to 
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: bf9687028df7570e7524a8a7b43f9c180c6dd1c7
+Fix decoding of illegal/reserved opcodes as other valid opcodes
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -890,9 +890,11 @@ module picorv32 #(
+ 					2'b01: begin // Quadrant 1
+ 						case (mem_rdata_latched[15:13])
+ 							3'b000: begin // C.NOP / C.ADDI
+-								is_alu_reg_imm <= 1;
+-								decoded_rd <= mem_rdata_latched[11:7];
+-								decoded_rs1 <= mem_rdata_latched[11:7];
++								if (!mem_rdata_latched[12:2] || mem_rdata_latched[11:7]) begin
++									is_alu_reg_imm <= 1;
++									decoded_rd <= mem_rdata_latched[11:7];
++									decoded_rs1 <= mem_rdata_latched[11:7];
++								end
+ 							end
+ 							3'b001: begin // C.JAL
+ 								instr_jal <= 1;
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]} 
+    INS HdlStmBlock@@SEQ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+INS HdlStmIf@@ to body
+
+INS HdlStmIf@@ to body
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@NEG_LOG to 
+    HdlOp: NEG_LOG
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: mem_rdata_latched
+                    HdlValueInt: 12
+    INS list@@elifs to 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]} 
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 1
+                HdlValueId: is_alu_reg_imm
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_rdata_latched
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 11
+                                HdlValueInt: 7
+                HdlValueId: decoded_rd
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_rdata_latched
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 11
+                                HdlValueInt: 7
+                HdlValueId: decoded_rs1
+            HdlStmAssign
+                HdlOp: CONCAT
+                    list: ops
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: mem_rdata_latched
+                                HdlValueInt: 12
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: mem_rdata_latched
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlValueInt: 6
+                                        HdlValueInt: 2
+                HdlValueId: decoded_rs2
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 1
+                HdlValueId: is_lb_lh_lw_lbu_lhu
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_rdata_latched
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 11
+                                HdlValueInt: 7
+                HdlValueId: decoded_rd
+            HdlStmAssign
+                HdlValueInt: 2
+                HdlValueId: decoded_rs1
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: mem_rdata_latched
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 11
+                    HdlValueInt: 7
+    INS list@@elifs to 
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@AND_LOG to AND_LOG
+        MOV HdlOp@@EQ to ops
+        HdlOp: EQ
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_rdata_latched
+                        HdlValueInt: 12
+                HdlValueInt: 0
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: bf9687028df7570e7524a8a7b43f9c180c6dd1c7
+Fix decoding of illegal/reserved opcodes as other valid opcodes
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -904,18 +906,20 @@ module picorv32 #(
+ 								decoded_rs1 <= 0;
+ 							end
+ 							3'b 011: begin
+-								if (mem_rdata_latched[11:7] == 2) begin // C.ADDI16SP
+-									is_alu_reg_imm <= 1;
+-									decoded_rd <= mem_rdata_latched[11:7];
+-									decoded_rs1 <= mem_rdata_latched[11:7];
+-								end else begin // C.LUI
+-									instr_lui <= 1;
+-									decoded_rd <= mem_rdata_latched[11:7];
+-									decoded_rs1 <= 0;
++								if (mem_rdata_latched[12] || mem_rdata_latched[6:2]) begin
++									if (mem_rdata_latched[11:7] == 2) begin // C.ADDI16SP
++										is_alu_reg_imm <= 1;
++										decoded_rd <= mem_rdata_latched[11:7];
++										decoded_rs1 <= mem_rdata_latched[11:7];
++									end else begin // C.LUI
++										instr_lui <= 1;
++										decoded_rd <= mem_rdata_latched[11:7];
++										decoded_rs1 <= 0;
++									end
+ 								end
+ 							end
+ 							3'b100: begin
+-								if (mem_rdata_latched[11] == 1'b0) begin // C.SRLI, C.SRAI
++								if (!mem_rdata_latched[11] && !mem_rdata_latched[12]) begin // C.SRLI, C.SRAI
+ 									is_alu_reg_imm <= 1;
+ 									decoded_rd <= 8 + mem_rdata_latched[9:7];
+ 									decoded_rs1 <= 8 + mem_rdata_latched[9:7];
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]} 
+    INS HdlStmBlock@@SEQ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['mem_rdata_latched',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '15'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '13'}]}]} 
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 1
+                HdlValueId: is_alu_reg_imm
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_rdata_latched
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 11
+                                HdlValueInt: 7
+                HdlValueId: decoded_rd
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_rdata_latched
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 11
+                                HdlValueInt: 7
+                HdlValueId: decoded_rs1
+            HdlStmAssign
+                HdlOp: CONCAT
+                    list: ops
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: mem_rdata_latched
+                                HdlValueInt: 12
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: mem_rdata_latched
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlValueInt: 6
+                                        HdlValueInt: 2
+                HdlValueId: decoded_rs2
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 1
+                HdlValueId: is_lb_lh_lw_lbu_lhu
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: mem_rdata_latched
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 11
+                                HdlValueInt: 7
+                HdlValueId: decoded_rd
+            HdlStmAssign
+                HdlValueInt: 2
+                HdlValueId: decoded_rs1
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@AND_LOG to AND_LOG
+        INS HdlOp@@AND_LOG to ops
+        UPD HdlOp@@AND_LOG to AND_LOG
+            INS list@@ops to AND_LOG
+            INS HdlOp@@NE to ops
+            HdlOp: NE
+                list: ops
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: mem_rdata_latched
+                            HdlOp: DOWNTO
+                                list: ops
+                                    HdlValueInt: 11
+                                    HdlValueInt: 7
+                    HdlValueInt: 0
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+

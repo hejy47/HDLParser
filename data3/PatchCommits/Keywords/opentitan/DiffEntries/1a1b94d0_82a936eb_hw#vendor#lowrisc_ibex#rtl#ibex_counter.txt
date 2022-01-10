@@ -1,0 +1,15 @@
+1a1b94d01fd7022438e2bd651e48ad2d99e3abca
+Update lowrisc_ibex to lowRISC/ibex@6b9165f
+diff --git a/hw/vendor/lowrisc_ibex/rtl/ibex_counter.sv b/hw/vendor/lowrisc_ibex/rtl/ibex_counter.sv
+index 465b931f0..0091d5af3 100644
+--- a/hw/vendor/lowrisc_ibex/rtl/ibex_counter.sv
++++ b/hw/vendor/lowrisc_ibex/rtl/ibex_counter.sv
+@@ -56,7 +56,7 @@ module ibex_counter #(
+ `endif
+ 
+   // Counter flop
+-  always @(`COUNTER_FLOP_RST) begin
++  always_ff @(`COUNTER_FLOP_RST) begin
+     if (!rst_ni) begin
+       counter_q <= '0;
+     end else begin

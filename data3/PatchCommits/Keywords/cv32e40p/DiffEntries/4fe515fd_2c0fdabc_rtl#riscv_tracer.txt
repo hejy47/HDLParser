@@ -1,0 +1,15 @@
+4fe515fd5f41eb82ff3738b9f85a3eb8ef1ef9f1
+Merge remote-tracking branch 'origin' into fix325
+diff --git a/rtl/riscv_tracer.sv b/rtl/riscv_tracer.sv
+index a8be766..adcda95 100644
+--- a/rtl/riscv_tracer.sv
++++ b/rtl/riscv_tracer.sv
+@@ -908,7 +908,7 @@ module riscv_tracer (
+     instr_trace_t trace;
+ 
+     // special case for WFI because we don't wait for unstalling there
+-    if ( (id_valid || pipe_flush || mret || uret || ecall || ebreak || dret || fence) && is_decoding)
++    if ( id_valid && is_decoding)
+     begin
+       trace = new ();
+ 

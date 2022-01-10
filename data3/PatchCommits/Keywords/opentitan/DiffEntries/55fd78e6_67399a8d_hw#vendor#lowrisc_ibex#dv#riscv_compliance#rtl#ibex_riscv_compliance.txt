@@ -1,0 +1,16 @@
+55fd78e67b61c8ec2a4e9a23277c530eef242eb9
+Update lowrisc_ibex to lowRISC/ibex@f025236
+diff --git a/hw/vendor/lowrisc_ibex/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv b/hw/vendor/lowrisc_ibex/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+index 58d1ec81d..c55ec67b4 100644
+--- a/hw/vendor/lowrisc_ibex/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
++++ b/hw/vendor/lowrisc_ibex/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+@@ -139,7 +139,8 @@ module ibex_riscv_compliance (
+ 
+       .debug_req_i           ('b0),
+ 
+-      .fetch_enable_i        ('b1)
++      .fetch_enable_i        ('b1),
++      .core_sleep_o          ()
+     );
+ 
+   // SRAM block for instruction and data storage

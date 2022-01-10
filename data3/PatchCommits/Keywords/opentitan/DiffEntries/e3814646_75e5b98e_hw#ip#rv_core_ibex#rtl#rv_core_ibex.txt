@@ -1,0 +1,64 @@
+e38146466c337a0a5c9114e2fa90f7fe98ab93e9
+Update lowrisc_ibex to lowRISC/ibex@f30e84b
+diff --git a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+index 4e151efa8..3ec03522a 100644
+--- a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
++++ b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+@@ -9,23 +9,25 @@
+  * Instruction and data bus are 32 bit wide TileLink-UL (TL-UL).
+  */
+ module rv_core_ibex #(
+-  parameter bit          PMPEnable                = 1'b0,
+-  parameter int unsigned PMPGranularity           = 0,
+-  parameter int unsigned PMPNumRegions            = 4,
+-  parameter int unsigned MHPMCounterNum           = 8,
+-  parameter int unsigned MHPMCounterWidth         = 40,
+-  parameter bit          RV32E                    = 0,
+-  parameter bit          RV32M                    = 1,
+-  parameter bit          BranchTargetALU          = 1,
+-  parameter bit          WritebackStage           = 1,
+-  parameter              MultiplierImplementation = "single-cycle",
+-  parameter bit          ICache                   = 1'b0,
+-  parameter bit          ICacheECC                = 1'b0,
+-  parameter bit          DbgTriggerEn             = 1'b1,
+-  parameter bit          SecureIbex               = 1'b0,
+-  parameter int unsigned DmHaltAddr               = 32'h1A110800,
+-  parameter int unsigned DmExceptionAddr          = 32'h1A110808,
+-  parameter bit          PipeLine                 = 0
++  parameter bit                 PMPEnable         = 1'b0,
++  parameter int unsigned        PMPGranularity    = 0,
++  parameter int unsigned        PMPNumRegions     = 4,
++  parameter int unsigned        MHPMCounterNum    = 8,
++  parameter int unsigned        MHPMCounterWidth  = 40,
++  parameter bit                 RV32E             = 0,
++  parameter ibex_pkg::rv32m_e   RV32M             = ibex_pkg::RV32MSingleCycle,
++  parameter ibex_pkg::rv32b_e   RV32B             = ibex_pkg::RV32BNone,
++  parameter ibex_pkg::regfile_e RegFile           = ibex_pkg::RegFileFF,
++  parameter bit                 BranchTargetALU   = 1'b1,
++  parameter bit                 WritebackStage    = 1'b1,
++  parameter bit                 ICache            = 1'b0,
++  parameter bit                 ICacheECC         = 1'b0,
++  parameter bit                 BranchPredictor   = 1'b0,
++  parameter bit                 DbgTriggerEn      = 1'b1,
++  parameter bit                 SecureIbex        = 1'b0,
++  parameter int unsigned        DmHaltAddr        = 32'h1A110800,
++  parameter int unsigned        DmExceptionAddr   = 32'h1A110808,
++  parameter bit                 PipeLine          = 1'b0
+ ) (
+   // Clock and Reset
+   input  logic        clk_i,
+@@ -146,11 +148,13 @@ module rv_core_ibex #(
+     .MHPMCounterWidth         ( MHPMCounterWidth         ),
+     .RV32E                    ( RV32E                    ),
+     .RV32M                    ( RV32M                    ),
++    .RV32B                    ( RV32B                    ),
++    .RegFile                  ( RegFile                  ),
+     .BranchTargetALU          ( BranchTargetALU          ),
+     .WritebackStage           ( WritebackStage           ),
+-    .MultiplierImplementation ( MultiplierImplementation ),
+     .ICache                   ( ICache                   ),
+     .ICacheECC                ( ICacheECC                ),
++    .BranchPredictor          ( BranchPredictor          ),
+     .DbgTriggerEn             ( DbgTriggerEn             ),
+     .SecureIbex               ( SecureIbex               ),
+     .DmHaltAddr               ( DmHaltAddr               ),

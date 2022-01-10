@@ -1,0 +1,2014 @@
+CommitId: dc601e36d547468fcc81f6ff37f2352805fb9e93
+small fixes in the linker and soc in order to better support the harvard architecture w/ separated rom/ram!
+--- a/sim/darksimv.v
++++ b/sim/darksimv.v
+@@ -40,7 +40,7 @@ module darksimv;
+ 
+     initial while(1) #(500e3/40e3) CLK = !CLK; // clock speed of 80MHz
+ 
+-    initial #(12e6) $finish;
++    initial #(250e6) $finish;
+ 
+     always@(posedge CLK) RES <= RES ? RES-1 : 0;
+ 
+ParseResult:
+UPD HdlStmWait@@[12000000.0] to [250000000.0]
+
+
+CommitId: 7d01f5aa7e0d8a2c7d747b0497aa616716d324c8
+rom/ram inference, printf fixes and tests, etc.
+--- a/rtl/darksocv.v
++++ b/rtl/darksocv.v
+@@ -238,35 +238,34 @@ module darksocv
+     wire DHIT=1;
+     wire WHIT=1;
+ 
+-    //reg [31:0] ROMFF2; // for some reason, the ROM is correctly inferred as a blockram!
++    reg [31:0] ROMFF2;
+     reg [31:0] RAMFF2;
+     
+     always@(negedge CLK)
+     begin
+-        //ROMFF2 <= ROM[IADDR[10:2]];
++        ROMFF2 <= ROM[IADDR[11:2]];
+         RAMFF2 <= RAM[DADDR[11:2]];
+     end
+ 
+-    wire [31:0] ROMFF2 = ROM[IADDR[11:2]];
++    //wire [31:0] ROMFF2 = ROM[IADDR[11:2]];
+     //wire [31:0] RAMFF2 = RAM[DADDR[11:2]];
++
++    reg [31:0] ROMBUG = 0;
+     
+     always@(posedge CLK)
+     begin   
+         if(WR&&DADDR[31]==0&&DADDR[12]==1)
+         begin
+-            //individual byte/word/long selection, thanks to HYF!
+-            RAM[DADDR[11:2]] <= { BE[3] ? DATAO[3 * 8 + 7: 3 * 8] : RAMFF2[3 * 8 + 7: 3 * 8],
+-                                  BE[2] ? DATAO[2 * 8 + 7: 2 * 8] : RAMFF2[2 * 8 + 7: 2 * 8],
+-                                  BE[1] ? DATAO[1 * 8 + 7: 1 * 8] : RAMFF2[1 * 8 + 7: 1 * 8],
+-                                  BE[0] ? DATAO[0 * 8 + 7: 0 * 8] : RAMFF2[0 * 8 + 7: 0 * 8]
+-                                };
+-                                                                                                                                                                                                                                
+-            //if(BE[0]) RAM[DADDR[12:2]][0 * 8 + 7: 0 * 8] <= DATAO[0 * 8 + 7: 0 * 8];
+-            //if(BE[1]) RAM[DADDR[12:2]][1 * 8 + 7: 1 * 8] <= DATAO[1 * 8 + 7: 1 * 8];
+-            //if(BE[2]) RAM[DADDR[12:2]][2 * 8 + 7: 2 * 8] <= DATAO[2 * 8 + 7: 2 * 8];
+-            //if(BE[3]) RAM[DADDR[12:2]][3 * 8 + 7: 3 * 8] <= DATAO[3 * 8 + 7: 3 * 8];            
+-            //RAM[DADDR[10:2]] <= DATAO;            
++            //individual byte/word/long selection, thanks to HYF!                                                                                                                                                                                                                                
++            if(BE[0]) RAM[DADDR[11:2]][0 * 8 + 7: 0 * 8] <= DATAO[0 * 8 + 7: 0 * 8];
++            if(BE[1]) RAM[DADDR[11:2]][1 * 8 + 7: 1 * 8] <= DATAO[1 * 8 + 7: 1 * 8];
++            if(BE[2]) RAM[DADDR[11:2]][2 * 8 + 7: 2 * 8] <= DATAO[2 * 8 + 7: 2 * 8];
++            if(BE[3]) RAM[DADDR[11:2]][3 * 8 + 7: 3 * 8] <= DATAO[3 * 8 + 7: 3 * 8];            
+         end
++        
++        // weird bug appears to be related to the "sw ra,12(sp)" instruction.
++        //if(WR&&DADDR[31]==0&&DADDR[12]==0)
++        //    ROMBUG <= IADDR;
+     end    
+     
+     assign DATAI = DADDR[31] ? IOMUX  : RAMFF2;
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    INS HdlValueId@@IOMUX to 
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlOp@@EQ to ops
+        HdlOp: EQ
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: DADDR
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 3
+                                HdlValueInt: 2
+                HdlValueInt: 0
+        INS HdlOp@@TERNARY to ops
+        UPD HdlOp@@TERNARY to TERNARY
+            INS list@@ops to TERNARY
+            INS HdlOp@@EQ to ops
+            HdlOp: EQ
+                list: ops
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: DADDR
+                            HdlOp: DOWNTO
+                                list: ops
+                                    HdlValueInt: 3
+                                    HdlValueInt: 2
+                    HdlValueInt: 1
+
+
+CommitId: e8ff046cd85cceba0aa9a53268665e2107008e42
+instruction decode pipeline, M/R data path merge and other fixes.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -97,9 +97,25 @@ module darkriscv
+     wire [4:0] S2PTR  = XIDATA[24:20];
+     wire [6:0] FCT7   = XIDATA[31:25];
+ 
++    reg XLUI, XAUIPC, XJAL, XJALR, XBCC, XLCC, XSCC, XMCC, XRCC, XFCC, XCCC;
++
+     always@(posedge CLK)
+     begin        
+         XIDATA <= RES ? { ALL0[31:12], 5'd2, ALL0[6:0] } : HLT ? XIDATA : IDATA;
++        
++        XLUI   <= RES ? 0 : HLT ? XLUI   : IDATA[6:0]==`LUI;
++        XAUIPC <= RES ? 0 : HLT ? XAUIPC : IDATA[6:0]==`AUIPC;
++        XJAL   <= RES ? 0 : HLT ? XJAL   : IDATA[6:0]==`JAL;
++        XJALR  <= RES ? 0 : HLT ? XJALR  : IDATA[6:0]==`JALR;        
++
++        XBCC   <= RES ? 0 : HLT ? XBCC   : IDATA[6:0]==`BCC;
++        XLCC   <= RES ? 0 : HLT ? XLCC   : IDATA[6:0]==`LCC;
++        XSCC   <= RES ? 0 : HLT ? XSCC   : IDATA[6:0]==`SCC;
++        XMCC   <= RES ? 0 : HLT ? XMCC   : IDATA[6:0]==`MCC;
++
++        XRCC   <= RES ? 0 : HLT ? XRCC   : IDATA[6:0]==`RCC;
++        XFCC   <= RES ? 0 : HLT ? XFCC   : IDATA[6:0]==`FCC;
++        XCCC   <= RES ? 0 : HLT ? XCCC   : IDATA[6:0]==`CCC;
+     end   
+ 
+     // signal extended immediate, according to the instruction type:
+
+ParseResult:
+INS HdlStmProcess@@ to objs
+
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XAUIPC
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 0010111
+    HdlValueId: XAUIPC
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XJAL
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 1101111
+    HdlValueId: XJAL
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XJALR
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 1100111
+    HdlValueId: XJALR
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XBCC
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 1100011
+    HdlValueId: XBCC
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XLCC
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 0000011
+    HdlValueId: XLCC
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XSCC
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 0100011
+    HdlValueId: XSCC
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XMCC
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 0010011
+    HdlValueId: XMCC
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XRCC
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 0110011
+    HdlValueId: XRCC
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XFCC
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 0001111
+    HdlValueId: XFCC
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 0
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: XCCC
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: IDATA
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 0
+                            HdlValueInt: 1110011
+    HdlValueId: XCCC
+
+
+CommitId: e8ff046cd85cceba0aa9a53268665e2107008e42
+instruction decode pipeline, M/R data path merge and other fixes.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -134,19 +150,23 @@ module darkriscv
+     
+     // main opcode decoder:
+                                 
+-    wire    LUI = OPCODE==7'b0110111;
+-    wire  AUIPC = OPCODE==7'b0010111;
+-    wire    JAL = OPCODE==7'b1101111;
+-    wire   JALR = OPCODE==7'b1100111;
+-    wire    BCC = OPCODE==7'b1100011; //FCT3
+-    wire    LCC = OPCODE==7'b0000011; //FCT3
+-    wire    SCC = OPCODE==7'b0100011; //FCT3
+-    wire    MCC = OPCODE==7'b0010011; //FCT3
+-    wire    RCC = OPCODE==7'b0110011; //FCT3
+-    wire    FCC = OPCODE==7'b0001111; //FCT3
+-    wire    CCC = OPCODE==7'b1110011; //FCT3
++    wire    LUI = FLUSH ? 0 : XLUI;   // OPCODE==7'b0110111;
++    wire  AUIPC = FLUSH ? 0 : XAUIPC; // OPCODE==7'b0010111;
++    wire    JAL = FLUSH ? 0 : XJAL;   // OPCODE==7'b1101111;
++    wire   JALR = FLUSH ? 0 : XJALR;  // OPCODE==7'b1100111;
++    
++    wire    BCC = FLUSH ? 0 : XBCC; // OPCODE==7'b1100011; //FCT3
++    wire    LCC = FLUSH ? 0 : XLCC; // OPCODE==7'b0000011; //FCT3
++    wire    SCC = FLUSH ? 0 : XSCC; // OPCODE==7'b0100011; //FCT3
++    wire    MCC = FLUSH ? 0 : XMCC; // OPCODE==7'b0010011; //FCT3
++    
++    wire    RCC = FLUSH ? 0 : XRCC; // OPCODE==7'b0110011; //FCT3
++    wire    FCC = FLUSH ? 0 : XFCC; // OPCODE==7'b0001111; //FCT3
++    wire    CCC = FLUSH ? 0 : XCCC; // OPCODE==7'b1110011; //FCT3
+ 
++`ifdef STAGE3
+     reg [31:0] NXPC2;       // 32-bit program counter t+2
++`endif
+     reg [31:0] NXPC;        // 32-bit program counter t+1
+     reg [31:0] PC;		    // 32-bit program counter t+0
+     
+
+ParseResult:
+MOV HdlIdDef@@NXPC2 to objs
+HdlIdDef: NXPC2
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: reg
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@SCC to objs
+HdlIdDef: SCC
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: FLUSH
+            HdlValueInt: 0
+            HdlValueId: XSCC
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@MCC to objs
+HdlIdDef: MCC
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: FLUSH
+            HdlValueInt: 0
+            HdlValueId: XMCC
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@RCC to objs
+HdlIdDef: RCC
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: FLUSH
+            HdlValueInt: 0
+            HdlValueId: XRCC
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@FCC to objs
+HdlIdDef: FCC
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: FLUSH
+            HdlValueInt: 0
+            HdlValueId: XFCC
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@CCC to objs
+HdlIdDef: CCC
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: FLUSH
+            HdlValueInt: 0
+            HdlValueId: XCCC
+    HdlDirection: INTERNAL
+
+UPD HdlIdDef@@NXPC2 to S2REGX
+
+UPD HdlIdDef@@NXPC2 to NXPC2
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlValueId@@reg to wire
+
+DEL HdlIdDef@@MCC from objs
+HdlIdDef: MCC
+    HdlOp: EQ
+        list: ops
+            HdlValueId: OPCODE
+            HdlValueInt: 0010011
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@RCC from objs
+HdlIdDef: RCC
+    HdlOp: EQ
+        list: ops
+            HdlValueId: OPCODE
+            HdlValueInt: 0110011
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@FCC from objs
+HdlIdDef: FCC
+    HdlOp: EQ
+        list: ops
+            HdlValueId: OPCODE
+            HdlValueInt: 0001111
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@CCC from objs
+HdlIdDef: CCC
+    HdlOp: EQ
+        list: ops
+            HdlValueId: OPCODE
+            HdlValueInt: 1110011
+    HdlDirection: INTERNAL
+
+
+CommitId: e8ff046cd85cceba0aa9a53268665e2107008e42
+instruction decode pipeline, M/R data path merge and other fixes.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -219,15 +247,15 @@ module darkriscv
+                         FCT3==7 ? U1REG&SIMM :                           
+                                   0;
+ 
+-
+     // R-group of instructions (OPCODE==7'b0110011)
++    
+ `ifdef MODEL_TECH
+     wire [31:0] RDATA_FCT3EQ5 = FCT7[5]==0||U1REG[31]==0 ? U1REG>>U2REG[4:0] : // workaround for modelsim
+                                 -((-U1REG)>>U2REG[4:0]);
+ `else
+     wire [31:0] RDATA_FCT3EQ5 = (FCT7[5] ? U1REG>>>U2REG[4:0] : U1REG>>U2REG[4:0]);
+ `endif                        
+-    wire [31:0] RDATA = FCT3==0 ? (FCT7[5] ? U1REG-U2REG : U1REG+U2REG) :
++    wire [31:0] RDATA = FCT3==0 ? (XRCC&&FCT7[5] ? U1REG-U2REG : U1REG+U2REG) :
+                         FCT3==1 ? U1REG<<U2REG[4:0] :
+                         FCT3==2 ? S1REG<S2REG?1:0 : // signed
+                         FCT3==3 ? U1REG<U2REG?1:0 : // unsigned
+
+ParseResult:
+UPD HdlIdDef@@RDATA to RDATA
+    MOV HdlOp@@PARAMETRIZATION to RDATA
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+                    HdlValueInt: 0
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@EQ to ops
+        HdlOp: EQ
+            list: ops
+                HdlValueId: FCT3
+                HdlValueInt: 0
+        UPD HdlOp@@TERNARY to TERNARY
+            MOV HdlOp@@EQ to ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: FCT3
+                    HdlValueInt: 1
+            MOV HdlOp@@SLL to ops
+            HdlOp: SLL
+                list: ops
+                    HdlValueId: U1REG
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: U2REG
+                            HdlOp: DOWNTO
+                                list: ops
+                                    HdlValueInt: 4
+                                    HdlValueInt: 0
+            UPD HdlOp@@TERNARY to TERNARY
+                MOV HdlOp@@EQ to ops
+                HdlOp: EQ
+                    list: ops
+                        HdlValueId: FCT3
+                        HdlValueInt: 2
+                UPD HdlOp@@TERNARY to TERNARY
+                    MOV HdlOp@@EQ to ops
+                    HdlOp: EQ
+                        list: ops
+                            HdlValueId: FCT3
+                            HdlValueInt: 3
+                    UPD HdlOp@@TERNARY to TERNARY
+                        MOV HdlOp@@EQ to ops
+                        HdlOp: EQ
+                            list: ops
+                                HdlValueId: FCT3
+                                HdlValueInt: 5
+                        UPD HdlOp@@TERNARY to TERNARY
+                            MOV HdlOp@@EQ to ops
+                            HdlOp: EQ
+                                list: ops
+                                    HdlValueId: FCT3
+                                    HdlValueInt: 4
+                            UPD HdlOp@@TERNARY to TERNARY
+                                MOV HdlOp@@EQ to ops
+                                HdlOp: EQ
+                                    list: ops
+                                        HdlValueId: FCT3
+                                        HdlValueInt: 6
+                                UPD HdlOp@@TERNARY to TERNARY
+                                    MOV HdlOp@@EQ to ops
+                                    HdlOp: EQ
+                                        list: ops
+                                            HdlValueId: FCT3
+                                            HdlValueInt: 7
+                                    DEL HdlOp@@AND from ops
+                                    HdlOp: AND
+                                        list: ops
+                                            HdlValueId: U1REG
+                                            HdlValueId: U2REG
+                                    DEL HdlValueInt@@0 from ops
+                                    DEL list@@ops from TERNARY
+                                DEL HdlOp@@OR from ops
+                                HdlOp: OR
+                                    list: ops
+                                        HdlValueId: U1REG
+                                        HdlValueId: U2REG
+                                DEL HdlOp@@TERNARY from ops
+                                DEL list@@ops from TERNARY
+                            DEL HdlOp@@XOR from ops
+                            HdlOp: XOR
+                                list: ops
+                                    HdlValueId: U1REG
+                                    HdlValueId: U2REG
+                            DEL HdlOp@@TERNARY from ops
+                            DEL list@@ops from TERNARY
+                        DEL HdlValueId@@RDATA_FCT3EQ5 from ops
+                        DEL HdlOp@@TERNARY from ops
+                        DEL list@@ops from TERNARY
+                    DEL HdlOp@@TERNARY from ops
+                    HdlOp: TERNARY
+                        list: ops
+                            HdlOp: LT
+                                list: ops
+                                    HdlValueId: U1REG
+                                    HdlValueId: U2REG
+                            HdlValueInt: 1
+                            HdlValueInt: 0
+                    DEL HdlOp@@TERNARY from ops
+                    DEL list@@ops from TERNARY
+                DEL HdlOp@@TERNARY from ops
+                HdlOp: TERNARY
+                    list: ops
+                        HdlOp: LT
+                            list: ops
+                                HdlValueId: S1REG
+                                HdlValueId: S2REG
+                        HdlValueInt: 1
+                        HdlValueInt: 0
+                DEL HdlOp@@TERNARY from ops
+                DEL list@@ops from TERNARY
+            UPD HdlOp@@SLL to SLL
+                UPD HdlOp@@INDEX to INDEX
+                    UPD HdlValueId@@U2REG to U2REGX
+            DEL HdlOp@@TERNARY from ops
+            DEL list@@ops from TERNARY
+        UPD HdlOp@@TERNARY to TERNARY
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: FCT7
+                    HdlValueInt: 5
+            DEL HdlOp@@SUB from ops
+            HdlOp: SUB
+                list: ops
+                    HdlValueId: U1REG
+                    HdlValueId: U2REG
+            DEL HdlOp@@ADD from ops
+            HdlOp: ADD
+                list: ops
+                    HdlValueId: U1REG
+                    HdlValueId: U2REG
+            DEL list@@ops from TERNARY
+        DEL HdlOp@@TERNARY from ops
+        DEL HdlOp@@TERNARY from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from RDATA
+    DEL HdlDirection@@INTERNAL from RDATA
+
+DEL HdlIdDef@@RDATA from objs
+
+
+CommitId: e8ff046cd85cceba0aa9a53268665e2107008e42
+instruction decode pipeline, M/R data path merge and other fixes.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -235,8 +263,8 @@ module darkriscv
+                         FCT3==4 ? U1REG^U2REG :                        
+                         FCT3==6 ? U1REG|U2REG :
+                         FCT3==7 ? U1REG&U2REG :                        
+-                                  0;
+-
++                                  0;
++*/
+     // J/B-group of instructions (OPCODE==7'b1100011)
+     
+     wire BMUX       = BCC==1 && (
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD list@@ops to body
+        MOV list@@ops to TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueId: RESET_SP
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: REG
+                            HdlValueId: DPTR
+                    HdlOp: TERNARY
+                        list: ops
+                            HdlOp: NEG_LOG
+                                list: ops
+                                    HdlValueId: DPTR
+                            HdlValueInt: 0
+                            HdlOp: TERNARY
+                                list: ops
+                                    HdlValueId: AUIPC
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueId: PC
+                                            HdlValueId: SIMM
+                                    HdlOp: TERNARY
+                                        list: ops
+                                            HdlOp: OR_LOG
+                                                list: ops
+                                                    HdlValueId: JAL
+                                                    HdlValueId: JALR
+                                            HdlValueId: NXPC
+                                            HdlOp: TERNARY
+                                                list: ops
+                                                    HdlValueId: LUI
+                                                    HdlValueId: SIMM
+                                                    HdlOp: TERNARY
+                                                        list: ops
+                                                            HdlValueId: LCC
+                                                            HdlValueId: LDATA
+                                                            HdlOp: TERNARY
+                                                                list: ops
+                                                                    HdlValueId: MCC
+                                                                    HdlValueId: MDATA
+                                                                    HdlOp: TERNARY
+                                                                        list: ops
+                                                                            HdlValueId: RCC
+                                                                            HdlValueId: RDATA
+                                                                            HdlOp: TERNARY
+                                                                                list: ops
+                                                                                    HdlValueId: CCC
+                                                                                    HdlValueId: CDATA
+                                                                                    HdlOp: INDEX
+                                                                                        list: ops
+                                                                                            HdlValueId: REG
+                                                                                            HdlValueId: DPTR
+        MOV HdlOp@@TERNARY to ops
+        HdlOp: TERNARY
+            list: ops
+                HdlValueId: HLT
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: REG
+                        HdlValueId: DPTR
+                HdlOp: TERNARY
+                    list: ops
+                        HdlOp: NEG_LOG
+                            list: ops
+                                HdlValueId: DPTR
+                        HdlValueInt: 0
+                        HdlOp: TERNARY
+                            list: ops
+                                HdlValueId: AUIPC
+                                HdlOp: ADD
+                                    list: ops
+                                        HdlValueId: PC
+                                        HdlValueId: SIMM
+                                HdlOp: TERNARY
+                                    list: ops
+                                        HdlOp: OR_LOG
+                                            list: ops
+                                                HdlValueId: JAL
+                                                HdlValueId: JALR
+                                        HdlValueId: NXPC
+                                        HdlOp: TERNARY
+                                            list: ops
+                                                HdlValueId: LUI
+                                                HdlValueId: SIMM
+                                                HdlOp: TERNARY
+                                                    list: ops
+                                                        HdlValueId: LCC
+                                                        HdlValueId: LDATA
+                                                        HdlOp: TERNARY
+                                                            list: ops
+                                                                HdlValueId: MCC
+                                                                HdlValueId: MDATA
+                                                                HdlOp: TERNARY
+                                                                    list: ops
+                                                                        HdlValueId: RCC
+                                                                        HdlValueId: RDATA
+                                                                        HdlOp: TERNARY
+                                                                            list: ops
+                                                                                HdlValueId: CCC
+                                                                                HdlValueId: CDATA
+                                                                                HdlOp: INDEX
+                                                                                    list: ops
+                                                                                        HdlValueId: REG
+                                                                                        HdlValueId: DPTR
+        MOV HdlValueId@@RES to ops
+        HdlValueId: RES
+        MOV HdlValueId@@RESET_SP to ops
+        HdlValueId: RESET_SP
+        UPD HdlOp@@TERNARY to TERNARY
+            MOV HdlValueId@@HLT to ops
+            HdlValueId: HLT
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: REG
+                    HdlValueId: DPTR
+            UPD HdlOp@@TERNARY to TERNARY
+                MOV HdlOp@@NEG_LOG to ops
+                HdlOp: NEG_LOG
+                    list: ops
+                        HdlValueId: DPTR
+                MOV HdlValueInt@@0 to ops
+                HdlValueInt: 0
+                UPD HdlOp@@TERNARY to TERNARY
+                    MOV HdlValueId@@AUIPC to ops
+                    HdlValueId: AUIPC
+                    MOV HdlOp@@ADD to ops
+                    HdlOp: ADD
+                        list: ops
+                            HdlValueId: PC
+                            HdlValueId: SIMM
+                    UPD HdlOp@@TERNARY to TERNARY
+                        MOV HdlOp@@OR_LOG to ops
+                        HdlOp: OR_LOG
+                            list: ops
+                                HdlValueId: JAL
+                                HdlValueId: JALR
+                        MOV HdlValueId@@NXPC to ops
+                        HdlValueId: NXPC
+                        UPD HdlOp@@TERNARY to TERNARY
+                            UPD HdlOp@@TERNARY to TERNARY
+                                UPD HdlValueId@@LCC to LUI
+                                UPD HdlValueId@@LDATA to SIMM
+                                UPD HdlOp@@TERNARY to TERNARY
+                                    UPD HdlValueId@@MCC to LCC
+                                    UPD HdlValueId@@MDATA to LDATA
+                                    UPD HdlOp@@TERNARY to TERNARY
+                                        UPD HdlValueId@@RDATA to RMDATA
+                                        MOV HdlValueId@@RCC to ops
+                                        HdlValueId: RCC
+                            DEL HdlValueId@@LUI from ops
+                            DEL HdlValueId@@SIMM from ops
+    DEL HdlOp@@TERNARY from 
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueInt: 1
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlValueId: FLUSH
+                    HdlOp: OR_LOG
+                        list: ops
+                            HdlOp: OR_LOG
+                                list: ops
+                                    HdlOp: OR_LOG
+                                        list: ops
+                                            HdlValueId: JAL
+                                            HdlValueId: JALR
+                                    HdlValueId: BMUX
+                            HdlValueId: RES
+    HdlValueId: FLUSH
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlValueId: RESET_SP
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: HLT
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: REG
+                            HdlValueId: DPTR
+                    HdlOp: TERNARY
+                        list: ops
+                            HdlOp: NEG_LOG
+                                list: ops
+                                    HdlValueId: DPTR
+                            HdlValueInt: 0
+                            HdlOp: TERNARY
+                                list: ops
+                                    HdlValueId: AUIPC
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueId: PC
+                                            HdlValueId: SIMM
+                                    HdlOp: TERNARY
+                                        list: ops
+                                            HdlOp: OR_LOG
+                                                list: ops
+                                                    HdlValueId: JAL
+                                                    HdlValueId: JALR
+                                            HdlValueId: NXPC
+                                            HdlOp: TERNARY
+                                                list: ops
+                                                    HdlValueId: LUI
+                                                    HdlValueId: SIMM
+                                                    HdlOp: TERNARY
+                                                        list: ops
+                                                            HdlValueId: LCC
+                                                            HdlValueId: LDATA
+                                                            HdlOp: TERNARY
+                                                                list: ops
+                                                                    HdlValueId: MCC
+                                                                    HdlValueId: MDATA
+                                                                    HdlOp: TERNARY
+                                                                        list: ops
+                                                                            HdlValueId: RCC
+                                                                            HdlValueId: RDATA
+                                                                            HdlOp: TERNARY
+                                                                                list: ops
+                                                                                    HdlValueId: CCC
+                                                                                    HdlValueId: CDATA
+                                                                                    HdlOp: INDEX
+                                                                                        list: ops
+                                                                                            HdlValueId: REG
+                                                                                            HdlValueId: DPTR
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: REG
+            HdlValueId: DPTR
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        DEL list@@body from SEQ
+
+
+CommitId: 402c7945669b5ab5bad64780fc36e4a143468029
+fixes in the stdio.c (issue #17) and other small fixes and improvements.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -85,7 +85,7 @@
+ // used to accelerate the mul/div operations, the mac operation is designed for DSP applications.
+ // with some effort (low level machine code), it is possible peak 100MMAC/s @100MHz.
+ 
+-//`define __MAC16X16__
++`define __MAC16X16__
+ 
+ module darkriscv
+ #(
+ParseResult:
+INS HdlIdDef@@IREQ to ports
+HdlIdDef: IREQ
+    HdlValueId: wire
+    HdlDirection: IN
+
+
+CommitId: 8f72a23558feb4f41be8974bd90f6edbcc787829
+added support for interrupt handling, performance measurements and other small fixes.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -65,6 +65,21 @@
+ 
+ `define __FASTER__
+ 
++// interrupt handling:
++//
++// decreases clock performance by 10% (90MHz), but enables two contexts (threads) in the core. 
++// They start in the same code, but the interrupt handling is locked in a separate loop and the
++// conext switch is always delayed until the next pipeline flush, in order to decrease the 
++// performance impact.
++// Note: interrupts are currently supported only in the 3-stage pipeline version.
++
++`define __INTERRUPT__ 
++
++// performance measurements can be done in the simulation level by eabling the __PERFMETER__
++// define, in order to check how the MHz are used :)
++
++// `define __PERFMETER__
++
+ module darkriscv
+ #(
+     parameter [31:0] RESET_PC = 0,
+
+ParseResult:
+INS HdlIdDef@@IREQ to ports
+HdlIdDef: IREQ
+    HdlValueId: wire
+    HdlDirection: IN
+
+
+CommitId: 8f72a23558feb4f41be8974bd90f6edbcc787829
+added support for interrupt handling, performance measurements and other small fixes.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -93,6 +112,10 @@ module darkriscv
+ 
+     wire [31:0] ALL0  = 0;
+     wire [31:0] ALL1  = -1;
++
++`ifdef __INTERRUPT__
++    reg XMODE = 0;     // 0 = user, 1 = exception
++`endif
+    
+     reg [1:0] FLUSH;  // flush instruction pipeline 
+     
+
+ParseResult:
+INS HdlIdDef@@DPTR to objs
+
+INS HdlIdDef@@S1PTR to objs
+
+UPD HdlIdDef@@DPTR to DPTR
+    MOV HdlOp@@INDEX to DPTR
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: XIDATA
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 11
+                    HdlValueInt: 7
+    DEL HdlOp@@PARAMETRIZATION from DPTR
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 4
+                    HdlValueInt: 0
+    DEL HdlDirection@@INTERNAL from DPTR
+
+UPD HdlIdDef@@S1PTR to S1PTR
+    MOV HdlOp@@INDEX to S1PTR
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: XIDATA
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 19
+                    HdlValueInt: 15
+    DEL HdlOp@@PARAMETRIZATION from S1PTR
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 4
+                    HdlValueInt: 0
+    DEL HdlDirection@@INTERNAL from S1PTR
+
+UPD HdlIdDef@@S2PTR to S2PTR
+    MOV HdlOp@@INDEX to S2PTR
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: XIDATA
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 24
+                    HdlValueInt: 20
+    DEL HdlOp@@PARAMETRIZATION from S2PTR
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 4
+                    HdlValueInt: 0
+    DEL HdlDirection@@INTERNAL from S2PTR
+
+DEL HdlIdDef@@DPTR from objs
+
+DEL HdlIdDef@@S1PTR from objs
+
+DEL HdlIdDef@@S2PTR from objs
+
+
+CommitId: 8f72a23558feb4f41be8974bd90f6edbcc787829
+added support for interrupt handling, performance measurements and other small fixes.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -173,6 +209,25 @@ module darkriscv
+     wire    RCC = FLUSH ? 0 : XRCC; // OPCODE==7'b0110011; //FCT3
+     //wire    FCC = FLUSH ? 0 : XFCC; // OPCODE==7'b0001111; //FCT3
+     //wire    CCC = FLUSH ? 0 : XCCC; // OPCODE==7'b1110011; //FCT3
++
++`ifdef __INTERRUPT__
++`ifdef __3STAGE__
++    reg [31:0] NXPC2 [0:1];       // 32-bit program counter t+2
++`endif
++    reg [31:0] NXPC;        // 32-bit program counter t+1
++    reg [31:0] PC;		    // 32-bit program counter t+0
++    
++    reg [31:0] REG1 [0:63];	// general-purpose 32x32-bit registers (s1)
++    reg [31:0] REG2 [0:63];	// general-purpose 32x32-bit registers (s2)
++
++    integer i; 
++    initial 
++    for(i=0;i!=64;i=i+1) 
++    begin
++        REG1[i] = 0; // makes the simulation looks better!
++        REG2[i] = 0; // makes the simulation looks better!
++    end
++`else
+ `ifdef __3STAGE__
+     reg [31:0] NXPC2;       // 32-bit program counter t+2
+ `endif
+
+ParseResult:
+UPD HdlIdDef@@REG2 to REG2
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@31 to 63
+
+UPD HdlStmFor@@ to 
+    UPD HdlOp@@NE to NE
+        UPD HdlValueInt@@32 to 64
+
+
+CommitId: 8f72a23558feb4f41be8974bd90f6edbcc787829
+added support for interrupt handling, performance measurements and other small fixes.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -308,18 +387,32 @@ module darkriscv
+ 
+ `ifdef __3STAGE__
+ 
+-        NXPC <= RES ? RESET_PC : HLT ? NXPC : NXPC2;
++`ifdef __INTERRUPT__
++        NXPC <= /*RES ? RESET_PC :*/ HLT ? NXPC : NXPC2[XMODE];
++	
++	    NXPC2[XMODE] <=  RES ? RESET_PC : HLT ? NXPC2[XMODE] :   // reset and halt
++	                 JREQ ? JVAL :                    // jmp/bra
++	                        NXPC2[XMODE]+4;                   // normal flow
++
++        XMODE <= RES ? 0 : HLT ? XMODE :        // reset and halt
++	             XMODE==0&& IREQ&&(JAL||JALR||BMUX||RES) ? 1 :         // wait pipeflush to switch to irq
++                 XMODE==1&&!IREQ&&(JAL||JALR||BMUX||RES) ? 0 : XMODE;  // wait pipeflush to return from irq
++
++`else
++        NXPC <= /*RES ? RESET_PC :*/ HLT ? NXPC : NXPC2;
+ 	
+ 	    NXPC2 <=  RES ? RESET_PC : HLT ? NXPC2 :   // reset and halt
+ 	                 JREQ ? JVAL :                    // jmp/bra
+ 	                        NXPC2+4;                   // normal flow
+ 
++`endif
++
+ `else
+         NXPC <= RES ? RESET_PC : HLT ? NXPC :   // reset and halt
+               JREQ ? JVAL :                   // jmp/bra
+                      NXPC+4;                   // normal flow
+ `endif
+-        PC   <= RES ? RESET_PC : HLT ? PC : NXPC; // current program counter
++        PC   <= /*RES ? RESET_PC :*/ HLT ? PC : NXPC; // current program counter
+     end
+ 
+     // IO and memory interface
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@INDEX to 
+    UPD HdlOp@@INDEX to INDEX
+        INS list@@ops to INDEX
+        INS HdlValueId@@XMODE to ops
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlOp@@TERNARY to TERNARY
+            INS HdlOp@@INDEX to ops
+            UPD HdlOp@@INDEX to INDEX
+                INS list@@ops to INDEX
+                INS HdlValueId@@XMODE to ops
+            UPD HdlOp@@TERNARY to TERNARY
+                UPD HdlOp@@ADD to ADD
+                    INS HdlOp@@INDEX to ops
+                    UPD HdlOp@@INDEX to INDEX
+                        INS list@@ops to INDEX
+                        INS HdlValueId@@XMODE to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@XMODE to 
+    UPD HdlOp@@TERNARY to TERNARY
+        INS HdlValueInt@@0 to ops
+        INS HdlOp@@TERNARY to ops
+        UPD HdlOp@@TERNARY to TERNARY
+            INS list@@ops to TERNARY
+            INS HdlValueId@@HLT to ops
+            INS HdlValueId@@XMODE to ops
+            INS HdlOp@@TERNARY to ops
+            UPD HdlOp@@TERNARY to TERNARY
+                INS list@@ops to TERNARY
+                INS HdlOp@@AND_LOG to ops
+                INS HdlValueInt@@1 to ops
+                INS HdlOp@@TERNARY to ops
+                HdlOp: TERNARY
+                    list: ops
+                        HdlOp: AND_LOG
+                            list: ops
+                                HdlOp: AND_LOG
+                                    list: ops
+                                        HdlOp: EQ
+                                            list: ops
+                                                HdlValueId: XMODE
+                                                HdlValueInt: 1
+                                        HdlOp: NEG_LOG
+                                            list: ops
+                                                HdlValueId: IREQ
+                                HdlOp: OR_LOG
+                                    list: ops
+                                        HdlOp: OR_LOG
+                                            list: ops
+                                                HdlOp: OR_LOG
+                                                    list: ops
+                                                        HdlValueId: JAL
+                                                        HdlValueId: JALR
+                                                HdlValueId: BMUX
+                                        HdlValueId: RES
+                        HdlValueInt: 0
+                        HdlValueId: XMODE
+                UPD HdlOp@@AND_LOG to AND_LOG
+                    INS list@@ops to AND_LOG
+                    INS HdlOp@@AND_LOG to ops
+                    HdlOp: AND_LOG
+                        list: ops
+                            HdlOp: EQ
+                                list: ops
+                                    HdlValueId: XMODE
+                                    HdlValueInt: 0
+                            HdlValueId: IREQ
+                    INS HdlOp@@OR_LOG to ops
+                    UPD HdlOp@@OR_LOG to OR_LOG
+                        INS list@@ops to OR_LOG
+                        INS HdlOp@@OR_LOG to ops
+                        HdlOp: OR_LOG
+                            list: ops
+                                HdlOp: OR_LOG
+                                    list: ops
+                                        HdlValueId: JAL
+                                        HdlValueId: JALR
+                                HdlValueId: BMUX
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlValueId: NXPC2
+    HdlValueId: IADDR
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlOp: CONCAT
+        list: ops
+            HdlOp: CONCAT
+                list: ops
+                    HdlOp: CONCAT
+                        list: ops
+                            HdlValueId: RES
+                            HdlValueId: FLUSH
+                    HdlValueId: WR
+            HdlValueId: RD
+    HdlValueId: DEBUG
+
+
+CommitId: c008442aea81b742f725f91e9301d7d7f263d78c
+experimental MAC instruction, software based mul/div/mod and other small fixes.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -303,6 +316,22 @@ module darkriscv
+                          FCT7[5] ? U1REG>>>U2REGX[4:0] : U1REG>>U2REGX[4:0]; // (FCT7[5] ? U1REG>>>U2REG[4:0] : U1REG>>U2REG[4:0])
+ `endif                        
+ 
++`ifdef __MAC16X16__
++
++    // MAC instruction rd += s1*s2 (OPCODE==7'b1111111)
++    // 
++    // 0000000 01100 01011 100 01100 0110011 xor a2,a1,a2
++    // 0000000 01010 01100 000 01010 0110011 add a0,a2,a0
++    // 0000000 01100 01011 000 01010 1111111 mac a0,a1,a2
++    // 
++    // 0000 0000 1100 0101 1000 0101 0111 1111 = 00c5857F
++
++    wire signed [15:0] K1TMP = S1REG[15:0];
++    wire signed [15:0] K2TMP = S2REG[15:0];
++    wire signed [31:0] KDATA = K1TMP*K2TMP;
++
++`endif
++
+     // J/B-group of instructions (OPCODE==7'b1100011)
+     
+     wire BMUX       = BCC==1 && (
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlOp@@TERNARY to TERNARY
+            UPD HdlOp@@TERNARY to TERNARY
+                UPD HdlOp@@TERNARY to TERNARY
+                    UPD HdlOp@@TERNARY to TERNARY
+                        UPD HdlOp@@TERNARY to TERNARY
+                            UPD HdlOp@@TERNARY to TERNARY
+                                UPD HdlOp@@TERNARY to TERNARY
+                                    MOV HdlOp@@INDEX to ops
+                                    HdlOp: INDEX
+                                        list: ops
+                                            HdlValueId: REG2
+                                            HdlValueId: DPTR
+
+
+CommitId: fff029a79eda7d490eeaaade30bfbc9ba8e3127a
+Fixes regarding issues #8/#10 (branches, auipc, load/store w/ byte selection).
+--- a/rtl/darksocv.v
++++ b/rtl/darksocv.v
+@@ -113,6 +113,7 @@ module darksocv
+     wire [31:0] DATAO;        
+     wire [31:0] DATAI;
+     wire WR,RD;
++    wire [3:0] BE;
+     
+ `ifdef CACHE_CONTROLLER
+     // instruction cache
+
+ParseResult:
+MOV HdlIdDef@@ICACHEO to objs
+HdlIdDef: ICACHEO
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 55
+                    HdlValueInt: 0
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: ICACHE
+            HdlValueId: IPTR
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@IHIT to objs
+
+INS HdlIdDef@@DHIT to objs
+
+UPD HdlIdDef@@ICACHEO to WHIT
+
+UPD HdlIdDef@@IPTR to IPTR
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@7 to 1
+            MOV HdlValueInt@@7 to ops
+            HdlValueInt: 7
+            UPD HdlValueInt@@2 to 1
+            MOV HdlValueInt@@2 to ops
+            HdlValueInt: 2
+            DEL list@@ops from DOWNTO
+        DEL HdlValueId@@IADDR from ops
+        DEL HdlOp@@DOWNTO from ops
+        DEL list@@ops from INDEX
+    MOV HdlDirection@@INTERNAL to IPTR
+    HdlDirection: INTERNAL
+    DEL HdlOp@@PARAMETRIZATION from IPTR
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 5
+                    HdlValueInt: 0
+    DEL HdlOp@@INDEX from IPTR
+
+UPD HdlIdDef@@IHIT to IHIT
+    INS HdlDirection@@INTERNAL to IHIT
+
+UPD HdlIdDef@@ICACHEO to ICACHEO
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@55 to 1
+            MOV HdlValueInt@@55 to ops
+            HdlValueInt: 55
+            DEL HdlValueInt@@0 from ops
+            DEL list@@ops from DOWNTO
+        DEL HdlValueId@@wire from ops
+        DEL HdlOp@@DOWNTO from ops
+        DEL list@@ops from PARAMETRIZATION
+    DEL HdlOp@@PARAMETRIZATION from ICACHEO
+    DEL HdlOp@@INDEX from ICACHEO
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: ICACHE
+            HdlValueId: IPTR
+
+DEL HdlIdDef@@IPTR from objs
+
+DEL HdlIdDef@@ICACHED from objs
+HdlIdDef: ICACHED
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+                    HdlValueInt: 0
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: ICACHEO
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@ICACHEA from objs
+HdlIdDef: ICACHEA
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+                    HdlValueInt: 8
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: ICACHEO
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 55
+                    HdlValueInt: 32
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@IHIT from objs
+HdlIdDef: IHIT
+    HdlOp: AND_LOG
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: ITAG
+                    HdlValueId: IPTR
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: ICACHEA
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: IADDR
+                            HdlOp: DOWNTO
+                                list: ops
+                                    HdlValueInt: 31
+                                    HdlValueInt: 8
+    HdlDirection: INTERNAL
+
+
+CommitId: fff029a79eda7d490eeaaade30bfbc9ba8e3127a
+Fixes regarding issues #8/#10 (branches, auipc, load/store w/ byte selection).
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -238,12 +240,12 @@ module darkriscv
+     // J/B-group of instructions (OPCODE==7'b1100011)
+     
+     wire BMUX       = BCC==1 && (
+-                          FCT3==4 ? S1REG>=S2REG : // signed
+-                          FCT3==5 ? S1REG<=S2REG : // signed
+-                          FCT3==6 ? U1REG>=U2REG : // unsigned
+-                          FCT3==7 ? U1REG<=U2REG : // unsigned
+-                          FCT3==0 ? U1REG==U2REG : 
+-                          FCT3==1 ? U1REG!=U2REG : 
++                          FCT3==4 ? S1REG< S2REG : // blt
++                          FCT3==5 ? S1REG>=S2REG : // bge
++                          FCT3==6 ? U1REG< U2REG : // bltu
++                          FCT3==7 ? U1REG>=U2REG : // bgeu
++                          FCT3==0 ? U1REG==U2REG : // beq
++                          FCT3==1 ? U1REG!=U2REG : // bne
+                                     0);
+ 
+     wire        JREQ = (JAL||JALR||BMUX);
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlOp@@TERNARY to TERNARY
+            MOV HdlOp@@TERNARY to ops
+            HdlOp: TERNARY
+                list: ops
+                    HdlValueId: FLUSH
+                    HdlOp: SUB
+                        list: ops
+                            HdlValueId: FLUSH
+                            HdlValueInt: 1
+                    HdlOp: TERNARY
+                        list: ops
+                            HdlOp: OR_LOG
+                                list: ops
+                                    HdlOp: OR_LOG
+                                        list: ops
+                                            HdlOp: OR_LOG
+                                                list: ops
+                                                    HdlValueId: JAL
+                                                    HdlValueId: JALR
+                                            HdlValueId: BMUX
+                                    HdlValueId: RES
+                            HdlValueInt: 2
+                            HdlValueInt: 0
+            UPD HdlOp@@TERNARY to TERNARY
+                UPD HdlValueId@@FLUSH to RES
+                UPD HdlOp@@SUB to SUB
+                    MOV HdlValueInt@@1 to ops
+                    HdlValueInt: 1
+                    DEL HdlValueId@@FLUSH from ops
+                    DEL list@@ops from SUB
+                DEL HdlOp@@SUB from ops
+                UPD HdlOp@@TERNARY to TERNARY
+                    DEL HdlValueInt@@2 from ops
+                    DEL HdlValueInt@@0 from ops
+            MOV HdlValueId@@HLT to ops
+            HdlValueId: HLT
+            MOV HdlValueId@@FLUSH to ops
+            HdlValueId: FLUSH
+            DEL list@@ops from TERNARY
+        DEL HdlValueId@@RES from ops
+        DEL HdlValueInt@@2 from ops
+        DEL HdlOp@@TERNARY from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlOp@@TERNARY to TERNARY
+            UPD HdlOp@@TERNARY to TERNARY
+                UPD HdlOp@@TERNARY to TERNARY
+                    UPD HdlOp@@ADD to ADD
+                        UPD HdlValueId@@NXPC to PC
+
+
+CommitId: fff029a79eda7d490eeaaade30bfbc9ba8e3127a
+Fixes regarding issues #8/#10 (branches, auipc, load/store w/ byte selection).
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -263,7 +265,7 @@ module darkriscv
+         REG[DPTR] <=   RES ? RESET_SP  :        // reset sp
+                        HLT ? REG[DPTR] :        // halt
+                      !DPTR ? 0 :                // x0 = 0, always!
+-                     AUIPC ? NXPC+SIMM :
++                     AUIPC ? PC+SIMM :
+                       JAL||
+                       JALR ? NXPC :
+                        LUI ? SIMM :
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: OR_LOG
+                list: ops
+                    HdlOp: EQ
+                        list: ops
+                            HdlValueId: FCT3
+                            HdlValueInt: 0
+                    HdlOp: EQ
+                        list: ops
+                            HdlValueId: FCT3
+                            HdlValueInt: 4
+            HdlOp: TERNARY
+                list: ops
+                    HdlOp: EQ
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: DADDR
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 1
+                                            HdlValueInt: 0
+                            HdlValueInt: 3
+                    HdlValueInt: 1000
+                    HdlOp: TERNARY
+                        list: ops
+                            HdlOp: EQ
+                                list: ops
+                                    HdlOp: INDEX
+                                        list: ops
+                                            HdlValueId: DADDR
+                                            HdlOp: DOWNTO
+                                                list: ops
+                                                    HdlValueInt: 1
+                                                    HdlValueInt: 0
+                                    HdlValueInt: 2
+                            HdlValueInt: 0100
+                            HdlOp: TERNARY
+                                list: ops
+                                    HdlOp: EQ
+                                        list: ops
+                                            HdlOp: INDEX
+                                                list: ops
+                                                    HdlValueId: DADDR
+                                                    HdlOp: DOWNTO
+                                                        list: ops
+                                                            HdlValueInt: 1
+                                                            HdlValueInt: 0
+                                            HdlValueInt: 1
+                                    HdlValueInt: 0010
+                                    HdlValueInt: 0001
+            HdlOp: TERNARY
+                list: ops
+                    HdlOp: OR_LOG
+                        list: ops
+                            HdlOp: EQ
+                                list: ops
+                                    HdlValueId: FCT3
+                                    HdlValueInt: 1
+                            HdlOp: EQ
+                                list: ops
+                                    HdlValueId: FCT3
+                                    HdlValueInt: 5
+                    HdlOp: TERNARY
+                        list: ops
+                            HdlOp: EQ
+                                list: ops
+                                    HdlOp: INDEX
+                                        list: ops
+                                            HdlValueId: DADDR
+                                            HdlValueInt: 1
+                                    HdlValueInt: 1
+                            HdlValueInt: 1100
+                            HdlValueInt: 0011
+                    HdlValueInt: 1111
+    HdlValueId: BE
+
+
+CommitId: 75002724e29d5c3c189895101616c040ea76a8d0
+fixes in the core reset, fixes in the timer, fixes in the boot.c regarding interrupt handling... small fixes in the makefiles, code size, etc.
+--- a/sim/darksimv.v
++++ b/sim/darksimv.v
+@@ -36,13 +36,17 @@ module darksimv;
+ 
+     reg CLK = 0;
+     
+-    reg [3:0] RES = -1;
++    reg RES = 1;
+ 
+     initial while(1) #(500e6/100e6) CLK = !CLK; // clock speed of 100MHz
+ 
+-    initial #(250e6) $finish;
+-
+-    always@(posedge CLK) RES <= RES ? RES-1 : 0;
++    initial
++    begin
++        #1e3   RES = 0;
++        #1000e3 RES = 1;
++        #1e3   RES = 0;
++        #1000e3 $finish();
++    end
+ 
+     wire TX;
+     wire RX = 1;
+ParseResult:
+INS HdlStmProcess@@ to objs
+
+UPD HdlIdDef@@RES to RES
+    UPD HdlOp@@MINUS_UNARY to MINUS_UNARY
+        MOV HdlValueInt@@1 to ops
+        HdlValueInt: 1
+        DEL list@@ops from MINUS_UNARY
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        DEL HdlOp@@DOWNTO from ops
+        HdlOp: DOWNTO
+            list: ops
+                HdlValueInt: 3
+                HdlValueInt: 0
+    DEL HdlOp@@MINUS_UNARY from RES
+
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+INS HdlStmProcess@@ to body
+
+INS HdlStmProcess@@ to body
+
+INS HdlStmProcess@@ to body
+HdlStmProcess
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmWait:
+                list: val
+                    float
+            HdlOp: ASSIGN
+                list: ops
+                    HdlValueId: RES
+                    HdlValueInt: 0
+
+MOV HdlStmProcess@@ to body
+HdlStmProcess
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmWait:
+                list: val
+                    float
+            HdlOp: CALL
+                list: ops
+                    HdlValueId: $finish
+
+MOV HdlStmWait@@[] to body
+HdlStmWait:
+    list: val
+
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: RES
+                HdlValueInt: 0
+
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+
+UPD HdlStmAssign@@body to body
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD list@@ops to body
+        MOV list@@ops to TERNARY
+        list: ops
+            HdlValueId: RES
+            HdlOp: SUB
+                list: ops
+                    HdlValueId: RES
+                    HdlValueInt: 1
+            HdlValueInt: 0
+        UPD HdlOp@@SUB to ASSIGN
+        DEL HdlValueId@@RES from ops
+        DEL HdlValueInt@@0 from ops
+    DEL HdlOp@@TERNARY from body
+    DEL HdlValueId@@RES from body
+
+UPD HdlStmWait@@[250000000.0] to [1000.0]
+
+MOV HdlStmWait@@[250000000.0] to body
+HdlStmWait:
+    list: val
+        float
+
+INS HdlStmWait@@[1000000.0] to body
+HdlStmWait:
+    list: val
+        float
+
+INS HdlStmWait@@[1000000.0] to body
+HdlStmWait:
+    list: val
+        float
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        DEL list@@body from SEQ
+    DEL HdlStmBlock@@SEQ from 
+
+DEL HdlStmProcess@@ from objs
+
+UPD HdlStmProcess@@ to 
+    DEL list@@sensitivity from 
+    list: sensitivity
+        HdlOp: RISING
+            list: ops
+                HdlValueId: CLK
+
+DEL HdlStmAssign@@body from 
+
+DEL HdlStmProcess@@ from objs
+
+
+CommitId: 53ad049a6c94ac331c9a4ac4c9520ba802895141
+additional optimizations in the core, fixes, updates and support for QMTech LX16 board.
+--- a/rtl/darksocv.v
++++ b/rtl/darksocv.v
+@@ -88,7 +94,11 @@ module darksocv
+ 
+     reg [7:0] IRES = -1;
+ 
+-    always@(posedge XCLK) IRES <= XRES ? -1 : IRES[7] ? IRES-1 : 0;
++`ifdef QMTECH_SDRAM_LX16
++    always@(posedge XCLK) IRES <= XRES==0 ? -1 : IRES[7] ? IRES-1 : 0; // reset low
++`else
++    always@(posedge XCLK) IRES <= XRES==1 ? -1 : IRES[7] ? IRES-1 : 0; // reset high
++`endif
+ 
+     wire CLK = XCLK;
+     wire RES = IRES[7];
+
+ParseResult:
+UPD HdlStmAssign@@body to body
+    UPD HdlOp@@TERNARY to TERNARY
+        INS HdlOp@@EQ to ops
+        UPD HdlOp@@EQ to EQ
+            INS list@@ops to EQ
+            INS HdlValueInt@@1 to ops
+
+
+CommitId: 53ad049a6c94ac331c9a4ac4c9520ba802895141
+additional optimizations in the core, fixes, updates and support for QMTech LX16 board.
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -259,7 +259,7 @@ module darkriscv
+                   MCC||RCC ? RMDATA:
+                        //MCC ? MDATA :
+                        //RCC ? RDATA : 
+-                       CCC ? CDATA : 
++                       //CCC ? CDATA : 
+                              REG1[DPTR];
+ 
+         REG2[DPTR] <=   RES ? RESET_SP  :        // reset sp
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@TERNARY to ops
+        HdlOp: TERNARY
+            list: ops
+                HdlValueId: HLT
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: REG2
+                        HdlValueId: DPTR
+                HdlOp: TERNARY
+                    list: ops
+                        HdlOp: NEG_LOG
+                            list: ops
+                                HdlValueId: DPTR
+                        HdlValueInt: 0
+                        HdlOp: TERNARY
+                            list: ops
+                                HdlValueId: AUIPC
+                                HdlOp: ADD
+                                    list: ops
+                                        HdlValueId: PC
+                                        HdlValueId: SIMM
+                                HdlOp: TERNARY
+                                    list: ops
+                                        HdlOp: OR_LOG
+                                            list: ops
+                                                HdlValueId: JAL
+                                                HdlValueId: JALR
+                                        HdlValueId: NXPC
+                                        HdlOp: TERNARY
+                                            list: ops
+                                                HdlValueId: LUI
+                                                HdlValueId: SIMM
+                                                HdlOp: TERNARY
+                                                    list: ops
+                                                        HdlValueId: LCC
+                                                        HdlValueId: LDATA
+                                                        HdlOp: TERNARY
+                                                            list: ops
+                                                                HdlOp: OR_LOG
+                                                                    list: ops
+                                                                        HdlValueId: MCC
+                                                                        HdlValueId: RCC
+                                                                HdlValueId: RMDATA
+                                                                HdlOp: TERNARY
+                                                                    list: ops
+                                                                        HdlValueId: CCC
+                                                                        HdlValueId: CDATA
+                                                                        HdlOp: INDEX
+                                                                            list: ops
+                                                                                HdlValueId: REG2
+                                                                                HdlValueId: DPTR
+        MOV HdlValueId@@RES to ops
+        HdlValueId: RES
+        MOV HdlValueId@@RESET_SP to ops
+        HdlValueId: RESET_SP
+        UPD HdlOp@@TERNARY to TERNARY
+            MOV HdlValueId@@HLT to ops
+            HdlValueId: HLT
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: REG2
+                    HdlValueId: DPTR
+            UPD HdlOp@@TERNARY to TERNARY
+                MOV HdlOp@@NEG_LOG to ops
+                HdlOp: NEG_LOG
+                    list: ops
+                        HdlValueId: DPTR
+                MOV HdlValueInt@@0 to ops
+                HdlValueInt: 0
+                UPD HdlOp@@TERNARY to TERNARY
+                    MOV HdlValueId@@AUIPC to ops
+                    HdlValueId: AUIPC
+                    MOV HdlOp@@ADD to ops
+                    HdlOp: ADD
+                        list: ops
+                            HdlValueId: PC
+                            HdlValueId: SIMM
+                    UPD HdlOp@@TERNARY to TERNARY
+                        MOV HdlOp@@OR_LOG to ops
+                        HdlOp: OR_LOG
+                            list: ops
+                                HdlValueId: JAL
+                                HdlValueId: JALR
+                        MOV HdlValueId@@NXPC to ops
+                        HdlValueId: NXPC
+                        UPD HdlOp@@TERNARY to TERNARY
+                            MOV HdlValueId@@LUI to ops
+                            HdlValueId: LUI
+                            MOV HdlValueId@@SIMM to ops
+                            HdlValueId: SIMM
+                            UPD HdlOp@@TERNARY to TERNARY
+                                MOV HdlValueId@@LCC to ops
+                                HdlValueId: LCC
+                                MOV HdlValueId@@LDATA to ops
+                                HdlValueId: LDATA
+                                UPD HdlOp@@TERNARY to TERNARY
+                                    MOV HdlOp@@OR_LOG to ops
+                                    HdlOp: OR_LOG
+                                        list: ops
+                                            HdlValueId: MCC
+                                            HdlValueId: RCC
+                                    UPD HdlOp@@TERNARY to TERNARY
+                                        UPD HdlValueId@@CDATA to RMDATA
+                                        DEL HdlValueId@@CCC from ops
+                                    DEL HdlValueId@@RMDATA from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+
+
+CommitId: 35e92088d93b930a29073fa8326047800fa25cdd
+added support for Artix-7 dev board, new board organization and lots of fixes!
+--- a/rtl/darksocv.v
++++ b/rtl/darksocv.v
+@@ -141,11 +143,11 @@ module darksocv
+     reg  IFFX = 0;
+     reg IFFX2 = 0;
+     
+-    reg [31:0] ROMFF2;
++    reg [31:0] ROMFF;
+ 
+     always@(posedge CLK)
+     begin
+-        ROMFF2 <= ROM[IADDR[11:2]];
++        ROMFF <= ROM[IADDR[11:2]];
+ 
+         if(IFFX2)
+         begin
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@ROMFF2 to ROMFF
+
+
+CommitId: 35e92088d93b930a29073fa8326047800fa25cdd
+added support for Artix-7 dev board, new board organization and lots of fixes!
+--- a/rtl/darksocv.v
++++ b/rtl/darksocv.v
+@@ -155,7 +157,7 @@ module darksocv
+         else    
+         if(!IHIT)
+         begin
+-            ICACHE[IPTR] <= { IADDR[31:8], ROMFF2 };
++            ICACHE[IPTR] <= { IADDR[31:8], ROMFF };
+             ITAG[IPTR]    <= IFFX; // cached!
+             IFFX          <= 1;
+             IFFX2         <= IFFX;
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@RAMFF2 to RAMFF
+
+
+CommitId: 35e92088d93b930a29073fa8326047800fa25cdd
+added support for Artix-7 dev board, new board organization and lots of fixes!
+--- a/rtl/darksocv.v
++++ b/rtl/darksocv.v
+@@ -168,11 +170,11 @@ module darksocv
+ 
+     wire IHIT=1;
+ 
+-    reg [31:0] ROMFF2;
++    reg [31:0] ROMFF;
+     
+     always@(negedge CLK) // stage #0.5
+     begin
+-        ROMFF2 <= ROM[IADDR[11:2]];
++        ROMFF <= ROM[IADDR[11:2]];
+     end
+ 
+     //assign IDATA = ROM[IADDR[11:2]];
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlValueId@@RAMFF2 to RAMFF
+
+
+CommitId: 35e92088d93b930a29073fa8326047800fa25cdd
+added support for Artix-7 dev board, new board organization and lots of fixes!
+--- a/rtl/darksocv.v
++++ b/rtl/darksocv.v
+@@ -186,7 +188,7 @@ module darksocv
+         end
+     end
+     
+-    assign IDATA = ROMFF2;
++    assign IDATA = ROMFF;
+ 
+ `endif
+ 
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@CONCAT to 
+    UPD HdlOp@@CONCAT to CONCAT
+        INS list@@ops to CONCAT
+        INS HdlOp@@CONCAT to ops
+        INS HdlValueId@@BOARD_ID to ops
+        UPD HdlOp@@CONCAT to CONCAT
+            INS list@@ops to CONCAT
+            INS HdlValueId@@BOARD_CM to ops
+            UPD HdlOp@@CONCAT to CONCAT
+                INS HdlValueId@@BOARD_CK to ops
+
+

@@ -1,0 +1,24 @@
+e7c33bc7d83eb4830cf39fbdc02f577f196abe24
+ad9265_fmc: Fixed spi connection. Changed ila clock to 200 MHz
+diff --git a/projects/ad9265_fmc/zc706/system_top.v b/projects/ad9265_fmc/zc706/system_top.v
+index b03db27d..5cea0321 100644
+--- a/projects/ad9265_fmc/zc706/system_top.v
++++ b/projects/ad9265_fmc/zc706/system_top.v
+@@ -161,13 +161,13 @@ assign spi_mosi = spi0_mosi;
+ assign spi0_miso = spi_miso;
+ 
+ ad_iobuf #(.DATA_WIDTH(15)) iobuf_gpio_bd (
+-  .di (gpio_o),
+-  .do (gpio_i),
+-  .dt (gpio_t),
++  .di (gpio_o[14:0]),
++  .do (gpio_i[14:0]),
++  .dt (gpio_t[14:0]),
+   .dio (gpio_bd));
+ 
+ ad9265_spi i_spi (
+-    .spi_csn(spi_csn),
++    .spi_csn(spi0_csn[1:0]),
+     .spi_clk(spi_clk),
+     .spi_mosi(spi_mosi),
+     .spi_miso(spi_miso),

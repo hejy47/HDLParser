@@ -1,0 +1,15 @@
+501cc2bb62906eb7ebc9d638d6a42695b08871ab
+ram_1p.sv: Fix rvalid_o generation
+diff --git a/examples/fpga/artya7-100/rtl/ram_1p.sv b/examples/fpga/artya7-100/rtl/ram_1p.sv
+index 98b56c1e..eaf131cc 100644
+--- a/examples/fpga/artya7-100/rtl/ram_1p.sv
++++ b/examples/fpga/artya7-100/rtl/ram_1p.sv
+@@ -42,7 +42,7 @@ module ram_1p #(
+     if (!rst_ni) begin
+       rvalid_o <= '0;
+     end else begin
+-      rvalid_o <= req_i && ~write_i;
++      rvalid_o <= req_i;
+     end
+   end
+ 

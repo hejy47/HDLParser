@@ -1,0 +1,26 @@
+651c4f1fa3fb628b1ac106edda1177a21705657b
+Fix many typos.
+diff --git a/src/cpu/decode/decode_and_issue.sv b/src/cpu/decode/decode_and_issue.sv
+index 7c45988..9be4d6b 100644
+--- a/src/cpu/decode/decode_and_issue.sv
++++ b/src/cpu/decode/decode_and_issue.sv
+@@ -15,8 +15,8 @@ module decode_and_issue(
+ );
+ 
+ logic           [`ISSUE_NUM-1:0] instr_valid;
+-decoded_instr_t [`ISSUE_NUM-1:0] deocded_instr;
+-decoded_instr_t [`ISSUE_NUM-1:0] ex_deocded;
++decoded_instr_t [`ISSUE_NUM-1:0] decoded_instr;
++decoded_instr_t [`ISSUE_NUM-1:0] ex_decoded;
+ decoded_instr_t [`ISSUE_NUM-1:0] issue_instr;
+ 
+ reg_addr_t  [`ISSUE_NUM - 1:0] ex_waddr, mm_waddr, wb_waddr;
+@@ -54,7 +54,7 @@ end
+ 
+ instr_issue issue_inst(
+ 	.instr_valid,
+-	.id_decoded ( decoded_instr_t ),
++	.id_decoded ( decoded_instr ),
+ 	.ex_decoded,
+ 	.issue_instr,
+ 	.issue_num,

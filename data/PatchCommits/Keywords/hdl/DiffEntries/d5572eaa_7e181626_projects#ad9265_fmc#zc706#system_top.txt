@@ -1,0 +1,15 @@
+d5572eaa49cca53db104973c1891ccb9e23797d6
+ad9265_fmc: Fix unconnected DMA irq
+diff --git a/projects/ad9265_fmc/zc706/system_top.v b/projects/ad9265_fmc/zc706/system_top.v
+index 4b01ddea..937da041 100644
+--- a/projects/ad9265_fmc/zc706/system_top.v
++++ b/projects/ad9265_fmc/zc706/system_top.v
+@@ -211,7 +211,7 @@ system_wrapper i_system_wrapper (
+     .ps_intr_8 (ps_intrs[8]),
+     .ps_intr_9 (ps_intrs[9]),
+     .ad9265_spi (ps_intrs[2]),
+-    .ad9265_dma_irq (ps_intrs[12]),
++    .ad9265_dma_irq (ps_intrs[13]),
+     .spdif (spdif),
+     .adc_clk_in_n(adc_clk_in_n),
+     .adc_clk_in_p(adc_clk_in_p),

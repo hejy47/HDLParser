@@ -1,0 +1,17 @@
+de88e3a1673bdeb490b7620d0180d8805aa8a76c
+[reggen] Add devmode_i to register module
+diff --git a/hw/ip/usbdev/rtl/usbdev.sv b/hw/ip/usbdev/rtl/usbdev.sv
+index dc0de91ea..ce4430b5a 100644
+--- a/hw/ip/usbdev/rtl/usbdev.sv
++++ b/hw/ip/usbdev/rtl/usbdev.sv
+@@ -509,7 +509,9 @@ module usbdev (
+     .tl_win_i (tl_sram_d2h),
+ 
+     .reg2hw,
+-    .hw2reg
++    .hw2reg,
++
++    .devmode_i  (1'b1)
+   );
+ 
+   prim_intr_hw #(.Width(1)) intr_hw_pkt_received (

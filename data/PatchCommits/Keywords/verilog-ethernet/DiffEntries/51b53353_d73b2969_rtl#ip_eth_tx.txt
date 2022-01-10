@@ -1,0 +1,15 @@
+51b5335318c83e2662a0edb768b05ac7cbcd6603
+Remove z from default states for FSM inference
+diff --git a/rtl/ip_eth_tx.v b/rtl/ip_eth_tx.v
+index 73bf5ca..0bbe2d3 100644
+--- a/rtl/ip_eth_tx.v
++++ b/rtl/ip_eth_tx.v
+@@ -180,7 +180,7 @@ function [15:0] add1c16b;
+ endfunction
+ 
+ always @* begin
+-    state_next = 2'bz;
++    state_next = STATE_IDLE;
+ 
+     input_ip_hdr_ready_next = 0;
+     input_ip_payload_tready_next = 0;

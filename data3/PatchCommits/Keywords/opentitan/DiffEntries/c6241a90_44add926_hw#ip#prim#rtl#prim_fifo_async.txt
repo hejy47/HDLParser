@@ -1,0 +1,49 @@
+c6241a9091b0351d2dd94c417e49953b6ce96b3f
+[prim_fifo_async] Make async FIFO output zero when empty
+diff --git a/hw/ip/prim/rtl/prim_fifo_async.sv b/hw/ip/prim/rtl/prim_fifo_async.sv
+index 1f4be4093..056c3924d 100644
+--- a/hw/ip/prim/rtl/prim_fifo_async.sv
++++ b/hw/ip/prim/rtl/prim_fifo_async.sv
+@@ -9,6 +9,7 @@
+ module prim_fifo_async #(
+   parameter  int unsigned Width  = 16,
+   parameter  int unsigned Depth  = 4,
++  parameter  bit OutputZeroIfEmpty = 1'b0, // if == 1 always output 0 when FIFO is empty
+   localparam int unsigned DepthW = $clog2(Depth+1) // derived parameter representing [0..Depth]
+ ) (
+   // write port
+@@ -171,6 +172,7 @@ module prim_fifo_async #(
+   // Storage //
+   /////////////
+ 
++  logic [Width-1:0] rdata_int;
+   if (Depth > 1) begin : g_storage_mux
+ 
+     always_ff @(posedge clk_wr_i) begin
+@@ -179,7 +181,7 @@ module prim_fifo_async #(
+       end
+     end
+ 
+-    assign rdata_o = storage[fifo_rptr_q[PTRV_W-1:0]];
++    assign rdata_int = storage[fifo_rptr_q[PTRV_W-1:0]];
+ 
+   end else begin : g_storage_simple
+ 
+@@ -189,10 +191,16 @@ module prim_fifo_async #(
+       end
+     end
+ 
+-    assign rdata_o = storage[0];
++    assign rdata_int = storage[0];
+ 
+   end
+ 
++  if (OutputZeroIfEmpty == 1'b1) begin : gen_output_zero
++    assign rdata_o = empty_rclk ? '0 : rdata_int;
++  end else begin : gen_no_output_zero
++    assign rdata_o = rdata_int;
++  end
++
+   //////////////////////////////////////
+   // Decimal <-> Gray-code Conversion //
+   //////////////////////////////////////

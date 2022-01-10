@@ -1,0 +1,29 @@
+a37bcfa3d83c2eeed22726be66a1e7b26dcc7c3a
+[prim] Make ROM_INIT_FILE a parameter
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv b/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv
+index 16ab39225..fc3a897be 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv
+@@ -2,7 +2,11 @@
+ // Licensed under the Apache License, Version 2.0, see LICENSE for details.
+ // SPDX-License-Identifier: Apache-2.0
+ 
+-module top_earlgrey_artys7 (
++module top_earlgrey_artys7  #(
++  // Path to a VMEM file containing the contents of the boot ROM, which will be
++  // baked into the FPGA bitstream.
++  parameter BootRomInitFile = "boot_rom_fpga_artys7.32.vmem"
++) (
+   // Clock and Reset
+   inout               IO_CLK,
+   inout               IO_RST_N,
+@@ -161,7 +165,8 @@ module top_earlgrey_artys7 (
+   //////////////////////
+ 
+   top_earlgrey #(
+-    .IbexPipeLine(1)
++    .IbexPipeLine(1),
++    .BootRomInitFile(BootRomInitFile)
+   ) top_earlgrey (
+     // Clocks, resets
+     .clk_i           ( clk           ),

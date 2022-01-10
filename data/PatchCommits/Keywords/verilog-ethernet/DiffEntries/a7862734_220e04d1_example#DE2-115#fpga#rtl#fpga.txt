@@ -1,0 +1,17 @@
+a78627343d6da8c50c52f4a11aa624b5d84858de
+Change default target parameter
+diff --git a/example/DE2-115/fpga/rtl/fpga.v b/example/DE2-115/fpga/rtl/fpga.v
+index ae51d7d..e72e349 100644
+--- a/example/DE2-115/fpga/rtl/fpga.v
++++ b/example/DE2-115/fpga/rtl/fpga.v
+@@ -211,7 +211,9 @@ debounce_switch_inst (
+         sw_int})
+ );
+ 
+-fpga_core
++fpga_core #(
++    .TARGET("ALTERA")
++)
+ core_inst (
+     /*
+      * Clock: 125MHz

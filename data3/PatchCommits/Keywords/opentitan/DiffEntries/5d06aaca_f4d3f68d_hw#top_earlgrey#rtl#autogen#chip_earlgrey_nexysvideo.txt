@@ -1,0 +1,14 @@
+5d06aaca0cd7b5d06e8c1e8a17b37587943f5551
+[top, keymgr, kmac] Ensure masking consistency between keymgr/kmac
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
+index c5e834cb9..d7fdac33f 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
+@@ -731,6 +731,7 @@ module chip_earlgrey_nexysvideo #(
+     .AesMasking(1'b0),
+     .AesSBoxImpl(aes_pkg::SBoxImplLut),
+     .KmacEnMasking(1'b0),
++    .KeymgrKmacEnMasking(0),
+     .SecAesStartTriggerDelay(0),
+     .SecAesAllowForcingMasks(1'b0),
+     .SecAesSkipPRNGReseeding(1'b0),

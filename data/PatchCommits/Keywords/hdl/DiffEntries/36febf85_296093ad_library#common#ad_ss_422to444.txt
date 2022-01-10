@@ -1,0 +1,24 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/common/ad_ss_422to444.v b/library/common/ad_ss_422to444.v
+index 613f9fa5..fbfdd2c6 100644
+--- a/library/common/ad_ss_422to444.v
++++ b/library/common/ad_ss_422to444.v
+@@ -54,7 +54,7 @@ module ad_ss_422to444 (
+ 
+   // parameters
+ 
+-  parameter   Cr_Cb_N = 0;
++  parameter   CR_CB_N = 0;
+   parameter   DELAY_DATA_WIDTH = 16;
+   localparam  DW = DELAY_DATA_WIDTH - 1;
+ 
+@@ -108,7 +108,7 @@ module ad_ss_422to444 (
+     if (s422_de_d == 1'b1) begin
+       cr_cb_sel <= ~cr_cb_sel;
+     end else begin
+-      cr_cb_sel <= Cr_Cb_N;
++      cr_cb_sel <= CR_CB_N;
+     end
+   end
+ 

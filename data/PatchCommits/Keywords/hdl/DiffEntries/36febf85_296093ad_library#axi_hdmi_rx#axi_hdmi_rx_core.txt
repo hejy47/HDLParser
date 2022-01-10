@@ -1,0 +1,15 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/axi_hdmi_rx/axi_hdmi_rx_core.v b/library/axi_hdmi_rx/axi_hdmi_rx_core.v
+index f4484b35..c1df3ab6 100644
+--- a/library/axi_hdmi_rx/axi_hdmi_rx_core.v
++++ b/library/axi_hdmi_rx/axi_hdmi_rx_core.v
+@@ -321,7 +321,7 @@ module axi_hdmi_rx_core (
+ 
+   // super sampling, 422 to 444
+ 
+-  ad_ss_422to444 #(.Cr_Cb_N(0), .DELAY_DATA_WIDTH(2)) i_ss (
++  ad_ss_422to444 #(.CR_CB_N(0), .DELAY_DATA_WIDTH(2)) i_ss (
+     .clk (hdmi_clk),
+     .s422_de (hdmi_de_422),
+     .s422_sync ({hdmi_sof_422, hdmi_de_422}),

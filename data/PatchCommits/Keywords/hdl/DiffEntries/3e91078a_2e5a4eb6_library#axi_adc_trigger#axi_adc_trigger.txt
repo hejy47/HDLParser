@@ -1,0 +1,16 @@
+3e91078af0ef19bb5d80733bf2d980bffe252d92
+axi_adc_trigger: Add trigger disable condition
+diff --git a/library/axi_adc_trigger/axi_adc_trigger.v b/library/axi_adc_trigger/axi_adc_trigger.v
+index baf88421..da1e9adb 100644
+--- a/library/axi_adc_trigger/axi_adc_trigger.v
++++ b/library/axi_adc_trigger/axi_adc_trigger.v
+@@ -479,7 +479,8 @@ module axi_adc_trigger #(
+       4'h6: trigger_out_mixed = trigger_a | trigger_in;
+       4'h7: trigger_out_mixed = trigger_b | trigger_in;
+       4'h8: trigger_out_mixed = trigger_a | trigger_b | trigger_in;
+-      default: trigger_out_mixed = trigger_a;
++      4'hf: trigger_out_mixed = 1'b0; // trigger disable
++      default: trigger_out_mixed = 1'b0;
+     endcase
+   end
+ 

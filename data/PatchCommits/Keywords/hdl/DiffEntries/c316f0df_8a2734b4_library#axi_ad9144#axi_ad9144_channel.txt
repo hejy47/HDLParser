@@ -1,0 +1,14 @@
+c316f0dfea2a1ae345914cfc221c85faaa7d6ed3
+ad9144- synthesis warnings fix
+diff --git a/library/axi_ad9144/axi_ad9144_channel.v b/library/axi_ad9144/axi_ad9144_channel.v
+index c6b41a10..2559eb86 100644
+--- a/library/axi_ad9144/axi_ad9144_channel.v
++++ b/library/axi_ad9144/axi_ad9144_channel.v
+@@ -422,6 +422,7 @@ module axi_ad9144_channel (
+     .dac_pat_data_1 (dac_pat_data_1_s),
+     .dac_pat_data_2 (dac_pat_data_2_s),
+     .dac_data_sel (dac_data_sel_s),
++    .dac_iq_mode (),
+     .dac_iqcor_enb (),
+     .dac_iqcor_coeff_1 (),
+     .dac_iqcor_coeff_2 (),

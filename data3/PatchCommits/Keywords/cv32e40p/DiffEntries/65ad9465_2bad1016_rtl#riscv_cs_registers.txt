@@ -1,0 +1,15 @@
+65ad9465b08fee8995942952d099ed7f8f61bb0a
+:fix: address range of mtvec with no security
+diff --git a/rtl/riscv_cs_registers.sv b/rtl/riscv_cs_registers.sv
+index 0a055e2..bc677b6 100644
+--- a/rtl/riscv_cs_registers.sv
++++ b/rtl/riscv_cs_registers.sv
+@@ -762,7 +762,7 @@ end //PULP_SECURE
+ 
+         assign uepc_q       = '0;
+         assign ucause_q     = '0;
+-        assign mtvec_q      = {boot_addr_i[31:8], 6'h0, MTVEC_MODE};
++        assign mtvec_q      = boot_addr_i[31:8];
+         assign utvec_q      = '0;
+         assign priv_lvl_q   = PRIV_LVL_M;
+ 

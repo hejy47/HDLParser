@@ -1,0 +1,22 @@
+de6e479401510aed7041bd8581d29b7980624958
+[entropy_src/rtl] IO changes updated
+diff --git a/hw/ip/entropy_src/rtl/entropy_src_adaptp_ht.sv b/hw/ip/entropy_src/rtl/entropy_src_adaptp_ht.sv
+index beb866826..8dcb6809d 100755
+--- a/hw/ip/entropy_src/rtl/entropy_src_adaptp_ht.sv
++++ b/hw/ip/entropy_src/rtl/entropy_src_adaptp_ht.sv
+@@ -54,11 +54,10 @@ module entropy_src_adaptp_ht #(
+ 
+ 
+   // Number of ones per column
+-//  assign column_cnt =  {{RngBusWidth{1'b0}},entropy_bit_i[3]};
+-  assign column_cnt =  {{(RngBusWidth-1){1'b0}},entropy_bit_i[3]} +
+-                       {{(RngBusWidth-1){1'b0}},entropy_bit_i[2]} +
+-                       {{(RngBusWidth-1){1'b0}},entropy_bit_i[1]} +
+-                       {{(RngBusWidth-1){1'b0}},entropy_bit_i[0]};
++  assign column_cnt =  RngBusWidth'(entropy_bit_i[3]) +
++                       RngBusWidth'(entropy_bit_i[2]) +
++                       RngBusWidth'(entropy_bit_i[1]) +
++                       RngBusWidth'(entropy_bit_i[0]);
+ 
+   // Window wrap condition
+   assign window_cntr_wrap = (window_cntr_q == window_i);

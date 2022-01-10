@@ -1,0 +1,23 @@
+52d60ba8149e6a3c773a01a217edfd5ecad345c3
+Fixed bug related to load_stall as it was not stalling if the wb stage was not ready
+diff --git a/riscv_id_stage.sv b/riscv_id_stage.sv
+index 7cff2ce..d117217 100644
+--- a/riscv_id_stage.sv
++++ b/riscv_id_stage.sv
+@@ -92,6 +92,7 @@ module riscv_id_stage
+ 
+     output logic        id_ready_o,     // ID stage is ready for the next instruction
+     input  logic        ex_ready_i,     // EX stage is ready for the next instruction
++    input  logic        wb_ready_i,     // WB stage is ready for the next instruction
+ 
+     output logic        id_valid_o,     // ID stage is done
+     input  logic        ex_valid_i,     // EX stage is done
+@@ -1199,6 +1200,8 @@ module riscv_id_stage
+ 
+     .ex_valid_i                     ( ex_valid_i             ),
+ 
++    .wb_ready_i                     ( wb_ready_i             ),
++
+     // Performance Counters
+     .perf_jump_o                    ( perf_jump_o            ),
+     .perf_jr_stall_o                ( perf_jr_stall_o        ),

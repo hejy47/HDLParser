@@ -1,0 +1,15 @@
+97dadd1ac03a4526b736623b97f34d086b95b4b6
+Moved com codecs to datatypes. Removed support for debug codecs.
+diff --git a/vunit/vhdl/com/src/com_messenger.vhd b/vunit/vhdl/com/src/com_messenger.vhd
+index 15f9a91b..af64414d 100644
+--- a/vunit/vhdl/com/src/com_messenger.vhd
++++ b/vunit/vhdl/com/src/com_messenger.vhd
+@@ -11,7 +11,7 @@ use work.com_types_pkg.all;
+ use work.com_support_pkg.all;
+ use work.queue_pkg.all;
+ use work.queue_pool_pkg.all;
+-use work.com_codec_pkg.all;
++use work.codec_pkg.all;
+ 
+ use std.textio.all;
+ 

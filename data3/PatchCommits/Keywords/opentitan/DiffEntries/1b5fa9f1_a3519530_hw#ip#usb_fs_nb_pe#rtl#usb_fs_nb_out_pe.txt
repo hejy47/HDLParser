@@ -1,0 +1,21 @@
+1b5fa9f1ebf0a9520ef6ea6faf1f1a2397a349c1
+[verible/style] This corrects several style linter warnings/errors
+diff --git a/hw/ip/usb_fs_nb_pe/rtl/usb_fs_nb_out_pe.sv b/hw/ip/usb_fs_nb_pe/rtl/usb_fs_nb_out_pe.sv
+index d859559a9..0484ca0b6 100644
+--- a/hw/ip/usb_fs_nb_pe/rtl/usb_fs_nb_out_pe.sv
++++ b/hw/ip/usb_fs_nb_pe/rtl/usb_fs_nb_out_pe.sv
+@@ -12,10 +12,10 @@
+ // this version contains no packet buffers
+ 
+ module usb_fs_nb_out_pe #(
+-  parameter NumOutEps = 1,
+-  parameter MaxOutPktSizeByte = 32,
+-  parameter PktW = $clog2(MaxOutPktSizeByte),
+-  parameter OutEpW = $clog2(NumOutEps)
++  parameter int unsigned NumOutEps = 1,
++  parameter int unsigned MaxOutPktSizeByte = 32,
++  parameter int unsigned PktW = $clog2(MaxOutPktSizeByte),
++  parameter int unsigned OutEpW = $clog2(NumOutEps)
+ ) (
+   input  logic                   clk_48mhz_i,
+   input  logic                   rst_ni,

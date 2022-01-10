@@ -1,0 +1,24 @@
+dc168f41fe6f37d6ba18125b24d6dbfc0329b47d
+adrv9371_a10soc: Fixed port assignments
+diff --git a/projects/adrv9371x/a10soc/system_top.v b/projects/adrv9371x/a10soc/system_top.v
+index c5629848..9cf0c5fb 100644
+--- a/projects/adrv9371x/a10soc/system_top.v
++++ b/projects/adrv9371x/a10soc/system_top.v
+@@ -49,7 +49,7 @@ module system_top (
+   input             hps_ddr_ref_clk,
+   output  [  0:0]   hps_ddr_clk_p,
+   output  [  0:0]   hps_ddr_clk_n,
+-  output  [ 16:0]   hsp_ddr_a,
++  output  [ 16:0]   hps_ddr_a,
+   output  [  1:0]   hps_ddr_ba,
+   output  [  0:0]   hps_ddr_bg,
+   output  [  0:0]   hps_ddr_cke,
+@@ -194,7 +194,7 @@ module system_top (
+     .sys_gpio_out_export (gpio_o),
+     .sys_hps_ddr_mem_ck (hps_ddr_clk_p),
+     .sys_hps_ddr_mem_ck_n (hps_ddr_clk_n),
+-    .sys_hps_ddr_mem_a (hsp_ddr_a),
++    .sys_hps_ddr_mem_a (hps_ddr_a),
+     .sys_hps_ddr_mem_act_n (hps_ddr_act_n),
+     .sys_hps_ddr_mem_ba (hps_ddr_ba),
+     .sys_hps_ddr_mem_bg (hps_ddr_bg),

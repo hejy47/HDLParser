@@ -1,0 +1,17 @@
+a78627343d6da8c50c52f4a11aa624b5d84858de
+Change default target parameter
+diff --git a/example/KC705/fpga_gmii/rtl/fpga.v b/example/KC705/fpga_gmii/rtl/fpga.v
+index 7eec88e..90402a7 100644
+--- a/example/KC705/fpga_gmii/rtl/fpga.v
++++ b/example/KC705/fpga_gmii/rtl/fpga.v
+@@ -209,7 +209,9 @@ sync_signal_inst (
+     .out({uart_rxd_int, uart_cts_int})
+ );
+ 
+-fpga_core
++fpga_core #(
++    .TARGET("XILINX")
++)
+ core_inst (
+     /*
+      * Clock: 125MHz

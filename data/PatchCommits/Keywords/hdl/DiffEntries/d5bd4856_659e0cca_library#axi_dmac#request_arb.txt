@@ -1,0 +1,27 @@
+d5bd485624b0a0207f04fde37bffad4994d49a01
+axi_dmac: Fix eot issue under 2014.4
+diff --git a/library/axi_dmac/request_arb.v b/library/axi_dmac/request_arb.v
+index 0f50ab58..0e13f26e 100644
+--- a/library/axi_dmac/request_arb.v
++++ b/library/axi_dmac/request_arb.v
+@@ -967,18 +967,12 @@ axi_fifo #(
+ 	.s_axis_valid(dest_response_valid),
+ 	.s_axis_ready(dest_response_ready),
+ 	.s_axis_empty(dest_response_empty),
+-	.s_axis_data({
+-		dest_response_resp,
+-		dest_response_resp_eot
+-	}),
++	.s_axis_data(dest_response_resp_eot),
+ 	.m_axis_aclk(req_aclk),
+ 	.m_axis_aresetn(req_aresetn),
+ 	.m_axis_valid(response_dest_valid),
+ 	.m_axis_ready(response_dest_ready),
+-	.m_axis_data({
+-		response_dest_resp,
+-		response_dest_resp_eot
+-	})
++	.m_axis_data(response_dest_resp_eot)
+ );
+ 
+ axi_fifo #(

@@ -1,0 +1,22 @@
+3fcdeef90561d8df2f89a92d9566121fd1b2eb3f
+Merge pull request #353 from silabs-PaulZ/debug_exception
+diff --git a/rtl/cv32e40p_if_stage.sv b/rtl/cv32e40p_if_stage.sv
+index e5b4e6b..196e889 100644
+--- a/rtl/cv32e40p_if_stage.sv
++++ b/rtl/cv32e40p_if_stage.sv
+@@ -43,6 +43,7 @@ module cv32e40p_if_stage
+     input  logic  [1:0] trap_addr_mux_i,
+     // Boot address
+     input  logic [31:0] boot_addr_i,
++    input  logic [31:0] dm_exception_addr_i,
+ 
+     // Debug mode halt address
+     input  logic [31:0] dm_halt_addr_i,
+@@ -152,6 +153,7 @@ module cv32e40p_if_stage
+       EXC_PC_EXCEPTION:                        exc_pc = { trap_base_addr, 8'h0 }; //1.10 all the exceptions go to base address
+       EXC_PC_IRQ:                              exc_pc = { trap_base_addr, 1'b0, exc_vec_pc_mux, 2'b0 }; // interrupts are vectored
+       EXC_PC_DBD:                              exc_pc = { dm_halt_addr_i[31:2], 2'b0 };
++      EXC_PC_DBE:                              exc_pc = { dm_exception_addr_i[31:2], 2'b0 };
+       default:                                 exc_pc = { trap_base_addr, 8'h0 };
+     endcase
+   end

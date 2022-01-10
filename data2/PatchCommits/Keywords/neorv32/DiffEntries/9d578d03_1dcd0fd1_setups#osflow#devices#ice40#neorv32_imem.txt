@@ -1,0 +1,15 @@
+9d578d03d1af15fb33a5dbf86a51498227ae5c73
+[ice40up memories] fixed bug in sanity checks
+diff --git a/setups/osflow/devices/ice40/neorv32_imem.ice40up_spram.vhd b/setups/osflow/devices/ice40/neorv32_imem.ice40up_spram.vhd
+index ee1e232..4cb7422 100644
+--- a/setups/osflow/devices/ice40/neorv32_imem.ice40up_spram.vhd
++++ b/setups/osflow/devices/ice40/neorv32_imem.ice40up_spram.vhd
+@@ -96,7 +96,7 @@ begin
+ 
+   -- Sanity Checks --------------------------------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+-  assert not (IMEM_AS_IROM = false) report "ICE40 Ultra Plus SPRAM cannot be initialized by bitstream!" severity failure;
++  assert not (IMEM_AS_IROM = true) report "ICE40 Ultra Plus SPRAM cannot be initialized by bitstream!" severity failure;
+   assert not (IMEM_SIZE > 64*1024) report "IMEM has a fixed physical size of 64kB. Logical size must be less or equal." severity error;
+ 
+ 

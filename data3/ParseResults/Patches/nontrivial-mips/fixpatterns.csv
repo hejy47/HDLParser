@@ -1,0 +1,8 @@
+,update,delete,insert
+HdlOp-RISING-HdlStmProcess,3,3.0,
+HdlOp-TERNARY-HdlStmAssign,2,,
+HdlOp-InfixExpression-HdlOp-TERNARY,2,,
+HdlOp-InfixExpression-HdlOp-InfixExpression,2,,
+HdlOp-MemberAccessing-HdlOp-InfixExpression,1,,1.0
+HdlOp-DOWNTO-HdlOp-MemberAccessing,1,,1.0
+HdlOp-InfixExpression-HdlOp-DOWNTO,1,,1.0

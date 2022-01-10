@@ -1,0 +1,15 @@
+f54dfe5d4bd2e9eda705cae12470ecc87d69ee7b
+RISC-V Compliance test: Enable tracing
+diff --git a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+index eaf7ba46..fc3facf1 100644
+--- a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
++++ b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+@@ -100,7 +100,7 @@ module ibex_riscv_compliance (
+     .cfg_device_addr_mask
+   );
+ 
+-  ibex_core #(
++  ibex_core_tracing #(
+       .DmHaltAddr(32'h00000000),
+       .DmExceptionAddr(32'h00000000),
+       .RV32E(RV32E),

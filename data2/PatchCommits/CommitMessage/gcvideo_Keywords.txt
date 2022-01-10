@@ -1,0 +1,419 @@
+======Commit: ffd2b679======
+======Short Message======
+Fix padding when building the updater.dol
+======Full Message======
+Fix padding when building the updater.dol
+
+Ensure that the injected data section in the update.dol is aligned to
+32 bytes and has a multiple of 32 bytes length.
+
+
+
+======Commit: 82063b4d======
+======Short Message======
+Fix WiiDual pin assignments
+======Full Message======
+Fix WiiDual pin assignments
+
+The included WiiDual pin assignments were for an almost-but-not-quite
+release version of the board, the final version has three differences
+which are fixed by this commit.
+
+
+
+======Commit: 15d927a6======
+======Short Message======
+buildupdate: Add workaround for flasher bug
+======Full Message======
+buildupdate: Add workaround for flasher bug
+
+Add a workaround to buildupdate.pl that never writes uncompressed
+chunks and ensures that a compressed chunk never has a length of 1024
+bytes. This is required to work around a bug in the flasher module in
+version 3.0 to 3.0c.
+
+
+
+======Commit: a5924739======
+======Short Message======
+flasher: fix handling of uncompressed chunks
+======Full Message======
+flasher: fix handling of uncompressed chunks
+
+
+
+======Commit: 2cd282c8======
+======Short Message======
+Fix disable-logic on mode change
+======Full Message======
+Fix disable-logic on mode change
+
+Fix the logic for temporarily disabling the output on mode changes to
+ensure that it always counts down the frame counter even if the
+console switches back to the previous mode before the intended number
+of disable frames is reached.
+
+
+
+======Commit: 58c60f7f======
+======Short Message======
+fix TMDS pair swapping for Wii-Dual
+======Full Message======
+fix TMDS pair swapping for Wii-Dual
+
+Fix incorrect TMDS pair swapping in the Wii-Dual configuration and
+make the pair swap configuration more flexible.
+
+
+
+======Commit: b94471c5======
+======Short Message======
+remove reference to issue 24 for FPGAconf
+======Full Message======
+remove reference to issue 24 for FPGAconf
+
+Remove the link to issue 24 for programming with FPGAconf because the
+files in there have a nasty bug in the main firmware.
+
+
+
+======Commit: 69fd29d7======
+======Short Message======
+fix calculation of settings slot when storing settings
+======Full Message======
+fix calculation of settings slot when storing settings
+
+Fix the calculation of the correct settings slot when storing
+settings, avoids various nasty flash corruption problems.
+
+
+
+======Commit: d61f6eb9======
+======Short Message======
+add a flash memory hex viewer to the flasher
+======Full Message======
+add a flash memory hex viewer to the flasher
+
+Add a hex viewer for the flash memory to the flash update tool for
+easier remote debugging in case of problems.
+
+
+
+======Commit: 1d380edf======
+======Short Message======
+Remove obsolete FIXME comment from pad.c
+======Full Message======
+Remove obsolete FIXME comment from pad.c
+
+Remove an old FIXME comment in pad.c.
+
+
+
+======Commit: 07bc9a54======
+======Short Message======
+Fix include guard in vsync.h
+======Full Message======
+Fix include guard in vsync.h
+
+Fix the include guard macro name in vsync.h
+
+
+
+======Commit: 4aad8466======
+======Short Message======
+osd: export chars per line and lines on screen macros
+======Full Message======
+osd: export chars per line and lines on screen macros
+
+Add an OSD_ prefix to the CHARS_PER_LINE and LINES_ON_SCREEN macros
+and make them public in osd.h.
+
+
+
+======Commit: 0fce34e4======
+======Short Message======
+Fix YPbPr output range
+======Full Message======
+Fix YPbPr output range
+
+Add a module that rescales the internal YCbCr values to work a bit
+better with a full-range DAC.
+
+
+
+======Commit: 9285dfb5======
+======Short Message======
+Replace fixed color conversion with a software-controlled matrix
+======Full Message======
+Replace fixed color conversion with a software-controlled matrix
+
+Replacee the fixed YUV-to-RGB color converter with a (partial) matrix
+multiplication module that also replaces the picture controls.
+
+
+
+======Commit: a50791bd======
+======Short Message======
+PadReader: Use separate timeouts for reply and end-of-message
+======Full Message======
+PadReader: Use separate timeouts for reply and end-of-message
+
+Split the timeout detection in the gamepad reader to allow for a
+longer delay before the pad replies. This should fix issues with
+GC+-based solutions which sometimes need a very long time before
+replying to the console's command.
+
+
+
+======Commit: d1fd4ab4======
+======Short Message======
+Blanking_Regenerator_Fixed: Ensure nominal length of sync pulses
+======Full Message======
+Blanking_Regenerator_Fixed: Ensure nominal length of sync pulses
+
+Regenerate the sync signals with their nominal lengths according to
+CEA, fixes some issues (Cr/Cb swap, flaky signal recognition) I
+observed with a cheap HDMI/SDI converter.
+
+
+
+======Commit: cfffafe7======
+======Short Message======
+Blanking_Regenerator_Fixed: Modify position of active window
+======Full Message======
+Blanking_Regenerator_Fixed: Modify position of active window
+
+Shift the active window set by the blanking regenerator to fully cover
+the output of libogc's default video timings.
+
+
+
+======Commit: 4db3cf0d======
+======Short Message======
+use a fixed mode_switch_delay
+======Full Message======
+use a fixed mode_switch_delay
+
+Set a fixed three-frame mode_switch_delay because certain displays
+misdetect/ignore 240p/480i mode switches without it but the feature
+itself appears to confuse users too much.
+
+
+
+======Commit: c1aa921a======
+======Short Message======
+Fix delayline_bool/_unsigned low delay instances
+======Full Message======
+Fix delayline_bool/_unsigned low delay instances
+
+Generate correct code for 0 or 1 pixels of delay
+
+
+
+======Commit: ca5c086f======
+======Short Message======
+reduce screen_irconfig size
+======Full Message======
+reduce screen_irconfig size
+
+Optimize the size of screen_irconfig by removing the debug mode and
+implementing the button list in a more space-efficient way.
+
+
+
+======Commit: 308ce511======
+======Short Message======
+backport chroma mixing fix for Cr-first lines
+======Full Message======
+backport chroma mixing fix for Cr-first lines
+
+
+
+======Commit: b532bda6======
+======Short Message======
+fix audio scaling
+======Full Message======
+fix audio scaling
+
+
+
+======Commit: eacc6091======
+======Short Message======
+Fix chroma shift and bump version to 2.4b
+======Full Message======
+Fix chroma shift and bump version to 2.4b
+
+
+
+======Commit: 8878a6fc======
+======Short Message======
+Remove the video->audio TIG constraint
+======Full Message======
+Remove the video->audio TIG constraint
+
+According to reports, the version with the TIG constraint suffers from
+audio noise on some FPGA boards, so it appears that some path is
+under-constrained/not properly synched without it. Removing the TIG
+does not cause any timing errors to pop up anymore after splitting the
+clock enable counters in the audio subsystem.
+
+
+
+======Commit: 5d3aafa0======
+======Short Message======
+Remove video->audio TIG constraint from GCVideo-DVI
+======Full Message======
+Remove video->audio TIG constraint from GCVideo-DVI
+
+Remove the video->audio TIG constraint from GCVideo-DVI again as it
+seems to cause noise on the audio output while muted.
+
+Thanks to citrus3000psi for reporting the issue and testing a few
+attempted fixes.
+
+
+
+======Commit: 20746200======
+======Short Message======
+Fix int8_t definition
+======Full Message======
+Fix int8_t definition
+
+
+
+======Commit: af9a0676======
+======Short Message======
+Merge pull request #4 from Aurelio92/n64_fix
+======Full Message======
+Merge pull request #4 from Aurelio92/n64_fix
+
+gcvideo_lite_n64: Specified VCCIO for bank 3 in order to fix output signals
+
+
+======Commit: 24c3a2e6======
+======Short Message======
+-Specified VCCIO for bank 3 in order to fix output signals on gcvideo_lite_n64
+======Full Message======
+-Specified VCCIO for bank 3 in order to fix output signals on gcvideo_lite_n64
+
+
+
+======Commit: 976ce459======
+======Short Message======
+Fix multi-cycle constraint for audio subsystem in the Shuriken configs
+======Full Message======
+Fix multi-cycle constraint for audio subsystem in the Shuriken configs
+
+
+
+======Commit: fb4f8763======
+======Short Message======
+Fix wrong ZPUIRQController bit assignment
+======Full Message======
+Fix wrong ZPUIRQController bit assignment
+
+Remove a spurious "+1" that shifted all flags in the read path of the
+ZPUIRQController over by one bit. Fixes ZPU crashes on startup, no
+idea how it ever worked at all.
+
+
+
+======Commit: ba202394======
+======Short Message======
+Add wrapping on Y overflow to the OSD base code
+======Full Message======
+Add wrapping on Y overflow to the OSD base code
+
+Wrap from the bottom of the screen to the top of the screen in the OSD
+code because there was a lot of text output during debugging. =)
+
+
+
+======Commit: dbcc2430======
+======Short Message======
+Fix item marker not showing on decimal values
+======Full Message======
+Fix item marker not showing on decimal values
+
+Fix the missing item marker not showing up when a decimal value is
+selected by moving it one character further to the left.
+
+
+
+======Commit: 2d5f108a======
+======Short Message======
+Fix "i" and "l" in OSD font
+======Full Message======
+Fix "i" and "l" in OSD font
+
+Move the "i" and "l" characters by one pixel each to even out the
+kerning of the "li" pair visible on various menu screens.
+
+
+
+======Commit: baaf3661======
+======Short Message======
+Change ACR packet depending on the console mode
+======Full Message======
+Change ACR packet depending on the console mode
+
+Since the ACR packet content depends on the sample rate, it must
+change depending on the console mode when connected to a Wii. This
+patch adds the necessary address bit toggle, the second ACR packet was
+already added in the infoframe ROM reoganization.
+
+
+
+======Commit: 021124fe======
+======Short Message======
+Add console mode detection for Wii
+======Full Message======
+Add console mode detection for Wii
+
+Add a detection of Cube vs. Wii mode when GCVideo-DVI is built for the
+Wii. This is needed since Nintendo has fixed an off-by-one error in
+the hardware so that the Wii uses exactly 48000Hz audio sample rate,
+but that fix is disabled in Gamecube mode and thus the sample rate
+shifts to 48042Hz there.
+
+
+
+======Commit: 057dc2d6======
+======Short Message======
+ZPUBusMux: Use '-' instead of '0' for default device data
+======Full Message======
+ZPUBusMux: Use '-' instead of '0' for default device data
+
+Give the optimizer a bit more leeway by specifying that the default
+device may return anything instead of forcing 0-bits on the bus.
+
+
+
+======Commit: 51bbc056======
+======Short Message======
+gcvideo-DVI: Fix one-pixel-early Syncs in aux periods
+======Full Message======
+gcvideo-DVI: Fix one-pixel-early Syncs in aux periods
+
+Fix a one-pixel-too-early bug for the sync signals in aux periods
+which caused one-pixel line jitters on lines with two data packets on
+certain Sony TVs.
+
+
+
+======Commit: bae07ece======
+======Short Message======
+Fix links in credit section
+======Full Message======
+Fix links in credit section
+
+
+
+======Commit: 4764641b======
+======Short Message======
+Fix project description in gcvl64 copyright headers
+======Full Message======
+Fix project description in gcvl64 copyright headers
+
+
+

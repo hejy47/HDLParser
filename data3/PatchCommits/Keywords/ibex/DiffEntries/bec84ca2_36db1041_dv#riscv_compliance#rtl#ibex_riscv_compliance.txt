@@ -1,0 +1,16 @@
+bec84ca2b171cc3a08f70a2b4d0063772f0a177a
+Add core_sleep_o to ibex interface
+diff --git a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+index 58d1ec81..c55ec67b 100644
+--- a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
++++ b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+@@ -139,7 +139,8 @@ module ibex_riscv_compliance (
+ 
+       .debug_req_i           ('b0),
+ 
+-      .fetch_enable_i        ('b1)
++      .fetch_enable_i        ('b1),
++      .core_sleep_o          ()
+     );
+ 
+   // SRAM block for instruction and data storage

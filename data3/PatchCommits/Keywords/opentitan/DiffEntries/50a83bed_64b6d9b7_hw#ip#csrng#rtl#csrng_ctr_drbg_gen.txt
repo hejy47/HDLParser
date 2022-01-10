@@ -1,0 +1,56 @@
+50a83bedd4d6e3af8ef3c3696cf12fdbce53aaad
+[csrng/rtl] internal state read timing improvements
+diff --git a/hw/ip/csrng/rtl/csrng_ctr_drbg_gen.sv b/hw/ip/csrng/rtl/csrng_ctr_drbg_gen.sv
+index 87fba90d7..6405c103a 100644
+--- a/hw/ip/csrng/rtl/csrng_ctr_drbg_gen.sv
++++ b/hw/ip/csrng/rtl/csrng_ctr_drbg_gen.sv
+@@ -229,7 +229,8 @@ module csrng_ctr_drbg_gen import csrng_pkg::*; #(
+   prim_fifo_sync #(
+     .Width(GenreqFifoWidth),
+     .Pass(0),
+-    .Depth(GenreqFifoDepth)
++    .Depth(GenreqFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_genreq (
+     .clk_i          (clk_i),
+     .rst_ni         (rst_ni),
+@@ -346,7 +347,8 @@ module csrng_ctr_drbg_gen import csrng_pkg::*; #(
+   prim_fifo_sync #(
+     .Width(AdstageFifoWidth),
+     .Pass(0),
+-    .Depth(AdstageFifoDepth)
++    .Depth(AdstageFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_adstage (
+     .clk_i          (clk_i),
+     .rst_ni         (rst_ni),
+@@ -379,7 +381,8 @@ module csrng_ctr_drbg_gen import csrng_pkg::*; #(
+   prim_fifo_sync #(
+     .Width(BlkEncAckFifoWidth),
+     .Pass(0),
+-    .Depth(BlkEncAckFifoDepth)
++    .Depth(BlkEncAckFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_bencack (
+     .clk_i    (clk_i),
+     .rst_ni   (rst_ni),
+@@ -431,7 +434,8 @@ module csrng_ctr_drbg_gen import csrng_pkg::*; #(
+   prim_fifo_sync #(
+     .Width(RCStageFifoWidth),
+     .Pass(0),
+-    .Depth(RCStageFifoDepth)
++    .Depth(RCStageFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_rcstage (
+     .clk_i          (clk_i),
+     .rst_ni         (rst_ni),
+@@ -467,7 +471,8 @@ module csrng_ctr_drbg_gen import csrng_pkg::*; #(
+   prim_fifo_sync #(
+     .Width(GenbitsFifoWidth),
+     .Pass(0),
+-    .Depth(GenbitsFifoDepth)
++    .Depth(GenbitsFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_genbits (
+     .clk_i          (clk_i),
+     .rst_ni         (rst_ni),

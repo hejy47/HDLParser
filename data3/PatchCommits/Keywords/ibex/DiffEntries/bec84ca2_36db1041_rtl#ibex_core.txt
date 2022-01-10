@@ -1,0 +1,26 @@
+bec84ca2b171cc3a08f70a2b4d0063772f0a177a
+Add core_sleep_o to ibex interface
+diff --git a/rtl/ibex_core.sv b/rtl/ibex_core.sv
+index be613b93..1e4fba0a 100644
+--- a/rtl/ibex_core.sv
++++ b/rtl/ibex_core.sv
+@@ -87,8 +87,8 @@ module ibex_core #(
+ `endif
+ 
+     // CPU Control Signals
+-    input  logic        fetch_enable_i
+-
++    input  logic        fetch_enable_i,
++    output logic        core_sleep_o
+ );
+ 
+   import ibex_pkg::*;
+@@ -272,6 +272,8 @@ module ibex_core #(
+ 
+   assign core_busy   = core_ctrl_firstfetch ? 1'b1 : core_busy_q;
+ 
++  assign core_sleep_o = ~clock_en;
++
+   assign clock_en    = core_busy | debug_req_i | irq_pending | irq_nm_i;
+ 
+   // main clock gate of the core

@@ -1,0 +1,24 @@
+493fc1d48b8b34a944fad0ddfb240d7db084dede
+axi_*: Fix instantiation of up_[adc|dac]_[common|channel]
+diff --git a/library/axi_ad9963/axi_ad9963_rx.v b/library/axi_ad9963/axi_ad9963_rx.v
+index 92bc71e2..a8b7a1dc 100644
+--- a/library/axi_ad9963/axi_ad9963_rx.v
++++ b/library/axi_ad9963/axi_ad9963_rx.v
+@@ -211,6 +211,7 @@ module axi_ad9963_rx #(
+   up_adc_common #(
+     .ID (ID),
+     .CONFIG (CONFIG),
++    .COMMON_ID(6'h00),
+     .DRP_DISABLE (1),
+     .USERPORTS_DISABLE (1),
+     .GPIO_DISABLE (1),
+@@ -230,6 +231,9 @@ module axi_ad9963_rx #(
+     .adc_start_code (),
+     .adc_sref_sync (),
+     .adc_sync (),
++    .up_pps_rcounter(32'h0),
++    .up_pps_status(1'b0),
++    .up_pps_irq_mask(),
+     .up_status_pn_err (up_status_pn_err),
+     .up_status_pn_oos (up_status_pn_oos),
+     .up_status_or (up_status_or),

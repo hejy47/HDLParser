@@ -1,0 +1,15 @@
+ba98a6e075529cd754275b47242ca5a5da1d0586
+A variety of data width fixes. Use more wildcards in sensitivity lists to shut up warnings in Vivado.
+diff --git a/src/verilog/rtl/decode/reg_field_encoder.v b/src/verilog/rtl/decode/reg_field_encoder.v
+index 33f1e28..60370f5 100644
+--- a/src/verilog/rtl/decode/reg_field_encoder.v
++++ b/src/verilog/rtl/decode/reg_field_encoder.v
+@@ -38,7 +38,7 @@ assign sgpr_address = sgpr_base + in[6:0];
+ assign vgpr_address = vgpr_base + in[7:0];
+ assign negative_constant = (~{4'b0,in[5:0]}) + 10'b1;
+ 
+-always @(in or sgpr_base or vgpr_base)
++always @(*)
+ begin
+   casex(in)
+     //invalid operand

@@ -1,0 +1,26 @@
+03f1af66a5f73f1fdc23bc41864f1e9d5f6502bb
+[top] Various top related fixes
+diff --git a/hw/top_englishbreakfast/rtl/top_englishbreakfast_cw305.sv b/hw/top_englishbreakfast/rtl/top_englishbreakfast_cw305.sv
+index 6dd380912..eeb2011ff 100644
+--- a/hw/top_englishbreakfast/rtl/top_englishbreakfast_cw305.sv
++++ b/hw/top_englishbreakfast/rtl/top_englishbreakfast_cw305.sv
+@@ -253,8 +253,8 @@ module top_englishbreakfast_cw305 #(
+     .clk_usb_i       ( clk_usb_48mhz ),
+     .clk_aon_i       ( clk_main      ),
+     .rstmgr_ast_i                 ( ast_base_rst    ),
+-    .pwrmgr_pwr_ast_req_o         (                 ),
+-    .pwrmgr_pwr_ast_rsp_i         ( ast_base_pwr    ),
++    .pwrmgr_ast_req_o             (                 ),
++    .pwrmgr_ast_rsp_i             ( ast_base_pwr    ),
+     .sensor_ctrl_ast_alert_req_i  ( ast_base_alerts ),
+     .sensor_ctrl_ast_alert_rsp_o  (                 ),
+     .sensor_ctrl_ast_status_i     ( ast_base_status ),
+@@ -309,7 +309,7 @@ module top_englishbreakfast_cw305 #(
+       // To obtain a more precise capture trigger for side-channel analysis, we only forward the
+       // software-controlled capture trigger when the AES module is actually busy (performing
+       // either encryption/decryption or clearing internal registers).
+-      assign mio_out[i] = mio_out_core[i] & ~top_englishbreakfast.clkmgr_idle[clkmgr_pkg::Aes];
++      assign mio_out[i] = mio_out_core[i] & ~top_englishbreakfast.clkmgr_aon_idle[clkmgr_pkg::Aes];
+     end else begin
+       assign mio_out[i] = mio_out_core[i];
+     end

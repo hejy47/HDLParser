@@ -1,0 +1,35 @@
+CommitId: cfc6311efc4e606b25decc8d32745bb1a8bbc0d5
+Fixed Capture IR value error for TAP controller
+--- a/design/dmi/rvjtag_tap.v
++++ b/design/dmi/rvjtag_tap.v
+@@ -201,7 +201,7 @@ always_comb begin
+                     endcase
+                 end
+     shift_ir:   nsr = {{USER_DR_LENGTH-5{1'b0}},tdi, sr[4:1]};
+-    capture_ir: nsr = '1;
++    capture_ir: nsr = {{USER_DR_LENGTH-1{1'b0}},1'b1};
+     endcase
+ end
+ 
+ParseResult:
+UPD HdlStmCase@@{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'}  to {'__class__': 'HdlValueInt', 'base': 10, 'val': '1'} 
+    UPD HdlOp@@ASSIGN to ASSIGN
+        INS HdlOp@@CONCAT to ops
+        UPD HdlOp@@CONCAT to CONCAT
+            INS list@@ops to CONCAT
+            INS HdlOp@@REPL_CONCAT to ops
+            INS HdlValueInt@@1 to ops
+            UPD HdlOp@@REPL_CONCAT to REPL_CONCAT
+                INS list@@ops to REPL_CONCAT
+                INS HdlOp@@SUB to ops
+                INS HdlValueInt@@0 to ops
+                UPD HdlOp@@SUB to SUB
+                    INS list@@ops to SUB
+                    INS HdlValueId@@USER_DR_LENGTH to ops
+
+UPD HdlStmCase@@{'__class__': 'HdlValueInt', 'base': 10, 'val': '1'}  to {'__class__': 'HdlValueInt', 'base': 10, 'val': '1'} 
+    UPD HdlOp@@ASSIGN to ASSIGN
+        MOV HdlValueInt@@1 to ops
+        HdlValueInt: 1
+
+

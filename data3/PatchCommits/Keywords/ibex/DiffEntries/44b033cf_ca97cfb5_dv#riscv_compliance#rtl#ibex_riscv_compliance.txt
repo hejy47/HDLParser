@@ -1,0 +1,14 @@
+44b033cf8bf858e893080fe62b452791fdd3bd4d
+[rtl] Add support for instruction fetch errors
+diff --git a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+index d8e88a2b..939b887f 100644
+--- a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
++++ b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+@@ -120,6 +120,7 @@ module ibex_riscv_compliance (
+       .instr_rvalid_i        (host_rvalid[CoreI]),
+       .instr_addr_o          (host_addr[CoreI]),
+       .instr_rdata_i         (host_rdata[CoreI]),
++      .instr_err_i           (host_err[CoreI]),
+ 
+       .data_req_o            (host_req[CoreD]),
+       .data_gnt_i            (host_gnt[CoreD]),

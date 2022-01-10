@@ -1,0 +1,24 @@
+32ba6549760769a818cb14988d234cee5db60c74
+debug states: add csr_save_cause_o
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 9c3dadc..fba41b0 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -750,7 +750,7 @@ module riscv_controller
+         //exc_cause_o       = {1'b0,irq_id_ctrl_i};
+ 
+         //csr_irq_sec_o     = irq_sec_ctrl_i;
+-        //csr_save_cause_o  = 1'b1;
++        csr_save_cause_o  = 1'b1;
+         //csr_cause_o       = {1'b1,irq_id_ctrl_i};
+ 
+         //csr_save_id_o     = 1'b1;
+@@ -771,7 +771,7 @@ module riscv_controller
+         //exc_cause_o       = {1'b0,irq_id_ctrl_i};
+ 
+         //csr_irq_sec_o     = irq_sec_ctrl_i;
+-        //csr_save_cause_o  = 1'b1;
++        csr_save_cause_o  = 1'b1;
+         //csr_cause_o       = {1'b1,irq_id_ctrl_i};
+ 
+         //csr_save_if_o     = 1'b1;

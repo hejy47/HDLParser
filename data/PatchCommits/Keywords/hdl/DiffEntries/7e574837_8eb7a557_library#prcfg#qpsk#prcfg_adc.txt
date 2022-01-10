@@ -1,0 +1,17 @@
+7e5748374d33f868bc96ea0a0a30244ee0434142
+prcfg_lib: Fixed prbs generator for QPSK
+diff --git a/library/prcfg/qpsk/prcfg_adc.v b/library/prcfg/qpsk/prcfg_adc.v
+index 7f38a7da..74f1a030 100644
+--- a/library/prcfg/qpsk/prcfg_adc.v
++++ b/library/prcfg/qpsk/prcfg_adc.v
+@@ -111,8 +111,8 @@ module prcfg_adc (
+       dout[4] = din[3];
+       dout[3] = din[2];
+       dout[2] = din[1];
+-      dout[1] = din[8] ^ din[4];
+-      dout[0] = din[7] ^ din[3];
++      dout[1] = din[7] ^ din[4];
++      dout[0] = din[6] ^ din[3];
+       pn = dout;
+     end
+   endfunction

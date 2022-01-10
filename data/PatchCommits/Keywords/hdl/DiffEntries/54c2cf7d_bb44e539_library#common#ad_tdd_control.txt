@@ -1,0 +1,50 @@
+54c2cf7d125c814fffe153a73c45e92ee51c62b3
+ad_tdd_control: Fix rx/tx only behavior
+diff --git a/library/common/ad_tdd_control.v b/library/common/ad_tdd_control.v
+index 7eabbd76..8b7fddbf 100644
+--- a/library/common/ad_tdd_control.v
++++ b/library/common/ad_tdd_control.v
+@@ -781,8 +781,8 @@ module ad_tdd_control#(
+       tdd_rx_rf_en <= 1'b0;
+     end else if((tdd_cstate == ON) && ((counter_at_tdd_rx_on_1 == 1'b1) || (counter_at_tdd_rx_on_2 == 1'b1))) begin
+       tdd_rx_rf_en <= 1'b1;
+-    end else if((tdd_cstate == ON) && (tdd_txrx_only_en_s == 1'b1)) begin
+-      tdd_rx_rf_en <= tdd_rx_only;
++    end else if((tdd_cstate == ON) && (tdd_tx_only == 1'b1)) begin
++      tdd_rx_rf_en <= 1'b0;
+     end else begin
+       tdd_rx_rf_en <= tdd_rx_rf_en;
+     end
+@@ -795,8 +795,8 @@ module ad_tdd_control#(
+       tdd_tx_rf_en <= 1'b0;
+     end else if((tdd_cstate == ON) && ((counter_at_tdd_tx_on_1 == 1'b1) || (counter_at_tdd_tx_on_2 == 1'b1))) begin
+       tdd_tx_rf_en <= 1'b1;
+-    end else if((tdd_cstate == ON) && (tdd_txrx_only_en_s == 1'b1)) begin
+-      tdd_tx_rf_en <= tdd_tx_only;
++    end else if((tdd_cstate == ON) && (tdd_rx_only == 1'b1)) begin
++      tdd_tx_rf_en <= 1'b0;
+     end else begin
+       tdd_tx_rf_en <= tdd_tx_rf_en;
+     end
+@@ -809,8 +809,8 @@ module ad_tdd_control#(
+       tdd_tx_dp_en <= 1'b0;
+     end else if((tdd_cstate == ON) && ((counter_at_tdd_tx_dp_on_1 == 1'b1) || (counter_at_tdd_tx_dp_on_2 == 1'b1))) begin
+       tdd_tx_dp_en <= 1'b1;
+-    end else if((tdd_cstate == ON) && (tdd_txrx_only_en_s == 1'b1)) begin
+-      tdd_tx_dp_en <= tdd_tx_only;
++    end else if((tdd_cstate == ON) && (tdd_rx_only == 1'b1)) begin
++      tdd_tx_dp_en <= 1'b0;
+     end else begin
+       tdd_tx_dp_en <= tdd_tx_dp_en;
+     end
+@@ -823,8 +823,8 @@ module ad_tdd_control#(
+       tdd_rx_dp_en <= 1'b0;
+     end else if((tdd_cstate == ON) && ((counter_at_tdd_rx_dp_on_1 == 1'b1) || (counter_at_tdd_rx_dp_on_2 == 1'b1))) begin
+       tdd_rx_dp_en <= 1'b1;
+-    end else if((tdd_cstate == ON) && (tdd_txrx_only_en_s == 1'b1)) begin
+-      tdd_rx_dp_en <= tdd_rx_only;
++    end else if((tdd_cstate == ON) && (tdd_tx_only == 1'b1)) begin
++      tdd_rx_dp_en <= 1'b0;
+     end else begin
+       tdd_rx_dp_en <= tdd_rx_dp_en;
+     end

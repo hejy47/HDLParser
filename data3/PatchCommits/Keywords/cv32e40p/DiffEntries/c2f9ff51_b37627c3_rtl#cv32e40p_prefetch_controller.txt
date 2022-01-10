@@ -1,0 +1,38 @@
+c2f9ff51240bd07b33b9e1f58c11b107db1bba87
+Merge pull request #419 from silabs-PaulZ/irq_debug_fsm_fix
+diff --git a/rtl/cv32e40p_prefetch_controller.sv b/rtl/cv32e40p_prefetch_controller.sv
+index e9bcef9..6bb56b4 100644
+--- a/rtl/cv32e40p_prefetch_controller.sv
++++ b/rtl/cv32e40p_prefetch_controller.sv
+@@ -165,7 +165,6 @@ module cv32e40p_prefetch_controller
+     trans_addr_o = trans_addr_q;
+ 
+     unique case(state_q)
+-
+       // Default state (pass on branch target address or transaction with incremented address)
+       IDLE:
+       begin
+@@ -197,13 +196,6 @@ module cv32e40p_prefetch_controller
+           next_state = IDLE;
+         end
+       end // case: BRANCH_WAIT
+-
+-      // Default case. Should never get triggered.
+-      default:
+-      begin
+-        next_state = IDLE;
+-      end
+-
+     endcase
+   end
+ 
+@@ -246,9 +238,6 @@ module cv32e40p_prefetch_controller
+       2'b11  : begin
+         next_cnt = cnt_q;
+       end
+-      default : begin
+-        next_cnt = cnt_q;
+-      end
+     endcase
+   end
+ 

@@ -1,0 +1,15 @@
+a25323b2462c1a3399d84b40c484a7d5f19ee33b
+util_adcfifo: fix read pointer
+diff --git a/library/util_adcfifo/util_adcfifo.v b/library/util_adcfifo/util_adcfifo.v
+index e942478e..422950f7 100644
+--- a/library/util_adcfifo/util_adcfifo.v
++++ b/library/util_adcfifo/util_adcfifo.v
+@@ -185,7 +185,7 @@ module util_adcfifo #(
+   assign dma_read_rst_s = ~dma_xfer_req;
+ 
+   assign dma_wready_s = (DMA_READY_ENABLE == 0) ? 1'b1 : dma_wready;
+-  assign dma_rd_s = (dma_raddr <= {1'b0, dma_waddr_int}) ? dma_wready_s : 1'b0;
++  assign dma_rd_s = ((dma_raddr < {1'b0, dma_waddr_int}) || &dma_waddr_int) & dma_wready_s;
+ 
+   always @(posedge dma_clk) begin
+     if (dma_read_rst_s == 1'b1) begin

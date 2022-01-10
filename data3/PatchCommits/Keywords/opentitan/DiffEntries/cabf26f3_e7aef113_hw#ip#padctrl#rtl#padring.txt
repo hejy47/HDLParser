@@ -1,0 +1,21 @@
+cabf26f33f6964caba640d9638873d681ba4a6a5
+[prim] Restore ability to select default implementation
+diff --git a/hw/ip/padctrl/rtl/padring.sv b/hw/ip/padctrl/rtl/padring.sv
+index f93222935..5e0a96ab7 100644
+--- a/hw/ip/padctrl/rtl/padring.sv
++++ b/hw/ip/padctrl/rtl/padring.sv
+@@ -6,8 +6,13 @@
+ // The module instantiates the technology dependent pads, and connects them
+ // to the MIOs/DIOs and pad attributes coming from the padctrl block.
+ //
++
++`ifndef PRIM_DEFAULT_IMPL
++  `define PRIM_DEFAULT_IMPL integer'(prim_pkg::ImplGeneric)
++`endif
++
+ module padring #(
+-  parameter Impl = "generic" // this determines the pad implementation
++  parameter integer Impl = `PRIM_DEFAULT_IMPL // this determines the pad implementation
+ ) (
+   // pad input
+   input wire                                   clk_pad_i,

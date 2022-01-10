@@ -1,0 +1,29 @@
+3776f5beb152ff954cf02d9ac0613ea3111ab275
+[fpga] Add a clock buffer to the JTAG clock obtained from pinmux/padring
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv b/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv
+index 962d9f1dd..a8439c65d 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv
+@@ -133,11 +133,12 @@ module top_earlgrey_artys7  #(
+   // Unlike nexysvideo, there is currently no dedicated
+   // JTAG port available, hence tie off.
+   logic jtag_trst_n, jtag_srst_n;
+-  logic jtag_tck, jtag_tms, jtag_tdi, jtag_tdo;
++  logic jtag_tck, jtag_tck_buf, jtag_tms, jtag_tdi, jtag_tdo;
+ 
+   assign jtag_trst_n = 1'b1;
+   assign jtag_srst_n = 1'b1;
+   assign jtag_tck = 1'b0;
++  assign jtag_tck_buf = 1'b0;
+   assign jtag_tms = 1'b0;
+   assign jtag_tdi = 1'b0;
+ 
+@@ -212,7 +213,7 @@ module top_earlgrey_artys7  #(
+     .ast_tl_rsp_i                ( '0              ),
+ 
+     // JTAG
+-    .jtag_tck_i      ( jtag_tck      ),
++    .jtag_tck_i      ( jtag_tck_buf  ),
+     .jtag_tms_i      ( jtag_tms      ),
+     .jtag_trst_ni    ( jtag_trst_n   ),
+     .jtag_tdi_i      ( jtag_tdi      ),

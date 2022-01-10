@@ -1,0 +1,14 @@
+5812d1ca8d4442419753b8df998426293466112e
+Fixed the double set of o_we in wbdblpriarb
+diff --git a/rtl/aux/wbdblpriarb.v b/rtl/aux/wbdblpriarb.v
+index e1c7672..79149e1 100644
+--- a/rtl/aux/wbdblpriarb.v
++++ b/rtl/aux/wbdblpriarb.v
+@@ -150,7 +150,6 @@ module	wbdblpriarb(i_clk, i_rst,
+ 	// irrelevant.
+ 	assign o_stb_a = (r_a_owner) ? i_a_stb_a : i_b_stb_a;
+ 	assign o_stb_b = (r_a_owner) ? i_a_stb_b : i_b_stb_b;
+-	assign o_we    = (r_a_owner) ? i_a_we    : i_b_we;
+ 	assign o_adr   = (r_a_owner) ? i_a_adr   : i_b_adr;
+ 	assign o_dat   = (r_a_owner) ? i_a_dat   : i_b_dat;
+ 	assign o_sel   = (r_a_owner) ? i_a_sel   : i_b_sel;

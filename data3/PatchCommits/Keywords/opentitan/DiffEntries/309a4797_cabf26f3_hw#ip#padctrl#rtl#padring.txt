@@ -1,0 +1,20 @@
+309a47974f0ce84cab3d559a85975448dfbd7e2f
+[prim] Use prim_pkg::impl_e instead of int for Impl
+diff --git a/hw/ip/padctrl/rtl/padring.sv b/hw/ip/padctrl/rtl/padring.sv
+index 5e0a96ab7..9a3ac1185 100644
+--- a/hw/ip/padctrl/rtl/padring.sv
++++ b/hw/ip/padctrl/rtl/padring.sv
+@@ -8,11 +8,11 @@
+ //
+ 
+ `ifndef PRIM_DEFAULT_IMPL
+-  `define PRIM_DEFAULT_IMPL integer'(prim_pkg::ImplGeneric)
++  `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric
+ `endif
+ 
+ module padring #(
+-  parameter integer Impl = `PRIM_DEFAULT_IMPL // this determines the pad implementation
++  parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL // this determines the pad implementation
+ ) (
+   // pad input
+   input wire                                   clk_pad_i,

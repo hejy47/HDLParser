@@ -1,0 +1,23 @@
+9031c5dfaa800c2e5a25f4f92a9daf2f10e44391
+add dret, new debug signal, new debug CSR
+diff --git a/rtl/riscv_tracer.sv b/rtl/riscv_tracer.sv
+index b40405b..9e426d7 100644
+--- a/rtl/riscv_tracer.sv
++++ b/rtl/riscv_tracer.sv
+@@ -52,6 +52,7 @@ module riscv_tracer
+   input  logic        pipe_flush,
+   input  logic        mret,
+   input  logic        uret,
++  input  logic        dret,
+   input  logic        ecall,
+   input  logic        ebreak,
+ 
+@@ -737,7 +738,7 @@ module riscv_tracer
+     instr_trace_t trace;
+ 
+     // special case for WFI because we don't wait for unstalling there
+-    if ( (id_valid || pipe_flush || mret || uret || ecall || ebreak) && is_decoding)
++    if ( (id_valid || pipe_flush || mret || uret || ecall || ebreak || dret) && is_decoding)
+     begin
+       trace = new ();
+ 

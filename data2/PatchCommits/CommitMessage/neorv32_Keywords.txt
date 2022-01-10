@@ -1,0 +1,3912 @@
+======Commit: 77f9321e======
+======Short Message======
+Merge pull request #177 from henrikbrixandersen/neoled_fix_datasheet
+======Full Message======
+Merge pull request #177 from henrikbrixandersen/neoled_fix_datasheet
+
+[docs/datasheet] Fix neoled register bits documentation
+
+
+======Commit: 70ae1b4d======
+======Short Message======
+[docs/datasheet] Fix neoled register bits documentation
+======Full Message======
+[docs/datasheet] Fix neoled register bits documentation
+
+Add the missing NEOLED register bits to the datasheet and fix the naming.
+
+
+
+======Commit: 27b54384======
+======Short Message======
+WDT: fixed race condition in IRQ ack
+======Full Message======
+WDT: fixed race condition in IRQ ack
+
+a pending WDT interrupt is cleared by resetting the watchdog (or by disabling it)
+
+
+
+======Commit: 8bed94c8======
+======Short Message======
+[docs/datasheet] OCD: added WFI note
+======Full Message======
+[docs/datasheet] OCD: added WFI note
+
+a debugger halt request will also resume CPU operation after it was send to sleep mode via 'wfi' instruction
+
+
+
+======Commit: 786dc0e0======
+======Short Message======
+[sw] minor edits/fixes
+======Full Message======
+[sw] minor edits/fixes
+
+- console output edits
+- procesor_check: test if PMP test fails because of locked PMP entry
+- fixed minor issue in number of PMP entries evaluation
+
+
+
+======Commit: 0aff08cb======
+======Short Message======
+[NEOLED] fixed IRQ corner case if FIFO_DEPTH=1
+======Full Message======
+[NEOLED] fixed IRQ corner case if FIFO_DEPTH=1
+
+
+
+======Commit: 7f9fc732======
+======Short Message======
+[rtl/core/WDT] fixed IRQ request clear
+======Full Message======
+[rtl/core/WDT] fixed IRQ request clear
+
+request is cleared by reading or writing control register
+
+
+
+======Commit: 3dc43e82======
+======Short Message======
+[sw/common] fixed 'sim' target
+======Full Message======
+[sw/common] fixed 'sim' target
+
+also requires 'install'
+
+
+
+======Commit: c34416b8======
+======Short Message======
+Merge pull request #175 from henrikbrixandersen/vivado_setups_filesets
+======Full Message======
+Merge pull request #175 from henrikbrixandersen/vivado_setups_filesets
+
+[setups/vivado] Fix fileset paths
+
+
+======Commit: 8d7b95a0======
+======Short Message======
+[setups/vivado] Fix fileset paths
+======Full Message======
+[setups/vivado] Fix fileset paths
+
+
+
+======Commit: 8fd760e3======
+======Short Message======
+minor fixes/updates
+======Full Message======
+minor fixes/updates
+
+
+
+======Commit: 8478d919======
+======Short Message======
+[setups/radiant/UPduino] fixed processor configuration
+======Full Message======
+[setups/radiant/UPduino] fixed processor configuration
+
+
+
+======Commit: a034c95e======
+======Short Message======
+[rtl/core] minor fix in CPU HPM counter
+======Full Message======
+[rtl/core] minor fix in CPU HPM counter
+
+-> multi-cycle ALU wait cycles
+
+
+
+======Commit: 460fcbd0======
+======Short Message======
+:bug: [setups/radiant] fixed signal assignment
+======Full Message======
+:bug: [setups/radiant] fixed signal assignment
+
+
+
+======Commit: 2f6c8aa5======
+======Short Message======
+[sw/example] benchmarks: minor fixes
+======Full Message======
+[sw/example] benchmarks: minor fixes
+
+
+
+======Commit: c98cc210======
+======Short Message======
+minor typo fixes
+======Full Message======
+minor typo fixes
+
+
+
+======Commit: da9b250c======
+======Short Message======
+Merge pull request #170 from henrikbrixandersen/sysint_axi4_uart1_swap_fix
+======Full Message======
+Merge pull request #170 from henrikbrixandersen/sysint_axi4_uart1_swap_fix
+
+:bug: [rtl/system_integration] fix uart1 rx/tx signals
+
+
+======Commit: 635811e9======
+======Short Message======
+[rtl/system_integration] fixed missing UART signal connection
+======Full Message======
+[rtl/system_integration] fixed missing UART signal connection
+
+
+
+======Commit: 1e756df6======
+======Short Message======
+:bug: [rtl/system_integration] fix uart1 rx/tx signals
+======Full Message======
+:bug: [rtl/system_integration] fix uart1 rx/tx signals
+
+Fix routing of the UART1 rx/tx signals in the AXI4Lite system
+integration top.
+
+
+
+======Commit: 7004185d======
+======Short Message======
+layout/typo fixes
+======Full Message======
+layout/typo fixes
+
+
+
+======Commit: 661f8a33======
+======Short Message======
+[CHANGELOG] typo fix
+======Full Message======
+[CHANGELOG] typo fix
+
+
+
+======Commit: c406ff60======
+======Short Message======
+[OCD] wfi acts as nop in debug mode & single-stepping
+======Full Message======
+[OCD] wfi acts as nop in debug mode & single-stepping
+
+required by RISC-V debug spec
+
+
+
+======Commit: 2fa42f03======
+======Short Message======
+[docs/datasheet] minor content & typo fixes
+======Full Message======
+[docs/datasheet] minor content & typo fixes
+
+
+
+======Commit: 322a635e======
+======Short Message======
+[sw/lib/include/neorv32.h] added OCD debug module definitions
+======Full Message======
+[sw/lib/include/neorv32.h] added OCD debug module definitions
+
+should not be used by application software; this is just for documentation
+
+
+
+======Commit: 257d1c8f======
+======Short Message======
+[docs] DOI fix
+======Full Message======
+[docs] DOI fix
+
+link now always points to the latest version
+
+
+
+======Commit: 96c7462d======
+======Short Message======
+:bug: [rtl/core] fixed bug in mtime coparator logic
+======Full Message======
+:bug: [rtl/core] fixed bug in mtime coparator logic
+
+"time >= timecmp" was not evaluated correctly (the split subword comparator was incorrect), which missed the interrupt for some time/timecmp combinations
+
+
+
+======Commit: e3a07321======
+======Short Message======
+[docs/userguide] minot edits
+======Full Message======
+[docs/userguide] minot edits
+
+compilation _with_ debug symbols
+
+
+
+======Commit: b97f6f25======
+======Short Message======
+:bug: [rtl] fixed debug-mode IRQ prioritization
+======Full Message======
+:bug: [rtl] fixed debug-mode IRQ prioritization
+
+
+
+======Commit: c34ac9a0======
+======Short Message======
+[rtl] fence.i will trap if Zifencei is disabled
+======Full Message======
+[rtl] fence.i will trap if Zifencei is disabled
+
+* minor rtl comment edits
+* :warning: on-chip debugger / debug mode requires Zifencei ISA extension
+
+
+
+======Commit: 4d1585dd======
+======Short Message======
+[docs] on-chip debugger requires Zifencei
+======Full Message======
+[docs] on-chip debugger requires Zifencei
+
+
+
+======Commit: de4afd60======
+======Short Message======
+minor typo fixes
+======Full Message======
+minor typo fixes
+
+
+
+======Commit: cd81575e======
+======Short Message======
+:bug: fixed instruction alignment exception bug
+======Full Message======
+:bug: fixed instruction alignment exception bug
+
+introduced in version 1.6.0.7
+
+
+
+======Commit: 7ef50148======
+======Short Message======
+:warning: [rtl/core] mjor update
+======Full Message======
+:warning: [rtl/core] mjor update
+
+* removed non-maskable IRQ (NMI)
+* changed trap priority order (to comply with RISC-V specs.)
+* RISC-V interrupts (MEI, MTI, MSI) are high-level-triggered and have to stay asserted until explicitly acknowledged
+* fixed minor bug in misaligned instruction detection logic
+
+
+
+======Commit: f5a246ea======
+======Short Message======
+:bug: [rtl/core] fixed instruction misalignment check logic
+======Full Message======
+:bug: [rtl/core] fixed instruction misalignment check logic
+
+PC(0) = '1' has to raise a misalignment exception, too
+
+
+
+======Commit: 2acb8182======
+======Short Message======
+Merge pull request #166 from henrikbrixandersen/datasheet_soc_sysinfo_bits
+======Full Message======
+Merge pull request #166 from henrikbrixandersen/datasheet_soc_sysinfo_bits
+
+docs: datasheet: soc_sysinfo: fix NEORV32_SYSINFO.SOC bits description
+
+
+======Commit: 9098a31d======
+======Short Message======
+docs: datasheet: soc_sysinfo: fix NEORV32_SYSINFO.SOC bits description
+======Full Message======
+docs: datasheet: soc_sysinfo: fix NEORV32_SYSINFO.SOC bits description
+
+Fix the descriptions for NEORV32_SYSINFO.SOC register bits 14 and 15.
+
+
+
+======Commit: 1b1ae19e======
+======Short Message======
+Created Qsys component, AvalonMM wrapper and example designs
+======Full Message======
+Created Qsys component, AvalonMM wrapper and example designs
+
+Moved Qsys component and rebased to new IMEM/DMEM split
+
+Fixed documentation
+
+
+
+======Commit: 27014042======
+======Short Message======
+Merge pull request #159 from umarcor/explicit-mem
+======Full Message======
+Merge pull request #159 from umarcor/explicit-mem
+
+[setups/osflow/filesets] do not provide default NEORV32_MEM_SRC, require it to be explicitly set
+
+
+======Commit: 183f69a5======
+======Short Message======
+[setups/osflow/filesets] do not provide default NEORV32_MEM_SRC, require it to be explicitly set
+======Full Message======
+[setups/osflow/filesets] do not provide default NEORV32_MEM_SRC, require it to be explicitly set
+
+
+
+======Commit: 0ac508d3======
+======Short Message======
+[rtl/core] updated pre-built images
+======Full Message======
+[rtl/core] updated pre-built images
+
+default app (blink_led) and bootloader
+
+
+
+======Commit: 5ff9581b======
+======Short Message======
+:bug: [rtl/system_integration] fixed missing NMI connection
+======Full Message======
+:bug: [rtl/system_integration] fixed missing NMI connection
+
+
+
+======Commit: ec7c3838======
+======Short Message======
+fixed same typo in "simple" testbench
+======Full Message======
+fixed same typo in "simple" testbench
+
+
+
+======Commit: 60695c79======
+======Short Message======
+[CHANGELOG] date fix; added PR
+======Full Message======
+[CHANGELOG] date fix; added PR
+
+
+
+======Commit: c05fc148======
+======Short Message======
+[CHANGELOG] date fix
+======Full Message======
+[CHANGELOG] date fix
+
+
+
+======Commit: 8129c932======
+======Short Message======
+[setups/radiant] path fix
+======Full Message======
+[setups/radiant] path fix
+
+
+
+======Commit: 19900784======
+======Short Message======
+[setups/radiant] path fix
+======Full Message======
+[setups/radiant] path fix
+
+
+
+======Commit: 0fd8e9e1======
+======Short Message======
+:bug: [rtl/system_integration] fixed connection of missing IRQ signals
+======Full Message======
+:bug: [rtl/system_integration] fixed connection of missing IRQ signals
+
+* machine software interrupt
+* external interrupt controller interrupts
+
+
+
+======Commit: 33d67f2d======
+======Short Message======
+Merge pull request #149 from umarcor/fix-windows
+======Full Message======
+Merge pull request #149 from umarcor/fix-windows
+
+[setup/osflow/boards/index.mk] do not set GHDL_PLUGIN_MODULE unconditionally
+
+
+======Commit: 6246f0e8======
+======Short Message======
+[sw/common] added new makefile target "sim"
+======Full Message======
+[sw/common] added new makefile target "sim"
+
+can be used for in-console simulation of current application using GHDL and the default processor testbench ("simple"/script-based testbench setup)
+
+
+
+======Commit: 2c66af5c======
+======Short Message======
+[docs] clean-upa and fixes
+======Full Message======
+[docs] clean-upa and fixes
+
+
+
+======Commit: 0ab13ecf======
+======Short Message======
+[rtl/core] minor typo fixes
+======Full Message======
+[rtl/core] minor typo fixes
+
+
+
+======Commit: e1b640f2======
+======Short Message======
+[docs/figures] layout fix
+======Full Message======
+[docs/figures] layout fix
+
+
+
+======Commit: 51bf46c8======
+======Short Message======
+[sim] minor fix in default extension configuration
+======Full Message======
+[sim] minor fix in default extension configuration
+
+
+
+======Commit: 71e642bc======
+======Short Message======
+[sim/lib/source/rte] minor bug fix
+======Full Message======
+[sim/lib/source/rte] minor bug fix
+
+
+
+======Commit: 20e9f00a======
+======Short Message======
+[rtl] fixed missing flash_sdi_i signal #145
+======Full Message======
+[rtl] fixed missing flash_sdi_i signal #145
+
+
+
+======Commit: b562c39c======
+======Short Message======
+:bug: [sw/lib] fixed bug in watchdog reset function
+======Full Message======
+:bug: [sw/lib] fixed bug in watchdog reset function
+
+
+
+======Commit: 6706f858======
+======Short Message======
+[sw/lib] whitespace fix
+======Full Message======
+[sw/lib] whitespace fix
+
+
+
+======Commit: 58d20c5b======
+======Short Message======
+AlhambraII working, UART issue fixed, ULX3S dirty code cleaned
+======Full Message======
+AlhambraII working, UART issue fixed, ULX3S dirty code cleaned
+
+
+
+======Commit: f4813c57======
+======Short Message======
+Merge pull request #143 from henrikbrixandersen/doc-fixups
+======Full Message======
+Merge pull request #143 from henrikbrixandersen/doc-fixups
+
+SYSINFO documentation fixups
+
+
+======Commit: 43266951======
+======Short Message======
+[.github] fixed Windows workflow
+======Full Message======
+[.github] fixed Windows workflow
+
+
+
+======Commit: 67ef58fc======
+======Short Message======
+Bugfix - UART TX and RX constrains was fliped
+======Full Message======
+Bugfix - UART TX and RX constrains was fliped
+
+
+
+======Commit: 17e7651c======
+======Short Message======
+[sw] RTE typo fix
+======Full Message======
+[sw] RTE typo fix
+
+
+
+======Commit: de708791======
+======Short Message======
+[sw, sim] fixed Zifencei riscv-arch-test test
+======Full Message======
+[sw, sim] fixed Zifencei riscv-arch-test test
+
+
+
+======Commit: 8c344f54======
+======Short Message======
+[setups/osflow] path fix
+======Full Message======
+[setups/osflow] path fix
+
+
+
+======Commit: 8a4c0c6d======
+======Short Message======
+:bug: [rtl] fixed bug in MRET instruction
+======Full Message======
+:bug: [rtl] fixed bug in MRET instruction
+
+* bug caused an exception if user mode was not implemented
+* bug caused by modifications in v1.5.8.8
+
+
+
+======Commit: 795a40e8======
+======Short Message======
+[rtl/test_setup] typo fix
+======Full Message======
+[rtl/test_setup] typo fix
+
+
+
+======Commit: 354dd37c======
+======Short Message======
+typo fix
+======Full Message======
+typo fix
+
+
+
+======Commit: 87525f3e======
+======Short Message======
+ULX3S Synthesis fix
+======Full Message======
+ULX3S Synthesis fix
+
+
+
+======Commit: bff52936======
+======Short Message======
+fixed memory HDL include
+======Full Message======
+fixed memory HDL include
+
+
+
+======Commit: 8e021271======
+======Short Message======
+[rtl/test_setups/README] fixed links to user guide
+======Full Message======
+[rtl/test_setups/README] fixed links to user guide
+
+
+
+======Commit: 7c6fafcb======
+======Short Message======
+[setups/osflow] fixed verilog module path
+======Full Message======
+[setups/osflow] fixed verilog module path
+
+
+
+======Commit: f8205dae======
+======Short Message======
+[setups/examples] added help target (=default)
+======Full Message======
+[setups/examples] added help target (=default)
+
+
+
+======Commit: 106cd069======
+======Short Message======
+minor typo fix
+======Full Message======
+minor typo fix
+
+
+
+======Commit: 8cb3d4cf======
+======Short Message======
+:bug: [rtl] fixed DRET and MRET trapping
+======Full Message======
+:bug: [rtl] fixed DRET and MRET trapping
+
+* `dret` has to trap if executed outside of debug-mode
+* `mret` has to trap if executed in privilege modes less than machine-mode
+
+
+
+======Commit: b961af3c======
+======Short Message======
+minor typo fix in README
+======Full Message======
+minor typo fix in README
+
+
+
+======Commit: 81c9d44d======
+======Short Message======
+[sw] added (debugging) symbols to linker script
+======Full Message======
+[sw] added (debugging) symbols to linker script
+
+
+
+======Commit: 95194aee======
+======Short Message======
+:bug: #134 was a bug
+======Full Message======
+:bug: #134 was a bug
+
+
+
+======Commit: ff75c2fe======
+======Short Message======
+[rtl] fixed minor top entity bug #133
+======Full Message======
+[rtl] fixed minor top entity bug #133
+
+Vivado "issue": generic defaults need a _fixed-size_ intialization value
+
+
+
+======Commit: 9e2d0f24======
+======Short Message======
+:bug: [rtl] fixed **major bug** in CPU interrupt system
+======Full Message======
+:bug: [rtl] fixed **major bug** in CPU interrupt system
+
+interrupts during memory accesses (load/store instruction) terminated those memory accesses violating the crucial "instruction atomicity" concept: traps (interrupts and exceptions) must only intervent _between_ instructions
+
+
+
+======Commit: 55198c61======
+======Short Message======
+[sw] typo fix (in comment)
+======Full Message======
+[sw] typo fix (in comment)
+
+
+
+======Commit: df6a45e0======
+======Short Message======
+:bug: [rtl] fixed bug in 'E' ISA extension
+======Full Message======
+:bug: [rtl] fixed bug in 'E' ISA extension
+
+extension could not be enabled due to missing generic propagation
+
+
+
+======Commit: c5fb92c1======
+======Short Message======
+[rtl] clean-up of generic defaults
+======Full Message======
+[rtl] clean-up of generic defaults
+
+this is a legacy thing. now only the processor top entity provides defaults for (all) the configuration generics
+
+
+
+======Commit: 4830a5bb======
+======Short Message======
+fixed template wrappers
+======Full Message======
+fixed template wrappers
+
+
+
+======Commit: 2602de0e======
+======Short Message======
+:bug: [rtl] fixed minor bug in SLINK code
+======Full Message======
+:bug: [rtl] fixed minor bug in SLINK code
+
+simulation issues due to missing signals in sensitivity lists
+
+
+
+======Commit: cea7a618======
+======Short Message======
+clean-up of processor top entity #128
+======Full Message======
+clean-up of processor top entity #128
+
+using default for ALL generics and input signals;
+* generics are "off" by default
+* input signals are 'L' for control signals and 'U' for data signals by default
+
+
+
+======Commit: b95258a6======
+======Short Message======
+[sim] minor bug fix
+======Full Message======
+[sim] minor bug fix
+
+
+
+======Commit: 0251fe41======
+======Short Message======
+Merge pull request #127 from umarcor/ci-win
+======Full Message======
+Merge pull request #127 from umarcor/ci-win
+
+[ci/windows] fix RISCV_PREFIX
+
+
+======Commit: 1b23e7ce======
+======Short Message======
+[ci/windows] fix RISCV_PREFIX
+======Full Message======
+[ci/windows] fix RISCV_PREFIX
+
+
+
+======Commit: 1afbf514======
+======Short Message======
+[rtl/templates] fixed typo (#126)
+======Full Message======
+[rtl/templates] fixed typo (#126)
+
+
+
+======Commit: 3c4d8047======
+======Short Message======
+Merge pull request #125 from jeremyherbert/patch-1
+======Full Message======
+Merge pull request #125 from jeremyherbert/patch-1
+
+Fix source/sink mixup in SLINK docs
+
+
+======Commit: 0c4b2af1======
+======Short Message======
+Fix source/sink mixup in SLINK docs
+======Full Message======
+Fix source/sink mixup in SLINK docs
+
+Also explicitly state which end controls which signal
+
+
+======Commit: e4bc862d======
+======Short Message======
+Merge pull request #114 from umarcor/sw-prefix
+======Full Message======
+Merge pull request #114 from umarcor/sw-prefix
+
+use RISCV_PREFIX instead of RISCV_TOOLCHAIN
+
+
+======Commit: ca8927e5======
+======Short Message======
+[sw] use RISCV_PREFIX instead of RISCV_TOOLCHAIN
+======Full Message======
+[sw] use RISCV_PREFIX instead of RISCV_TOOLCHAIN
+
+
+
+======Commit: 62a2e3b7======
+======Short Message======
+[riscv-arch-test] use RISCV_PREFIX
+======Full Message======
+[riscv-arch-test] use RISCV_PREFIX
+
+
+
+======Commit: a38e4fef======
+======Short Message======
+:bug: [rtl] fixed minor bug in FIFO component
+======Full Message======
+:bug: [rtl] fixed minor bug in FIFO component
+
+might have caused mapping issues if FIFO_DEPTH = 1
+
+
+
+======Commit: c541967e======
+======Short Message======
+:bug: fixed broken freeRTOS makefile #112
+======Full Message======
+:bug: fixed broken freeRTOS makefile #112
+
+
+
+======Commit: 5c825dae======
+======Short Message======
+[docs] minor fixes
+======Full Message======
+[docs] minor fixes
+
+
+
+======Commit: 61fda32d======
+======Short Message======
+[docs] minor typo and link fixes
+======Full Message======
+[docs] minor typo and link fixes
+
+
+
+======Commit: 6375439d======
+======Short Message======
+minor edits, typo fixes and clean-ups
+======Full Message======
+minor edits, typo fixes and clean-ups
+
+
+
+======Commit: 0df68cf9======
+======Short Message======
+[sw] minor typo fixes
+======Full Message======
+[sw] minor typo fixes
+
+
+
+======Commit: 8636de75======
+======Short Message======
+fixing VUnit windows workflow
+======Full Message======
+fixing VUnit windows workflow
+
+
+
+======Commit: 6819fded======
+======Short Message======
+[rtl/core/slink] minor fix
+======Full Message======
+[rtl/core/slink] minor fix
+
+
+
+======Commit: cddf8b9d======
+======Short Message======
+[sw/example/processor_check] minor typo fix in UART1 test code
+======Full Message======
+[sw/example/processor_check] minor typo fix in UART1 test code
+
+
+
+======Commit: 5264235e======
+======Short Message======
+[rtl/core/CFS] comment typo fixes
+======Full Message======
+[rtl/core/CFS] comment typo fixes
+
+
+
+======Commit: f76b2f62======
+======Short Message======
+changed default GHDL sim time to 10ms
+======Full Message======
+changed default GHDL sim time to 10ms
+
+
+======Commit: 8e5a78de======
+======Short Message======
+[sw/lib] minor fix in UART simulation mode
+======Full Message======
+[sw/lib] minor fix in UART simulation mode
+
+
+
+======Commit: 5af685ba======
+======Short Message======
+:bug: fixed bug in CFS address mapping
+======Full Message======
+:bug: fixed bug in CFS address mapping
+
+
+
+======Commit: 35e3d538======
+======Short Message======
+:bug: fixed bug in debugger park loop
+======Full Message======
+:bug: fixed bug in debugger park loop
+
+missing fence.i isntruction to resync with DM's program buffer if i-cache is implemented
+
+
+
+======Commit: c7c7b5bb======
+======Short Message======
+[CHANGELOG] typo fix
+======Full Message======
+[CHANGELOG] typo fix
+
+
+
+======Commit: 807cecbf======
+======Short Message======
+fixed expected UART output
+======Full Message======
+fixed expected UART output
+
+2x 0x00 from UART0/1 hardware tests
+
+
+
+======Commit: 91415cd4======
+======Short Message======
+Merge pull request #74 from umarcor/fix-artifacts
+======Full Message======
+Merge pull request #74 from umarcor/fix-artifacts
+
+[ci/generate-job-matrix] fix UPduino_v3 artifact (bitstream) extension
+
+
+======Commit: 0f1c3dd7======
+======Short Message======
+[ci/generate-job-matrix] fix UPduino_v3 artifact (bitstream) extension
+======Full Message======
+[ci/generate-job-matrix] fix UPduino_v3 artifact (bitstream) extension
+
+
+
+======Commit: e3fc8806======
+======Short Message======
+fixed UART tests
+======Full Message======
+fixed UART tests
+
+* both UARTs are correctly initilized
+* complete backup of original config during explicit low-level UART tests
+
+
+
+======Commit: c41580b0======
+======Short Message======
+:bug: [sw/examples/processor_check] fixed bug in UART tests
+======Full Message======
+:bug: [sw/examples/processor_check] fixed bug in UART tests
+
+corrupted UART1 configuration
+
+
+
+======Commit: be24a4a2======
+======Short Message======
+fixed missing if-gen ELSE
+======Full Message======
+fixed missing if-gen ELSE
+
+
+
+======Commit: 5db75c72======
+======Short Message======
+[docs/datasheet] reworked "Executable Image Format" section
+======Full Message======
+[docs/datasheet] reworked "Executable Image Format" section
+
++ minor clean-ups and fixes
+
+
+
+======Commit: 434cbfec======
+======Short Message======
+[sim/ghdl_sim.sh] fixed path
+======Full Message======
+[sim/ghdl_sim.sh] fixed path
+
+
+
+======Commit: 771f8169======
+======Short Message======
+[docs/datasheet] minor fixes and clean-ups
+======Full Message======
+[docs/datasheet] minor fixes and clean-ups
+
+
+
+======Commit: d441377a======
+======Short Message======
+[docs/datasheet] minor updates, fixes, clean-ups
+======Full Message======
+[docs/datasheet] minor updates, fixes, clean-ups
+
+
+
+======Commit: 97189e33======
+======Short Message======
+[sim] fixed missing size in meory init function
+======Full Message======
+[sim] fixed missing size in meory init function
+
+
+
+======Commit: 79eda513======
+======Short Message======
+[sim] fixed memory init function name
+======Full Message======
+[sim] fixed memory init function name
+
+
+
+======Commit: b6bee3b9======
+======Short Message======
+[sim] fixed bug in memory signal declaration
+======Full Message======
+[sim] fixed bug in memory signal declaration
+
+
+
+======Commit: 9d578d03======
+======Short Message======
+[ice40up memories] fixed bug in sanity checks
+======Full Message======
+[ice40up memories] fixed bug in sanity checks
+
+
+
+======Commit: db5f1caf======
+======Short Message======
+[sim] updated testbench
+======Full Message======
+[sim] updated testbench
+
+* updated new/changes boot config generics
+* now using memory types from package
+* minor edits and fixes
+
+
+
+======Commit: 673a0747======
+======Short Message======
+[sw/example/processor_check] fixed intermediate UART enable/disable
+======Full Message======
+[sw/example/processor_check] fixed intermediate UART enable/disable
+
+
+
+======Commit: 65b11162======
+======Short Message======
+:bug: [rtl/core] fixed bug in instruction cache
+======Full Message======
+:bug: [rtl/core] fixed bug in instruction cache
+
+cache controller might have missed resync/"clear-and-reload" requests from `fence.i` instructions
+
+
+
+======Commit: 66b032eb======
+======Short Message======
+[riscv-arch-test/port-neorv32] fixed default location for SIM UART output
+======Full Message======
+[riscv-arch-test/port-neorv32] fixed default location for SIM UART output
+
+
+
+======Commit: 167c019a======
+======Short Message======
+[sim/ghdl] fixed #70
+======Full Message======
+[sim/ghdl] fixed #70
+
+
+
+======Commit: 3e128162======
+======Short Message======
+[docs/datasheet] fixed default testbench name
+======Full Message======
+[docs/datasheet] fixed default testbench name
+
+
+
+======Commit: 7ef6848d======
+======Short Message======
+[riscv-arch-tests/poer-neorv32] fixed sim data output file generation
+======Full Message======
+[riscv-arch-tests/poer-neorv32] fixed sim data output file generation
+
+
+
+======Commit: 0dac2cf9======
+======Short Message======
+[workflows/riscv-arch-test] fixed GCC installation
+======Full Message======
+[workflows/riscv-arch-test] fixed GCC installation
+
+
+======Commit: 145d49c2======
+======Short Message======
+[docs/datasheet] fixed link to user guide
+======Full Message======
+[docs/datasheet] fixed link to user guide
+
+
+
+======Commit: 81f52e64======
+======Short Message======
+[rtl/templates/processor] MinimalBoot: export BOOTLOADER_EN, hide ON_CHIP_DEBUGGER_EN
+======Full Message======
+[rtl/templates/processor] MinimalBoot: export BOOTLOADER_EN, hide ON_CHIP_DEBUGGER_EN
+
+
+
+======Commit: 74ee0261======
+======Short Message======
+[setup/board] fixed copy error... (last commit)
+======Full Message======
+[setup/board] fixed copy error... (last commit)
+
+
+
+======Commit: 00e62512======
+======Short Message======
+[sw/lib] fixed minor bug in "debug handler" of run-time environment ( #56 )
+======Full Message======
+[sw/lib] fixed minor bug in "debug handler" of run-time environment ( #56 )
+
+
+
+======Commit: f4cb52ad======
+======Short Message======
+minor edits and path fixes
+======Full Message======
+minor edits and path fixes
+
+
+
+======Commit: 46badfa3======
+======Short Message======
+[setups] path fixes
+======Full Message======
+[setups] path fixes
+
+
+
+======Commit: d086fc66======
+======Short Message======
+[docs] minor link fixes
+======Full Message======
+[docs] minor link fixes
+
+
+
+======Commit: fc4ba0f2======
+======Short Message======
+v1.5.6.7: added option to configure "async" Wishbone RX path
+======Full Message======
+v1.5.6.7: added option to configure "async" Wishbone RX path
+
+* clean-up of Wishbone interface module (dead code removal)
+* added new package constant `wb_rx_buffer_c` to configure SYNC (default) or ASYNC Wishbone RX path (allows trade-off between performance/latency and timing closure
+
+
+
+======Commit: 6d348950======
+======Short Message======
+[docs/datasheet] minor fixes
+======Full Message======
+[docs/datasheet] minor fixes
+
+
+
+======Commit: 31eb2af6======
+======Short Message======
+[rtl/core] minor comment/typo fixes
+======Full Message======
+[rtl/core] minor comment/typo fixes
+
+
+
+======Commit: 3cdb9aeb======
+======Short Message======
+[sw/lib/include/neorv32_intrinsics] C++11 fix
+======Full Message======
+[sw/lib/include/neorv32_intrinsics] C++11 fix
+
+
+
+======Commit: ed7cb9ee======
+======Short Message======
+:bug: [sw/lib] fixed PWM base address
+======Full Message======
+:bug: [sw/lib] fixed PWM base address
+
+
+
+======Commit: cae2e689======
+======Short Message======
+[sw/lib/source/neorv32_cpu] minor fix
+======Full Message======
+[sw/lib/source/neorv32_cpu] minor fix
+
+
+
+======Commit: 652a0226======
+======Short Message======
+[sw] fixed return value of all example programs
+======Full Message======
+[sw] fixed return value of all example programs
+
+return 0: successful execution
+return !=0: error during execution
+
+
+
+======Commit: 9989cd76======
+======Short Message======
+removed debug mode `stepie` flag
+======Full Message======
+removed debug mode `stepie` flag
+
+used to allow interrupts during single-stepping. stepie support in GCC/gdb is very poor + the debugger can emulate interrupt behaviour
+
+
+
+======Commit: c590cf16======
+======Short Message======
+removed debug mode `stepie` flag
+======Full Message======
+removed debug mode `stepie` flag
+
+used to allow interrupts during single-stepping. stepie support in GCC/gdb is very poor + the debugger can emulate interrupt behaviour
+
+
+
+======Commit: f46fedf1======
+======Short Message======
+[rtl/core] fixed mtime_o low word to high word overflow inconsistency #58
+======Full Message======
+[rtl/core] fixed mtime_o low word to high word overflow inconsistency #58
+
+
+
+======Commit: a5e4ab2f======
+======Short Message======
+[docs/datasheet] minor typo fix
+======Full Message======
+[docs/datasheet] minor typo fix
+
+
+
+======Commit: aaab4fce======
+======Short Message======
+:bug: [rtl/core] fixed bug in rtl address space layout
+======Full Message======
+:bug: [rtl/core] fixed bug in rtl address space layout
+
+
+
+======Commit: cd0dbdd7======
+======Short Message======
+:bug: [cpu/rtl] fixed bug/typo in minstreth CSR counter logic
+======Full Message======
+:bug: [cpu/rtl] fixed bug/typo in minstreth CSR counter logic
+
+
+
+======Commit: 53c3d410======
+======Short Message======
+[README, docs/datasheet] minor typo/layout fixes
+======Full Message======
+[README, docs/datasheet] minor typo/layout fixes
+
+
+
+======Commit: 6609b984======
+======Short Message======
+[sw/lib] typo fix
+======Full Message======
+[sw/lib] typo fix
+
+
+
+======Commit: d9aed6fb======
+======Short Message======
+[docs/userguide] fixed (online) links; clean-up of "build documentation" section
+======Full Message======
+[docs/userguide] fixed (online) links; clean-up of "build documentation" section
+
+
+
+======Commit: 5c440d94======
+======Short Message======
+[docs/datasheet] fixed link
+======Full Message======
+[docs/datasheet] fixed link
+
+
+
+======Commit: fdeb2b62======
+======Short Message======
+[README] fixed links to new user guide
+======Full Message======
+[README] fixed links to new user guide
+
+
+
+======Commit: 3aec5123======
+======Short Message======
+[rtl, sim] fixed CPU/HPM counter size configuration generics comments
+======Full Message======
+[rtl, sim] fixed CPU/HPM counter size configuration generics comments
+
+
+
+======Commit: ca21559e======
+======Short Message======
+[sw/examples/floating_point_test] fixed broken function call; now also using "RUN_CHECK" compile switch
+======Full Message======
+[sw/examples/floating_point_test] fixed broken function call; now also using "RUN_CHECK" compile switch
+
+
+
+======Commit: 7a2017cd======
+======Short Message======
+[docs/src_adoc] fixed external memory interface endianness configuration #50
+======Full Message======
+[docs/src_adoc] fixed external memory interface endianness configuration #50
+
+
+
+======Commit: e728d288======
+======Short Message======
+[sw/lib] fixed RTE's endiannes/architecture info output
+======Full Message======
+[sw/lib] fixed RTE's endiannes/architecture info output
+
+
+
+======Commit: 7aca4658======
+======Short Message======
+[rtl/core, sim] fixed endianness configuration of external memory interface #50
+======Full Message======
+[rtl/core, sim] fixed endianness configuration of external memory interface #50
+
+
+
+======Commit: 49f68e12======
+======Short Message======
+[rtl/core] mtval CSR is now read-only; fixed default value of dcsr_prv if user mode is not implemented
+======Full Message======
+[rtl/core] mtval CSR is now read-only; fixed default value of dcsr_prv if user mode is not implemented
+
+
+
+======Commit: 16d45f85======
+======Short Message======
+[docs/src_adoc/cpu] minor fixes
+======Full Message======
+[docs/src_adoc/cpu] minor fixes
+
+
+
+======Commit: c26524d2======
+======Short Message======
+[Makefile] added (default) help target
+======Full Message======
+[Makefile] added (default) help target
+
+
+
+======Commit: 54183aed======
+======Short Message======
+:bug: [rtl/core/neorv32_top] fixed bug in SoC reset system; code clean-up
+======Full Message======
+:bug: [rtl/core/neorv32_top] fixed bug in SoC reset system; code clean-up
+
+* fixed bug in reset generator: SoC reset was stuck on zero when on-chip debugger not implemented
+* reworked reset generator (simplified)
+* reworked SoC bus infrastructure (module's "response" bus)
+
+
+
+======Commit: 47c8fb47======
+======Short Message======
+[rtl/core] integrated DBMEM into DM
+======Full Message======
+[rtl/core] integrated DBMEM into DM
+
+integrated the fomer "debug memory (DBMEM)" into the "debug module (DM)"; neorv32_debug_dbmem.vhd is no longer needed
+
+
+
+======Commit: 232057f3======
+======Short Message======
+[docs/src_adoc] fixed including of images into tables
+======Full Message======
+[docs/src_adoc] fixed including of images into tables
+
+
+
+======Commit: 1c63ebeb======
+======Short Message======
+[docs/src_adoc/on_chip_debugger] added UNIMPLEMNTED debug mode CSR bits
+======Full Message======
+[docs/src_adoc/on_chip_debugger] added UNIMPLEMNTED debug mode CSR bits
+
+
+
+======Commit: 72aa786d======
+======Short Message======
+Merge pull request #44 from umarcor/ci/fix-tag
+======Full Message======
+Merge pull request #44 from umarcor/ci/fix-tag
+
+[ci] prevent tag 'nightly' being used in revnumber
+
+
+======Commit: 8433e89d======
+======Short Message======
+:sparkles: [docs/src_adoc/getting_started] added on-chip-debugger + gdb tutorial
+======Full Message======
+:sparkles: [docs/src_adoc/getting_started] added on-chip-debugger + gdb tutorial
+
+
+
+======Commit: ec08215c======
+======Short Message======
+[docs/src_adoc/on_chip_debugger] minor edits
+======Full Message======
+[docs/src_adoc/on_chip_debugger] minor edits
+
+
+
+======Commit: fc56f697======
+======Short Message======
+[sw] added OpenOCD configuration file for on-chip debugger
+======Full Message======
+[sw] added OpenOCD configuration file for on-chip debugger
+
+
+
+======Commit: d1d16833======
+======Short Message======
+[docs/src_adoc] renamed folder "on-chip-debugger" -> "ocd-firmware"
+======Full Message======
+[docs/src_adoc] renamed folder "on-chip-debugger" -> "ocd-firmware"
+
+
+
+======Commit: 9f013d12======
+======Short Message======
+[sw] renamed "on-chip-debugger" -> "ocd-firmware"
+======Full Message======
+[sw] renamed "on-chip-debugger" -> "ocd-firmware"
+
+
+
+======Commit: d1d1b805======
+======Short Message======
+[sw] added sources for on-chip debugger's "park loop" code
+======Full Message======
+[sw] added sources for on-chip debugger's "park loop" code
+
+
+
+======Commit: 47c339f4======
+======Short Message======
+[docs/src_adoc] started writing HOWTO: debugging with openocd + gdb
+======Full Message======
+[docs/src_adoc] started writing HOWTO: debugging with openocd + gdb
+
+
+
+======Commit: 0e91d253======
+======Short Message======
+Merge pull request #43 from umarcor/patch-1
+======Full Message======
+Merge pull request #43 from umarcor/patch-1
+
+[ci] set fetch-depth to 0, for git describe to work
+
+
+======Commit: a9f80b2b======
+======Short Message======
+ [riscv-arch-test] minor fix
+======Full Message======
+ [riscv-arch-test] minor fix
+
+
+
+======Commit: 7f2944e7======
+======Short Message======
+[README] minor typo fixes
+======Full Message======
+[README] minor typo fixes
+
+
+
+======Commit: 7354b98d======
+======Short Message======
+[docs/src_adoc/on_chip_debugger] updates and fixes
+======Full Message======
+[docs/src_adoc/on_chip_debugger] updates and fixes
+
+
+
+======Commit: 335bab88======
+======Short Message======
+[boards/UPduino_v3] added on-chip debugger modules & signals
+======Full Message======
+[boards/UPduino_v3] added on-chip debugger modules & signals
+
+
+
+======Commit: c6621978======
+======Short Message======
+Add debugger ports
+======Full Message======
+Add debugger ports
+
+
+
+======Commit: 83463f82======
+======Short Message======
+[docs/src_adoc] minor typo fixes
+======Full Message======
+[docs/src_adoc] minor typo fixes
+
+
+
+======Commit: 5c3b5aa7======
+======Short Message======
+[docs/figures/neorv32_processor] reworked figure format; added on-chip debugger complex
+======Full Message======
+[docs/figures/neorv32_processor] reworked figure format; added on-chip debugger complex
+
+
+
+======Commit: b127f357======
+======Short Message======
+[docs/src_adoc/OCD] added debug module (DM) documentation
+======Full Message======
+[docs/src_adoc/OCD] added debug module (DM) documentation
+
+
+
+======Commit: b2fea3ac======
+======Short Message======
+[docs/src_adoc/overview] added on-chip debugger hardware ressources
+======Full Message======
+[docs/src_adoc/overview] added on-chip debugger hardware ressources
+
+
+
+======Commit: 7915cdba======
+======Short Message======
+[rtl/core/neorv32_debug_dbmem] updated "park loop" code
+======Full Message======
+[rtl/core/neorv32_debug_dbmem] updated "park loop" code
+
+
+
+======Commit: ee5bd804======
+======Short Message======
+[sim/ghdl] added on-chip debugger debug module (DM)
+======Full Message======
+[sim/ghdl] added on-chip debugger debug module (DM)
+
+
+
+======Commit: 085d8a93======
+======Short Message======
+[sim/testbench] added JTAG interface and configuration generic for new ON-CHIP DEBUGGER
+======Full Message======
+[sim/testbench] added JTAG interface and configuration generic for new ON-CHIP DEBUGGER
+
+
+
+======Commit: 60bca42e======
+======Short Message======
+[rtl/top_templates] added JTAG interface and configuration generic for new ON-CHIP DEBUGGER
+======Full Message======
+[rtl/top_templates] added JTAG interface and configuration generic for new ON-CHIP DEBUGGER
+
+
+
+======Commit: 00e469f4======
+======Short Message======
+:sparkles: [rtl/core] on-chip debugger: added debug module (DM)
+======Full Message======
+:sparkles: [rtl/core] on-chip debugger: added debug module (DM)
+
+:bulb: the on-chip debugger is operational now - but still in an experimental stage :wink:
+
+
+
+======Commit: d566d45f======
+======Short Message======
+Revert "Revert ":bug: [rtl/core/bus_keeper] fixed bug that caused permanent CPU stall""
+======Full Message======
+Revert "Revert ":bug: [rtl/core/bus_keeper] fixed bug that caused permanent CPU stall""
+
+This reverts commit 04b3b922293ad2d9a898f34a90977b8cdfad34c4.
+
+
+
+======Commit: 04b3b922======
+======Short Message======
+Revert ":bug: [rtl/core/bus_keeper] fixed bug that caused permanent CPU stall"
+======Full Message======
+Revert ":bug: [rtl/core/bus_keeper] fixed bug that caused permanent CPU stall"
+
+This reverts commit 9fa11e67ed0dbc4706bf4bc6faaefcff9f2b37f0.
+
+
+
+======Commit: 9fa11e67======
+======Short Message======
+:bug: [rtl/core/bus_keeper] fixed bug that caused permanent CPU stall
+======Full Message======
+:bug: [rtl/core/bus_keeper] fixed bug that caused permanent CPU stall
+
+fixed bug in internal memory monitoring: if accessing an unused address which is not re-directed to the external bus interface (because WISHBONE module is disabled) caused the CPU to stall since that bus access was not correctly monitored and aborted by the BUS_KEEPER
+
+
+
+======Commit: 58a4e905======
+======Short Message======
+[docs/src_adoc] added further details on upcoming on-chip debugger; minor clean-ups, typo fixes and layout edits
+======Full Message======
+[docs/src_adoc] added further details on upcoming on-chip debugger; minor clean-ups, typo fixes and layout edits
+
+
+
+======Commit: f54175b7======
+======Short Message======
+:sparkles: [rtl/core] on-chip debugger: added debug transport module (DTM)
+======Full Message======
+:sparkles: [rtl/core] on-chip debugger: added debug transport module (DTM)
+
+
+
+======Commit: 2c1e75b9======
+======Short Message======
+[bootloader image] reduced size to fix #30
+======Full Message======
+[bootloader image] reduced size to fix #30
+
+
+
+======Commit: 02186044======
+======Short Message======
+[README] added on-chip debugger (WORK IN PROGRESS); added status not (active development)
+======Full Message======
+[README] added on-chip debugger (WORK IN PROGRESS); added status not (active development)
+
+
+
+======Commit: d1ed7635======
+======Short Message======
+[docs/src_adoc] added OCD debug memory; minor edits
+======Full Message======
+[docs/src_adoc] added OCD debug memory; minor edits
+
+
+
+======Commit: 3a160288======
+======Short Message======
+[sim/ghdl] added new debug memory module
+======Full Message======
+[sim/ghdl] added new debug memory module
+
+
+
+======Commit: 5f8bae37======
+======Short Message======
+:sparkles: [rtl/core] on-chip debugger: added debug memory (DBMEM)
+======Full Message======
+:sparkles: [rtl/core] on-chip debugger: added debug memory (DBMEM)
+
+
+
+======Commit: 7d50d089======
+======Short Message======
+[docs/src_adoc/ocd] updates, fixes, ...
+======Full Message======
+[docs/src_adoc/ocd] updates, fixes, ...
+
+:construction: still under construction
+
+
+
+======Commit: fb2f8c18======
+======Short Message======
+[docs/figures] added on-chip debugger complex figure
+======Full Message======
+[docs/figures] added on-chip debugger complex figure
+
+
+
+======Commit: 0fb60445======
+======Short Message======
+[README] fixed links
+======Full Message======
+[README] fixed links
+
+
+
+======Commit: 70a01e03======
+======Short Message======
+[docs/src_adoc/software] fixed link
+======Full Message======
+[docs/src_adoc/software] fixed link
+
+
+
+======Commit: 375607f5======
+======Short Message======
+[docs/arc_adoc] added flag to discover on-chip debugger; added missing i-cache flag
+======Full Message======
+[docs/arc_adoc] added flag to discover on-chip debugger; added missing i-cache flag
+
+
+
+======Commit: 1a4bf265======
+======Short Message======
+[sw/lib] added flag to discover on-chip debugger
+======Full Message======
+[sw/lib] added flag to discover on-chip debugger
+
+
+
+======Commit: 188eb5c7======
+======Short Message======
+[rtl/core] added flag to SYSINFO to allow software to check if on-chip debugger is implemented
+======Full Message======
+[rtl/core] added flag to SYSINFO to allow software to check if on-chip debugger is implemented
+
+
+
+======Commit: 1b83443c======
+======Short Message======
+[docs/src_adoc] fixed including images for html deployment
+======Full Message======
+[docs/src_adoc] fixed including images for html deployment
+
+
+
+======Commit: 5c4d51f2======
+======Short Message======
+[CHANGELOG] fixed link to documentation
+======Full Message======
+[CHANGELOG] fixed link to documentation
+
+
+
+======Commit: d7a59cbb======
+======Short Message======
+[docs/src_adoc] added documentation related to new "CPU debug mode"
+======Full Message======
+[docs/src_adoc] added documentation related to new "CPU debug mode"
+
+
+
+======Commit: 3ec57c1d======
+======Short Message======
+[README] added CPU debug mode - :construction: work in progress
+======Full Message======
+[README] added CPU debug mode - :construction: work in progress
+
+
+
+======Commit: 2e4b7a4e======
+======Short Message======
+:sparkles: [rtl/cpu] added CPU debug mode
+======Full Message======
+:sparkles: [rtl/cpu] added CPU debug mode
+
+comatible to the RISC-V debug spec 13.2
+
+
+
+======Commit: 022a7369======
+======Short Message======
+[sw/lib] added flags for SW to discover CPU debug mode
+======Full Message======
+[sw/lib] added flags for SW to discover CPU debug mode
+
+
+
+======Commit: 78808fd6======
+======Short Message======
+[README] fixed/updated links to online documentation
+======Full Message======
+[README] fixed/updated links to online documentation
+
+:construction: work in progress
+
+
+
+======Commit: edfd4ebe======
+======Short Message======
+[docs/src_adoc] fixed links to SW documentation on github pages
+======Full Message======
+[docs/src_adoc] fixed links to SW documentation on github pages
+
+
+
+======Commit: ab8e651c======
+======Short Message======
+[docs/reference] added RISC-V debug spec
+======Full Message======
+[docs/reference] added RISC-V debug spec
+
+:sparkles: for upcoming NEORV32 *on-chip debugger* :wink:
+
+
+
+======Commit: 049b388a======
+======Short Message======
+[sw/lib/source/neorv32_mtime] fixed comments
+======Full Message======
+[sw/lib/source/neorv32_mtime] fixed comments
+
+
+
+======Commit: 8358a8af======
+======Short Message======
+[rtl/core/neorv32_wishbone] fixed minor sanity check error
+======Full Message======
+[rtl/core/neorv32_wishbone] fixed minor sanity check error
+
+
+
+======Commit: 6eec9178======
+======Short Message======
+[rtl/core/wdt] changed signal name since it is a reserved keyword in vhdl-2008 (fixing #24 )
+======Full Message======
+[rtl/core/wdt] changed signal name since it is a reserved keyword in vhdl-2008 (fixing #24 )
+
+
+
+======Commit: 5013e7d5======
+======Short Message======
+[boards/UPduino_v2] typo and broken link fixes
+======Full Message======
+[boards/UPduino_v2] typo and broken link fixes
+
+
+
+======Commit: a25c5868======
+======Short Message======
+[docs/src_adoc/soc_pwm] fixed link
+======Full Message======
+[docs/src_adoc/soc_pwm] fixed link
+
+
+
+======Commit: e8c639ed======
+======Short Message======
+[docs/src_adoc] typo and layout fixes
+======Full Message======
+[docs/src_adoc] typo and layout fixes
+
+
+
+======Commit: 84e4cde0======
+======Short Message======
+[.github/workflows/build_datasheet] fixed trigger paths
+======Full Message======
+[.github/workflows/build_datasheet] fixed trigger paths
+
+
+
+======Commit: 618d1014======
+======Short Message======
+:bug: [CHANGELOG] added version 1.5.4.7
+======Full Message======
+:bug: [CHANGELOG] added version 1.5.4.7
+
+
+
+======Commit: d968c297======
+======Short Message======
+:bug: [rtl/core] fixed bug in iCACHE (for configuration with ICACHE_ASSOCIATIVITY = 2)
+======Full Message======
+:bug: [rtl/core] fixed bug in iCACHE (for configuration with ICACHE_ASSOCIATIVITY = 2)
+
+
+
+======Commit: bb1af754======
+======Short Message======
+[CHANGELOG] typo fix
+======Full Message======
+[CHANGELOG] typo fix
+
+
+
+======Commit: 2a790e53======
+======Short Message======
+[README] typo fixes
+======Full Message======
+[README] typo fixes
+
+
+
+======Commit: 82fb86d7======
+======Short Message======
+[docs/src_adoc] minor layout and typo fixes
+======Full Message======
+[docs/src_adoc] minor layout and typo fixes
+
+
+
+======Commit: 9dcc367a======
+======Short Message======
+[docs/src_adoc] minor typo and layout fixes
+======Full Message======
+[docs/src_adoc] minor typo and layout fixes
+
+
+
+======Commit: 13a02731======
+======Short Message======
+[CHANGELOG] typo fix
+======Full Message======
+[CHANGELOG] typo fix
+
+
+
+======Commit: de369366======
+======Short Message======
+[docs/src_adoc] minor typo and layout fixes
+======Full Message======
+[docs/src_adoc] minor typo and layout fixes
+
+
+
+======Commit: cd024dfe======
+======Short Message======
+[docs/data sheet] layout and typo fixes
+======Full Message======
+[docs/data sheet] layout and typo fixes
+
+
+
+======Commit: 34653a70======
+======Short Message======
+[sim/ghdl/ghdl_sim.sh] increased default simulation time to 8ms... :wink:
+======Full Message======
+[sim/ghdl/ghdl_sim.sh] increased default simulation time to 8ms... :wink:
+
+
+
+======Commit: e14721ab======
+======Short Message======
+[sim/ghdl/ghdl_sim.sh] changed default simulation time to 7.5ms
+======Full Message======
+[sim/ghdl/ghdl_sim.sh] changed default simulation time to 7.5ms
+
+
+
+======Commit: 10475a4d======
+======Short Message======
+[README] typo fixes
+======Full Message======
+[README] typo fixes
+
+
+
+======Commit: 78d79a6a======
+======Short Message======
+[rtl/core] added new component: bus keeper
+======Full Message======
+[rtl/core] added new component: bus keeper
+
+this unit keeps track of all INTERNAL bus actions and asserts a bus error if any accessed device is not repsonding within a specifc time window
+
+
+
+======Commit: 29ab15da======
+======Short Message======
+:bug: :warning: [rtl/core] reworked "atomic memory access" system of CPU due to conceptual design errors
+======Full Message======
+:bug: :warning: [rtl/core] reworked "atomic memory access" system of CPU due to conceptual design errors
+
+* pruned bit 3 of top's wb_tag_o signal
+* removed top's wb_tag_i signal
+* added top's wb_lock_o signal
+
+
+
+======Commit: 61326e80======
+======Short Message======
+:bug: :warning: [rtl/core] reworked "atomic memory access" system of CPU due to conceptual design errors
+======Full Message======
+:bug: :warning: [rtl/core] reworked "atomic memory access" system of CPU due to conceptual design errors
+
+updates:
+* LR/SC combinations will fail if there is an exception/interrupt (e.g. from a context swtich) in between)
+* SC will NOT write to memory if exclusive access fails
+
+
+
+======Commit: 53b29e2c======
+======Short Message======
+[rtl/core/neorv32_package.vhd] added missing default value of top's "wb_tag_i" signal
+======Full Message======
+[rtl/core/neorv32_package.vhd] added missing default value of top's "wb_tag_i" signal
+
+
+
+======Commit: 176623cf======
+======Short Message======
+:sparkles: [rtl/core/cpu*] reworked CPU-wide reset system; added option to configure a DEDICATED RESET  for all registers
+======Full Message======
+:sparkles: [rtl/core/cpu*] reworked CPU-wide reset system; added option to configure a DEDICATED RESET  for all registers
+
+by default, most registers (= "uncritical registers") **do not** provide an initialization via hardware reset; a **defined reset value** can be enabled by setting a constant from the main VHDL package (`rtl/core/neorv32_package.vhd`): `constant dedicated_reset_c : boolean := false;` (set `true` to enable CPU-wide dedicated register reset); see new section "2.11. CPU Hardware Reset" of NEORV32.pdf for more information
+
+
+
+======Commit: 089a2e7d======
+======Short Message======
+[CHANGELOG] added new version fixing some issues; edits to allow synthesis using [`ghdl-yosys-plugin`](https://github.com/ghdl/ghdl-yosys-plugin) (:construction: work in progress :construction:)
+======Full Message======
+[CHANGELOG] added new version fixing some issues; edits to allow synthesis using [`ghdl-yosys-plugin`](https://github.com/ghdl/ghdl-yosys-plugin) (:construction: work in progress :construction:)
+
+
+
+======Commit: 354610ab======
+======Short Message======
+[rtl/core/neorv32_package] minor fixes
+======Full Message======
+[rtl/core/neorv32_package] minor fixes
+
+edits to allow synthesis using [`ghdl-yosys-plugin`](https://github.com/ghdl/ghdl-yosys-plugin) (:construction: work in progress :construction:)
+
+
+
+======Commit: 8cfbf764======
+======Short Message======
+[rtl/core/neorv32_top] added missing default value for IO_CFS_CONFIG generic
+======Full Message======
+[rtl/core/neorv32_top] added missing default value for IO_CFS_CONFIG generic
+
+
+
+======Commit: c7d925ed======
+======Short Message======
+[docs/NEORV32.pdf] minor updates
+======Full Message======
+[docs/NEORV32.pdf] minor updates
+
+* added new generic "CPU_CNT_WIDTH"
+* added new <mzext> flags "Zxscnt" & "Zxnocnt"
+* minor edits and typo fixes
+
+
+
+======Commit: 2f4ada9a======
+======Short Message======
+[rtl/core/neorv32_cpu_control] fixed some issues with CPU/HPM counter size configuration
+======Full Message======
+[rtl/core/neorv32_cpu_control] fixed some issues with CPU/HPM counter size configuration
+
+
+
+======Commit: 30315204======
+======Short Message======
+[sw/example/cpu_test] minor fix in counter setup
+======Full Message======
+[sw/example/cpu_test] minor fix in counter setup
+
+
+
+======Commit: 1ad93d53======
+======Short Message======
+[sw/example/cpu_test] minor debugging fixes
+======Full Message======
+[sw/example/cpu_test] minor debugging fixes
+
+
+
+======Commit: 00f45e06======
+======Short Message======
+[rtl/core] updated pre-built bootloader memory image due to bug in crt0.S
+======Full Message======
+[rtl/core] updated pre-built bootloader memory image due to bug in crt0.S
+
+
+
+======Commit: fa03adbe======
+======Short Message======
+:bug: [sw/common/crt0] fixed bug in SP setup
+======Full Message======
+:bug: [sw/common/crt0] fixed bug in SP setup
+
+stack pointer (SP) has to be initialized before an exception can occur
+
+
+
+======Commit: 9308bcf2======
+======Short Message======
+:bug: [rtl/core/control] added new generic to configure size of cycle and instret CPU counters; fixed bug in HPM counter size configuration
+======Full Message======
+:bug: [rtl/core/control] added new generic to configure size of cycle and instret CPU counters; fixed bug in HPM counter size configuration
+
+
+
+======Commit: 2777249b======
+======Short Message======
+[rtl/core] reworked reset system
+======Full Message======
+[rtl/core] reworked reset system
+
+default reset: most register are "initialized" with '-' (don't care) since no real reset is required; however, a "real" reset can be configured using the packages 'def_rst_val_c' constant that defines the reset value for all "uncritical regsiter" (see NEORV32.pdf)
+
+
+
+======Commit: 71238e46======
+======Short Message======
+[boards/de0-nano-test-setup/README] fixed uart0_rxd_i header pin number
+======Full Message======
+[boards/de0-nano-test-setup/README] fixed uart0_rxd_i header pin number
+
+
+
+======Commit: def9ed96======
+======Short Message======
+[boards/de0-nano-test-setup/README] minor typo fixes
+======Full Message======
+[boards/de0-nano-test-setup/README] minor typo fixes
+
+
+
+======Commit: c9c1602c======
+======Short Message======
+[baords/README] fixed setup links to be repo-local
+======Full Message======
+[baords/README] fixed setup links to be repo-local
+
+
+
+======Commit: 3e0f3e01======
+======Short Message======
+[docs/NEORV32.pdf] minor edits
+======Full Message======
+[docs/NEORV32.pdf] minor edits
+
+* updated after-reset-value of CSRs
+* typo and layout fixes
+
+
+
+======Commit: c014649a======
+======Short Message======
+:bug: [rtl/core/neorv32_cpu_control] bug-fix in HPM event configuration; :warning: code clean-up (:warning:)
+======Full Message======
+:bug: [rtl/core/neorv32_cpu_control] bug-fix in HPM event configuration; :warning: code clean-up (:warning:)
+
+* removed TRAP_RESET mcause value (obsolete, was not RISC-V compliant)
+* fixed bug in HPM event configuration via `mhpmevent*` CSRs - there was a CSR address decoding overlap between the HPM event registers and the machine trap setup CSRs (introduced in version 1.5.3.6)
+* :warning: reworked CPU core CSRs: most CSRs are not reset by hardware and need explicit initialization (done by crt0.S start-up code)
+
+
+
+======Commit: 0c18d9be======
+======Short Message======
+:bug: [rtl/core/neorv32_wishbone.vhd] fixed bug in external memory interface
+======Full Message======
+:bug: [rtl/core/neorv32_wishbone.vhd] fixed bug in external memory interface
+
+bug caused bus exceptions when using external memories with very high access latencies (race condition in bus timeouts)
+
+
+
+======Commit: 2ef9e8d2======
+======Short Message======
+[rtl/top_templates] added new top generic: HPM_CNT_WIDTH
+======Full Message======
+[rtl/top_templates] added new top generic: HPM_CNT_WIDTH
+
+allows to specify the total HPM counter size (low word CSR + high word CSR), min=1, max=64; default=40
+
+
+
+======Commit: 56635639======
+======Short Message======
+[rtl/core] added new top generic: HPM_CNT_WIDTH
+======Full Message======
+[rtl/core] added new top generic: HPM_CNT_WIDTH
+
+allows to specify the total HPM counter size (low word CSR + high word CSR), min=1, max=64; default=40
+
+
+
+======Commit: 4ea1f7dd======
+======Short Message======
+[README] typo fix
+======Full Message======
+[README] typo fix
+
+
+
+======Commit: db6b9a72======
+======Short Message======
+[boards/arty-a7] fixed broken link
+======Full Message======
+[boards/arty-a7] fixed broken link
+
+
+
+======Commit: 892a7fd2======
+======Short Message======
+[boards/arty-a7] typo fixes
+======Full Message======
+[boards/arty-a7] typo fixes
+
+
+
+======Commit: aa097ada======
+======Short Message======
+[boards] fixing typos and broken links - part 2
+======Full Message======
+[boards] fixing typos and broken links - part 2
+
+
+
+======Commit: 7218dc1f======
+======Short Message======
+[boards] fixing typos and broken links
+======Full Message======
+[boards] fixing typos and broken links
+
+
+
+======Commit: 9a147543======
+======Short Message======
+[sw/example/floating_point_test] typo fix
+======Full Message======
+[sw/example/floating_point_test] typo fix
+
+
+
+======Commit: 07a210a2======
+======Short Message======
+[README] minor fix in CPU synthesis results
+======Full Message======
+[README] minor fix in CPU synthesis results
+
+
+
+======Commit: ed7ec0cf======
+======Short Message======
+[rtl/core/package] added switch to enable co-processor timeout counter (default=disabled)
+======Full Message======
+[rtl/core/package] added switch to enable co-processor timeout counter (default=disabled)
+
+
+
+======Commit: c5eeca89======
+======Short Message======
+[rtl/core/cpu] added timeout counter to auto-terminate co-proceesor operations (for debugging/simulation only!), default = deactivated
+======Full Message======
+[rtl/core/cpu] added timeout counter to auto-terminate co-proceesor operations (for debugging/simulation only!), default = deactivated
+
+
+
+======Commit: f2cb9ad1======
+======Short Message======
+:bug: [rtl/core/cpu_control] fixed in invalid floating-point instruction detection
+======Full Message======
+:bug: [rtl/core/cpu_control] fixed in invalid floating-point instruction detection
+
+* caused CPU to stall if executing an invalid floating-point operation
+
+
+
+======Commit: dd07075c======
+======Short Message======
+[README] fixed broken link
+======Full Message======
+[README] fixed broken link
+
+
+
+======Commit: dad1c315======
+======Short Message======
+[rtl/core/cpu_control] fixed bug in floating-point exception flag update logic
+======Full Message======
+[rtl/core/cpu_control] fixed bug in floating-point exception flag update logic
+
+
+
+======Commit: 1149fb68======
+======Short Message======
+[README] fixed broken Zfinx link
+======Full Message======
+[README] fixed broken Zfinx link
+
+
+
+======Commit: 7a4428e5======
+======Short Message======
+:bug: [sw/*/makefile] fixed problem with linking math.h library
+======Full Message======
+:bug: [sw/*/makefile] fixed problem with linking math.h library
+
+
+
+======Commit: 4a406ba2======
+======Short Message======
+[README] typo fix
+======Full Message======
+[README] typo fix
+
+
+
+======Commit: 5008490c======
+======Short Message======
+[rtl/core/memory images] updated pre-build application/bootloader images due to bug in crt0.S start-up code
+======Full Message======
+[rtl/core/memory images] updated pre-build application/bootloader images due to bug in crt0.S start-up code
+
+
+
+======Commit: d2ce4a7c======
+======Short Message======
+:bug: [sw/common/crt0.S] fixed bug in dummy trap handler
+======Full Message======
+:bug: [sw/common/crt0.S] fixed bug in dummy trap handler
+
+-> wrong order of register push/pop
+
+
+
+======Commit: 240f8292======
+======Short Message======
+[sw/lib/source/neorv32_rte] added Zba flag to hardware check; fixed/updated ISA check (compiler's ISA string vs. MISA CSR)
+======Full Message======
+[sw/lib/source/neorv32_rte] added Zba flag to hardware check; fixed/updated ISA check (compiler's ISA string vs. MISA CSR)
+
+
+
+======Commit: ee41ef2b======
+======Short Message======
+[sw/lib/source/spi] typo fix
+======Full Message======
+[sw/lib/source/spi] typo fix
+
+
+
+======Commit: 8c60413d======
+======Short Message======
+[rtl/core] control code clean-up
+======Full Message======
+[rtl/core] control code clean-up
+
+* fixed minor bug in F-exension's instruction decoding
+* changed coding style for CSR write access (old version might have caused "inferring latch..." warning in Intel Quartus)
+* fixed default values for CSRs when according extensions are disabled
+
+
+
+======Commit: dfaa0156======
+======Short Message======
+:bug: [sw/examples/demo_gpio_irq] fixed GPIO pin-change FIRQ chanel (#14)
+======Full Message======
+:bug: [sw/examples/demo_gpio_irq] fixed GPIO pin-change FIRQ chanel (#14)
+
+
+
+======Commit: e76906c9======
+======Short Message======
+[riscv-arch-test/README] typo fixes
+======Full Message======
+[riscv-arch-test/README] typo fixes
+
+
+
+======Commit: 302e9da8======
+======Short Message======
+[rtl/core] added CFS IO configuration generics (implementing #13 )
+======Full Message======
+[rtl/core] added CFS IO configuration generics (implementing #13 )
+
+* IO_CFS_IN_SIZE defines size of cfs_in_i signal
+* IO_CFS_OUT_SIZE defines size of cfs_out_o signal
+* generic type is "positive"
+* default value for both generics = 32
+
+
+
+======Commit: 1ab9bf41======
+======Short Message======
+:bug: [rtl/core/control] fixed several small bugs in B extension's instruction decoding
+======Full Message======
+:bug: [rtl/core/control] fixed several small bugs in B extension's instruction decoding
+
+not all `B` instructions triggered and *illegal instruction exception* when B-extension = disabled
+
+
+
+======Commit: ade56d18======
+======Short Message======
+[docs/Doxyfile] fixed logo include path
+======Full Message======
+[docs/Doxyfile] fixed logo include path
+
+
+
+======Commit: 062f3c7d======
+======Short Message======
+:bug: [rtl/core/uart] fixed bugs in RTS/CTS hardware flow control (targeting #11 ); added double-buffering to UART RX engine
+======Full Message======
+:bug: [rtl/core/uart] fixed bugs in RTS/CTS hardware flow control (targeting #11 ); added double-buffering to UART RX engine
+
+RTS/CTS hardware flow control was finally verified on *real* hardware
+
+
+
+======Commit: 68d3f7dc======
+======Short Message======
+[sw/lib/source/mtime] typo fix (stupib, but not critical)
+======Full Message======
+[sw/lib/source/mtime] typo fix (stupib, but not critical)
+
+
+
+======Commit: 99b1ff51======
+======Short Message======
+[README] typo fixes
+======Full Message======
+[README] typo fixes
+
+
+
+======Commit: 1a44aec7======
+======Short Message======
+[README] fixed broken "A" extension link
+======Full Message======
+[README] fixed broken "A" extension link
+
+
+
+======Commit: cdd03ce6======
+======Short Message======
+[README] fixed broken links
+======Full Message======
+[README] fixed broken links
+
+
+
+======Commit: 6fb04e23======
+======Short Message======
+[docs/figures/neorv32_processor.png] fixed number of SoC FIRQ channels
+======Full Message======
+[docs/figures/neorv32_processor.png] fixed number of SoC FIRQ channels
+
+
+
+======Commit: 1ca82266======
+======Short Message======
+[CHANGELOG] minor typo fixes
+======Full Message======
+[CHANGELOG] minor typo fixes
+
+
+
+======Commit: b21582cd======
+======Short Message======
+[docs/NEORV32.pdf] fixed FIRQ channel numbers in peripheral sections
+======Full Message======
+[docs/NEORV32.pdf] fixed FIRQ channel numbers in peripheral sections
+
+
+
+======Commit: e8636710======
+======Short Message======
+[CHANGELOG] typo fix
+======Full Message======
+[CHANGELOG] typo fix
+
+
+
+======Commit: cd0cf680======
+======Short Message======
+[LICENSE] date fix
+======Full Message======
+[LICENSE] date fix
+
+
+
+======Commit: f179fc25======
+======Short Message======
+[sim/vivado/wave_config] updated default Xilinx ISIM wave configuration
+======Full Message======
+[sim/vivado/wave_config] updated default Xilinx ISIM wave configuration
+
+
+
+======Commit: 5edd8334======
+======Short Message======
+:bug: [sw/example/demo_twi] fixed error in TWI speed message
+======Full Message======
+:bug: [sw/example/demo_twi] fixed error in TWI speed message
+
+factor 1/4 was missing
+
+
+
+======Commit: 22b9182a======
+======Short Message======
+[.ci] changed default simulation time to 7ms
+======Full Message======
+[.ci] changed default simulation time to 7ms
+
+
+
+======Commit: cacccc38======
+======Short Message======
+[sw/lib/uart] added doxygen warning
+======Full Message======
+[sw/lib/uart] added doxygen warning
+
+UART0 (primary UART) is used as default user console interface by the whole NEORV32 software framework
+
+
+
+======Commit: f532481d======
+======Short Message======
+[sim/ghdl] updated simulation script
+======Full Message======
+[sim/ghdl] updated simulation script
+
+increased default simulation time to 7ms;
+added/renamed UART0/1 simulaton output files
+
+
+
+======Commit: e927676b======
+======Short Message======
+:bug: [rtl/core/cpu] fixed bug (typo) introduced with last commit
+======Full Message======
+:bug: [rtl/core/cpu] fixed bug (typo) introduced with last commit
+
+
+
+======Commit: eb47728a======
+======Short Message======
+[riscv-compliance/README] typo fixes
+======Full Message======
+[riscv-compliance/README] typo fixes
+
+
+
+======Commit: 8483e109======
+======Short Message======
+[rtl/core] Zifencei extension is diabled by default
+======Full Message======
+[rtl/core] Zifencei extension is diabled by default
+
+
+
+======Commit: 6e393431======
+======Short Message======
+[sim] added new NCO
+======Full Message======
+[sim] added new NCO
+
+added new NCO (numerically-controlled oscillator) to testbench, GHD simulation script and default Xilinx ISIM waveform configuration
+
+
+
+======Commit: 3fc4fbe8======
+======Short Message======
+[rtl/top_tempates] added NCO
+======Full Message======
+[rtl/top_tempates] added NCO
+
+added NCO enable generic (IO_NCO_EN) and NCO output signal (nco_o); minor comment fixes
+
+
+
+======Commit: 439d9da1======
+======Short Message======
+[rtl/core/processor] added new perpheral module: NCO
+======Full Message======
+[rtl/core/processor] added new perpheral module: NCO
+
+numerically-controller oscillator with 3 independent channels, 20-bit phase accu and tuning words, 8 selectable clock sources (prescalers), fixed 50% duty cycle mode or pulsed-mode
+
+
+
+======Commit: 0a21b7ca======
+======Short Message======
+version ID fix (for next release)
+======Full Message======
+version ID fix (for next release)
+
+
+
+======Commit: 7c98c618======
+======Short Message======
+[docs/NEORV32] minor typo / layout fixes
+======Full Message======
+[docs/NEORV32] minor typo / layout fixes
+
+
+
+======Commit: 78aeda49======
+======Short Message======
+[rtl/core/processor] corrected pre-built application image
+======Full Message======
+[rtl/core/processor] corrected pre-built application image
+
+default application image should be made from sw/example/blink_led
+
+
+
+======Commit: 9d6fa5a8======
+======Short Message======
+:bug: [rtl/core/cpu] fixed error in atomic LR.W instruction
+======Full Message======
+:bug: [rtl/core/cpu] fixed error in atomic LR.W instruction
+
+error caused a too early release of the locked memory access environment
+
+
+
+======Commit: e25378e9======
+======Short Message======
+[docs/NEORV32.pdf] added new section "Processor Interrupts"
+======Full Message======
+[docs/NEORV32.pdf] added new section "Processor Interrupts"
+
+minor typo and layout fixes;
+added more inter-section links/references
+
+
+
+======Commit: 3ed3fe3e======
+======Short Message======
+[rtl/core] updated pre-built application images
+======Full Message======
+[rtl/core] updated pre-built application images
+
+application_image = blink_led example program
+bootloader_image = default bootloader
+
+
+
+======Commit: 31333eb0======
+======Short Message======
+[rtl/core/cpu] added "critical limit" for number of implemented PMP regions
+======Full Message======
+[rtl/core/cpu] added "critical limit" for number of implemented PMP regions
+
+When implementing more PMP regions that a certain critical limit an additional register stage is automatically inserted into the CPU’s memory interfaces increasing the latency of instruction fetches and data access by +1 cycle. The critical limit can be adapted for custom use by a constant from the main VHDL package file (rtl/core/neorv32_package.vhd). The default value is 4.
+
+
+
+======Commit: afaac5e8======
+======Short Message======
+[rtl/core] minor comment fixes
+======Full Message======
+[rtl/core] minor comment fixes
+
+
+
+======Commit: 6bb4132d======
+======Short Message======
+[sw/example/cpu_test] minor edits
+======Full Message======
+[sw/example/cpu_test] minor edits
+
+- fixed typo in note (misaligned instruction fetches are not possible WITH C-extension enabled)
+- removed AMOSWAP test
+
+
+
+======Commit: 0338625a======
+======Short Message======
+[README] fixed links - again
+======Full Message======
+[README] fixed links - again
+
+
+
+======Commit: 9b847910======
+======Short Message======
+[README] fixed broken links
+======Full Message======
+[README] fixed broken links
+
+
+
+======Commit: 276f1143======
+======Short Message======
+[CHANGELOG] added minor UART setup function bug fix
+======Full Message======
+[CHANGELOG] added minor UART setup function bug fix
+
+
+
+======Commit: d4df6d17======
+======Short Message======
+[rtl/core/processor] updated pre-built application images
+======Full Message======
+[rtl/core/processor] updated pre-built application images
+
+bootloader & blink_led
+due to fixed bug in uart configuration function
+
+
+
+======Commit: ae9eece6======
+======Short Message======
+[docs/NEORV32.pdf] fixed minor bug in baud rate computation equation
+======Full Message======
+[docs/NEORV32.pdf] fixed minor bug in baud rate computation equation
+
+
+
+======Commit: b57a85bb======
+======Short Message======
+:bug: [sw/lib/source/uart] fixed minor error in baud rate computation
+======Full Message======
+:bug: [sw/lib/source/uart] fixed minor error in baud rate computation
+
+bug caused additional offset for higher baud rates
+
+
+
+======Commit: 9885011a======
+======Short Message======
+[README] typo fix
+======Full Message======
+[README] typo fix
+
+
+
+======Commit: e43c0f9c======
+======Short Message======
+[rtl/core/cpu] fixed minor bug in branch comparator
+======Full Message======
+[rtl/core/cpu] fixed minor bug in branch comparator
+
+bug introduced with last commit
+
+
+
+======Commit: fdb62995======
+======Short Message======
+[CHANGELOG] typo fix
+======Full Message======
+[CHANGELOG] typo fix
+
+
+
+======Commit: 0af4a973======
+======Short Message======
+[rtl] typo fixes (in comments only)
+======Full Message======
+[rtl] typo fixes (in comments only)
+
+
+
+======Commit: 33e78dfb======
+======Short Message======
+:bug: [bootloader] fixed bug in IO module configuration
+======Full Message======
+:bug: [bootloader] fixed bug in IO module configuration
+
+fixed bug that caused bootloader to immediately crash if SPI or MTIME or GPIO peripherals where not implemented
+
+
+
+======Commit: 521a41eb======
+======Short Message======
+[rtl/top_templates] typo fix in comments
+======Full Message======
+[rtl/top_templates] typo fix in comments
+
+
+
+======Commit: 8bb204c4======
+======Short Message======
+[rtl/processors] added "I" suffix to internal i-cache generics
+======Full Message======
+[rtl/processors] added "I" suffix to internal i-cache generics
+
+
+
+======Commit: 00035b24======
+======Short Message======
+[docS/NEORV32.pdf] updated synthesis results (memory bits for register file); updated 'B' extension's instruction timing; minor formating and typo fixed
+======Full Message======
+[docS/NEORV32.pdf] updated synthesis results (memory bits for register file); updated 'B' extension's instruction timing; minor formating and typo fixed
+
+
+
+======Commit: d41b8a44======
+======Short Message======
+:bug: [sim/rtl_modules/imem] fixed typo error
+======Full Message======
+:bug: [sim/rtl_modules/imem] fixed typo error
+
+
+
+======Commit: 710da70e======
+======Short Message======
+:bug: [sw/lib/source/neorv32_cpu.c] fixed bugs in PMPCFG configuration function
+======Full Message======
+:bug: [sw/lib/source/neorv32_cpu.c] fixed bugs in PMPCFG configuration function
+
+
+
+======Commit: d7b152ad======
+======Short Message======
+[README] typo fixes
+======Full Message======
+[README] typo fixes
+
+
+
+======Commit: a72b23f7======
+======Short Message======
+[sw/lib] typo fixes
+======Full Message======
+[sw/lib] typo fixes
+
+
+
+======Commit: 0943ecf2======
+======Short Message======
+typo fixes
+======Full Message======
+typo fixes
+
+
+
+======Commit: 352e7c57======
+======Short Message======
+typo/broken link fixes
+======Full Message======
+typo/broken link fixes
+
+
+
+======Commit: e3fb16ee======
+======Short Message======
+[rtl/processor] added generic to enable B extensions (default = false)
+======Full Message======
+[rtl/processor] added generic to enable B extensions (default = false)
+
+
+
+======Commit: 127b5b72======
+======Short Message======
+[sw/example/cpu_test] minor fixes to reduce size ;)
+======Full Message======
+[sw/example/cpu_test] minor fixes to reduce size ;)
+
+
+
+======Commit: 13c527bf======
+======Short Message======
+bug fixes..
+======Full Message======
+bug fixes..
+
+
+======Commit: e3076251======
+======Short Message======
+[github-actions/risc-v compliance] bug fixes..
+======Full Message======
+[github-actions/risc-v compliance] bug fixes..
+
+
+======Commit: 0c0b7d7d======
+======Short Message======
+[README] updated CoreMark results; fixed typos
+======Full Message======
+[README] updated CoreMark results; fixed typos
+
+
+
+======Commit: dfa47fa6======
+======Short Message======
+[sw/example/coremark] fixed timer overflow problems
+======Full Message======
+[sw/example/coremark] fixed timer overflow problems
+
+
+
+======Commit: 50a777cd======
+======Short Message======
+[sw\lib\rte] typo fixes
+======Full Message======
+[sw\lib\rte] typo fixes
+
+
+
+======Commit: 1a391a4c======
+======Short Message======
+[rtl/top_templates/README] typo fixes
+======Full Message======
+[rtl/top_templates/README] typo fixes
+
+
+
+======Commit: 078a115f======
+======Short Message======
+[sw/freeRTOS] fixed typo
+======Full Message======
+[sw/freeRTOS] fixed typo
+
+
+
+======Commit: d32eb827======
+======Short Message======
+[README] minor typo fixes
+======Full Message======
+[README] minor typo fixes
+
+
+
+======Commit: 88d9fee5======
+======Short Message======
+[sw/example/cpu_test] fixed bus time-out latency estimation
+======Full Message======
+[sw/example/cpu_test] fixed bus time-out latency estimation
+
+
+
+======Commit: 8aa79418======
+======Short Message======
+[riscv-compliance] using default (minimal!) simulation time for compliance tests
+======Full Message======
+[riscv-compliance] using default (minimal!) simulation time for compliance tests
+
+
+
+======Commit: 8ef3533d======
+======Short Message======
+[README] typo fix
+======Full Message======
+[README] typo fix
+
+
+
+======Commit: 401cfe20======
+======Short Message======
+:bug: [rtl/cpu] fixed bug in instruction fetch misalignment/bus_error ack logic
+======Full Message======
+:bug: [rtl/cpu] fixed bug in instruction fetch misalignment/bus_error ack logic
+
+
+
+======Commit: 173005c3======
+======Short Message======
+[READMEs] fixed broken links; minor typo fixes
+======Full Message======
+[READMEs] fixed broken links; minor typo fixes
+
+
+
+======Commit: abd1122c======
+======Short Message======
+[riscv-compliance] minor fixes
+======Full Message======
+[riscv-compliance] minor fixes
+
+
+
+======Commit: dd1ace23======
+======Short Message======
+[rtl/cpu] fixed another bug in mtval csr (wrong value for breakpoint trap); fixed bug in load/store control logic
+======Full Message======
+[rtl/cpu] fixed another bug in mtval csr (wrong value for breakpoint trap); fixed bug in load/store control logic
+
+
+
+======Commit: d7ebef30======
+======Short Message======
+[docs/data sheet] updated mtval value table; added mip info on how to clear pending interrupts; fixed IRQ priority
+======Full Message======
+[docs/data sheet] updated mtval value table; added mip info on how to clear pending interrupts; fixed IRQ priority
+
+
+
+======Commit: dde1b572======
+======Short Message======
+[rtl] fixed version number
+======Full Message======
+[rtl] fixed version number
+
+
+
+======Commit: 58239f29======
+======Short Message======
+:warning: [rtl/cpu] fixed error in IRQ priority encoder (MSI software interrupt comes before MTI timer interrupt)
+======Full Message======
+:warning: [rtl/cpu] fixed error in IRQ priority encoder (MSI software interrupt comes before MTI timer interrupt)
+
+
+
+======Commit: fec029b0======
+======Short Message======
+:warning: [rtl/cpu] fixed error in mtval CSR (wrong values for some traps); fixed bug in mip CSR (writing zero bits to mip now actually clears pending interrupts"
+======Full Message======
+:warning: [rtl/cpu] fixed error in mtval CSR (wrong values for some traps); fixed bug in mip CSR (writing zero bits to mip now actually clears pending interrupts"
+
+
+
+======Commit: 4ad3dd7e======
+======Short Message======
+:warning: [rtl/cpu] fixed missing reset of mcause hardware register
+======Full Message======
+:warning: [rtl/cpu] fixed missing reset of mcause hardware register
+
+
+
+======Commit: cfd1bc85======
+======Short Message======
+:warning: [rtl/cpu] fixed wrong encoding of 'trap_reset_c' (mcause value after reset, should be 0x80000000)
+======Full Message======
+:warning: [rtl/cpu] fixed wrong encoding of 'trap_reset_c' (mcause value after reset, should be 0x80000000)
+
+
+
+======Commit: ad10a1fb======
+======Short Message======
+[README] minor fixes and beautifications :lipstick:
+======Full Message======
+[README] minor fixes and beautifications :lipstick:
+
+
+
+======Commit: 09367c47======
+======Short Message======
+[docs/NEORV32.pdf] added zicnt_en_c description; added nem mtime_i top interface signal; minor edity, fixes and beautifications
+======Full Message======
+[docs/NEORV32.pdf] added zicnt_en_c description; added nem mtime_i top interface signal; minor edity, fixes and beautifications
+
+
+
+======Commit: 91109d5f======
+======Short Message======
+[README] minor fixes
+======Full Message======
+[README] minor fixes
+
+
+
+======Commit: 4b043d71======
+======Short Message======
+:warning: [rtl/cpu] fixed bug in ALU's co-processor interface - CPU might have permanently stalled when executing an instruction from a disabled ISA extension
+======Full Message======
+:warning: [rtl/cpu] fixed bug in ALU's co-processor interface - CPU might have permanently stalled when executing an instruction from a disabled ISA extension
+
+
+
+======Commit: 997efdde======
+======Short Message======
+:warning: [rtl/cpu] fixed bug in ALU's co-processor interface - ATOMIC 'A' extension could not be used without MULDIV 'M' extension
+======Full Message======
+:warning: [rtl/cpu] fixed bug in ALU's co-processor interface - ATOMIC 'A' extension could not be used without MULDIV 'M' extension
+
+
+
+======Commit: 510b13d7======
+======Short Message======
+[docs/neorv32.pdf] fixed typos & layout
+======Full Message======
+[docs/neorv32.pdf] fixed typos & layout
+
+
+
+======Commit: 392500ae======
+======Short Message======
+[rtl/cpu] :warning: fixed bug in next-PC logic (introduced with version 1.4.8.1) that caused instruction fetch from memories with more than 1 cycle delay to fail
+======Full Message======
+[rtl/cpu] :warning: fixed bug in next-PC logic (introduced with version 1.4.8.1) that caused instruction fetch from memories with more than 1 cycle delay to fail
+
+
+
+======Commit: 521c7cfb======
+======Short Message======
+[sim] fixed typos
+======Full Message======
+[sim] fixed typos
+
+
+
+======Commit: aaa837c8======
+======Short Message======
+typo fixes
+======Full Message======
+typo fixes
+
+
+
+======Commit: 0863844e======
+======Short Message======
+[rtl\cpu] :warning: fixed bug in physical memory protection - region size configuration was incorrect
+======Full Message======
+[rtl\cpu] :warning: fixed bug in physical memory protection - region size configuration was incorrect
+
+
+
+======Commit: 6276e609======
+======Short Message======
+[sim\tb] A extension is enabled by default now
+======Full Message======
+[sim\tb] A extension is enabled by default now
+
+
+
+======Commit: 9a1527e1======
+======Short Message======
+[sw/lib] added some more default MISA flags
+======Full Message======
+[sw/lib] added some more default MISA flags
+
+
+
+======Commit: 89613439======
+======Short Message======
+[rtl/cpu] fixed minor issue in CP interface; multiplier is now slightly faster (~1 cycle)
+======Full Message======
+[rtl/cpu] fixed minor issue in CP interface; multiplier is now slightly faster (~1 cycle)
+
+
+
+======Commit: ae716782======
+======Short Message======
+:warning: [rtl/cpu] fixed bug in CPU internal co-processor interface
+======Full Message======
+:warning: [rtl/cpu] fixed bug in CPU internal co-processor interface
+
+
+
+======Commit: 4888509c======
+======Short Message======
+[README] minor fix in contributing text
+======Full Message======
+[README] minor fix in contributing text
+
+
+
+======Commit: 172a1120======
+======Short Message======
+[rtl/cpu] :warning: fixed bug in IFENCE.I instruction that caused instruction fetch problems when executing code from processor-external memory
+======Full Message======
+[rtl/cpu] :warning: fixed bug in IFENCE.I instruction that caused instruction fetch problems when executing code from processor-external memory
+
+
+
+======Commit: 3289c4aa======
+======Short Message======
+[rtl/cpu] :warning: fixed bug in bus unit that caused memory exceptions right after reset in some cases
+======Full Message======
+[rtl/cpu] :warning: fixed bug in bus unit that caused memory exceptions right after reset in some cases
+
+
+
+======Commit: 04812ca2======
+======Short Message======
+[rtl/cpu] fixed minor bug in 'is_power_of_two' helper function
+======Full Message======
+[rtl/cpu] fixed minor bug in 'is_power_of_two' helper function
+
+
+
+======Commit: 7df72ba5======
+======Short Message======
+[spi] removed SPI's buggy 'lsb-first' mode
+======Full Message======
+[spi] removed SPI's buggy 'lsb-first' mode
+
+
+
+======Commit: 3ff67989======
+======Short Message======
+[rtl/cpu] :warning: fixed in bug CPU's illegal instruction detection logic; further rtl optimizations to reduce HW footprint
+======Full Message======
+[rtl/cpu] :warning: fixed in bug CPU's illegal instruction detection logic; further rtl optimizations to reduce HW footprint
+
+
+
+======Commit: 7e4f1536======
+======Short Message======
+[rtl/cpu] fixed bug in compressed instructions decoder (introduced with last commit :( )
+======Full Message======
+[rtl/cpu] fixed bug in compressed instructions decoder (introduced with last commit :( )
+
+
+
+======Commit: 56c9d3e1======
+======Short Message======
+fixed bug in instret/cycle carry logic
+======Full Message======
+fixed bug in instret/cycle carry logic
+
+
+
+======Commit: 1ccfc037======
+======Short Message======
+[sw/makefiles] 'main.asm' debugging file now only uses .text section for disassembly
+======Full Message======
+[sw/makefiles] 'main.asm' debugging file now only uses .text section for disassembly
+
+
+
+======Commit: 8bf58a3c======
+======Short Message======
+[sw/cpu_test] fixed broken CPU test program
+======Full Message======
+[sw/cpu_test] fixed broken CPU test program
+
+
+
+======Commit: 387f412f======
+======Short Message======
+[bootloader] fixed minor bug that prevented executable storing to external memory (when no IMEM is implemented)
+======Full Message======
+[bootloader] fixed minor bug that prevented executable storing to external memory (when no IMEM is implemented)
+
+
+
+======Commit: 54c203f0======
+======Short Message======
+[sw/rte] fixed print_version function
+======Full Message======
+[sw/rte] fixed print_version function
+
+
+
+======Commit: ea03d971======
+======Short Message======
+[sw/lib] fixed bug in goto_user_mode function (that might have caused stack corruption)
+======Full Message======
+[sw/lib] fixed bug in goto_user_mode function (that might have caused stack corruption)
+
+
+
+======Commit: 8c755ca3======
+======Short Message======
+[sim] increased default GHDL simulation time to 6ms
+======Full Message======
+[sim] increased default GHDL simulation time to 6ms
+
+
+
+======Commit: 040d3dd4======
+======Short Message======
+[sw/cpu_test] minor layout fixes
+======Full Message======
+[sw/cpu_test] minor layout fixes
+
+
+
+======Commit: 65ef1027======
+======Short Message======
+[rtl/cpu] fixed bug in WFI instruction
+======Full Message======
+[rtl/cpu] fixed bug in WFI instruction
+
+
+
+======Commit: 61bc9dfc======
+======Short Message======
+[sw/cpu_test] added tests for (DEFAULT!) CFUs
+======Full Message======
+[sw/cpu_test] added tests for (DEFAULT!) CFUs
+
+
+
+======Commit: 3d6bbb1f======
+======Short Message======
+[bootloader] fixed missing newline in console output
+======Full Message======
+[bootloader] fixed missing newline in console output
+
+
+
+======Commit: 8a3027e3======
+======Short Message======
+[rtl/cpu] fixed version number
+======Full Message======
+[rtl/cpu] fixed version number
+
+
+
+======Commit: 78bee91b======
+======Short Message======
+[rtl] added new generic FAST_SHIFT_EN to enable fast (but large) barrel shifter for shift operations (default = false)
+======Full Message======
+[rtl] added new generic FAST_SHIFT_EN to enable fast (but large) barrel shifter for shift operations (default = false)
+
+
+
+======Commit: 963ecbc5======
+======Short Message======
+[sw/rte] fixed bug in RTE: debug handler was not always showing the correct MEPC value
+======Full Message======
+[sw/rte] fixed bug in RTE: debug handler was not always showing the correct MEPC value
+
+
+
+======Commit: 423eaaf8======
+======Short Message======
+fixed _unprecise exceptions_ (mepc and mtval did not always show the correct values according to the instruction that caused the exception)
+======Full Message======
+fixed _unprecise exceptions_ (mepc and mtval did not always show the correct values according to the instruction that caused the exception)
+
+
+
+======Commit: d3671428======
+======Short Message======
+fixed broken freeRTOS makefile
+======Full Message======
+fixed broken freeRTOS makefile
+
+
+
+======Commit: ea7272e2======
+======Short Message======
+updated performance results; added section regarding default makefile flags (gcc switches)
+======Full Message======
+updated performance results; added section regarding default makefile flags (gcc switches)
+
+
+
+======Commit: 1de7f5d3======
+======Short Message======
+external memory / wishbone interface operates in standard/classic wishbone mode by default now; pipelined mode can enabled via packages's wb_pipe_mode_c constant
+======Full Message======
+external memory / wishbone interface operates in standard/classic wishbone mode by default now; pipelined mode can enabled via packages's wb_pipe_mode_c constant
+
+
+
+======Commit: c358ffe8======
+======Short Message======
+fixed typo in UART sim_mode flag; minor text edit
+======Full Message======
+fixed typo in UART sim_mode flag; minor text edit
+
+
+
+======Commit: 80d2e4aa======
+======Short Message======
+added change log link; minor edits; fixed internal links
+======Full Message======
+added change log link; minor edits; fixed internal links
+
+
+
+======Commit: e696c70e======
+======Short Message======
+fixed: trying to write to a read-only CSR will correctly cause an illegal instruction exception
+======Full Message======
+fixed: trying to write to a read-only CSR will correctly cause an illegal instruction exception
+
+
+
+======Commit: ee03d192======
+======Short Message======
+edited default UART simulation output file names
+======Full Message======
+edited default UART simulation output file names
+
+
+
+======Commit: f45694c2======
+======Short Message======
+minor fix
+======Full Message======
+minor fix
+
+
+
+======Commit: 43785fc0======
+======Short Message======
+fixed error in external memory interface (error during instruction fetch)
+======Full Message======
+fixed error in external memory interface (error during instruction fetch)
+
+
+
+======Commit: 5135e93a======
+======Short Message======
+doxygen comment fix
+======Full Message======
+doxygen comment fix
+
+
+
+======Commit: aa631f44======
+======Short Message======
+fixed error in CSRRWI instruction (introduced with version 1.4.3.1)
+======Full Message======
+fixed error in CSRRWI instruction (introduced with version 1.4.3.1)
+
+
+
+======Commit: 83e5bde9======
+======Short Message======
+fixed GPIO labels: in and out ports are 32-bit wide
+======Full Message======
+fixed GPIO labels: in and out ports are 32-bit wide
+
+
+
+======Commit: a9591493======
+======Short Message======
+updated default application image
+======Full Message======
+updated default application image
+
+
+
+======Commit: 21aec8e0======
+======Short Message======
+updated default application image
+======Full Message======
+updated default application image
+
+
+
+======Commit: 14a922fe======
+======Short Message======
+fixed HW version number
+======Full Message======
+fixed HW version number
+
+
+
+======Commit: 8bb47577======
+======Short Message======
+added default CFU signals
+======Full Message======
+added default CFU signals
+
+
+
+======Commit: da0c35f1======
+======Short Message======
+bug fix
+======Full Message======
+bug fix
+
+
+
+======Commit: 00e81bdb======
+======Short Message======
+changed external memory interface register stages configuration to default value (=2)
+======Full Message======
+changed external memory interface register stages configuration to default value (=2)
+
+
+
+======Commit: be2b588c======
+======Short Message======
+typo fixes
+======Full Message======
+typo fixes
+
+
+
+======Commit: 652a63a2======
+======Short Message======
+added more details to section 'processor address space'; fixed memory space configuration generic names
+======Full Message======
+added more details to section 'processor address space'; fixed memory space configuration generic names
+
+
+
+======Commit: bcd23c12======
+======Short Message======
+fixed bugs in external memory interface
+======Full Message======
+fixed bugs in external memory interface
+
+
+
+======Commit: d601e560======
+======Short Message======
+fixed error in GPIO access functions (they were still based on 16-bit GPIO ports; ports are now 32-bit wide)
+======Full Message======
+fixed error in GPIO access functions (they were still based on 16-bit GPIO ports; ports are now 32-bit wide)
+
+
+
+======Commit: e057b213======
+======Short Message======
+fixed issue: using regs above x15 when E extensions is enabled will now correctly trigger an illegal instruction exception
+======Full Message======
+fixed issue: using regs above x15 when E extensions is enabled will now correctly trigger an illegal instruction exception
+
+
+
+======Commit: 57dbd602======
+======Short Message======
+updated pre-built executable images for default application (blink_led) and bootloader)
+======Full Message======
+updated pre-built executable images for default application (blink_led) and bootloader)
+
+
+
+======Commit: 87ffb2e1======
+======Short Message======
+fixed broken freeRTOS makefile
+======Full Message======
+fixed broken freeRTOS makefile
+
+
+
+======Commit: 5fef7c35======
+======Short Message======
+typo fix
+======Full Message======
+typo fix
+
+
+
+======Commit: 54283c13======
+======Short Message======
+minor updates and fixes
+======Full Message======
+minor updates and fixes
+
+
+
+======Commit: 0b8067ec======
+======Short Message======
+further optimized CPU's fetch and execute engines; instruction prefetch buffer (ipb) is now a true FIFO with (default) 2 entries
+======Full Message======
+further optimized CPU's fetch and execute engines; instruction prefetch buffer (ipb) is now a true FIFO with (default) 2 entries
+
+
+
+======Commit: 3d9be617======
+======Short Message======
+fixed init of lowest 16 registers
+======Full Message======
+fixed init of lowest 16 registers
+
+
+
+======Commit: e79b6426======
+======Short Message======
+added option to use DSPs dor M extension; fixed problem with shifter and multiplier parallel operation
+======Full Message======
+added option to use DSPs dor M extension; fixed problem with shifter and multiplier parallel operation
+
+
+
+======Commit: e1fac4d0======
+======Short Message======
+fixed error in goto_user_mode function
+======Full Message======
+fixed error in goto_user_mode function
+
+
+
+======Commit: c2dc3be0======
+======Short Message======
+enabled C extension by default for test setup
+======Full Message======
+enabled C extension by default for test setup
+
+
+
+======Commit: dc4aebde======
+======Short Message======
+fixed bug(s) in PMP mask generation
+======Full Message======
+fixed bug(s) in PMP mask generation
+
+
+
+======Commit: ed85da55======
+======Short Message======
+added PMP test; minor edits and fixes
+======Full Message======
+added PMP test; minor edits and fixes
+
+
+
+======Commit: 4e561519======
+======Short Message======
+fixed dynamic generation of pmpcfg CSRs
+======Full Message======
+fixed dynamic generation of pmpcfg CSRs
+
+
+
+======Commit: 49f547f1======
+======Short Message======
+simplified NEORV32 RTE debug handler output to a one-liner
+======Full Message======
+simplified NEORV32 RTE debug handler output to a one-liner
+
+
+
+======Commit: 819136bd======
+======Short Message======
+fixed typo
+======Full Message======
+fixed typo
+
+
+
+======Commit: adf3d959======
+======Short Message======
+fixed resolution & crappy rendering
+======Full Message======
+fixed resolution & crappy rendering
+
+
+
+======Commit: c1c4e47e======
+======Short Message======
+fixed bug in crt0.S dummy trap handler
+======Full Message======
+fixed bug in crt0.S dummy trap handler
+
+
+
+======Commit: 90c698c7======
+======Short Message======
+fixed bug in bootloader autoboot timer
+======Full Message======
+fixed bug in bootloader autoboot timer
+
+
+
+======Commit: c6896830======
+======Short Message======
+fixed bug in bootloader 'r' command
+======Full Message======
+fixed bug in bootloader 'r' command
+
+
+
+======Commit: 5895df0f======
+======Short Message======
+fixed bug in bootloader trap handler
+======Full Message======
+fixed bug in bootloader trap handler
+
+
+
+======Commit: 5db0155c======
+======Short Message======
+fixed wrong argument types
+======Full Message======
+fixed wrong argument types
+
+
+
+======Commit: 273efb91======
+======Short Message======
+typo fix
+======Full Message======
+typo fix
+
+
+
+======Commit: d1720c51======
+======Short Message======
+minstret[h] and mcycle[h] now can be written; faster non-taken branches; WFI bug fix
+======Full Message======
+minstret[h] and mcycle[h] now can be written; faster non-taken branches; WFI bug fix
+
+
+
+======Commit: 22751600======
+======Short Message======
+misa CSR is read-only! mtval and mcause CSRs can now also be written by user; fixed error in bus unit - controller can now force bus unit reset and bus transaction termination
+======Full Message======
+misa CSR is read-only! mtval and mcause CSRs can now also be written by user; fixed error in bus unit - controller can now force bus unit reset and bus transaction termination
+
+
+
+======Commit: 338bde36======
+======Short Message======
+fixed bug in wishbone gateway: outgoing signals are now stable until ack (for at least 1 reg stage)
+======Full Message======
+fixed bug in wishbone gateway: outgoing signals are now stable until ack (for at least 1 reg stage)
+
+
+
+======Commit: 662a3ce7======
+======Short Message======
+new default bootloader spi flash boot address is 0x0080_0000
+======Full Message======
+new default bootloader spi flash boot address is 0x0080_0000
+
+
+
+======Commit: 9356ed9c======
+======Short Message======
+removed debugging output
+======Full Message======
+removed debugging output
+
+
+
+======Commit: aaf88b92======
+======Short Message======
+changed default doxygen build folder
+======Full Message======
+changed default doxygen build folder
+
+
+
+======Commit: c2edb1c8======
+======Short Message======
+fix in auto boot timeout output
+======Full Message======
+fix in auto boot timeout output
+
+
+
+======Commit: abeb1200======
+======Short Message======
+doc layout and typo fixes; minor updates
+======Full Message======
+doc layout and typo fixes; minor updates
+
+
+
+======Commit: f57e780b======
+======Short Message======
+now also using default ghdl sim script for ci
+======Full Message======
+now also using default ghdl sim script for ci
+
+
+
+======Commit: a3cb008f======
+======Short Message======
+bug fixes
+======Full Message======
+bug fixes
+
+
+
+======Commit: 241192a3======
+======Short Message======
+minor comment fixes
+======Full Message======
+minor comment fixes
+
+
+
+======Commit: f69ec5db======
+======Short Message======
+fixed error in MTIME.time high word incremenet
+======Full Message======
+fixed error in MTIME.time high word incremenet
+
+
+
+======Commit: b781c9d4======
+======Short Message======
+fixed bootloader bug introduced with last commit
+======Full Message======
+fixed bootloader bug introduced with last commit
+
+
+
+======Commit: 3c2819f4======
+======Short Message======
+minor edits and typo/layout fixes
+======Full Message======
+minor edits and typo/layout fixes
+
+
+
+======Commit: 3085db47======
+======Short Message======
+fixed travis ci bugs
+======Full Message======
+fixed travis ci bugs
+
+
+
+======Commit: 558e5e6f======
+======Short Message======
+debugging travis scripts v3
+======Full Message======
+debugging travis scripts v3
+
+
+
+======Commit: 2e5cfa7f======
+======Short Message======
+debugging travis scripts v2
+======Full Message======
+debugging travis scripts v2
+
+
+
+======Commit: b15d58b3======
+======Short Message======
+debugging travis scripts
+======Full Message======
+debugging travis scripts
+
+
+
+======Commit: 781c6320======
+======Short Message======
+fixed typos
+======Full Message======
+fixed typos
+
+
+
+======Commit: 6334ca19======
+======Short Message======
+fixed travis ci scripts
+======Full Message======
+fixed travis ci scripts
+
+
+
+======Commit: fac878d6======
+======Short Message======
+typo fixes
+======Full Message======
+typo fixes
+
+
+
+======Commit: b2861ede======
+======Short Message======
+fixed commit error
+======Full Message======
+fixed commit error
+
+
+
+======Commit: fdebde63======
+======Short Message======
+fixed links; added PDF icon
+======Full Message======
+fixed links; added PDF icon
+
+
+

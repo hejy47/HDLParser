@@ -1,0 +1,44 @@
+151991161cdb9063b5a79d908d33520ec912f14f
+[ast] Add Fix AscentLint Errors
+diff --git a/hw/top_earlgrey/ip/ast/rtl/ast_entropy.sv b/hw/top_earlgrey/ip/ast/rtl/ast_entropy.sv
+index f8af46819..e439f05c1 100644
+--- a/hw/top_earlgrey/ip/ast/rtl/ast_entropy.sv
++++ b/hw/top_earlgrey/ip/ast/rtl/ast_entropy.sv
+@@ -23,10 +23,10 @@ module ast_entropy #(
+ ////////////////////////////////////////
+ // Entropy Request FSM
+ ////////////////////////////////////////
+-typedef enum logic [3-1:0] {
+-  ERQ_REQ0 = 3'd1,  // Device-0 Request (source)
+-  ERQ_ACK0 = 3'd3,  // Device-0 Acknowledge
+-  ERQ_IDLE = 3'd0   // IDLE/RESET
++typedef enum logic [2-1:0] {
++  ERQ_REQ0 = 2'd1,  // Device-0 Request (source)
++  ERQ_ACK0 = 2'd3,  // Device-0 Acknowledge
++  ERQ_IDLE = 2'd0   // IDLE/RESET
+ } erq_sm_e;
+ 
+ erq_sm_e erq_sm;
+@@ -44,7 +44,7 @@ always_ff @( posedge clk_ast_es_i, negedge rst_ast_es_ni ) begin
+     edn_req <= 1'b0;
+     erq_sm  <= ERQ_IDLE;
+   end else begin
+-    case ( erq_sm )
++    unique case ( erq_sm )
+       ERQ_IDLE: begin
+         if ( dev0_wready ) begin
+           edn_req <= 1'b1;
+@@ -109,4 +109,13 @@ dev_entropy #(
+ );
+ 
+ 
++
++/////////////////////
++// Unused Signals
++/////////////////////
++logic unused_sigs;
++assign unused_sigs = ^{ entropy_rsp_i.edn_fips,
++                        dev0_entropy              // Used in ASIC implementation
++                      };
++
+ endmodule : ast_entropy

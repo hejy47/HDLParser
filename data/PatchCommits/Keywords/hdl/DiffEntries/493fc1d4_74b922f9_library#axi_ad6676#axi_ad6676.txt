@@ -1,0 +1,33 @@
+493fc1d48b8b34a944fad0ddfb240d7db084dede
+axi_*: Fix instantiation of up_[adc|dac]_[common|channel]
+diff --git a/library/axi_ad6676/axi_ad6676.v b/library/axi_ad6676/axi_ad6676.v
+index e960b40b..76ff4a06 100644
+--- a/library/axi_ad6676/axi_ad6676.v
++++ b/library/axi_ad6676/axi_ad6676.v
+@@ -213,7 +213,15 @@ module axi_ad6676 #(
+ 
+   // common processor control
+ 
+-  up_adc_common #(.ID(ID)) i_up_adc_common (
++  up_adc_common #(
++    .ID(ID),
++    .CONFIG(0),
++    .COMMON_ID(6'h00),
++    .DRP_DISABLE(1),
++    .USERPORTS_DISABLE(1),
++    .GPIO_DISABLE(1),
++    .START_CODE_DISABLE(1))
++  i_up_adc_common (
+     .mmcm_rst (),
+     .adc_clk (adc_clk),
+     .adc_rst (adc_rst),
+@@ -228,6 +236,9 @@ module axi_ad6676 #(
+     .adc_start_code (),
+     .adc_sref_sync (),
+     .adc_sync (),
++    .up_pps_rcounter(32'h0),
++    .up_pps_status(1'b0),
++    .up_pps_irq_mask(),
+     .up_adc_ce (),
+     .up_status_pn_err (up_status_pn_err),
+     .up_status_pn_oos (up_status_pn_oos),

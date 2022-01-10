@@ -1,0 +1,16 @@
+0fd8e9e15b7b65811eceb1abf9b0c16f4de5b4dd
+:bug: [rtl/system_integration] fixed connection of missing IRQ signals
+diff --git a/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd b/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd
+index 4e26943..efd0b7e 100644
+--- a/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd
++++ b/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd
+@@ -423,6 +423,9 @@ begin
+ 
+   neoled_o        <= std_logic(neoled_o_int);
+ 
++  xirq_i_int      <= std_ulogic_vector(xirq_i);
++
++  msw_irq_i_int   <= std_ulogic(msw_irq_i);
+   mext_irq_i_int  <= std_ulogic(mext_irq_i);
+ 
+ 

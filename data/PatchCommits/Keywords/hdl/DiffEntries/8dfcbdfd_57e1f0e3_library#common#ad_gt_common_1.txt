@@ -1,0 +1,15 @@
+8dfcbdfd48b7062cd0c66c7f8a234e9f01e487f7
+gt_channel/gt_common: simulation parameter warning fix
+diff --git a/library/common/ad_gt_common_1.v b/library/common/ad_gt_common_1.v
+index f936e090..b60e656d 100644
+--- a/library/common/ad_gt_common_1.v
++++ b/library/common/ad_gt_common_1.v
+@@ -190,7 +190,7 @@ module ad_gt_common_1 (
+   if (GTH_GTX_N == 1) begin
+   GTHE3_COMMON #(
+     .SIM_RESET_SPEEDUP ("TRUE"),
+-    .SIM_VERSION ("Ver_1"),
++    .SIM_VERSION (2),
+     .SARC_EN (1'b1),
+     .SARC_SEL (1'b0),
+     .SDM0_DATA_PIN_SEL (1'b0),

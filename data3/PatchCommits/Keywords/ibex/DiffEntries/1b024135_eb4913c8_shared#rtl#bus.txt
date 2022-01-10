@@ -1,0 +1,17 @@
+1b024135c70ef0ea3919f58e79bc26bdaa286625
+[dv] Fix Xcelium compilation
+diff --git a/shared/rtl/bus.sv b/shared/rtl/bus.sv
+index d25abb3b..87067ac7 100644
+--- a/shared/rtl/bus.sv
++++ b/shared/rtl/bus.sv
+@@ -15,8 +15,8 @@
+  * - Host (master) arbitration is strictly priority based.
+  */
+ module bus #(
+-  parameter NrDevices,
+-  parameter NrHosts,
++  parameter NrDevices    = 1,
++  parameter NrHosts      = 1,
+   parameter DataWidth    = 32,
+   parameter AddressWidth = 32
+ ) (

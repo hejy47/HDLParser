@@ -1,0 +1,14 @@
+7f3877303724e15990ddeb71c3ec3ed2765a5f74
+Updated com user guide and example testbench with the publisher/subscriber pattern. Fixed bugs.
+diff --git a/vunit/vhdl/com/src/com_api.vhd b/vunit/vhdl/com/src/com_api.vhd
+index b9dd82ea..5b6b89ad 100644
+--- a/vunit/vhdl/com/src/com_api.vhd
++++ b/vunit/vhdl/com/src/com_api.vhd
+@@ -57,6 +57,7 @@ package com_pkg is
+   alias create is new_msg [actor_t return msg_t];
+   procedure delete (msg          : inout msg_t);
+   function sender(msg : msg_t) return actor_t;
++  function receiver(msg : msg_t) return actor_t;
+ 
+   procedure push(msg : msg_t; value : integer);
+   impure function pop(msg : msg_t) return integer;

@@ -1,0 +1,37 @@
+05789e8978f93040c94d6553a6111bac57a7248a
+adrv9009/adrv9371x/fmcomms2:Drop usage of ad_iobuf on non-bidirectional IOs
+diff --git a/projects/fmcomms2/kcu105/system_top.v b/projects/fmcomms2/kcu105/system_top.v
+index 9935fb95..3500bfb5 100644
+--- a/projects/fmcomms2/kcu105/system_top.v
++++ b/projects/fmcomms2/kcu105/system_top.v
+@@ -119,15 +119,10 @@ module system_top (
+ 
+   // instantiations
+ 
+-  ad_iobuf #(.DATA_WIDTH(15)) i_iobuf (
+-    .dio_t (gpio_t[46:32]),
+-    .dio_i (gpio_o[46:32]),
+-    .dio_o (gpio_i[46:32]),
+-    .dio_p ({ gpio_resetb,
+-              gpio_sync,
+-              gpio_en_agc,
+-              gpio_ctl,
+-              gpio_status}));
++  assign gpio_resetb = gpio_o[46:46];
++  assign gpio_sync = gpio_o[45:45];
++  assign gpio_en_agc = gpio_o[44:44];
++  assign gpio_ctl = gpio_o[43:40];
+ 
+   ad_iobuf #(.DATA_WIDTH(17)) i_iobuf_bd (
+     .dio_t (gpio_t[16:0]),
+@@ -135,6 +130,10 @@ module system_top (
+     .dio_o (gpio_i[16:0]),
+     .dio_p (gpio_bd));
+ 
++  assign gpio_i[63:40] = gpio_o[63:40];
++  assign gpio_i[39:32] = gpio_status;
++  assign gpio_i[31:17] = gpio_0[31:17];
++
+   system_wrapper i_system_wrapper (
+     .c0_ddr4_act_n (ddr4_act_n),
+     .c0_ddr4_adr (ddr4_addr),

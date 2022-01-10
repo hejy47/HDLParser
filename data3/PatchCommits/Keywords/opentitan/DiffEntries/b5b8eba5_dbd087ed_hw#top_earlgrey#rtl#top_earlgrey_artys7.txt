@@ -1,0 +1,20 @@
+b5b8eba529a37cec202cd5ec5e2fd05a1e81a75c
+[padring/top] Carry over pinout from bronze and align sim and FPGA tops
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv b/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv
+index eba7264ab..93ddba56a 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_artys7.sv
+@@ -77,11 +77,11 @@ module top_earlgrey_artys7  #(
+   ) padring (
+     // Clk / Rst
+     .clk_pad_i           ( 1'b0 ),
+-    .clk_usb_48mhz_pad_i ( 1'b0 ),
+     .rst_pad_ni          ( 1'b0 ),
+     .clk_o               (      ),
+-    .clk_usb_48mhz_o     (      ),
+     .rst_no              (      ),
++    .cc1_i               ( 1'b0 ),
++    .cc2_i               ( 1'b0 ),
+     // MIO Pads
+     .mio_pad_io          ( { 16'bz,   // Note that 31:16 are currently not mapped
+                              IO_GP15,

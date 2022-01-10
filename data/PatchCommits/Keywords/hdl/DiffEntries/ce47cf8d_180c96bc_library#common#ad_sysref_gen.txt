@@ -1,0 +1,19 @@
+ce47cf8d3030f371bb295c5b297ff14cfed833f5
+ad_sysref_gen: Fix sysref generation
+diff --git a/library/common/ad_sysref_gen.v b/library/common/ad_sysref_gen.v
+index 0bf97089..61173acd 100644
+--- a/library/common/ad_sysref_gen.v
++++ b/library/common/ad_sysref_gen.v
+@@ -77,8 +77,10 @@ module ad_sysref_gen (
+ 
+   // generate SYSREF
+   always @(posedge core_clk) begin
+-    if (counter == SYSREF_HALFPERIOD) begin
+-      sysref_out <= ~sysref_out;
++    if (sysref_en_int) begin
++      if (counter == SYSREF_HALFPERIOD) begin
++        sysref_out <= ~sysref_out;
++      end
+     end else begin
+       sysref_out <= 1'b0;
+     end

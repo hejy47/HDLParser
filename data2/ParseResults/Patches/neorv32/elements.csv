@@ -1,0 +1,5 @@
+,HdlOp-MemberAccessing,HdlOp-DOWNTO,HdlOp-InfixExpression,HdlOp-PrefixExpression,HdlOp-FunctionCall,HdlOp-MAP_ASSOCIATION,HdlDirection,HdlOp-TO,HdlOp-TERNARY
+insert,98,21,110,11,43,422,9.0,,6
+update,371,46,463,57,54,88,3.0,20.0,30
+move,177,1,142,13,20,9,,3.0,2
+delete,130,41,107,7,11,433,7.0,5.0,4

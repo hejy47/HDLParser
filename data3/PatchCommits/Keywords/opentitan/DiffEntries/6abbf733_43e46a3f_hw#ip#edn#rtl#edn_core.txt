@@ -1,0 +1,15 @@
+6abbf733feb2a4d9abbdd7247cdd2cf30a4dbc24
+[edn/rtl] fix for ascentlint lint
+diff --git a/hw/ip/edn/rtl/edn_core.sv b/hw/ip/edn/rtl/edn_core.sv
+index 2338b5be1..1f2f1128a 100644
+--- a/hw/ip/edn/rtl/edn_core.sv
++++ b/hw/ip/edn/rtl/edn_core.sv
+@@ -532,7 +532,7 @@ module edn_core import edn_pkg::*; #(
+   //--------------------------------------------
+ 
+   assign     hw2reg.sum_sts.internal_use.de = !edn_enable;
+-  assign     hw2reg.sum_sts.internal_use.d  = 1'b0 && reg2hw.regen;
++  assign     hw2reg.sum_sts.internal_use.d  = reg2hw.regen.q;
+ 
+ 
+ endmodule

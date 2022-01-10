@@ -1,0 +1,14 @@
+9d6c93a5d860e45405e133558f55722aec3cfe04
+Fix warnings
+diff --git a/library/axi_mc_controller/control_registers.v b/library/axi_mc_controller/control_registers.v
+index 589234e9..ed72e73d 100644
+--- a/library/axi_mc_controller/control_registers.v
++++ b/library/axi_mc_controller/control_registers.v
+@@ -130,6 +130,7 @@ always @(negedge up_rstn or posedge up_clk)
+ begin
+    if (up_rstn == 0)
+    begin
++       reserved_r1          <= 'd0;
+        up_wack              <= 1'b0;
+        control_r            <= 'h0;
+        reference_speed_r    <= 'd1000;

@@ -1,0 +1,19 @@
+0c56e5b91221833cc08c5c170ace8289508d1793
+ad9434_fmc: Fix GPIO width
+diff --git a/projects/ad9434_fmc/zc706/system_top.v b/projects/ad9434_fmc/zc706/system_top.v
+index f86f7874..fde94b8a 100644
+--- a/projects/ad9434_fmc/zc706/system_top.v
++++ b/projects/ad9434_fmc/zc706/system_top.v
+@@ -139,9 +139,9 @@ module system_top (
+ 
+   // internal signals
+ 
+-  wire    [31:0]  gpio_i;
+-  wire    [31:0]  gpio_o;
+-  wire    [31:0]  gpio_t;
++  wire    [14:0]  gpio_i;
++  wire    [14:0]  gpio_o;
++  wire    [14:0]  gpio_t;
+   wire            spi_miso;
+   wire            spi_mosi;
+ 

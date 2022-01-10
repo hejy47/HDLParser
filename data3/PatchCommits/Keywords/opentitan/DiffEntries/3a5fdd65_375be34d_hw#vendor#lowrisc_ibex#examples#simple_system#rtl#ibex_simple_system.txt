@@ -1,0 +1,36 @@
+3a5fdd65bfd8e71701c7e019ae980ec39610b474
+Update lowrisc_ibex to lowRISC/ibex@5826af8
+diff --git a/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv b/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
+index abe37791b..1949a7818 100644
+--- a/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
++++ b/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
+@@ -45,16 +45,18 @@ module ibex_simple_system (
+   parameter ibex_pkg::regfile_e RegFile                  = `RegFile;
+   parameter bit                 BranchTargetALU          = 1'b0;
+   parameter bit                 WritebackStage           = 1'b0;
++  parameter bit                 ICache                   = 1'b0;
++  parameter bit                 ICacheECC                = 1'b0;
+   parameter bit                 BranchPredictor          = 1'b0;
+   parameter                     SRAMInitFile             = "";
+ 
+   logic clk_sys = 1'b0, rst_sys_n;
+ 
+-  typedef enum {
++  typedef enum logic {
+     CoreD
+   } bus_host_e;
+ 
+-  typedef enum {
++  typedef enum logic[1:0] {
+     Ram,
+     SimCtrl,
+     Timer
+@@ -170,6 +172,8 @@ module ibex_simple_system (
+       .RV32B           ( RV32B           ),
+       .RegFile         ( RegFile         ),
+       .BranchTargetALU ( BranchTargetALU ),
++      .ICache          ( ICache          ),
++      .ICacheECC       ( ICacheECC       ),
+       .WritebackStage  ( WritebackStage  ),
+       .BranchPredictor ( BranchPredictor ),
+       .DmHaltAddr      ( 32'h00100000    ),

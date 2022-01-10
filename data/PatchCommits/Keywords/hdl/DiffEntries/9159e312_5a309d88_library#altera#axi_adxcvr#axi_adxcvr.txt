@@ -1,0 +1,26 @@
+9159e31244ee8e525dd399b33cecb27f37a6b3fe
+axi_adxcvr- compile fixes
+diff --git a/library/altera/axi_adxcvr/axi_adxcvr.v b/library/altera/axi_adxcvr/axi_adxcvr.v
+index 1c81de26..d5f38db9 100644
+--- a/library/altera/axi_adxcvr/axi_adxcvr.v
++++ b/library/altera/axi_adxcvr/axi_adxcvr.v
+@@ -45,7 +45,7 @@ module axi_adxcvr (
+   input                         up_ref_pll_locked,
+   input   [(NUM_OF_LANES-1):0]  up_ready,
+ 
+-  input                         s_axi_clk,
++  input                         s_axi_aclk,
+   input                         s_axi_aresetn,
+   input                         s_axi_awvalid,
+   input   [31:0]                s_axi_awaddr,
+@@ -88,8 +88,8 @@ module axi_adxcvr (
+ 
+   // clk & rst
+ 
+-  assign up_rstn = axi_aresetn;
+-  assign up_clk = axi_clk;
++  assign up_rstn = s_axi_aresetn;
++  assign up_clk = s_axi_aclk;
+ 
+   // instantiations
+ 

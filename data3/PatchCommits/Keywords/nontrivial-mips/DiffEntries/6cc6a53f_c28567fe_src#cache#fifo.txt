@@ -1,0 +1,23 @@
+6cc6a53fa8bdeb0e167ac7567d5a60c3cccac031
+(Persumably) fixes D$ write-back
+diff --git a/src/cache/fifo.sv b/src/cache/fifo.sv
+index 5e2a0fc..b11b3ee 100644
+--- a/src/cache/fifo.sv
++++ b/src/cache/fifo.sv
+@@ -46,7 +46,7 @@ logic [DEPTH-1:0] hit;
+ logic [DEPTH-1:0] hit_non_pop;
+ for(genvar i = 0; i < DEPTH; i++) begin
+     assign hit[i] = valid[i] && mem[i][DATA_WIDTH +: TAG_WIDTH] == query_tag;
+-    assign hit_non_pop[i] = (pop && i == head) ? 1'b0 : hit[i];
++    assign hit_non_pop[i] = (pop && head == i[ADDR_WIDTH-1:0]) ? 1'b0 : hit[i];
+ end
+ 
+ assign query_found = |hit;
+@@ -115,7 +115,6 @@ always_comb begin
+ 
+         written = 1'b1;
+     end
+-
+ end
+ 
+ always_ff @(posedge clk or posedge rst) begin

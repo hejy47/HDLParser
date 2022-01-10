@@ -1,0 +1,17 @@
+85d0ce36cb8e7f3232e56493894db5d2e1de354e
+Specify data type for all parameters in simple_system
+diff --git a/examples/simple_system/rtl/ibex_simple_system.sv b/examples/simple_system/rtl/ibex_simple_system.sv
+index 7e8f7c16..06291ab7 100644
+--- a/examples/simple_system/rtl/ibex_simple_system.sv
++++ b/examples/simple_system/rtl/ibex_simple_system.sv
+@@ -46,8 +46,8 @@ module ibex_simple_system (
+     Timer
+   } bus_device_e;
+ 
+-  localparam NrDevices = 3;
+-  localparam NrHosts = 1;
++  localparam int NrDevices = 3;
++  localparam int NrHosts = 1;
+ 
+   // interrupts
+   logic timer_irq;

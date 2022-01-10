@@ -1,0 +1,15 @@
+dad1c315c18d5b27df88398e8ad76f78763ae734
+[rtl/core/cpu_control] fixed bug in floating-point exception flag update logic
+diff --git a/rtl/core/neorv32_cpu_control.vhd b/rtl/core/neorv32_cpu_control.vhd
+index 780c6e9..62ddc44 100644
+--- a/rtl/core/neorv32_cpu_control.vhd
++++ b/rtl/core/neorv32_cpu_control.vhd
+@@ -2110,7 +2110,7 @@ begin
+ 
+           -- floating-point (FPU) exception flags --
+           -- --------------------------------------------------------------------
+-          if (CPU_EXTENSION_RISCV_Zfinx = true) and (execute_engine.state = ALU_WAIT) then
++          if (CPU_EXTENSION_RISCV_Zfinx = true) then
+             csr.fflags <= csr.fflags or fpu_flags_i; -- accumulate flags ("accrued exception flags")
+           end if;
+ 

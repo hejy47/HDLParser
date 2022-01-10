@@ -1,0 +1,15 @@
+2548d84bbf9d28dc8ed5921575e2bb8d439e6886
+[csrng/rtl] fix for app cmd with clen less than 12
+diff --git a/hw/ip/csrng/rtl/csrng_core.sv b/hw/ip/csrng/rtl/csrng_core.sv
+index cabc7550d..b29907b96 100644
+--- a/hw/ip/csrng/rtl/csrng_core.sv
++++ b/hw/ip/csrng/rtl/csrng_core.sv
+@@ -895,7 +895,7 @@ module csrng_core import csrng_pkg::*; #(
+   ) u_prim_packer_fifo_adata (
+     .clk_i      (clk_i),
+     .rst_ni     (rst_ni),
+-    .clr_i      (!cs_enable),
++    .clr_i      (!cs_enable || packer_adata_pop_q),
+     .wvalid_i   (acmd_mop),
+     .wdata_i    (acmd_bus),
+     .wready_o   (),

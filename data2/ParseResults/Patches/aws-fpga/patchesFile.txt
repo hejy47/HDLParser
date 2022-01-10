@@ -1,0 +1,1455 @@
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/cl_tst.sv
++++ b/hdk/cl/examples/cl_sde/design/cl_tst.sv
+@@ -63,7 +63,7 @@ module  cl_tst #(parameter DATA_WIDTH=512, parameter NUM_RD_TAG=512) (
+    output logic rready
+    );
+ 
+-parameter DATA_DW = DATA_WIDTH / 32;
++  localparam DATA_DW = DATA_WIDTH / 32;
+ 
+ //--------------------------
+ // Internal signals
+
+ParseResult:
+MOV HdlIdDef@@DATA_DW to params
+HdlIdDef: DATA_DW
+    HdlOp: DIV
+        list: ops
+            HdlValueId: DATA_WIDTH
+            HdlValueInt: 32
+    HdlDirection: INTERNAL
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/cl_tst.sv
++++ b/hdk/cl/examples/cl_sde/design/cl_tst.sv
+@@ -665,7 +665,7 @@ always @(posedge clk)
+ always @(posedge clk)
+    if (cfg_wr_go)
+       wr_cyc_count <= 0;
+-   else if ((wr_state==WR_DAT) && (wr_state_nxt!=WR_DAT))
++   else if (bvalid && bready)
+       wr_cyc_count <= wr_cyc_count + 1;
+ 
+ //Timer
+
+ParseResult:
+UPD HdlStmIf@@body to body
+    UPD HdlOp@@AND_LOG to AND_LOG
+        UPD HdlOp@@EQ to EQ
+            MOV list@@ops to EQ
+            list: ops
+                HdlValueId: wr_state
+                HdlValueId: WR_DAT
+            UPD HdlValueId@@wr_state to bvalid
+            UPD HdlValueId@@WR_DAT to bready
+        DEL HdlOp@@EQ from ops
+        DEL HdlOp@@NE from ops
+        HdlOp: NE
+            list: ops
+                HdlValueId: wr_state_nxt
+                HdlValueId: WR_DAT
+        DEL list@@ops from AND_LOG
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/cl_tst.sv
++++ b/hdk/cl/examples/cl_sde/design/cl_tst.sv
+@@ -705,7 +705,7 @@ assign wr_loop_addr_adj = (cfg_loop_addr_mode)? wr_loop_count << cfg_wr_loop_add
+ //assign awuser = (cfg_user_mode)? inst_wr_rdata[127:112]: (inst_wr_rdata[103:96]+1) * user_length_mult;
+ 
+ //This is the number of DW to adjust
+-parameter ADJ_DW_WIDTH =   (DATA_WIDTH==512)?   4:
++localparam ADJ_DW_WIDTH =   (DATA_WIDTH==512)?   4:
+                         (DATA_WIDTH==256)?   3:
+                         (DATA_WIDTH==128)?   2:
+                                              1;
+
+ParseResult:
+MOV HdlIdDef@@ADJ_DW_WIDTH to params
+HdlIdDef: ADJ_DW_WIDTH
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: DATA_WIDTH
+                    HdlValueInt: 512
+            HdlValueInt: 4
+            HdlOp: TERNARY
+                list: ops
+                    HdlOp: EQ
+                        list: ops
+                            HdlValueId: DATA_WIDTH
+                            HdlValueInt: 256
+                    HdlValueInt: 3
+                    HdlOp: TERNARY
+                        list: ops
+                            HdlOp: EQ
+                                list: ops
+                                    HdlValueId: DATA_WIDTH
+                                    HdlValueInt: 128
+                            HdlValueInt: 2
+                            HdlValueInt: 1
+    HdlDirection: INTERNAL
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/cl_tst.sv
++++ b/hdk/cl/examples/cl_sde/design/cl_tst.sv
+@@ -1001,10 +1001,9 @@ always_ff @(posedge clk)
+ 
+ 
+ //If in sync mode, reads cannot pass writes
+-//wire rd_wr_holdoff = cfg_sync_mode && wr_inp && ((rd_cyc_count+1) >= wr_cyc_count);
+-wire rd_wr_holdoff = cfg_sync_mode && wr_inp && rd_cyc_holdoff;
++wire rd_wr_holdoff = cfg_sync_mode && rd_cyc_holdoff;
+ 
+-//Increment the read instruction 
++//Increment the read instruction
+ assign rd_tag_pop = rd_inp && rd_tag_some_avail && !rd_fifo_full && !rd_wr_holdoff;
+ 
+ always @(posedge clk)
+
+ParseResult:
+INS HdlIdDef@@rd_wr_holdoff to objs
+HdlIdDef: rd_wr_holdoff
+    HdlOp: AND_LOG
+        list: ops
+            HdlValueId: cfg_sync_mode
+            HdlValueId: rd_cyc_holdoff
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@rd_wr_holdoff from objs
+HdlIdDef: rd_wr_holdoff
+    HdlOp: AND_LOG
+        list: ops
+            HdlOp: AND_LOG
+                list: ops
+                    HdlValueId: cfg_sync_mode
+                    HdlValueId: wr_inp
+            HdlValueId: rd_cyc_holdoff
+    HdlDirection: INTERNAL
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/sde_ps_acc.sv
++++ b/hdk/cl/examples/cl_sde/design/sde_ps_acc.sv
+@@ -71,10 +71,12 @@ if (LIMITED_SUPPORT == 0) begin
+    logic [ACC_WIDTH-1:0]            acc_in_wdata_d;
+    logic [ACC_DW_IDX_WIDTH:0]       acc_wr_num_dw;
+ 
+-   always_comb
++   always_comb begin
++     pcis_wr_num_dw_d = '0;
+      for (int dw_idx = 0; dw_idx < (PCIS_DATA_WIDTH>>5); dw_idx++)
+        if (pcis_wstrb[dw_idx*4])
+-         pcis_wr_num_dw_d <= dw_idx + 1;
++         pcis_wr_num_dw_d = dw_idx + 1;
++   end
+ 
+    always @(posedge clk)
+      if (!rst_n) begin
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: pcis_wr_num_dw_d
+                HdlValueInt: 0
+
+UPD HdlStmFor@@body to 
+
+MOV HdlStmFor@@body to 
+HdlStmFor: body
+    HdlStmBlock: SEQ
+        list: body
+            HdlIdDef: dw_idx
+                HdlValueId: int
+                HdlValueInt: 0
+                HdlDirection: INTERNAL
+    HdlOp: LT
+        list: ops
+            HdlValueId: dw_idx
+            HdlOp: SRL
+                list: ops
+                    HdlValueId: PCIS_DATA_WIDTH
+                    HdlValueInt: 5
+    HdlStmBlock: SEQ
+        list: body
+            HdlOp: INCR_POST
+                list: ops
+                    HdlValueId: dw_idx
+    HdlStmIf: body
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: pcis_wstrb
+                HdlOp: MUL
+                    list: ops
+                        HdlValueId: dw_idx
+                        HdlValueInt: 4
+        HdlStmAssign: if_true
+            HdlOp: ADD
+                list: ops
+                    HdlValueId: dw_idx
+                    HdlValueInt: 1
+            HdlValueId: pcis_wr_num_dw_d
+        list: elifs
+
+UPD HdlStmIf@@body to body
+    INS HdlOp@@ASSIGN to body
+    UPD HdlOp@@ASSIGN to ASSIGN
+        INS list@@ops to ASSIGN
+        INS HdlValueId@@pcis_wr_num_dw_d to ops
+
+UPD HdlStmAssign@@if_true to if_true
+    MOV HdlOp@@ADD to if_true
+    HdlOp: ADD
+        list: ops
+            HdlValueId: dw_idx
+            HdlValueInt: 1
+    DEL HdlValueId@@pcis_wr_num_dw_d from if_true
+
+DEL HdlStmAssign@@if_true from body
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/sde_ps_acc.sv
++++ b/hdk/cl/examples/cl_sde/design/sde_ps_acc.sv
+@@ -190,10 +192,12 @@ else begin
+    logic [ACC_WIDTH-1:0]            acc_in_wdata_d;
+    logic [ACC_DW_IDX_WIDTH:0]       acc_wr_num_dw;
+ 
+-   always_comb
++   always_comb begin
++     pcis_wr_num_dw_d = '0;
+      for (int dw_idx = 0; dw_idx < (PCIS_DATA_WIDTH>>5)/2; dw_idx++) //(512/32)/2=8
+        if ((pcis_wstrb[dw_idx*4]) && (dw_idx == 0 || dw_idx == 3 || dw_idx == 7))
+-         pcis_wr_num_dw_d <= dw_idx + 1; //Supported DW= 1DW, 4DW and 8DW
++         pcis_wr_num_dw_d = dw_idx + 1; //Supported DW= 1DW, 4DW and 8DW
++   end
+ 
+    always @(posedge clk)
+      if (!rst_n) begin
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: pcis_wr_num_dw_d
+                HdlValueInt: 0
+
+UPD HdlStmFor@@body to 
+
+MOV HdlStmFor@@body to 
+HdlStmFor: body
+    HdlStmBlock: SEQ
+        list: body
+            HdlIdDef: dw_idx
+                HdlValueId: int
+                HdlValueInt: 0
+                HdlDirection: INTERNAL
+    HdlOp: LT
+        list: ops
+            HdlValueId: dw_idx
+            HdlOp: DIV
+                list: ops
+                    HdlOp: SRL
+                        list: ops
+                            HdlValueId: PCIS_DATA_WIDTH
+                            HdlValueInt: 5
+                    HdlValueInt: 2
+    HdlStmBlock: SEQ
+        list: body
+            HdlOp: INCR_POST
+                list: ops
+                    HdlValueId: dw_idx
+    HdlStmIf: body
+        HdlOp: AND_LOG
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: pcis_wstrb
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueId: dw_idx
+                                HdlValueInt: 4
+                HdlOp: OR_LOG
+                    list: ops
+                        HdlOp: OR_LOG
+                            list: ops
+                                HdlOp: EQ
+                                    list: ops
+                                        HdlValueId: dw_idx
+                                        HdlValueInt: 0
+                                HdlOp: EQ
+                                    list: ops
+                                        HdlValueId: dw_idx
+                                        HdlValueInt: 3
+                        HdlOp: EQ
+                            list: ops
+                                HdlValueId: dw_idx
+                                HdlValueInt: 7
+        HdlStmAssign: if_true
+            HdlOp: ADD
+                list: ops
+                    HdlValueId: dw_idx
+                    HdlValueInt: 1
+            HdlValueId: pcis_wr_num_dw_d
+        list: elifs
+
+UPD HdlStmIf@@body to body
+    INS HdlOp@@ASSIGN to body
+    UPD HdlOp@@ASSIGN to ASSIGN
+        INS list@@ops to ASSIGN
+        INS HdlValueId@@pcis_wr_num_dw_d to ops
+
+UPD HdlStmAssign@@if_true to if_true
+    MOV HdlOp@@ADD to if_true
+    HdlOp: ADD
+        list: ops
+            HdlValueId: dw_idx
+            HdlValueInt: 1
+    DEL HdlValueId@@pcis_wr_num_dw_d from if_true
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+DEL HdlStmAssign@@if_true from body
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/common/verif/models/fpga/fpga.sv
++++ b/hdk/common/verif/models/fpga/fpga.sv
+@@ -351,8 +351,8 @@ module fpga(
+ 
+    logic               sh_bar1_rready;
+ 
+-   logic [15:0]         cl_sh_irq_req;
+-   logic [15:0]         sh_cl_irq_ack;
++   logic [15:0]        cl_sh_apppf_irq_req;
++   logic [15:0]        sh_cl_apppf_irq_ack;
+ 
+    sh_bfm sh(
+ 
+
+ParseResult:
+UPD HdlIdDef@@cl_sh_irq_req to cl_sh_apppf_irq_req
+
+UPD HdlIdDef@@sh_cl_irq_ack to sh_cl_apppf_irq_ack
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_ocl_slv.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_ocl_slv.sv
+@@ -27,6 +27,7 @@ module cl_ocl_slv (
+    cfg_bus_t.slave ddrb_tst_cfg_bus,
+    cfg_bus_t.slave ddrc_tst_cfg_bus,
+    cfg_bus_t.slave ddrd_tst_cfg_bus,
++   cfg_bus_t.slave axi_mstr_cfg_bus,
+    cfg_bus_t.slave int_tst_cfg_bus
+ 
+ );
+
+ParseResult:
+INS HdlIdDef@@axi_mstr_cfg_bus to ports
+HdlIdDef: axi_mstr_cfg_bus
+    HdlOp: DOT
+        list: ops
+            HdlValueId: cfg_bus_t
+            HdlValueId: slave
+    HdlDirection: IN
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_ocl_slv.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_ocl_slv.sv
+@@ -326,6 +327,10 @@ assign ddrd_tst_cfg_bus.wdata = slv_tst_wdata[4];
+ assign ddrd_tst_cfg_bus.wr = slv_tst_wr[4];
+ assign ddrd_tst_cfg_bus.rd = slv_tst_rd[4];
+ 
++assign axi_mstr_cfg_bus.addr = slv_tst_addr[5];
++assign axi_mstr_cfg_bus.wdata = slv_tst_wdata[5];
++assign axi_mstr_cfg_bus.wr = slv_tst_wr[5];
++assign axi_mstr_cfg_bus.rd = slv_tst_rd[5];
+ 
+ assign int_tst_cfg_bus.addr = slv_tst_addr[13];
+ assign int_tst_cfg_bus.wdata = slv_tst_wdata[13];
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: slv_tst_addr
+            HdlValueInt: 5
+    HdlValueId: axi_mstr_cfg_bus
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: slv_tst_wdata
+            HdlValueInt: 5
+    HdlValueId: axi_mstr_cfg_bus
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: slv_tst_wr
+            HdlValueInt: 5
+    HdlValueId: axi_mstr_cfg_bus
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: slv_tst_rd
+            HdlValueInt: 5
+    HdlValueId: axi_mstr_cfg_bus
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_ocl_slv.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_ocl_slv.sv
+@@ -350,10 +355,13 @@ always_comb begin
+   //for DDRD
+   tst_slv_ack[4] = ddrd_tst_cfg_bus.ack;
+   tst_slv_rdata[4] = ddrd_tst_cfg_bus.rdata;
++  //for AXI Master
++  tst_slv_ack[5] = axi_mstr_cfg_bus.ack;
++  tst_slv_rdata[5] = axi_mstr_cfg_bus.rdata;
+   //for int ATG
+   tst_slv_ack[13] = int_tst_cfg_bus.ack;
+   tst_slv_rdata[13] = int_tst_cfg_bus.rdata;
+-  for(int i=5; i<13; i++) begin
++  for(int i=6; i<13; i++) begin
+     tst_slv_ack[i] = 1'b1;
+     tst_slv_rdata[i] = 32'hdead_beef;
+   end
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tst_slv_ack
+                        HdlValueInt: 5
+                HdlOp: DOT
+                    list: ops
+                        HdlValueId: axi_mstr_cfg_bus
+                        HdlValueId: ack
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tst_slv_rdata
+                        HdlValueInt: 5
+                HdlOp: DOT
+                    list: ops
+                        HdlValueId: axi_mstr_cfg_bus
+                        HdlValueId: rdata
+
+UPD HdlIdDef@@i to i
+    UPD HdlValueInt@@5 to 6
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/sde_wb.sv
++++ b/hdk/cl/examples/cl_sde/design/sde_wb.sv
+@@ -742,7 +742,7 @@ end // if (~H2C_N_C2H)
+      if (rst_n) begin
+         wr_done_q <= wr_done;
+         
+-        if (cfg_desc_cdt_wc_en & (desc_wb_limit_q != 32'h0) & ~wr_done_q & ~desc_cdt_req_pend)
++        if (cfg_wb_desc_cnt_en & cfg_desc_cdt_wc_en & (desc_wb_limit_q != 32'h0) & ~wr_done_q & ~desc_cdt_req_pend)
+           assert (desc_wb_limit - desc_wb_limit_q <= (cfg_wc_cnt * 2)) else begin
+              $display("%m: *** ERROR ***: Desc Limit Write Coalesce Error. desc_wb_limit = 0x%x, desc_wb_limit_q = 0x%x, cfg_wc_cnt = 0x%x. @ %0t", desc_wb_limit, desc_wb_limit_q, cfg_wc_cnt, $time);
+              $finish;
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@AND to AND
+        UPD HdlOp@@AND to AND
+            UPD HdlOp@@AND to AND
+                INS HdlOp@@AND to ops
+                UPD HdlOp@@AND to AND
+                    INS list@@ops to AND
+                    INS HdlValueId@@cfg_wb_desc_cnt_en to ops
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@AND to AND
+        UPD HdlOp@@AND to AND
+            UPD HdlOp@@AND to AND
+                MOV HdlValueId@@cfg_desc_cdt_wc_en to ops
+                HdlValueId: cfg_desc_cdt_wc_en
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/sde_wb.sv
++++ b/hdk/cl/examples/cl_sde/design/sde_wb.sv
+@@ -760,7 +760,7 @@ end // if (~H2C_N_C2H)
+              $finish;
+           end
+         
+-        if (cfg_md_wr_ptr_wc_en && (md_wr_ptr >= md_wr_ptr_q) & ~wr_done_q & ~md_wr_ptr_req_pend)
++        if (cfg_wb_md_ptr_en & cfg_md_wr_ptr_wc_en && (md_wr_ptr >= md_wr_ptr_q) & ~wr_done_q & ~md_wr_ptr_req_pend)
+           assert (md_wr_ptr - md_wr_ptr_q <= (cfg_wc_cnt * 2)) else begin
+              $display("%m: *** ERROR ***: Desc Limit Write Coalesce Error. md_wr_ptr = 0x%x, md_wr_ptr_q = 0x%x, cfg_wc_cnt = 0x%x. @ %0t", md_wr_ptr, md_wr_ptr_q, cfg_wc_cnt, $time);
+              $finish;
+ParseResult:
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@AND_LOG to AND_LOG
+        INS HdlOp@@AND to ops
+        UPD HdlOp@@AND to AND
+            INS list@@ops to AND
+            INS HdlValueId@@cfg_wb_md_ptr_en to ops
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@AND_LOG to AND_LOG
+        MOV HdlValueId@@cfg_md_wr_ptr_wc_en to ops
+        HdlValueId: cfg_md_wr_ptr_wc_en
+
+
+CommitId: 0f678055fa9f1378610389e46750f8607a0d4c23
+RELEASE V1.4.8
+--- a/hdk/cl/examples/cl_sde/design/sde_wb.sv
++++ b/hdk/cl/examples/cl_sde/design/sde_wb.sv
+@@ -580,10 +580,9 @@ end // if (~H2C_N_C2H)
+    assign desc_wb_cnt_sent = desc_wb_cnt_q;
+    assign axis_wb_pkt_cnt_sent = axis_wb_pkt_cnt_q;
+    assign md_wr_ptr_sent = md_wr_ptr_q;
+-   
+-   always_comb begin
+-      dm_wb_md_comp = sde_pkg::c2h_conv_wb_reg2comp(dm_wb_md);
+-   end
++  
++   assign dm_wb_md_comp = sde_pkg::c2h_conv_wb_reg2comp(dm_wb_md);
++
+ 
+ //    assign wr_pipe_num_bytes = (req_winner == WB_METADATA) ? WB_MD_WIDTH_BYTES : 4;
+ //    assign wr_pipe_num_bytes_adj = wr_pipe_num_bytes + wr_pipe_lwr_addr;
+ParseResult:
+INS HdlStmAssign@@ to objs
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD HdlOp@@ASSIGN to ASSIGN
+            MOV HdlOp@@CALL to ops
+            HdlOp: CALL
+                list: ops
+                    HdlOp: DOUBLE_COLON
+                        list: ops
+                            HdlValueId: sde_pkg
+                            HdlValueId: c2h_conv_wb_reg2comp
+                    HdlValueId: dm_wb_md
+            DEL HdlValueId@@dm_wb_md_comp from ops
+            DEL list@@ops from ASSIGN
+        DEL HdlOp@@ASSIGN from body
+        DEL list@@body from SEQ
+    DEL HdlStmBlock@@SEQ from 
+    DEL HdlStmProcessTriggerConstrain@@COMB from 
+
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@dm_wb_md_comp to 
+
+DEL HdlStmProcess@@ from objs
+
+
+CommitId: ed564e7a87be1ad75b629d628b6e933f27b5bf26
+RELEASE V1.4.9
+--- a/hdk/common/shell_v04261818/design/sh_ddr/sim/axi4_slave_bfm.sv
++++ b/hdk/common/shell_v04261818/design/sh_ddr/sim/axi4_slave_bfm.sv
+@@ -13,7 +13,7 @@
+ // implied. See the License for the specific language governing permissions and
+ // limitations under the License.
+ 
+-module axi4_slave_bfm
++module axi4_slave_bfm #( parameter ECC_EN = 0, parameter ECC_ADDR_HI = 'h410, parameter ECC_ADDR_LO = 'h400, parameter RND_ECC_EN = 0, parameter RND_ECC_WEIGHT = 100)
+    (
+ 
+    input clk_core,
+
+ParseResult:
+INS HdlIdDef@@ECC_EN to params
+HdlIdDef: ECC_EN
+    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@ECC_ADDR_HI to params
+HdlIdDef: ECC_ADDR_HI
+    HdlValueInt: 410
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@ECC_ADDR_LO to params
+HdlIdDef: ECC_ADDR_LO
+    HdlValueInt: 400
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@RND_ECC_EN to params
+HdlIdDef: RND_ECC_EN
+    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@RND_ECC_WEIGHT to params
+HdlIdDef: RND_ECC_WEIGHT
+    HdlValueInt: 100
+    HdlDirection: INTERNAL
+
+UPD HdlIdDef@@cl_sh_ddr_arvalid to cl_sh_ddr_arvalid
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        MOV HdlValueId@@wire to ops
+        HdlValueId: wire
+        DEL HdlOp@@DOWNTO from ops
+        HdlOp: DOWNTO
+            list: ops
+                HdlValueInt: 2
+                HdlValueInt: 0
+        DEL list@@ops from PARAMETRIZATION
+    DEL HdlOp@@PARAMETRIZATION from cl_sh_ddr_arvalid
+
+UPD HdlIdDef@@sh_cl_ddr_arready to sh_cl_ddr_arready
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        DEL HdlOp@@DOWNTO from ops
+        HdlOp: DOWNTO
+            list: ops
+                HdlValueInt: 2
+                HdlValueInt: 0
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/lib/ram_fifo_ft.sv
++++ b/hdk/cl/examples/cl_sde/lib/ram_fifo_ft.sv
+@@ -37,7 +37,7 @@ module ram_fifo_ft #(parameter WIDTH=32, parameter PTR_WIDTH=7, parameter WATERM
+                                        // to see if FIFO is not 
+    );
+ 
+-parameter[31:0] NUM_LOC = 1'b1 << PTR_WIDTH;
++localparam[31:0] NUM_LOC = 1'b1 << PTR_WIDTH;
+ 
+ logic ram_pop;
+ logic[WIDTH-1:0] ram_rdata;
+ParseResult:
+MOV HdlIdDef@@NUM_LOC to params
+HdlIdDef: NUM_LOC
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+                    HdlValueInt: 0
+    HdlOp: SLL
+        list: ops
+            HdlValueInt: 1
+            HdlValueId: PTR_WIDTH
+    HdlDirection: INTERNAL
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/sde_c2h_data.sv
++++ b/hdk/cl/examples/cl_sde/design/sde_c2h_data.sv
+@@ -202,44 +202,44 @@ module sde_c2h_data #(parameter bit DESC_TYPE = 0,  // 0 - Regular, 1 - Compact
+ 
+    always_comb
+      begin
+-        req_state_next <= req_state;
++        req_state_next = req_state;
+         case (req_state)
+           REQ_IDLE :
+             if (desc_dm_desc_valid)
+-              req_state_next <= REQ_WAIT_DATA; // REQ_GET_DESC;
++              req_state_next = REQ_WAIT_DATA; // REQ_GET_DESC;
+             else
+-              req_state_next <= REQ_IDLE;
++              req_state_next = REQ_IDLE;
+ 
+ //          REQ_GET_DESC:
+-//            req_state_next <= REQ_WAIT_DATA;
++//            req_state_next = REQ_WAIT_DATA;
+ 
+           REQ_WAIT_DATA:
+             if (curr_txn_data_avail & ~dp_wb_ff_full & bresp_prealloc_avail)
+-              req_state_next <= REQ_ADDR;
++              req_state_next = REQ_ADDR;
+             else
+-              req_state_next <= REQ_WAIT_DATA;
++              req_state_next = REQ_WAIT_DATA;
+ 
+           REQ_ADDR:
+             if (dm_pm_awvalid & pm_dm_awready)
+-              req_state_next <= REQ_DATA;
++              req_state_next = REQ_DATA;
+             else
+-              req_state_next <= REQ_ADDR;
++              req_state_next = REQ_ADDR;
+ 
+           REQ_DATA:
+             if (data_tx_done && data_desc_done)
+-              req_state_next <= REQ_IDLE;
++              req_state_next = REQ_IDLE;
+             else if (data_tx_done)
+-              req_state_next <= REQ_WAIT_CALC;
++              req_state_next = REQ_WAIT_CALC;
+             else
+-              req_state_next <= REQ_DATA;
++              req_state_next = REQ_DATA;
+ 
+           REQ_WAIT_CALC:
+             // Only required to be in this state when servicing multiple packets per descriptor
+             // Need to wait 1 clock for the buf_dm_num_bytes to get updated after the end of REQ_DATA phase
+-            req_state_next <= REQ_WAIT_DATA;
++            req_state_next = REQ_WAIT_DATA;
+ 
+           default:
+-            req_state_next <= req_state;
++            req_state_next = req_state;
+ 
+         endcase // case (req_state)
+      end // always_comb
+ParseResult:
+INS HdlStmProcess@@ to objs
+
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+    INS HdlStmProcessTriggerConstrain@@COMB to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: req_state_next
+                HdlValueId: req_state
+
+INS HdlStmCase@@req_state to body
+
+UPD HdlStmCase@@req_state to req_state
+    INS HdlStmCaseType@@CASE to req_state
+    INS HdlValueId@@req_state to req_state
+    INS list@@cases to req_state
+    INS HdlOp@@ASSIGN to req_state
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: req_state
+    INS tuple@@ to cases
+    tuple
+        HdlValueId: REQ_IDLE
+        HdlStmIf
+            HdlValueId: desc_dm_desc_valid
+            HdlOp: ASSIGN
+                list: ops
+                    HdlValueId: req_state_next
+                    HdlValueId: REQ_WAIT_DATA
+            list: elifs
+            HdlOp: ASSIGN
+                list: ops
+                    HdlValueId: req_state_next
+                    HdlValueId: REQ_IDLE
+    INS tuple@@ to cases
+    INS tuple@@ to cases
+    INS tuple@@ to cases
+    tuple
+        HdlValueId: REQ_WAIT_CALC
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: req_state_next
+                HdlValueId: REQ_WAIT_DATA
+    INS HdlValueId@@REQ_ADDR to 
+    INS HdlValueId@@REQ_DATA to 
+
+UPD HdlStmCase@@req_state to req_state
+    MOV tuple@@ to cases
+    tuple
+        HdlValueId: REQ_WAIT_DATA
+        HdlStmIf
+            HdlOp: AND
+                list: ops
+                    HdlOp: AND
+                        list: ops
+                            HdlValueId: curr_txn_data_avail
+                            HdlOp: NEG
+                                list: ops
+                                    HdlValueId: dp_wb_ff_full
+                    HdlValueId: bresp_prealloc_avail
+            HdlStmAssign: if_true
+                HdlValueId: REQ_ADDR
+                HdlValueId: req_state_next
+            list: elifs
+            HdlStmAssign: if_false
+                HdlValueId: REQ_WAIT_DATA
+                HdlValueId: req_state_next
+    DEL HdlStmCaseType@@CASE from req_state
+    DEL HdlValueId@@req_state from req_state
+    DEL tuple@@ from cases
+    tuple
+        HdlValueId: REQ_IDLE
+        HdlStmIf
+            HdlValueId: desc_dm_desc_valid
+            HdlStmAssign: if_true
+                HdlValueId: REQ_WAIT_DATA
+                HdlValueId: req_state_next
+            list: elifs
+            HdlStmAssign: if_false
+                HdlValueId: REQ_IDLE
+                HdlValueId: req_state_next
+    DEL HdlValueId@@REQ_ADDR from 
+    DEL tuple@@ from cases
+    DEL HdlValueId@@REQ_DATA from 
+    DEL tuple@@ from cases
+    DEL tuple@@ from cases
+    tuple
+        HdlValueId: REQ_WAIT_CALC
+        HdlStmAssign
+            HdlValueId: REQ_WAIT_DATA
+            HdlValueId: req_state_next
+    DEL list@@cases from req_state
+
+INS HdlStmIf@@ to 
+
+INS HdlStmIf@@ to 
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@ASSIGN to 
+    INS list@@elifs to 
+    INS HdlOp@@ASSIGN to 
+    UPD HdlOp@@ASSIGN to ASSIGN
+        INS list@@ops to ASSIGN
+        INS HdlValueId@@req_state_next to ops
+    UPD HdlOp@@ASSIGN to ASSIGN
+        INS list@@ops to ASSIGN
+
+UPD HdlStmIf@@ to 
+    MOV HdlOp@@AND to 
+    HdlOp: AND
+        list: ops
+            HdlValueId: dm_pm_awvalid
+            HdlValueId: pm_dm_awready
+    DEL list@@elifs from 
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@ASSIGN to 
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: REQ_DATA
+    INS list@@elifs to 
+    INS HdlOp@@ASSIGN to 
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: REQ_ADDR
+
+UPD HdlStmIf@@ to 
+    MOV HdlOp@@AND_LOG to 
+    HdlOp: AND_LOG
+        list: ops
+            HdlValueId: data_tx_done
+            HdlValueId: data_desc_done
+    DEL list@@elifs from 
+    list: elifs
+        tuple
+            HdlValueId: data_tx_done
+            HdlStmAssign
+                HdlValueId: REQ_WAIT_CALC
+                HdlValueId: req_state_next
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@ASSIGN to 
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: REQ_IDLE
+    INS list@@elifs to 
+    list: elifs
+        tuple
+            HdlValueId: data_tx_done
+            HdlOp: ASSIGN
+                list: ops
+                    HdlValueId: req_state_next
+                    HdlValueId: REQ_WAIT_CALC
+    INS HdlOp@@ASSIGN to 
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: REQ_DATA
+
+UPD HdlStmAssign@@if_true to if_true
+    MOV HdlValueId@@REQ_ADDR to if_true
+    HdlValueId: REQ_ADDR
+    MOV HdlValueId@@req_state_next to if_true
+    HdlValueId: req_state_next
+
+UPD HdlStmAssign@@if_false to if_false
+    MOV HdlValueId@@REQ_WAIT_DATA to if_false
+    HdlValueId: REQ_WAIT_DATA
+    DEL HdlValueId@@req_state_next from if_false
+
+DEL HdlStmAssign@@if_true from 
+
+UPD HdlStmIf@@ to 
+    DEL list@@elifs from 
+
+DEL HdlStmAssign@@if_false from 
+
+DEL HdlStmAssign@@ from body
+HdlStmAssign
+    HdlValueId: req_state
+    HdlValueId: req_state_next
+
+DEL HdlStmAssign@@if_true from 
+HdlStmAssign: if_true
+    HdlValueId: REQ_DATA
+    HdlValueId: req_state_next
+
+DEL HdlStmAssign@@if_false from 
+HdlStmAssign: if_false
+    HdlValueId: REQ_ADDR
+    HdlValueId: req_state_next
+
+DEL HdlStmIf@@ from 
+
+DEL HdlStmAssign@@if_true from 
+HdlStmAssign: if_true
+    HdlValueId: REQ_IDLE
+    HdlValueId: req_state_next
+
+DEL HdlStmAssign@@if_false from 
+HdlStmAssign: if_false
+    HdlValueId: REQ_DATA
+    HdlValueId: req_state_next
+
+DEL HdlStmIf@@ from 
+
+DEL HdlStmAssign@@default from req_state
+HdlStmAssign: default
+    HdlValueId: req_state
+    HdlValueId: req_state_next
+
+DEL HdlStmCase@@req_state from body
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        DEL list@@body from SEQ
+    DEL HdlStmBlock@@SEQ from 
+    DEL HdlStmProcessTriggerConstrain@@COMB from 
+
+DEL HdlStmProcess@@ from objs
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_dma_pcis_slv.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_dma_pcis_slv.sv
+@@ -30,6 +30,7 @@ module cl_dma_pcis_slv #(parameter SCRB_MAX_ADDR = 64'h3FFFFFFFF, parameter SCRB
+     scrb_bus_t.master ddrd_scrb_bus,
+ 
+     axi_bus_t.master sh_cl_dma_pcis_bus,
++    axi_bus_t.master cl_axi_mstr_bus,
+ 
+     axi_bus_t.slave lcl_cl_sh_ddra,
+     axi_bus_t.slave lcl_cl_sh_ddrb,
+
+ParseResult:
+INS HdlIdDef@@cl_axi_mstr_bus to ports
+HdlIdDef: cl_axi_mstr_bus
+    HdlOp: DOT
+        list: ops
+            HdlValueId: axi_bus_t
+            HdlValueId: master
+    HdlDirection: IN
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
+@@ -34,7 +34,7 @@ module  cl_tst_scrb #(parameter DATA_WIDTH=512,
+    output [2:0]                      scrb_dbg_state,
+    output [63:0]                     scrb_dbg_addr,
+ 
+-   input logic [5:0]                 slv_awid,
++   input logic [6:0]                 slv_awid,
+    input logic [63:0]                slv_awaddr,
+    input logic [7:0]                 slv_awlen,
+    input logic [2:0]                 slv_awsize,
+
+ParseResult:
+UPD HdlIdDef@@slv_awid to slv_awid
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@5 to 6
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
+@@ -42,20 +42,20 @@ module  cl_tst_scrb #(parameter DATA_WIDTH=512,
+    input logic [10:0]                slv_awuser,
+    output                            slv_awready,
+ 
+-   input logic [5:0]                 slv_wid,
++   input logic [6:0]                 slv_wid,
+    input logic [DATA_WIDTH-1:0]      slv_wdata,
+    input logic [(DATA_WIDTH/8)-1:0]  slv_wstrb,
+    input logic                       slv_wlast,
+    input logic                       slv_wvalid,
+    output                            slv_wready,
+ 
+-   output [5:0]                      slv_bid,
++   output [6:0]                      slv_bid,
+    output [1:0]                      slv_bresp,
+    output                            slv_bvalid,
+    output [10:0]                     slv_buser, //This is specific to HMC, other interfaces should tie to '0'
+    input logic                       slv_bready,
+ 
+-   input logic [5:0]                 slv_arid,
++   input logic [6:0]                 slv_arid,
+    input logic [63:0]                slv_araddr,
+    input logic [7:0]                 slv_arlen,
+    input logic [2:0]                 slv_arsize,
+
+ParseResult:
+UPD HdlIdDef@@slv_wid to slv_wid
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@5 to 6
+
+UPD HdlIdDef@@slv_bid to slv_bid
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@5 to 6
+
+UPD HdlIdDef@@slv_arid to slv_arid
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@5 to 6
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
+@@ -63,7 +63,7 @@ module  cl_tst_scrb #(parameter DATA_WIDTH=512,
+    input logic [10:0]                slv_aruser,
+    output                            slv_arready,
+ 
+-   output [5:0]                      slv_rid,
++   output [6:0]                      slv_rid,
+    output [DATA_WIDTH-1:0]           slv_rdata,
+    output [1:0]                      slv_rresp,
+    output                            slv_rlast,
+
+ParseResult:
+UPD HdlIdDef@@slv_rid to slv_rid
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@5 to 6
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
+@@ -369,7 +369,7 @@ assign scrb_bid    = bid[5:0]   ;
+ assign scrb_bresp  = bresp ;
+ assign scrb_bvalid = scrb_enable & bvalid;
+ assign scrb_buser  = buser ;
+-assign slv_bid    = bid[5:0]   ;
++assign slv_bid    = bid[6:0]   ;
+ assign slv_bresp  = bresp ;
+ assign slv_bvalid = ~scrb_enable & ~atg_enable & bvalid;
+ assign slv_buser  = buser[10:0] ;
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: bid
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 6
+                    HdlValueInt: 0
+    HdlValueId: slv_bid
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: bid
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 5
+                    HdlValueInt: 0
+    HdlValueId: slv_bid
+
+
+CommitId: 83c80efd30862d862ea8f99ff4045a22d57e3453
+v1.3.4 release  (#373)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_tst_scrb.sv
+@@ -411,7 +411,7 @@ assign scrb_rresp   = rresp ;
+ assign scrb_rlast   = rlast ;
+ assign scrb_rvalid  = scrb_enable & rvalid;
+ assign scrb_ruser   = ruser ;
+-assign slv_rid     = rid[5:0]   ;
++assign slv_rid     = rid[6:0]   ;
+ assign slv_rdata   = rdata ;
+ assign slv_rresp   = rresp ;
+ assign slv_rlast   = rlast ;
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: rid
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 6
+                    HdlValueInt: 0
+    HdlValueId: slv_rid
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: rid
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 5
+                    HdlValueInt: 0
+    HdlValueId: slv_rid
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_tst.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_tst.sv
+@@ -658,11 +658,11 @@ always @(posedge clk)
+          wr_loop_count <= wr_loop_count + 1;
+    end
+ 
+-//Increment wr_cyc_count after the Write data for the read/write holdoff
++//Increment wr_cyc_count after the Write data bresp for the read/write holdoff
+ always @(posedge clk)
+    if (cfg_wr_go)
+       wr_cyc_count <= 0;
+-   else if ((wr_state==WR_DAT) && (wr_state_nxt!=WR_DAT))
++   else if (bvalid && bready)
+       wr_cyc_count <= wr_cyc_count + 1;
+ 
+ //Timer
+
+ParseResult:
+UPD HdlStmIf@@body to body
+    UPD HdlOp@@AND_LOG to AND_LOG
+        UPD HdlOp@@EQ to EQ
+            MOV list@@ops to EQ
+            list: ops
+                HdlValueId: wr_state
+                HdlValueId: WR_DAT
+            UPD HdlValueId@@wr_state to bvalid
+            UPD HdlValueId@@WR_DAT to bready
+        DEL HdlOp@@EQ from ops
+        DEL HdlOp@@NE from ops
+        HdlOp: NE
+            list: ops
+                HdlValueId: wr_state_nxt
+                HdlValueId: WR_DAT
+        DEL list@@ops from AND_LOG
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_dram_dma/design/cl_tst.sv
++++ b/hdk/cl/examples/cl_dram_dma/design/cl_tst.sv
+@@ -998,10 +998,9 @@ always_ff @(posedge clk)
+ 
+ 
+ //If in sync mode, reads cannot pass writes
+-//wire rd_wr_holdoff = cfg_sync_mode && wr_inp && ((rd_cyc_count+1) >= wr_cyc_count);
+-wire rd_wr_holdoff = cfg_sync_mode && wr_inp && rd_cyc_holdoff;
++wire rd_wr_holdoff = cfg_sync_mode && rd_cyc_holdoff;
+ 
+-//Increment the read instruction 
++//Increment the read instruction
+ assign rd_tag_pop = rd_inp && rd_tag_some_avail && !rd_fifo_full && !rd_wr_holdoff;
+ 
+ always @(posedge clk)
+
+ParseResult:
+INS HdlIdDef@@rd_wr_holdoff to objs
+HdlIdDef: rd_wr_holdoff
+    HdlOp: AND_LOG
+        list: ops
+            HdlValueId: cfg_sync_mode
+            HdlValueId: rd_cyc_holdoff
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@rd_wr_holdoff from objs
+HdlIdDef: rd_wr_holdoff
+    HdlOp: AND_LOG
+        list: ops
+            HdlOp: AND_LOG
+                list: ops
+                    HdlValueId: cfg_sync_mode
+                    HdlValueId: wr_inp
+            HdlValueId: rd_cyc_holdoff
+    HdlDirection: INTERNAL
+
+
+CommitId: 2fa6b0672de67d46d1ae21147c2fbaadceb34207
+Rc v1 4 10 (#463)
+--- a/hdk/cl/examples/cl_sde/design/sde_h2c_data.sv
++++ b/hdk/cl/examples/cl_sde/design/sde_h2c_data.sv
+@@ -183,33 +183,33 @@ module sde_h2c_data #(parameter bit DESC_TYPE = 0,  // 0 - Regular, 1 - Compact
+ 
+    always_comb
+      begin
+-        req_state_next <= req_state;
++        req_state_next = req_state;
+         case (req_state)
+           REQ_IDLE :
+             if (desc_dm_desc_valid)
+-              req_state_next <= REQ_WAIT_DATA; // REQ_GET_DESC;
++              req_state_next = REQ_WAIT_DATA; // REQ_GET_DESC;
+             else
+-              req_state_next <= REQ_IDLE;
++              req_state_next = REQ_IDLE;
+ 
+ //          REQ_GET_DESC:
+-//            req_state_next <= REQ_WAIT_DATA;
++//            req_state_next = REQ_WAIT_DATA;
+ 
+           REQ_WAIT_DATA:
+             if (curr_txn_space_avail && ~rd_txn_trk_ff_full)
+-              req_state_next <= REQ_ADDR;
++              req_state_next = REQ_ADDR;
+             else
+-              req_state_next <= REQ_WAIT_DATA;
++              req_state_next = REQ_WAIT_DATA;
+ 
+           REQ_ADDR:
+             if (desc_req_done && desc_done)
+-              req_state_next <= REQ_IDLE;
++              req_state_next = REQ_IDLE;
+             else if (desc_req_done)
+-              req_state_next <= REQ_WAIT_DATA;
++              req_state_next = REQ_WAIT_DATA;
+             else
+-              req_state_next <= REQ_ADDR;
++              req_state_next = REQ_ADDR;
+           
+           default:
+-            req_state_next <= req_state;
++            req_state_next = req_state;
+ 
+         endcase // case (req_state)
+      end // always_comb
+ParseResult:
+INS HdlStmProcess@@ to objs
+
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+    INS HdlStmProcessTriggerConstrain@@COMB to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+        INS HdlOp@@ASSIGN to body
+        HdlOp: ASSIGN
+            list: ops
+                HdlValueId: req_state_next
+                HdlValueId: req_state
+
+INS HdlStmCase@@req_state to body
+
+UPD HdlStmCase@@req_state to req_state
+    INS HdlStmCaseType@@CASE to req_state
+    INS HdlValueId@@req_state to req_state
+    INS list@@cases to req_state
+    INS HdlOp@@ASSIGN to req_state
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: req_state
+    INS tuple@@ to cases
+    tuple
+        HdlValueId: REQ_IDLE
+        HdlStmIf
+            HdlValueId: desc_dm_desc_valid
+            HdlOp: ASSIGN
+                list: ops
+                    HdlValueId: req_state_next
+                    HdlValueId: REQ_WAIT_DATA
+            list: elifs
+            HdlOp: ASSIGN
+                list: ops
+                    HdlValueId: req_state_next
+                    HdlValueId: REQ_IDLE
+    INS tuple@@ to cases
+    INS tuple@@ to cases
+    INS HdlValueId@@REQ_WAIT_DATA to 
+    INS HdlValueId@@REQ_ADDR to 
+
+INS HdlStmIf@@ to 
+
+INS HdlStmIf@@ to 
+
+UPD HdlStmIf@@ to 
+    MOV HdlOp@@AND_LOG to 
+    HdlOp: AND_LOG
+        list: ops
+            HdlValueId: curr_txn_space_avail
+            HdlOp: NEG
+                list: ops
+                    HdlValueId: rd_txn_trk_ff_full
+    DEL list@@elifs from 
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@ASSIGN to 
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: REQ_ADDR
+    INS list@@elifs to 
+    INS HdlOp@@ASSIGN to 
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: REQ_WAIT_DATA
+
+UPD HdlStmIf@@ to 
+    MOV HdlOp@@AND_LOG to 
+    HdlOp: AND_LOG
+        list: ops
+            HdlValueId: desc_req_done
+            HdlValueId: desc_done
+    DEL list@@elifs from 
+    list: elifs
+        tuple
+            HdlValueId: desc_req_done
+            HdlStmAssign
+                HdlValueId: REQ_WAIT_DATA
+                HdlValueId: req_state_next
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@ASSIGN to 
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: REQ_IDLE
+    INS list@@elifs to 
+    list: elifs
+        tuple
+            HdlValueId: desc_req_done
+            HdlOp: ASSIGN
+                list: ops
+                    HdlValueId: req_state_next
+                    HdlValueId: REQ_WAIT_DATA
+    INS HdlOp@@ASSIGN to 
+    HdlOp: ASSIGN
+        list: ops
+            HdlValueId: req_state_next
+            HdlValueId: REQ_ADDR
+
+DEL HdlStmAssign@@ from body
+HdlStmAssign
+    HdlValueId: req_state
+    HdlValueId: req_state_next
+
+UPD HdlStmCase@@req_state to req_state
+    DEL HdlStmCaseType@@CASE from req_state
+    DEL HdlValueId@@req_state from req_state
+    DEL tuple@@ from cases
+    tuple
+        HdlValueId: REQ_IDLE
+        HdlStmIf
+            HdlValueId: desc_dm_desc_valid
+            HdlStmAssign: if_true
+                HdlValueId: REQ_WAIT_DATA
+                HdlValueId: req_state_next
+            list: elifs
+            HdlStmAssign: if_false
+                HdlValueId: REQ_IDLE
+                HdlValueId: req_state_next
+    DEL HdlValueId@@REQ_WAIT_DATA from 
+    DEL tuple@@ from cases
+    DEL HdlValueId@@REQ_ADDR from 
+    DEL tuple@@ from cases
+    DEL list@@cases from req_state
+
+DEL HdlStmAssign@@if_true from 
+HdlStmAssign: if_true
+    HdlValueId: REQ_ADDR
+    HdlValueId: req_state_next
+
+DEL HdlStmAssign@@if_false from 
+HdlStmAssign: if_false
+    HdlValueId: REQ_WAIT_DATA
+    HdlValueId: req_state_next
+
+DEL HdlStmIf@@ from 
+
+DEL HdlStmAssign@@if_true from 
+HdlStmAssign: if_true
+    HdlValueId: REQ_IDLE
+    HdlValueId: req_state_next
+
+DEL HdlStmAssign@@if_false from 
+HdlStmAssign: if_false
+    HdlValueId: REQ_ADDR
+    HdlValueId: req_state_next
+
+DEL HdlStmIf@@ from 
+
+DEL HdlStmAssign@@default from req_state
+HdlStmAssign: default
+    HdlValueId: req_state
+    HdlValueId: req_state_next
+
+DEL HdlStmCase@@req_state from body
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        DEL list@@body from SEQ
+    DEL HdlStmBlock@@SEQ from 
+    DEL HdlStmProcessTriggerConstrain@@COMB from 
+
+DEL HdlStmProcess@@ from objs
+
+

@@ -1,0 +1,14 @@
+3289c4aa749e116d6175c2e0c5fcbf2a4adef186
+[rtl/cpu] :warning: fixed bug in bus unit that caused memory exceptions right after reset in some cases
+diff --git a/rtl/core/neorv32_cpu.vhd b/rtl/core/neorv32_cpu.vhd
+index 49c6efe..3c900f9 100644
+--- a/rtl/core/neorv32_cpu.vhd
++++ b/rtl/core/neorv32_cpu.vhd
+@@ -354,6 +354,7 @@ begin
+   port map (
+     -- global control --
+     clk_i          => clk_i,          -- global clock, rising edge
++    rstn_i         => rstn_i,         -- global reset, low-active, async
+     ctrl_i         => ctrl,           -- main control bus
+     -- cpu instruction fetch interface --
+     fetch_pc_i     => fetch_pc,       -- PC for instruction fetch

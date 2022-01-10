@@ -1,0 +1,15 @@
+729ad63699c4b8edc8d8a253fbe277edb88c838f
+fix halt if and update waves
+diff --git a/rtl/riscv_prefetch_buffer.sv b/rtl/riscv_prefetch_buffer.sv
+index ff2de51..da66813 100644
+--- a/rtl/riscv_prefetch_buffer.sv
++++ b/rtl/riscv_prefetch_buffer.sv
+@@ -296,7 +296,7 @@ module riscv_prefetch_buffer
+       .DEPTH        ( 2            ),
+       .ALM_FULL_TH  ( 1            )
+   )
+-  instr_buffer
++  instr_buffer_i
+   (
+       .clk_i       ( clk                            ),
+       .rst_ni      ( rst_n                          ),

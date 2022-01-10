@@ -1,0 +1,15 @@
+aa17d587843a78e3d49b5e24bc5e4ab76e8c6383
+Bugfix in C.SRAI implementation
+diff --git a/picorv32.v b/picorv32.v
+index 8d40052..05c67ba 100644
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -276,7 +276,7 @@ module picorv32 #(
+ 								mem_rdata_q[31:25] <= 7'b0000000;
+ 								mem_rdata_q[14:12] <= 3'b 101;
+ 							end
+-							if (mem_rdata_latched[11:10] == 2'b00) begin // C.SRAI
++							if (mem_rdata_latched[11:10] == 2'b01) begin // C.SRAI
+ 								mem_rdata_q[31:25] <= 7'b0100000;
+ 								mem_rdata_q[14:12] <= 3'b 101;
+ 							end

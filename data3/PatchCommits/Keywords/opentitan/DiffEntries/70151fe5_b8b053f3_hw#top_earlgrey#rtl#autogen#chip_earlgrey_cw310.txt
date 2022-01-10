@@ -1,0 +1,14 @@
+70151fe5370f2b454b8ba53ba699d7bd1345b8d9
+[keymgr] Add otbn sideload and expand to 384-bit sideload key support
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_cw310.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_cw310.sv
+index 3ba74345c..dd4001990 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_cw310.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_cw310.sv
+@@ -731,6 +731,7 @@ module chip_earlgrey_cw310 #(
+   top_earlgrey #(
+     .AesMasking(1'b1),
+     .AesSBoxImpl(aes_pkg::SBoxImplDom),
++    .KmacEnMasking(0),
+     .CsrngSBoxImpl(aes_pkg::SBoxImplLut),
+     .OtbnRegFile(otbn_pkg::RegFileFPGA),
+     .OtpCtrlMemInitFile(OtpCtrlMemInitFile),

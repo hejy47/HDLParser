@@ -1,0 +1,14 @@
+c5b62a04b77a3dab590591ecc477b2bbe1e7dbc8
+axi_dmac: fix 2d transfer address width
+diff --git a/library/axi_dmac/axi_dmac_transfer.v b/library/axi_dmac/axi_dmac_transfer.v
+index 050cfe5c..5b99bd3a 100644
+--- a/library/axi_dmac/axi_dmac_transfer.v
++++ b/library/axi_dmac/axi_dmac_transfer.v
+@@ -238,6 +238,7 @@ assign req_ready = req_enable & req_ready_gated;
+ generate if (DMA_2D_TRANSFER == 1) begin
+ 
+ dmac_2d_transfer #(
++  .DMA_AXI_ADDR_WIDTH(DMA_AXI_ADDR_WIDTH),
+   .DMA_LENGTH_WIDTH (DMA_LENGTH_WIDTH),
+   .BYTES_PER_BEAT_WIDTH_DEST (BYTES_PER_BEAT_WIDTH_DEST),
+   .BYTES_PER_BEAT_WIDTH_SRC (BYTES_PER_BEAT_WIDTH_SRC)

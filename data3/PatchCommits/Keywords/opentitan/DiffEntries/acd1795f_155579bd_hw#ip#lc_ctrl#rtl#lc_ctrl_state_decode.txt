@@ -1,0 +1,15 @@
+acd1795fa894600b5f9e05579d62cbd8bc867bb6
+[lc] fix decode state_invalid_error
+diff --git a/hw/ip/lc_ctrl/rtl/lc_ctrl_state_decode.sv b/hw/ip/lc_ctrl/rtl/lc_ctrl_state_decode.sv
+index d684c29f0..4a0c965f3 100644
+--- a/hw/ip/lc_ctrl/rtl/lc_ctrl_state_decode.sv
++++ b/hw/ip/lc_ctrl/rtl/lc_ctrl_state_decode.sv
+@@ -99,7 +99,7 @@ module lc_ctrl_state_decode
+ 
+         // Require that any non-raw state has a valid, nonzero
+         // transition count.
+-        if (lc_state_i != LcStRaw && lc_cnt_i != LcCntRaw) begin
++        if (lc_state_i != LcStRaw && lc_cnt_i == LcCntRaw) begin
+           state_invalid_error_o = 1'b1;
+         end
+ 

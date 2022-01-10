@@ -1,0 +1,15 @@
+aee38e1cc90f108acbac358859ba39064fec4428
+up_hdmi_tx: Fixed data path width
+diff --git a/library/common/up_hdmi_tx.v b/library/common/up_hdmi_tx.v
+index 491524f3..64099b9e 100644
+--- a/library/common/up_hdmi_tx.v
++++ b/library/common/up_hdmi_tx.v
+@@ -323,7 +323,7 @@ module up_hdmi_tx (
+ 
+   // hdmi control & status
+ 
+-  up_xfer_cntrl #(.DATA_WIDTH(237)) i_xfer_cntrl (
++  up_xfer_cntrl #(.DATA_WIDTH(236)) i_xfer_cntrl (
+     .up_rstn (up_rstn),
+     .up_clk (up_clk),
+     .up_data_cntrl ({ up_ss_bypass,

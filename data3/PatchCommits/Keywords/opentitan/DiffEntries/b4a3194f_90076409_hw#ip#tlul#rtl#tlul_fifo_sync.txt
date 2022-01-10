@@ -1,0 +1,17 @@
+b4a3194fe597d38bf7f45a2b7c44be8a0a025fd4
+[tlul] Fix Verilator lint warnings
+diff --git a/hw/ip/tlul/rtl/tlul_fifo_sync.sv b/hw/ip/tlul/rtl/tlul_fifo_sync.sv
+index 59fe3ffd4..4271c79b4 100644
+--- a/hw/ip/tlul/rtl/tlul_fifo_sync.sv
++++ b/hw/ip/tlul/rtl/tlul_fifo_sync.sv
+@@ -7,8 +7,8 @@
+ // and one for the response side.
+ 
+ module tlul_fifo_sync #(
+-  parameter int unsigned ReqPass  = 1'b1,
+-  parameter int unsigned RspPass  = 1'b1,
++  parameter bit          ReqPass = 1'b1,
++  parameter bit          RspPass = 1'b1,
+   parameter int unsigned ReqDepth = 2,
+   parameter int unsigned RspDepth = 2,
+   parameter int unsigned SpareReqW = 1,

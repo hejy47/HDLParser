@@ -1,0 +1,14 @@
+3f3197d1a0d0b0bc065784f55d5a0e24f9db6c53
+Merge pull request #391 from Silabs-ArjanB/ArjanB_sleep_pulp_cluster
+diff --git a/rtl/cv32e40p_tracer.sv b/rtl/cv32e40p_tracer.sv
+index 90247b3..f32d090 100644
+--- a/rtl/cv32e40p_tracer.sv
++++ b/rtl/cv32e40p_tracer.sv
+@@ -39,7 +39,6 @@ module cv32e40p_tracer (
+   input  logic        clk,
+   input  logic        rst_n,
+ 
+-  input  logic        fetch_enable,
+   input  logic [31:0] hart_id_i,
+ 
+   input  logic [31:0] pc,

@@ -1,0 +1,15 @@
+2085fb1b0517890bacbe501a3541896dbaf9301e
+:bug: fix -mret does not jump- bug
+diff --git a/rtl/cv32e40p_controller.sv b/rtl/cv32e40p_controller.sv
+index 4aedbcf..e53f58a 100644
+--- a/rtl/cv32e40p_controller.sv
++++ b/rtl/cv32e40p_controller.sv
+@@ -617,6 +617,8 @@ module cv32e40p_controller
+                     mret_insn_i | uret_insn_i | dret_insn_i: begin
+                       halt_if_o     = 1'b1;
+                       flush_instr_o  = 1'b0;
++                      // Without this signal, the aligner updates state and xret is flushed
++                      hold_state_o  = 1'b1;
+                       halt_id_o     = 1'b0;
+                       ctrl_fsm_ns   = id_ready_i ? FLUSH_EX : DECODE;;
+                     end

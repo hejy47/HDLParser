@@ -1,0 +1,15 @@
+10c21a343a9e40d393cd4a04abe22dbef526150a
+fmcomms2/c5soc: Fixed the spim0_ss_in_n value.
+diff --git a/projects/fmcomms2/c5soc/system_top.v b/projects/fmcomms2/c5soc/system_top.v
+index 4f49c4e3..ab4c915d 100755
+--- a/projects/fmcomms2/c5soc/system_top.v
++++ b/projects/fmcomms2/c5soc/system_top.v
+@@ -394,7 +394,7 @@ module system_top (
+     .sys_hps_h2f_reset_reset_n (sys_resetn),
+ 		.sys_hps_spim0_txd (spi_mosi),
+ 		.sys_hps_spim0_rxd (spi_miso),
+-		.sys_hps_spim0_ss_in_n (1'b0),
++		.sys_hps_spim0_ss_in_n (1'b1),
+ 		.sys_hps_spim0_ssi_oe_n (),
+ 		.sys_hps_spim0_ss_0_n (spi_csn),
+ 		.sys_hps_spim0_ss_1_n (),

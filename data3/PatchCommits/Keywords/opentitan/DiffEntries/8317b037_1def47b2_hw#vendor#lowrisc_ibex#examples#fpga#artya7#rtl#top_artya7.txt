@@ -1,0 +1,20 @@
+8317b037bc142ac95e4bf3ecfdfafffb7f64ef8c
+Update lowrisc_ibex to lowRISC/ibex@25cd6600
+diff --git a/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv b/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv
+index db4e4611d..62c9fea11 100644
+--- a/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv
++++ b/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv
+@@ -42,11 +42,11 @@ module top_artya7 (
+   logic [31:0] mem_rdata;
+ 
+ 
+-  ibex_core #(
++  ibex_top #(
+      .RegFile(ibex_pkg::RegFileFPGA),
+      .DmHaltAddr(32'h00000000),
+      .DmExceptionAddr(32'h00000000)
+-  ) u_core (
++  ) u_top (
+      .clk_i                 (clk_sys),
+      .rst_ni                (rst_sys_n),
+ 

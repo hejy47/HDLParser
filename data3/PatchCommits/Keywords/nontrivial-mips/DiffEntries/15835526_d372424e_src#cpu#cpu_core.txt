@@ -1,0 +1,14 @@
+158355264768ef81aeba64498e77a7fd9d3e7f51
+Fix preresolved branch.
+diff --git a/src/cpu/cpu_core.sv b/src/cpu/cpu_core.sv
+index ebf860d..657d9f7 100644
+--- a/src/cpu/cpu_core.sv
++++ b/src/cpu/cpu_core.sv
+@@ -80,6 +80,7 @@ assign ibus.flush_1     = icache_req.flush_s1;
+ assign ibus.flush_2     = icache_req.flush_s2;
+ assign ibus.read        = icache_req.read;
+ assign ibus.address     = mmu_inst_result.phy_addr;
++assign ibus.stall_req   = icache_req.stall_s3;
+ assign icache_res.data  = ibus.rddata;
+ assign icache_res.valid = ibus.valid;
+ assign icache_res.stall = ibus.stall;

@@ -1,0 +1,15 @@
+8d1feca5f8e6548988bc5606c8b26bb9e20adc05
+[topgen] Improve matching of prefix when renaming parameters
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_cw310.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_cw310.sv
+index 974b01f2f..6fb96dccd 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_cw310.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_cw310.sv
+@@ -758,7 +758,7 @@ module chip_earlgrey_cw310 #(
+     .RomCtrlBootRomInitFile(BootRomInitFile),
+     .RvCoreIbexRegFile(ibex_pkg::RegFileFPGA),
+     .RvCoreIbexPipeLine(1),
+-    .SecRvCoreIbexureIbex(0),
++    .RvCoreIbexSecureIbex(0),
+     .SramCtrlRetAonInstrExec(0),
+     .SramCtrlMainInstrExec(1),
+     .PinmuxAonTargetCfg(PinmuxTargetCfg)

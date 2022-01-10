@@ -1,0 +1,15 @@
+018224303044d31d8cebc512000d3aba9c88eb67
+Merge remote-tracking branch 'origin/xret_fix' into vega_dbg_dev_xret_fix
+diff --git a/rtl/riscv_if_stage.sv b/rtl/riscv_if_stage.sv
+index c436b31..4d52456 100644
+--- a/rtl/riscv_if_stage.sv
++++ b/rtl/riscv_if_stage.sv
+@@ -158,7 +158,7 @@ module riscv_if_stage
+       PC_MRET:      fetch_addr_n = mepc_i; // PC is restored when returning from IRQ/exception
+       PC_URET:      fetch_addr_n = uepc_i; // PC is restored when returning from IRQ/exception
+       PC_DRET:      fetch_addr_n = depc_i; //
+-
++      PC_FENCEI:    fetch_addr_n = pc_id_o + 4; // jump to next instr forces prefetch buffer reload
+       default:;
+     endcase
+   end

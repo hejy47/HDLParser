@@ -1,0 +1,15 @@
+6ebc6bcb9f4574ab2adff9ec1c27f052ee620b69
+[simple_system] Fix type for mhpmcounter_get
+diff --git a/examples/simple_system/rtl/ibex_simple_system.sv b/examples/simple_system/rtl/ibex_simple_system.sv
+index 1949a781..6d902ec7 100644
+--- a/examples/simple_system/rtl/ibex_simple_system.sv
++++ b/examples/simple_system/rtl/ibex_simple_system.sv
+@@ -279,7 +279,7 @@ module ibex_simple_system (
+ 
+   export "DPI-C" function mhpmcounter_get;
+ 
+-  function automatic longint mhpmcounter_get(int index);
++  function automatic longint unsigned mhpmcounter_get(int index);
+     return u_core.u_ibex_core.cs_registers_i.mhpmcounter[index];
+   endfunction
+ 

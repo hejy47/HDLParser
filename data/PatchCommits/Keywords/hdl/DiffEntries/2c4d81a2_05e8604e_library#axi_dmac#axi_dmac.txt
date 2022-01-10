@@ -1,0 +1,15 @@
+2c4d81a221016e7e66b44b76e0e7fe8ef568d8ca
+axi_dmac: Disable 2D transfer support by default
+diff --git a/library/axi_dmac/axi_dmac.v b/library/axi_dmac/axi_dmac.v
+index aabc1688..42ded717 100644
+--- a/library/axi_dmac/axi_dmac.v
++++ b/library/axi_dmac/axi_dmac.v
+@@ -39,7 +39,7 @@ module axi_dmac #(
+   parameter DMA_DATA_WIDTH_SRC = 64,
+   parameter DMA_DATA_WIDTH_DEST = 64,
+   parameter DMA_LENGTH_WIDTH = 24,
+-  parameter DMA_2D_TRANSFER = 1,
++  parameter DMA_2D_TRANSFER = 0,
+   parameter ASYNC_CLK_REQ_SRC = 1,
+   parameter ASYNC_CLK_SRC_DEST = 1,
+   parameter ASYNC_CLK_DEST_REQ = 1,

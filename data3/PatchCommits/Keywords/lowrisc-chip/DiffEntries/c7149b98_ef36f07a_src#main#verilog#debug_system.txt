@@ -1,0 +1,56 @@
+c7149b9806363d03820d67c1d82314ecdf1fc57e
+Merge branch 'debug' into debug-chisel
+diff --git a/src/main/verilog/debug_system.sv b/src/main/verilog/debug_system.sv
+index d97f704..7a4bff0 100644
+--- a/src/main/verilog/debug_system.sv
++++ b/src/main/verilog/debug_system.sv
+@@ -36,6 +36,10 @@ module debug_system
+ 
+    output                       sys_rst, cpu_rst,
+ 
++   input  dii_flit [1:0]        ring_in,
++   output [1:0]                 ring_in_ready,
++   output dii_flit [1:0]        ring_out,
++   input [1:0]                  ring_out_ready,
+ 
+    output                       req_valid,
+    input                        req_ready,
+@@ -179,14 +183,28 @@ module debug_system
+           .debug_out       ( dii_out[3]       ),
+           .debug_out_ready ( dii_out_ready[3] )
+           );
+-   
+-   
+-   debug_ring
+-     #(.PORTS(N))
+-             u_ring(.*,
+-                    .dii_in        ( dii_out       ),
+-                    .dii_in_ready  ( dii_out_ready ),
+-                    .dii_out       ( dii_in        ),
+-                    .dii_out_ready ( dii_in_ready  )
+-                    );
++
++   dii_flit [1:0] ext_in;  logic [1:0] ext_in_ready;
++   dii_flit [1:0] ext_out; logic [1:0] ext_out_ready;
++
++   debug_ring_expand
++     #(.PORTS(N), .ID_BASE(0))
++   u_ring(.*,
++          .dii_in        ( dii_out        ),
++          .dii_in_ready  ( dii_out_ready  ),
++          .dii_out       ( dii_in         ),
++          .dii_out_ready ( dii_in_ready   ),
++          .ext_in        ( ext_in         ),
++          .ext_in_ready  ( ext_in_ready   ),
++          .ext_out       ( ext_out        ),
++          .ext_out_ready ( ext_out_ready  )
++          );
++
++   assign ext_in[0].valid = 1'b0;
++   assign ext_in[1] = ring_in[0];
++   assign ring_in_ready[0] = ext_in_ready[1];
++   assign ring_out = ext_out;
++   assign ext_out_ready = ring_out_ready;
++   assign ring_in_ready[1] = 1'b1;
++
+ endmodule // debug_system

@@ -1,0 +1,44 @@
+f2fccaadbc6aaedf08bec73b7386ffce3aaeb618
+[Prefetch buffer] - various bug fixes
+diff --git a/rtl/ibex_controller.sv b/rtl/ibex_controller.sv
+index 5a8fc54a..5ba6e633 100644
+--- a/rtl/ibex_controller.sv
++++ b/rtl/ibex_controller.sv
+@@ -122,7 +122,7 @@ module ibex_controller (
+   // glitches
+   always_ff @(negedge clk_i) begin
+     // print warning in case of decoding errors
+-    if ((ctrl_fsm_cs == DECODE) && instr_valid_i && illegal_insn) begin
++    if ((ctrl_fsm_cs == DECODE) && instr_valid_i && !instr_fetch_err_i && illegal_insn) begin
+       $display("%t: Illegal instruction (hart %0x) at PC 0x%h: 0x%h", $time, ibex_core.hart_id_i,
+                ibex_id_stage.pc_id_i, ibex_id_stage.instr_rdata_i);
+     end
+@@ -296,21 +296,21 @@ module ibex_controller (
+ 
+         if (instr_valid_i) begin
+ 
++          // get ready for special instructions, exceptions, pipeline flushes
++          if (special_req) begin
++            ctrl_fsm_ns    = FLUSH;
++            halt_if        = 1'b1;
++            halt_id        = 1'b1;
+           // set PC in IF stage to branch or jump target
+-          if (branch_set_i || jump_set_i) begin
++          end else if (branch_set_i || jump_set_i) begin
+             pc_mux_o       = PC_JUMP;
+             pc_set_o       = 1'b1;
+ 
+             perf_tbranch_o = branch_set_i;
+             perf_jump_o    = jump_set_i;
+-
+-          // get ready for special instructions, exceptions, pipeline flushes
+-          end else if (special_req) begin
+-            ctrl_fsm_ns = FLUSH;
+-            halt_if     = 1'b1;
+-            halt_id     = 1'b1;
+           end
+ 
++
+           // stall IF stage to not starve debug and interrupt requests, these just
+           // need to wait until after the current (multicycle) instruction
+           if ((enter_debug_mode || handle_irq) && stall) begin

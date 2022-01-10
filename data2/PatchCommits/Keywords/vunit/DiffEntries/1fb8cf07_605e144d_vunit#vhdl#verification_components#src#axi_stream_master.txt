@@ -1,0 +1,25 @@
+1fb8cf07c2dc93562ec0f067d13d6a541bfd5e99
+Integrated AXI protocol checker into other AXI VCs. Some lint fixing.
+diff --git a/vunit/vhdl/verification_components/src/axi_stream_master.vhd b/vunit/vhdl/verification_components/src/axi_stream_master.vhd
+index 758ec118..1d9e1642 100644
+--- a/vunit/vhdl/verification_components/src/axi_stream_master.vhd
++++ b/vunit/vhdl/verification_components/src/axi_stream_master.vhd
+@@ -70,5 +70,18 @@ begin
+       );
+   end generate axi_stream_monitor_generate;
+ 
++  axi_stream_protocol_checker_generate : if master.p_protocol_checker /= null_axi_stream_protocol_checker generate
++    axi_stream_protocol_checker_inst: entity work.axi_stream_protocol_checker
++      generic map (
++        protocol_checker => master.p_protocol_checker)
++      port map (
++        aclk     => aclk,
++        areset_n => open,
++        tvalid   => tvalid,
++        tready   => tready,
++        tdata    => tdata,
++        tlast    => tlast,
++        tid      => open);
++  end generate axi_stream_protocol_checker_generate;
+ 
+ end architecture;

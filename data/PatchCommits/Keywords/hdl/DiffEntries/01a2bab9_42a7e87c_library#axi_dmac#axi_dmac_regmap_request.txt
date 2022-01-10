@@ -1,0 +1,15 @@
+01a2bab978e3955bb4f690dce2b5db7dfd05afb3
+axi_dmac: fix transfer length reporting cyclic mode
+diff --git a/library/axi_dmac/axi_dmac_regmap_request.v b/library/axi_dmac/axi_dmac_regmap_request.v
+index 9ff1de2e..f26dd031 100644
+--- a/library/axi_dmac/axi_dmac_regmap_request.v
++++ b/library/axi_dmac/axi_dmac_regmap_request.v
+@@ -277,7 +277,7 @@ always @(posedge clk)
+ begin
+   if (response_valid == 1'b1 && response_ready == 1'b1) begin
+     up_tlf_s_valid <= up_bl_partial;
+-    up_clear_tl <= up_eot;
++    up_clear_tl <= response_eot;
+   end else if (up_tlf_s_ready == 1'b1) begin
+     up_tlf_s_valid <= 1'b0;
+   end

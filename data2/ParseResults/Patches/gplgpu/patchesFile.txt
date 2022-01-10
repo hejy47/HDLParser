@@ -1,0 +1,248 @@
+CommitId: e85bb0065a2d9e05d344cc3c1301ad7dd49d34be
+Fixed blocking/ non-blocking problem which affected simulation.
+--- a/hdl/lucy_tc/de3d_tc_compare.v
++++ b/hdl/lucy_tc/de3d_tc_compare.v
+@@ -203,18 +203,19 @@ always @(posedge de_clk or negedge de_rstn)
+ 						(lr1_hit | lr0_hit | lru_lr)};
+         end
+ 
+-/* store the set read info.    */
+-always @(posedge de_clk or negedge de_rstn)
+-        begin
+-                if (!de_rstn) set_read    <= 0;
+-                else if (tc_ack && exception)set_read    <= {(ul1_hit | (~ul0_hit & lru_ul)),
+-						 	    (ll1_hit | (~ll0_hit & lru_ll)),
+-						 	    (ul1_hit | (~ul0_hit & lru_ul)),
+-						 	    (ll1_hit | (~ll0_hit & lru_ll))};
+-                else if (tc_ack && !exception)set_read    <= {(ul1_hit | (~ul0_hit & lru_ul)),
+-						 	    (ll1_hit | (~ll0_hit & lru_ll)),
+-						 	    (ur1_hit | (~ur0_hit & lru_ur)),
+-						 	    (lr1_hit | (~lr0_hit & lru_lr))};
+-        end
+-
++  /* store the set read info.    */
++  always @(posedge de_clk or negedge de_rstn)
++      if (!de_rstn) 
++	set_read    <= 0;
++      else if (tc_ack && exception)
++	set_read    <= {(ul1_hit | (~ul0_hit & lru_ul)),
++			(ll1_hit | (~ll0_hit & lru_ll)),
++			(ul1_hit | (~ul0_hit & lru_ul)),
++			(ll1_hit | (~ll0_hit & lru_ll))};
++      else if (tc_ack && !exception)
++	set_read    <= {(ul1_hit | (~ul0_hit & lru_ul)),
++			(ll1_hit | (~ll0_hit & lru_ll)),
++			(ur1_hit | (~ur0_hit & lru_ur)),
++			(lr1_hit | (~lr0_hit & lru_lr))};
++  
+ endmodule
+
+ParseResult:
+UPD HdlStmIf@@ to body
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlOp: NEG_LOG
+        list: ops
+            HdlValueId: de_rstn
+    HdlStmAssign: if_true
+        HdlValueInt: 0
+        HdlValueId: set_read
+    list: elifs
+        tuple
+            HdlOp: AND_LOG
+                list: ops
+                    HdlValueId: tc_ack
+                    HdlValueId: exception
+            HdlStmAssign
+                HdlOp: CONCAT
+                    list: ops
+                        HdlOp: CONCAT
+                            list: ops
+                                HdlOp: CONCAT
+                                    list: ops
+                                        HdlOp: OR
+                                            list: ops
+                                                HdlValueId: ul1_hit
+                                                HdlOp: AND
+                                                    list: ops
+                                                        HdlOp: NEG
+                                                            list: ops
+                                                                HdlValueId: ul0_hit
+                                                        HdlValueId: lru_ul
+                                        HdlOp: OR
+                                            list: ops
+                                                HdlValueId: ll1_hit
+                                                HdlOp: AND
+                                                    list: ops
+                                                        HdlOp: NEG
+                                                            list: ops
+                                                                HdlValueId: ll0_hit
+                                                        HdlValueId: lru_ll
+                                HdlOp: OR
+                                    list: ops
+                                        HdlValueId: ul1_hit
+                                        HdlOp: AND
+                                            list: ops
+                                                HdlOp: NEG
+                                                    list: ops
+                                                        HdlValueId: ul0_hit
+                                                HdlValueId: lru_ul
+                        HdlOp: OR
+                            list: ops
+                                HdlValueId: ll1_hit
+                                HdlOp: AND
+                                    list: ops
+                                        HdlOp: NEG
+                                            list: ops
+                                                HdlValueId: ll0_hit
+                                        HdlValueId: lru_ll
+                HdlValueId: set_read
+        tuple
+            HdlOp: AND_LOG
+                list: ops
+                    HdlValueId: tc_ack
+                    HdlOp: NEG_LOG
+                        list: ops
+                            HdlValueId: exception
+            HdlStmAssign
+                HdlOp: CONCAT
+                    list: ops
+                        HdlOp: CONCAT
+                            list: ops
+                                HdlOp: CONCAT
+                                    list: ops
+                                        HdlOp: OR
+                                            list: ops
+                                                HdlValueId: ul1_hit
+                                                HdlOp: AND
+                                                    list: ops
+                                                        HdlOp: NEG
+                                                            list: ops
+                                                                HdlValueId: ul0_hit
+                                                        HdlValueId: lru_ul
+                                        HdlOp: OR
+                                            list: ops
+                                                HdlValueId: ll1_hit
+                                                HdlOp: AND
+                                                    list: ops
+                                                        HdlOp: NEG
+                                                            list: ops
+                                                                HdlValueId: ll0_hit
+                                                        HdlValueId: lru_ll
+                                HdlOp: OR
+                                    list: ops
+                                        HdlValueId: ur1_hit
+                                        HdlOp: AND
+                                            list: ops
+                                                HdlOp: NEG
+                                                    list: ops
+                                                        HdlValueId: ur0_hit
+                                                HdlValueId: lru_ur
+                        HdlOp: OR
+                            list: ops
+                                HdlValueId: lr1_hit
+                                HdlOp: AND
+                                    list: ops
+                                        HdlOp: NEG
+                                            list: ops
+                                                HdlValueId: lr0_hit
+                                        HdlValueId: lru_lr
+                HdlValueId: set_read
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        DEL list@@body from SEQ
+    DEL HdlStmBlock@@SEQ from 
+
+
+CommitId: e85bb0065a2d9e05d344cc3c1301ad7dd49d34be
+Fixed blocking/ non-blocking problem which affected simulation.
+--- a/hdl/lucy_tc/de3d_tc_addr_in.v
++++ b/hdl/lucy_tc/de3d_tc_addr_in.v
+@@ -289,10 +289,10 @@ always @(posedge de_clk) begin
+ 			end
+     		default:
+ 			begin
+-				 ee_tag_adr_rd = ul_tag_adr_bpt[5:1];
+-				 oe_tag_adr_rd = ur_tag_adr_bpt[5:1];
+-				 eo_tag_adr_rd = ll_tag_adr_bpt[5:1];
+-				 oo_tag_adr_rd = lr_tag_adr_bpt[5:1];
++				 ee_tag_adr_rd <= ul_tag_adr_bpt[5:1];
++				 oe_tag_adr_rd <= ur_tag_adr_bpt[5:1];
++				 eo_tag_adr_rd <= ll_tag_adr_bpt[5:1];
++				 oo_tag_adr_rd <= lr_tag_adr_bpt[5:1];
+ 			end
+   		endcase
+ 	end
+
+ParseResult:
+INS HdlStmAssign@@ to body
+
+INS HdlStmAssign@@ to body
+
+INS HdlStmAssign@@ to body
+
+INS HdlStmAssign@@ to body
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'CONCAT',  'ops': [{'__class__': 'HdlOp',           'fn': 'CONCAT',           'ops': [{'__class__': 'HdlOp',                    'fn': 'INDEX',                    'ops': ['ul_tag_adr_bpt',                            {'__class__': 'HdlValueInt',                             'base': 10,                             'val': '0'}]},                   {'__class__': 'HdlOp',                    'fn': 'INDEX',                    'ops': ['ul_tag_adr_rd',                            {'__class__': 'HdlValueInt',                             'base': 10,                             'val': '0'}]}]},          {'__class__': 'HdlOp',           'fn': 'INDEX',           'ops': ['ur_tag_adr_bpt',                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'CONCAT',  'ops': [{'__class__': 'HdlOp',           'fn': 'CONCAT',           'ops': [{'__class__': 'HdlOp',                    'fn': 'INDEX',                    'ops': ['ul_tag_adr_bpt',                            {'__class__': 'HdlValueInt',                             'base': 10,                             'val': '0'}]},                   {'__class__': 'HdlOp',                    'fn': 'INDEX',                    'ops': ['ul_tag_adr_rd',                            {'__class__': 'HdlValueInt',                             'base': 10,                             'val': '0'}]}]},          {'__class__': 'HdlOp',           'fn': 'INDEX',           'ops': ['ur_tag_adr_bpt',                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD HdlOp@@ASSIGN to ASSIGN
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: ul_tag_adr_bpt
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 5
+                            HdlValueInt: 1
+            DEL HdlValueId@@ee_tag_adr_rd from ops
+            DEL list@@ops from ASSIGN
+        UPD HdlOp@@ASSIGN to ASSIGN
+            UPD HdlValueId@@oe_tag_adr_rd to ee_tag_adr_rd
+            MOV HdlValueId@@oe_tag_adr_rd to ops
+            HdlValueId: oe_tag_adr_rd
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: ur_tag_adr_bpt
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 5
+                            HdlValueInt: 1
+            DEL list@@ops from ASSIGN
+        UPD HdlOp@@ASSIGN to ASSIGN
+            UPD HdlValueId@@eo_tag_adr_rd to oe_tag_adr_rd
+            MOV HdlValueId@@eo_tag_adr_rd to ops
+            HdlValueId: eo_tag_adr_rd
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: ll_tag_adr_bpt
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 5
+                            HdlValueInt: 1
+            DEL list@@ops from ASSIGN
+        UPD HdlOp@@ASSIGN to ASSIGN
+            UPD HdlValueId@@oo_tag_adr_rd to eo_tag_adr_rd
+            MOV HdlValueId@@oo_tag_adr_rd to ops
+            HdlValueId: oo_tag_adr_rd
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: lr_tag_adr_bpt
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 5
+                            HdlValueInt: 1
+            DEL list@@ops from ASSIGN
+        DEL HdlOp@@ASSIGN from body
+        DEL HdlOp@@ASSIGN from body
+        DEL HdlOp@@ASSIGN from body
+        DEL HdlOp@@ASSIGN from body
+
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@oo_tag_adr_rd to 
+
+

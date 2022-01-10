@@ -1,0 +1,28 @@
+c0a559a9b12865efad788afc73be943bb3e15db2
+daq1: Fix some typos in the SPI wrapper
+diff --git a/projects/daq1/common/daq1_spi.v b/projects/daq1/common/daq1_spi.v
+index e699f37d..9ad1b84c 100644
+--- a/projects/daq1/common/daq1_spi.v
++++ b/projects/daq1/common/daq1_spi.v
+@@ -79,8 +79,8 @@ module daq1_spi (
+ 
+   assign spi_enable_s = spi_enable & ~spi_csn;
+ 
+-  always @(posedge spi_clk or posedge spi_csn_s) begin
+-    if (spi_csn_s == 1'b1) begin
++  always @(posedge spi_clk or posedge spi_csn) begin
++    if (spi_csn == 1'b1) begin
+       spi_count <= 6'b0000000;
+       spi_rd_wr_n <= 1'b0;
+       spi_device_addr <= 8'b00000000;
+@@ -95,8 +95,8 @@ module daq1_spi (
+     end
+   end
+ 
+-  always @(negedge spi_clk or posedge spi_csn_s) begin
+-    if (spi_csn_s == 1'b1) begin
++  always @(negedge spi_clk or posedge spi_csn) begin
++    if (spi_csn == 1'b1) begin
+       spi_enable <= 1'b0;
+     end else begin
+       if (((spi_device_addr == SPI_SEL_AD9684) && (spi_count == 6'd24)) ||

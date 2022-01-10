@@ -1,0 +1,15 @@
+4832bc1a0c8b44fe2e9c3d177c3883b38173a43d
+axi_dacfifo: Fix port width at axi_dacfifo_wr
+diff --git a/library/xilinx/axi_dacfifo/axi_dacfifo_wr.v b/library/xilinx/axi_dacfifo/axi_dacfifo_wr.v
+index 30a1b43b..e67ea50b 100644
+--- a/library/xilinx/axi_dacfifo/axi_dacfifo_wr.v
++++ b/library/xilinx/axi_dacfifo/axi_dacfifo_wr.v
+@@ -82,7 +82,7 @@ module axi_dacfifo_wr #(
+   output  reg [31:0]      axi_awaddr,
+   input                   axi_awready,
+   output                  axi_wvalid,
+-  output      [((AXI_DATA_WIDTH/8)-1):0]  axi_wdata,
++  output      [(AXI_DATA_WIDTH-1):0]      axi_wdata,
+   output      [((AXI_DATA_WIDTH/8)-1):0]  axi_wstrb,
+   output                  axi_wlast,
+   output      [ 3:0]      axi_wuser,

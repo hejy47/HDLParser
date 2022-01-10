@@ -1,0 +1,15 @@
+1b5fa9f1ebf0a9520ef6ea6faf1f1a2397a349c1
+[verible/style] This corrects several style linter warnings/errors
+diff --git a/hw/ip/prim/rtl/prim_sram_arbiter.sv b/hw/ip/prim/rtl/prim_sram_arbiter.sv
+index 1dac50d21..7aaa9e342 100644
+--- a/hw/ip/prim/rtl/prim_sram_arbiter.sv
++++ b/hw/ip/prim/rtl/prim_sram_arbiter.sv
+@@ -42,7 +42,7 @@ module prim_sram_arbiter #(
+     logic [SramDw-1:0] wdata;
+   } req_t;
+ 
+-  localparam ARB_DW = $bits(req_t);
++  localparam int ARB_DW = $bits(req_t);
+ 
+   req_t req_packed [N];
+ 

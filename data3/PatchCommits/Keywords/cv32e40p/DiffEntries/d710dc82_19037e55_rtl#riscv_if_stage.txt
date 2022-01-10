@@ -1,0 +1,68 @@
+d710dc821b9e7beef0725052c99d152817934514
+Merge remote-tracking branch 'origin/fix_loadstall' into dbg_dev
+diff --git a/rtl/riscv_if_stage.sv b/rtl/riscv_if_stage.sv
+index 2e8c621..c436b31 100644
+--- a/rtl/riscv_if_stage.sv
++++ b/rtl/riscv_if_stage.sv
+@@ -30,9 +30,10 @@ import riscv_defines::*;
+ 
+ module riscv_if_stage
+ #(
+-  parameter N_HWLP      = 2,
+-  parameter RDATA_WIDTH = 32,
+-  parameter FPU         = 0
++  parameter N_HWLP          = 2,
++  parameter RDATA_WIDTH     = 32,
++  parameter FPU             = 0,
++  parameter DM_HaltAddress  = 32'h1A110800
+ )
+ (
+     input  logic        clk,
+@@ -72,6 +73,9 @@ module riscv_if_stage
+     input  logic        pc_set_i,              // set the program counter to a new value
+     input  logic [31:0] mepc_i,    // address used to restore PC when the interrupt/exception is served
+     input  logic [31:0] uepc_i,    // address used to restore PC when the interrupt/exception is served
++
++    input  logic [31:0] depc_i,    // address used to restore PC when the debug is served
++
+     input  logic  [2:0] pc_mux_i,              // sel for pc multiplexer
+     input  logic  [2:0] exc_pc_mux_i,          // selects ISR address
+     input  logic  [4:0] exc_vec_pc_mux_i,      // selects ISR address for vectorized interrupt lines
+@@ -85,10 +89,6 @@ module riscv_if_stage
+     input  logic [N_HWLP-1:0] [31:0] hwlp_end_i,            // hardware loop end addresses
+     input  logic [N_HWLP-1:0] [31:0] hwlp_cnt_i,            // hardware loop counters
+ 
+-    // from debug unit
+-    input  logic [31:0] dbg_jump_addr_i,
+-    input  logic        dbg_jump_req_i,
+-
+     // pipeline stall
+     input  logic        halt_if_i,
+     input  logic        id_ready_i,
+@@ -140,6 +140,7 @@ module riscv_if_stage
+     unique case (exc_pc_mux_i)
+       EXC_PC_EXCEPTION:                        exc_pc = { trap_base_addr, 8'h0 }; //1.10 all the exceptions go to base address
+       EXC_PC_IRQ:                              exc_pc = { trap_base_addr, 1'b0, exc_vec_pc_mux_i[4:0], 2'b0 };
++      EXC_PC_DBD:                              exc_pc = { DM_HaltAddress       };
+       default:;
+     endcase
+   end
+@@ -156,7 +157,7 @@ module riscv_if_stage
+       PC_EXCEPTION: fetch_addr_n = exc_pc;             // set PC to exception handler
+       PC_MRET:      fetch_addr_n = mepc_i; // PC is restored when returning from IRQ/exception
+       PC_URET:      fetch_addr_n = uepc_i; // PC is restored when returning from IRQ/exception
+-      PC_DBG_NPC:   fetch_addr_n = dbg_jump_addr_i;    // PC is taken from debug unit
++      PC_DRET:      fetch_addr_n = depc_i; //
+ 
+       default:;
+     endcase
+@@ -229,7 +230,8 @@ module riscv_if_stage
+         .busy_o            ( prefetch_busy               )
+        );
+ 
+-       assign hwlp_branch = 1'b0;
++       assign hwlp_branch  = 1'b0;
++       assign fetch_failed = 1'b0;
+ 
+     end
+   endgenerate

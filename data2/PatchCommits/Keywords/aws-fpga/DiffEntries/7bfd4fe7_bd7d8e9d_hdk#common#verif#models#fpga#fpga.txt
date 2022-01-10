@@ -1,0 +1,30 @@
+7bfd4fe7036ec4d8c38903ebd0d11246b7244e84
+Develop cl (#296)
+diff --git a/hdk/common/verif/models/fpga/fpga.sv b/hdk/common/verif/models/fpga/fpga.sv
+index 318e939..227e6e1 100644
+--- a/hdk/common/verif/models/fpga/fpga.sv
++++ b/hdk/common/verif/models/fpga/fpga.sv
+@@ -908,7 +908,6 @@ module fpga(
+               .M_A_CS_N(M_A_CS_N),
+               .M_A_CLK_DN(M_A_CLK_DN),
+               .M_A_CLK_DP(M_A_CLK_DP),
+-              .RST_DIMM_A_N(RST_DIMM_A_N),
+               .M_A_PAR(M_A_PAR),
+               .M_A_DQ(M_A_DQ),
+               .M_A_ECC(M_A_ECC),
+@@ -926,7 +925,6 @@ module fpga(
+               .M_B_CS_N(M_B_CS_N),
+               .M_B_CLK_DN(M_B_CLK_DN),
+               .M_B_CLK_DP(M_B_CLK_DP),
+-              .RST_DIMM_B_N(RST_DIMM_B_N),
+               .M_B_PAR(M_B_PAR),
+               .M_B_DQ(M_B_DQ),
+               .M_B_ECC(M_B_ECC),
+@@ -944,7 +942,6 @@ module fpga(
+               .M_D_CS_N(M_D_CS_N),
+               .M_D_CLK_DN(M_D_CLK_DN),
+               .M_D_CLK_DP(M_D_CLK_DP),
+-              .RST_DIMM_D_N(RST_DIMM_D_N),
+               .M_D_PAR(M_D_PAR),
+               .M_D_DQ(M_D_DQ),
+               .M_D_ECC(M_D_ECC),

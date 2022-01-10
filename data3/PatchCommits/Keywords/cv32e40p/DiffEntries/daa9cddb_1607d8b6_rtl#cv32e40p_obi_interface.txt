@@ -1,0 +1,29 @@
+daa9cddb88ae068b40e04830a570c0ec277387ac
+Fixing various lint errors/warnings
+diff --git a/rtl/cv32e40p_obi_interface.sv b/rtl/cv32e40p_obi_interface.sv
+index 0c6c1ec..53cd68f 100644
+--- a/rtl/cv32e40p_obi_interface.sv
++++ b/rtl/cv32e40p_obi_interface.sv
+@@ -103,6 +103,9 @@ module cv32e40p_obi_interface
+ 
+     assign trans_ready_o = obi_gnt_i;
+ 
++    // FSM not used
++    assign state_q = TRANSPARENT;
++    assign next_state = TRANSPARENT;
+   end else begin
+ 
+     // OBI A channel registers (to keep A channel stable)
+@@ -146,12 +149,6 @@ module cv32e40p_obi_interface
+           end
+         end // case: REGISTERED
+ 
+-        // Default case. Should never get triggered.
+-        default:
+-        begin
+-          next_state = TRANSPARENT;
+-        end
+-
+       endcase
+     end
+ 

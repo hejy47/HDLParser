@@ -1,0 +1,20 @@
+eae1cabcdb2333e5f1037996a48504985e7813a7
+Merge pull request #115 from pulp-platform/fix_rdata_width_32
+diff --git a/rtl/riscv_cs_registers.sv b/rtl/riscv_cs_registers.sv
+index e7f72bb..1eaf2e8 100644
+--- a/rtl/riscv_cs_registers.sv
++++ b/rtl/riscv_cs_registers.sv
+@@ -831,10 +831,9 @@ end else begin //PULP_SECURE == 0
+       end //csr_restore_mret_i
+ 
+       csr_restore_dret_i: begin //DRET
+-        mstatus_n.mie  = mstatus_q.mpie;
+-        priv_lvl_n     = PRIV_LVL_M;
+-        mstatus_n.mpie = 1'b1;
+-        mstatus_n.mpp  = PRIV_LVL_M;
++        // restore to the recorded privilege level
++        // TODO: prevent illegal values, see riscv-debug p.44
++        priv_lvl_n = dcsr_q.prv;
+       end //csr_restore_dret_i
+ 
+       default:;

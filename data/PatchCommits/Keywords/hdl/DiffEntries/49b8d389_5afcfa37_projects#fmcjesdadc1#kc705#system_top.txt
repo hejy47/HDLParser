@@ -1,0 +1,15 @@
+49b8d389f60702f8dcdbcf7ca43b2f2a11671a13
+fmcjesdadc1: Kc705, fixed system top,SPI
+diff --git a/projects/fmcjesdadc1/kc705/system_top.v b/projects/fmcjesdadc1/kc705/system_top.v
+index 098838d1..b57f7e45 100644
+--- a/projects/fmcjesdadc1/kc705/system_top.v
++++ b/projects/fmcjesdadc1/kc705/system_top.v
+@@ -202,7 +202,7 @@ module system_top (
+   assign ddr3_1_n = 3'b000;
+   assign fan_pwm = 1'b1;
+   assign iic_rstn = 1'b1;
+-  assign spi_csn_0 = spi_csn;
++  assign spi_csn_0 = spi_csn[0];
+ 
+   // pack & unpack here
+ 

@@ -1,0 +1,25 @@
+9be96bdac300884d187bdae7f409cea9c7b6e84a
+Fix for #384
+diff --git a/rtl/cv32e40p_compressed_decoder.sv b/rtl/cv32e40p_compressed_decoder.sv
+index 466fb6d..2bd5ba9 100644
+--- a/rtl/cv32e40p_compressed_decoder.sv
++++ b/rtl/cv32e40p_compressed_decoder.sv
+@@ -24,9 +24,6 @@
+ //                                                                            //
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-
+-import cv32e40p_defines::*;
+-
+ module cv32e40p_compressed_decoder
+ #(
+   parameter FPU = 0
+@@ -38,6 +35,8 @@ module cv32e40p_compressed_decoder
+   output logic        illegal_instr_o
+ );
+ 
++  import cv32e40p_pkg::*;
++
+   //////////////////////////////////////////////////////////////////////////////////////////////////////
+   //   ____                                                 _   ____                     _            //
+   //  / ___|___  _ __ ___  _ __  _ __ ___  ___ ___  ___  __| | |  _ \  ___  ___ ___   __| | ___ _ __  //

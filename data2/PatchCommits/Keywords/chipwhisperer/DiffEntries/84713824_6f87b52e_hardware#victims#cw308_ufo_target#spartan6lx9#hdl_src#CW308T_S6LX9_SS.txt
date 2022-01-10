@@ -1,0 +1,20 @@
+84713824f7e6f373b3b5d2e0b921b86bdaaca598
+HW: More LX9 fixes, move .UCF file, update schematic with -02 rev
+diff --git a/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v b/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
+index 75122dca..cea9ef5e 100644
+--- a/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
++++ b/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
+@@ -66,12 +66,11 @@ module CW308T_S6LX9_Example(
+    
+ 	
+ 	wire enc_busy;
+-	assign IO4 = ~enc_busy;
++	assign IO4 = enc_busy;
+ 	
+ 	/* To use this example AES core:
+ 		 - We need to generate our own flag indicating when output data is valid
+ 	*/
+-	
+ 	aes_core AESGoogleVault(
+ 		.clk(clk),
+ 		.load_i(load_input),

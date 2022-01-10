@@ -1,0 +1,44 @@
+d6f5c40e8bdc6bbaf072441357184816574c0927
+ad_edge_detect: Change port names
+diff --git a/library/common/ad_edge_detect.v b/library/common/ad_edge_detect.v
+index 12f5ae2c..ddbc7319 100644
+--- a/library/common/ad_edge_detect.v
++++ b/library/common/ad_edge_detect.v
+@@ -44,8 +44,8 @@ module ad_edge_detect #(
+   input                   clk,
+   input                   rst,
+ 
+-  input                   in,
+-  output  reg             out);
++  input                   signal_in,
++  output  reg             signal_out);
+ 
+ 
+   localparam  POS_EDGE = 0;
+@@ -60,21 +60,21 @@ module ad_edge_detect #(
+       ff_m1 <= 0;
+       ff_m2 <= 0;
+     end else begin
+-      ff_m1 <= in;
++      ff_m1 <= signal_in;
+       ff_m2 <= ff_m1;
+     end
+   end
+ 
+   always @(posedge clk) begin
+     if (rst == 1) begin
+-      out <= 1'b0;
++      signal_out <= 1'b0;
+     end else begin
+       if (EDGE == POS_EDGE) begin
+-        out <= ff_m1 & ~ff_m2;
++        signal_out <= ff_m1 & ~ff_m2;
+       end else if (EDGE == NEG_EDGE) begin
+-        out <= ~ff_m1 & ff_m2;
++        signal_out <= ~ff_m1 & ff_m2;
+       end else begin
+-        out <= ff_m1 ^ ff_m2;
++        signal_out <= ff_m1 ^ ff_m2;
+       end
+     end
+   end

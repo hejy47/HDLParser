@@ -1,0 +1,14 @@
+f69ec5db3c406db3c8167f01b73b05445123369f
+fixed error in MTIME.time high word incremenet
+diff --git a/rtl/core/neorv32_mtime.vhd b/rtl/core/neorv32_mtime.vhd
+index 180c795..27fc2b0 100644
+--- a/rtl/core/neorv32_mtime.vhd
++++ b/rtl/core/neorv32_mtime.vhd
+@@ -108,6 +108,7 @@ begin
+       else
+         -- mtime low --
+         mtime_lo <= std_ulogic_vector(unsigned(mtime_lo) + 1);
++        mtime_lo_msb_ff <= mtime_lo(mtime_lo'left);
+         -- mtime high --
+         if ((mtime_lo_msb_ff xor mtime_lo(mtime_lo'left)) = '1') then -- mtime_lo carry?
+           mtime_hi <= std_ulogic_vector(unsigned(mtime_hi) + 1);

@@ -1,0 +1,26 @@
+4fe515fd5f41eb82ff3738b9f85a3eb8ef1ef9f1
+Merge remote-tracking branch 'origin' into fix325
+diff --git a/rtl/riscv_tracer.sv b/rtl/riscv_tracer.sv
+index ba0a7d2..adcda95 100644
+--- a/rtl/riscv_tracer.sv
++++ b/rtl/riscv_tracer.sv
+@@ -40,8 +40,7 @@ module riscv_tracer (
+   input  logic        rst_n,
+ 
+   input  logic        fetch_enable,
+-  input  logic [3:0]  core_id,
+-  input  logic [5:0]  cluster_id,
++  input  logic [31:0] hart_id_i,
+ 
+   input  logic [31:0] pc,
+   input  logic [31:0] instr,
+@@ -767,7 +766,8 @@ module riscv_tracer (
+   initial
+   begin
+     wait(rst_n == 1'b1);
+-    $sformat(fn, "trace_core_%h_%h.log", cluster_id, core_id);
++    // hart_id_i[10:5] and hart_id_i[3:0] mean cluster_id and core_id in PULP
++    $sformat(fn, "trace_core_%h_%h.log", hart_id_i[10:5], hart_id_i[3:0]);
+     // $display("[TRACER] Output filename is: %s", fn);
+     f = $fopen(fn, "w");
+     $fwrite(f, "                Time          Cycles PC       Instr    Mnemonic\n");

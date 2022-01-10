@@ -1,0 +1,28 @@
+f8e779659222d3b0610620d1c0ea0f68861d6338
+axi_jesd_gt: Fix lane number parameters
+diff --git a/library/axi_jesd_gt/axi_jesd_gt.v b/library/axi_jesd_gt/axi_jesd_gt.v
+index b9016611..b83ab5d0 100644
+--- a/library/axi_jesd_gt/axi_jesd_gt.v
++++ b/library/axi_jesd_gt/axi_jesd_gt.v
+@@ -149,9 +149,8 @@ module axi_jesd_gt (
+ 
+   parameter   PCORE_ID = 0;
+   parameter   PCORE_DEVICE_TYPE = 0;
+-  parameter   PCORE_NUM_OF_LANES = 4;
+-  parameter   PCORE_NUM_OF_TX_LANES = PCORE_NUM_OF_LANES;
+-  parameter   PCORE_NUM_OF_RX_LANES = PCORE_NUM_OF_LANES;
++  parameter   PCORE_NUM_OF_TX_LANES = 4;
++  parameter   PCORE_NUM_OF_RX_LANES = 4;
+   parameter   PCORE_QPLL_REFCLK_DIV = 1;
+   parameter   PCORE_QPLL_CFG = 27'h0680181;
+   parameter   PCORE_QPLL_FBDIV_RATIO = 1'b1;
+@@ -174,6 +173,9 @@ module axi_jesd_gt (
+   parameter   PCORE_TX_LANE_SEL_8 = 8;
+   parameter   C_S_AXI_MIN_SIZE = 32'hffff;
+ 
++  localparam  PCORE_NUM_OF_LANES = (PCORE_NUM_OF_TX_LANES > PCORE_NUM_OF_RX_LANES) ?
++                                    PCORE_NUM_OF_TX_LANES : PCORE_NUM_OF_RX_LANES;
++
+   // physical interface
+ 
+   input                                         ref_clk_q;

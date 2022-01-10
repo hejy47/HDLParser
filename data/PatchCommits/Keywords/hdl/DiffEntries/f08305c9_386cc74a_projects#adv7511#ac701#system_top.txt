@@ -1,0 +1,15 @@
+f08305c97940d119da5aca71a59da617bfe0a293
+adv7511_ac701: Fix axi_ethernet core's port connections
+diff --git a/projects/adv7511/ac701/system_top.v b/projects/adv7511/ac701/system_top.v
+index 765aa86e..3efa5fc0 100644
+--- a/projects/adv7511/ac701/system_top.v
++++ b/projects/adv7511/ac701/system_top.v
+@@ -196,7 +196,7 @@ module system_top (
+     .mb_intr_13 (1'b0),
+     .mb_intr_14 (1'b0),
+     .mb_intr_15 (1'b0),
+-    .mdio_io (phy_mdio),
++    .mdio_mdio_io (phy_mdio),
+     .mdio_mdc (phy_mdc),
+     .phy_rst_n (phy_reset_n),
+     .rgmii_rd (phy_rx_data),

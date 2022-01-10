@@ -1,0 +1,15 @@
+871855c9ec0b8e27557b4e64e6b271d63888d4fd
+axi_logic_analyzer: Fix delayed trigger assertion condition
+diff --git a/library/axi_logic_analyzer/axi_logic_analyzer.v b/library/axi_logic_analyzer/axi_logic_analyzer.v
+index 1f921d53..d57c54a6 100644
+--- a/library/axi_logic_analyzer/axi_logic_analyzer.v
++++ b/library/axi_logic_analyzer/axi_logic_analyzer.v
+@@ -140,7 +140,7 @@ module axi_logic_analyzer (
+   assign up_rstn = s_axi_aresetn;
+ 
+   assign trigger_out = trigger_delay == 32'h0 ? trigger_out_s : trigger_out_delayed;
+-  assign trigger_out_delayed = trigger_delay == 32'h0 ? 1: 0;
++  assign trigger_out_delayed = delay_counter == 32'h0 ? 1 : 0;
+ 
+   generate
+   for (i = 0 ; i < 16; i = i + 1) begin

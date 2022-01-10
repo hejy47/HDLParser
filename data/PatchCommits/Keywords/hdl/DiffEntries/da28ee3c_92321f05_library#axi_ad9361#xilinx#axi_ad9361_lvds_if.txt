@@ -1,0 +1,15 @@
+da28ee3cce4f5b15e2faddd25c42efbb495894cf
+axi_ad9361: xilinx LVDS interface: Restore previous feedback clock polarity
+diff --git a/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v b/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v
+index 8f50a42a..b3a54eaa 100644
+--- a/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v
++++ b/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v
+@@ -366,7 +366,7 @@ module axi_ad9361_lvds_if #(
+   end
+ 
+   always @(posedge clk) begin
+-    tx_clk_p <= {dac_clksel, ~dac_clksel};
++    tx_clk_p <= {~dac_clksel, dac_clksel};
+   end
+ 
+   always @(posedge clk) begin

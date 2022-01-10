@@ -1,0 +1,10 @@
+,insert,update,move,delete
+HdlOp-FunctionCall-HdlStmAssign,4.0,4.0,,
+HdlOp-MemberAccessing-HdlStmAssign,1.0,1.0,,
+HdlOp-MemberAccessing-HdlOp-InfixExpression,1.0,,,
+HdlDirection-HdlIdDef,,2.0,,
+HdlOp-TERNARY-HdlStmAssign,,1.0,,
+HdlOp-MemberAccessing-HdlOp-TERNARY,,3.0,1.0,1.0
+HdlOp-DOWNTO-HdlOp-MemberAccessing,,1.0,,
+HdlOp-InfixExpression-HdlStmAssign,,1.0,4.0,
+HdlOp-MemberAccessing-HdlOp-MemberAccessing,,,2.0,1.0

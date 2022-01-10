@@ -1,0 +1,14 @@
+70151fe5370f2b454b8ba53ba699d7bd1345b8d9
+[keymgr] Add otbn sideload and expand to 384-bit sideload key support
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
+index 78a06e9ec..e2dfd1837 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
+@@ -731,6 +731,7 @@ module chip_earlgrey_nexysvideo #(
+   top_earlgrey #(
+     .AesMasking(1'b0),
+     .AesSBoxImpl(aes_pkg::SBoxImplLut),
++    .KmacEnMasking(0),
+     .SecAesStartTriggerDelay(0),
+     .SecAesAllowForcingMasks(1'b0),
+     .SecAesSkipPRNGReseeding(1'b0),

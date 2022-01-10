@@ -1,0 +1,21 @@
+2777249b654e83506b22c1ac24a5e8f753ed83f3
+[rtl/core] reworked reset system
+diff --git a/rtl/core/neorv32_cpu_cp_bitmanip.vhd b/rtl/core/neorv32_cpu_cp_bitmanip.vhd
+index 8c5d3e5..0b8df6d 100644
+--- a/rtl/core/neorv32_cpu_cp_bitmanip.vhd
++++ b/rtl/core/neorv32_cpu_cp_bitmanip.vhd
+@@ -181,10 +181,10 @@ begin
+   begin
+     if (rstn_i = '0') then
+       ctrl_state    <= S_IDLE;
+-      cmd_buf       <= (others => '0');
+-      rs1_reg       <= (others => '0');
+-      rs2_reg       <= (others => '0');
+-      less_ff       <= '0';
++      cmd_buf       <= (others => def_rst_val_c);
++      rs1_reg       <= (others => def_rst_val_c);
++      rs2_reg       <= (others => def_rst_val_c);
++      less_ff       <= def_rst_val_c;
+       shifter.start <= '0';
+       valid         <= '0';
+     elsif rising_edge(clk_i) then

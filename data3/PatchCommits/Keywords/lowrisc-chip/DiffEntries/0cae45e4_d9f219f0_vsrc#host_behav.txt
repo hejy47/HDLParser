@@ -1,0 +1,17 @@
+0cae45e44b5030490efc89f0efa52a300cdb693c
+pass verilator and now able to start debug
+diff --git a/vsrc/host_behav.sv b/vsrc/host_behav.sv
+index 997d3d0..f87d9e0 100644
+--- a/vsrc/host_behav.sv
++++ b/vsrc/host_behav.sv
+@@ -7,8 +7,8 @@ module host_behav
+     input logic           req_valid, resp_ready,
+     output logic          req_ready,
+     output reg            resp_valid,
+-    input logic [IDW-1:0] req_id,
+-    output reg [IDW-1:0]  resp_id,
++    input logic [$clog2(nCores)-1:0] req_id,
++    output reg [$clog2(nCores)-1:0]  resp_id,
+     input logic [63:0]    req,
+     output reg [63:0]     resp
+     );

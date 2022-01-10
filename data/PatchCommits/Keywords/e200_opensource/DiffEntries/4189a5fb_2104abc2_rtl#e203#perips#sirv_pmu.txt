@@ -1,0 +1,15 @@
+4189a5fb718f50892f19e77a535ddde82338e2cb
+fixed a minor typo
+diff --git a/rtl/e203/perips/sirv_pmu.v b/rtl/e203/perips/sirv_pmu.v
+index d56f1bb..0733733 100644
+--- a/rtl/e203/perips/sirv_pmu.v
++++ b/rtl/e203/perips/sirv_pmu.v
+@@ -541,7 +541,7 @@ module sirv_pmu(
+   always @(posedge clock or posedge reset) begin
+     if(reset) begin
+       T_355 <= 1'b1;
+-      T_356 <= T_355;
++      T_356 <= 1'b1;
+     end
+     else begin
+       T_355 <= 1'b0;

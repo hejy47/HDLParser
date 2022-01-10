@@ -1,0 +1,3278 @@
+CommitId: c91e061f6b85ab1652723999ed7f9b296adc2d6a
+fixed q_nonce initialization
+--- a/projects/VHDL_StratixIV_OrphanedGland/top/rtl/top.vhd
++++ b/projects/VHDL_StratixIV_OrphanedGland/top/rtl/top.vhd
+@@ -220,14 +220,14 @@ begin
+ 
+   end generate sha256_gen;
+     
+-  registers: process(clk, reset, q_nonce(0))
++  registers: process(clk, reset)
+   begin
+     if reset = '1' then
+       q_data_in                 <= (others => '0');
+       q_h_in                    <= (others => '0');
+       q_nonce(0)                <= (others => '0');
+       for i in NUM_CORES-1 downto 1 loop
+-        q_nonce(i)              <= q_nonce(0) + i;
++        q_nonce(i)              <= i;
+       end loop;
+       q_golden_nonce            <= (others => '0');
+     elsif rising_edge(clk) then
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@ADD to ADD
+        MOV HdlValueId@@i to ops
+        HdlValueId: i
+        DEL HdlOp@@INDEX from ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: q_nonce
+        DEL list@@ops from ADD
+    DEL HdlOp@@ADD from 
+
+UPD HdlStmProcess@@ to 
+    DEL HdlOp@@INDEX from sensitivity
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: q_nonce
+
+
+CommitId: 6bbcbdf2e378490bf7f730b472a3619429eeab07
+fixing q_nonce initialization
+--- a/projects/VHDL_StratixIV_OrphanedGland/top/rtl/top.vhd
++++ b/projects/VHDL_StratixIV_OrphanedGland/top/rtl/top.vhd
+@@ -227,7 +227,7 @@ begin
+       q_h_in                    <= (others => '0');
+       q_nonce(0)                <= (others => '0');
+       for i in NUM_CORES-1 downto 1 loop
+-        q_nonce(i)              <= i;
++        q_nonce(i)              <= to_unsigned(i,q_nonce(i)'length);
+       end loop;
+       q_golden_nonce            <= (others => '0');
+     elsif rising_edge(clk) then
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@INDEX to 
+    UPD HdlOp@@INDEX to INDEX
+        INS list@@ops to INDEX
+        INS HdlValueId@@to_unsigned to ops
+        INS HdlOp@@APOSTROPHE to ops
+        HdlOp: APOSTROPHE
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: q_nonce
+                        HdlValueId: i
+                HdlValueId: length
+
+UPD HdlStmAssign@@ to 
+    MOV HdlValueId@@i to 
+    HdlValueId: i
+
+
+CommitId: 6b617a449b981cec4e0f867878de800a72df4322
+Yet another fix for loop rolling code.
+--- a/src/sha256_transform.v
++++ b/src/sha256_transform.v
+@@ -89,14 +89,14 @@ module sha256_transform #(
+ 
+ 	always @ (posedge clk)
+ 	begin
+-		tx_hash[`IDX(0)] <= rx_state[`IDX(0)] + HASHERS[64/LOOP-6'd1].state[`IDX(0)];
+-		tx_hash[`IDX(1)] <= rx_state[`IDX(1)] + HASHERS[64/LOOP-6'd1].state[`IDX(1)];
+-		tx_hash[`IDX(2)] <= rx_state[`IDX(2)] + HASHERS[64/LOOP-6'd1].state[`IDX(2)];
+-		tx_hash[`IDX(3)] <= rx_state[`IDX(3)] + HASHERS[64/LOOP-6'd1].state[`IDX(3)];
+-		tx_hash[`IDX(4)] <= rx_state[`IDX(4)] + HASHERS[64/LOOP-6'd1].state[`IDX(4)];
+-		tx_hash[`IDX(5)] <= rx_state[`IDX(5)] + HASHERS[64/LOOP-6'd1].state[`IDX(5)];
+-		tx_hash[`IDX(6)] <= rx_state[`IDX(6)] + HASHERS[64/LOOP-6'd1].state[`IDX(6)];
+-		tx_hash[`IDX(7)] <= rx_state[`IDX(7)] + HASHERS[64/LOOP-6'd1].state[`IDX(7)];
++		tx_hash[`IDX(0)] <= feedback ? tx_hash[`IDX(0)] : (rx_state[`IDX(0)] + HASHERS[64/LOOP-6'd1].state[`IDX(0)]);
++		tx_hash[`IDX(1)] <= feedback ? tx_hash[`IDX(1)] : (rx_state[`IDX(1)] + HASHERS[64/LOOP-6'd1].state[`IDX(1)]);
++		tx_hash[`IDX(2)] <= feedback ? tx_hash[`IDX(2)] : (rx_state[`IDX(2)] + HASHERS[64/LOOP-6'd1].state[`IDX(2)]);
++		tx_hash[`IDX(3)] <= feedback ? tx_hash[`IDX(3)] : (rx_state[`IDX(3)] + HASHERS[64/LOOP-6'd1].state[`IDX(3)]);
++		tx_hash[`IDX(4)] <= feedback ? tx_hash[`IDX(4)] : (rx_state[`IDX(4)] + HASHERS[64/LOOP-6'd1].state[`IDX(4)]);
++		tx_hash[`IDX(5)] <= feedback ? tx_hash[`IDX(5)] : (rx_state[`IDX(5)] + HASHERS[64/LOOP-6'd1].state[`IDX(5)]);
++		tx_hash[`IDX(6)] <= feedback ? tx_hash[`IDX(6)] : (rx_state[`IDX(6)] + HASHERS[64/LOOP-6'd1].state[`IDX(6)]);
++		tx_hash[`IDX(7)] <= feedback ? tx_hash[`IDX(7)] : (rx_state[`IDX(7)] + HASHERS[64/LOOP-6'd1].state[`IDX(7)]);
+ 	end
+ 
+ 
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 0
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 0
+                            HdlValueInt: 32
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlValueId@@feedback to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 1
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 1
+                            HdlValueInt: 32
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlValueId@@feedback to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 2
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 2
+                            HdlValueInt: 32
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlValueId@@feedback to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 3
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 3
+                            HdlValueInt: 32
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlValueId@@feedback to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 4
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 4
+                            HdlValueInt: 32
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlValueId@@feedback to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 5
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 5
+                            HdlValueInt: 32
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlValueId@@feedback to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@TERNARY to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 6
+                            HdlValueInt: 32
+    UPD HdlOp@@TERNARY to TERNARY
+        INS list@@ops to TERNARY
+        INS HdlValueId@@feedback to ops
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 0
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 0
+                            HdlValueInt: 32
+    MOV HdlOp@@ADD to 
+    HdlOp: ADD
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: rx_state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 0
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 0
+                                    HdlValueInt: 32
+            HdlOp: INDEX
+                list: ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: HASHERS
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlOp: DIV
+                                                list: ops
+                                                    HdlValueInt: 64
+                                                    HdlValueId: LOOP
+                                            HdlValueInt: 1
+                            HdlValueId: state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 0
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 0
+                                    HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 1
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 1
+                            HdlValueInt: 32
+    MOV HdlOp@@ADD to 
+    HdlOp: ADD
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: rx_state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 1
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 1
+                                    HdlValueInt: 32
+            HdlOp: INDEX
+                list: ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: HASHERS
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlOp: DIV
+                                                list: ops
+                                                    HdlValueInt: 64
+                                                    HdlValueId: LOOP
+                                            HdlValueInt: 1
+                            HdlValueId: state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 1
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 1
+                                    HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 2
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 2
+                            HdlValueInt: 32
+    MOV HdlOp@@ADD to 
+    HdlOp: ADD
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: rx_state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 2
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 2
+                                    HdlValueInt: 32
+            HdlOp: INDEX
+                list: ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: HASHERS
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlOp: DIV
+                                                list: ops
+                                                    HdlValueInt: 64
+                                                    HdlValueId: LOOP
+                                            HdlValueInt: 1
+                            HdlValueId: state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 2
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 2
+                                    HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 3
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 3
+                            HdlValueInt: 32
+    MOV HdlOp@@ADD to 
+    HdlOp: ADD
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: rx_state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 3
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 3
+                                    HdlValueInt: 32
+            HdlOp: INDEX
+                list: ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: HASHERS
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlOp: DIV
+                                                list: ops
+                                                    HdlValueInt: 64
+                                                    HdlValueId: LOOP
+                                            HdlValueInt: 1
+                            HdlValueId: state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 3
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 3
+                                    HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 4
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 4
+                            HdlValueInt: 32
+    MOV HdlOp@@ADD to 
+    HdlOp: ADD
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: rx_state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 4
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 4
+                                    HdlValueInt: 32
+            HdlOp: INDEX
+                list: ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: HASHERS
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlOp: DIV
+                                                list: ops
+                                                    HdlValueInt: 64
+                                                    HdlValueId: LOOP
+                                            HdlValueInt: 1
+                            HdlValueId: state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 4
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 4
+                                    HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 5
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 5
+                            HdlValueInt: 32
+    MOV HdlOp@@ADD to 
+    HdlOp: ADD
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: rx_state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 5
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 5
+                                    HdlValueInt: 32
+            HdlOp: INDEX
+                list: ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: HASHERS
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlOp: DIV
+                                                list: ops
+                                                    HdlValueInt: 64
+                                                    HdlValueId: LOOP
+                                            HdlValueInt: 1
+                            HdlValueId: state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 5
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 5
+                                    HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 6
+                            HdlValueInt: 32
+    MOV HdlOp@@ADD to 
+    HdlOp: ADD
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: rx_state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 6
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 6
+                                    HdlValueInt: 32
+            HdlOp: INDEX
+                list: ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: HASHERS
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlOp: DIV
+                                                list: ops
+                                                    HdlValueInt: 64
+                                                    HdlValueId: LOOP
+                                            HdlValueInt: 1
+                            HdlValueId: state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 6
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 6
+                                    HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 7
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 7
+                            HdlValueInt: 32
+    MOV HdlOp@@ADD to 
+    HdlOp: ADD
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: rx_state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 7
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 7
+                                    HdlValueInt: 32
+            HdlOp: INDEX
+                list: ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: HASHERS
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlOp: DIV
+                                                list: ops
+                                                    HdlValueInt: 64
+                                                    HdlValueId: LOOP
+                                            HdlValueInt: 1
+                            HdlValueId: state
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlOp: SUB
+                                list: ops
+                                    HdlOp: MUL
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlValueInt: 7
+                                                    HdlValueInt: 1
+                                            HdlValueInt: 32
+                                    HdlValueInt: 1
+                            HdlOp: MUL
+                                list: ops
+                                    HdlValueInt: 7
+                                    HdlValueInt: 32
+
+
+CommitId: 27c05db8e0794568262e57c6ca231146fcef1689
+Patched checksum calculation for multi-FPGA device chains in jtag_comm.v
+--- a/projects/X6000_ztex_comm4/hdl/jtag_comm.v
++++ b/projects/X6000_ztex_comm4/hdl/jtag_comm.v
+@@ -199,7 +199,7 @@ module jtag_comm # (
+ 		else if (jt_shift & jt_sel)
+ 		begin
+ 			dr <= {jt_tdi, dr[37:1]};
+-			checksum <= checksum ^ jt_tdi;
++			checksum <= 1'b1^jt_tdi^dr[37]^dr[36]^dr[35]^dr[34]^dr[33]^dr[32]^dr[31]^dr[30]^dr[29]^dr[28]^dr[27]^dr[26]^dr[25]^dr[24]^dr[23]^dr[22]^dr[21]^dr[20]^dr[19]^dr[18]^dr[17]^dr[16]^dr[15]^dr[14]^dr[13]^dr[12]^dr[11]^dr[10]^dr[9]^dr[8]^dr[7]^dr[6]^dr[5]^dr[4]^dr[3]^dr[2]^dr[1];
+ 		end
+ 		else if (jt_update & checksum_valid & jt_sel)
+ 		begin
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@XOR to 
+    UPD HdlOp@@XOR to XOR
+        INS list@@ops to XOR
+        INS HdlOp@@XOR to ops
+        INS HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: dr
+                HdlValueInt: 1
+        UPD HdlOp@@XOR to XOR
+            INS list@@ops to XOR
+            INS HdlOp@@XOR to ops
+            INS HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dr
+                    HdlValueInt: 2
+            UPD HdlOp@@XOR to XOR
+                INS list@@ops to XOR
+                INS HdlOp@@XOR to ops
+                INS HdlOp@@INDEX to ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: dr
+                        HdlValueInt: 3
+                UPD HdlOp@@XOR to XOR
+                    INS list@@ops to XOR
+                    INS HdlOp@@XOR to ops
+                    INS HdlOp@@INDEX to ops
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: dr
+                            HdlValueInt: 4
+                    UPD HdlOp@@XOR to XOR
+                        INS list@@ops to XOR
+                        INS HdlOp@@XOR to ops
+                        INS HdlOp@@INDEX to ops
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: dr
+                                HdlValueInt: 5
+                        UPD HdlOp@@XOR to XOR
+                            INS list@@ops to XOR
+                            INS HdlOp@@XOR to ops
+                            INS HdlOp@@INDEX to ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: dr
+                                    HdlValueInt: 6
+                            UPD HdlOp@@XOR to XOR
+                                INS list@@ops to XOR
+                                INS HdlOp@@XOR to ops
+                                INS HdlOp@@INDEX to ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: dr
+                                        HdlValueInt: 7
+                                UPD HdlOp@@XOR to XOR
+                                    INS list@@ops to XOR
+                                    INS HdlOp@@XOR to ops
+                                    INS HdlOp@@INDEX to ops
+                                    HdlOp: INDEX
+                                        list: ops
+                                            HdlValueId: dr
+                                            HdlValueInt: 8
+                                    UPD HdlOp@@XOR to XOR
+                                        INS list@@ops to XOR
+                                        INS HdlOp@@XOR to ops
+                                        INS HdlOp@@INDEX to ops
+                                        HdlOp: INDEX
+                                            list: ops
+                                                HdlValueId: dr
+                                                HdlValueInt: 9
+                                        UPD HdlOp@@XOR to XOR
+                                            INS list@@ops to XOR
+                                            INS HdlOp@@XOR to ops
+                                            INS HdlOp@@INDEX to ops
+                                            HdlOp: INDEX
+                                                list: ops
+                                                    HdlValueId: dr
+                                                    HdlValueInt: 10
+                                            UPD HdlOp@@XOR to XOR
+                                                INS list@@ops to XOR
+                                                INS HdlOp@@XOR to ops
+                                                INS HdlOp@@INDEX to ops
+                                                HdlOp: INDEX
+                                                    list: ops
+                                                        HdlValueId: dr
+                                                        HdlValueInt: 11
+                                                UPD HdlOp@@XOR to XOR
+                                                    INS list@@ops to XOR
+                                                    INS HdlOp@@XOR to ops
+                                                    INS HdlOp@@INDEX to ops
+                                                    HdlOp: INDEX
+                                                        list: ops
+                                                            HdlValueId: dr
+                                                            HdlValueInt: 12
+                                                    UPD HdlOp@@XOR to XOR
+                                                        INS list@@ops to XOR
+                                                        INS HdlOp@@XOR to ops
+                                                        INS HdlOp@@INDEX to ops
+                                                        HdlOp: INDEX
+                                                            list: ops
+                                                                HdlValueId: dr
+                                                                HdlValueInt: 13
+                                                        UPD HdlOp@@XOR to XOR
+                                                            INS list@@ops to XOR
+                                                            INS HdlOp@@XOR to ops
+                                                            INS HdlOp@@INDEX to ops
+                                                            HdlOp: INDEX
+                                                                list: ops
+                                                                    HdlValueId: dr
+                                                                    HdlValueInt: 14
+                                                            UPD HdlOp@@XOR to XOR
+                                                                INS list@@ops to XOR
+                                                                INS HdlOp@@XOR to ops
+                                                                INS HdlOp@@INDEX to ops
+                                                                HdlOp: INDEX
+                                                                    list: ops
+                                                                        HdlValueId: dr
+                                                                        HdlValueInt: 15
+                                                                UPD HdlOp@@XOR to XOR
+                                                                    INS list@@ops to XOR
+                                                                    INS HdlOp@@XOR to ops
+                                                                    INS HdlOp@@INDEX to ops
+                                                                    HdlOp: INDEX
+                                                                        list: ops
+                                                                            HdlValueId: dr
+                                                                            HdlValueInt: 16
+                                                                    UPD HdlOp@@XOR to XOR
+                                                                        INS list@@ops to XOR
+                                                                        INS HdlOp@@XOR to ops
+                                                                        INS HdlOp@@INDEX to ops
+                                                                        HdlOp: INDEX
+                                                                            list: ops
+                                                                                HdlValueId: dr
+                                                                                HdlValueInt: 17
+                                                                        UPD HdlOp@@XOR to XOR
+                                                                            INS list@@ops to XOR
+                                                                            INS HdlOp@@XOR to ops
+                                                                            INS HdlOp@@INDEX to ops
+                                                                            HdlOp: INDEX
+                                                                                list: ops
+                                                                                    HdlValueId: dr
+                                                                                    HdlValueInt: 18
+                                                                            UPD HdlOp@@XOR to XOR
+                                                                                INS list@@ops to XOR
+                                                                                INS HdlOp@@XOR to ops
+                                                                                INS HdlOp@@INDEX to ops
+                                                                                HdlOp: INDEX
+                                                                                    list: ops
+                                                                                        HdlValueId: dr
+                                                                                        HdlValueInt: 19
+                                                                                UPD HdlOp@@XOR to XOR
+                                                                                    INS list@@ops to XOR
+                                                                                    INS HdlOp@@XOR to ops
+                                                                                    INS HdlOp@@INDEX to ops
+                                                                                    HdlOp: INDEX
+                                                                                        list: ops
+                                                                                            HdlValueId: dr
+                                                                                            HdlValueInt: 20
+                                                                                    UPD HdlOp@@XOR to XOR
+                                                                                        INS list@@ops to XOR
+                                                                                        INS HdlOp@@XOR to ops
+                                                                                        INS HdlOp@@INDEX to ops
+                                                                                        HdlOp: INDEX
+                                                                                            list: ops
+                                                                                                HdlValueId: dr
+                                                                                                HdlValueInt: 21
+                                                                                        UPD HdlOp@@XOR to XOR
+                                                                                            INS list@@ops to XOR
+                                                                                            INS HdlOp@@XOR to ops
+                                                                                            INS HdlOp@@INDEX to ops
+                                                                                            HdlOp: INDEX
+                                                                                                list: ops
+                                                                                                    HdlValueId: dr
+                                                                                                    HdlValueInt: 22
+                                                                                            UPD HdlOp@@XOR to XOR
+                                                                                                INS list@@ops to XOR
+                                                                                                INS HdlOp@@XOR to ops
+                                                                                                INS HdlOp@@INDEX to ops
+                                                                                                HdlOp: INDEX
+                                                                                                    list: ops
+                                                                                                        HdlValueId: dr
+                                                                                                        HdlValueInt: 23
+                                                                                                UPD HdlOp@@XOR to XOR
+                                                                                                    INS list@@ops to XOR
+                                                                                                    INS HdlOp@@XOR to ops
+                                                                                                    INS HdlOp@@INDEX to ops
+                                                                                                    HdlOp: INDEX
+                                                                                                        list: ops
+                                                                                                            HdlValueId: dr
+                                                                                                            HdlValueInt: 24
+                                                                                                    UPD HdlOp@@XOR to XOR
+                                                                                                        INS list@@ops to XOR
+                                                                                                        INS HdlOp@@XOR to ops
+                                                                                                        INS HdlOp@@INDEX to ops
+                                                                                                        HdlOp: INDEX
+                                                                                                            list: ops
+                                                                                                                HdlValueId: dr
+                                                                                                                HdlValueInt: 25
+                                                                                                        UPD HdlOp@@XOR to XOR
+                                                                                                            INS list@@ops to XOR
+                                                                                                            INS HdlOp@@XOR to ops
+                                                                                                            INS HdlOp@@INDEX to ops
+                                                                                                            HdlOp: INDEX
+                                                                                                                list: ops
+                                                                                                                    HdlValueId: dr
+                                                                                                                    HdlValueInt: 26
+                                                                                                            UPD HdlOp@@XOR to XOR
+                                                                                                                INS list@@ops to XOR
+                                                                                                                INS HdlOp@@XOR to ops
+                                                                                                                INS HdlOp@@INDEX to ops
+                                                                                                                HdlOp: INDEX
+                                                                                                                    list: ops
+                                                                                                                        HdlValueId: dr
+                                                                                                                        HdlValueInt: 27
+                                                                                                                UPD HdlOp@@XOR to XOR
+                                                                                                                    INS list@@ops to XOR
+                                                                                                                    INS HdlOp@@XOR to ops
+                                                                                                                    INS HdlOp@@INDEX to ops
+                                                                                                                    HdlOp: INDEX
+                                                                                                                        list: ops
+                                                                                                                            HdlValueId: dr
+                                                                                                                            HdlValueInt: 28
+                                                                                                                    UPD HdlOp@@XOR to XOR
+                                                                                                                        INS list@@ops to XOR
+                                                                                                                        INS HdlOp@@XOR to ops
+                                                                                                                        INS HdlOp@@INDEX to ops
+                                                                                                                        HdlOp: INDEX
+                                                                                                                            list: ops
+                                                                                                                                HdlValueId: dr
+                                                                                                                                HdlValueInt: 29
+                                                                                                                        UPD HdlOp@@XOR to XOR
+                                                                                                                            INS list@@ops to XOR
+                                                                                                                            INS HdlOp@@XOR to ops
+                                                                                                                            INS HdlOp@@INDEX to ops
+                                                                                                                            HdlOp: INDEX
+                                                                                                                                list: ops
+                                                                                                                                    HdlValueId: dr
+                                                                                                                                    HdlValueInt: 30
+                                                                                                                            UPD HdlOp@@XOR to XOR
+                                                                                                                                INS list@@ops to XOR
+                                                                                                                                INS HdlOp@@XOR to ops
+                                                                                                                                INS HdlOp@@INDEX to ops
+                                                                                                                                HdlOp: INDEX
+                                                                                                                                    list: ops
+                                                                                                                                        HdlValueId: dr
+                                                                                                                                        HdlValueInt: 31
+                                                                                                                                UPD HdlOp@@XOR to XOR
+                                                                                                                                    INS list@@ops to XOR
+                                                                                                                                    INS HdlOp@@XOR to ops
+                                                                                                                                    INS HdlOp@@INDEX to ops
+                                                                                                                                    HdlOp: INDEX
+                                                                                                                                        list: ops
+                                                                                                                                            HdlValueId: dr
+                                                                                                                                            HdlValueInt: 32
+                                                                                                                                    UPD HdlOp@@XOR to XOR
+                                                                                                                                        INS list@@ops to XOR
+                                                                                                                                        INS HdlOp@@XOR to ops
+                                                                                                                                        INS HdlOp@@INDEX to ops
+                                                                                                                                        HdlOp: INDEX
+                                                                                                                                            list: ops
+                                                                                                                                                HdlValueId: dr
+                                                                                                                                                HdlValueInt: 33
+                                                                                                                                        UPD HdlOp@@XOR to XOR
+                                                                                                                                            INS list@@ops to XOR
+                                                                                                                                            INS HdlOp@@XOR to ops
+                                                                                                                                            INS HdlOp@@INDEX to ops
+                                                                                                                                            HdlOp: INDEX
+                                                                                                                                                list: ops
+                                                                                                                                                    HdlValueId: dr
+                                                                                                                                                    HdlValueInt: 34
+                                                                                                                                            UPD HdlOp@@XOR to XOR
+                                                                                                                                                INS list@@ops to XOR
+                                                                                                                                                INS HdlOp@@XOR to ops
+                                                                                                                                                INS HdlOp@@INDEX to ops
+                                                                                                                                                HdlOp: INDEX
+                                                                                                                                                    list: ops
+                                                                                                                                                        HdlValueId: dr
+                                                                                                                                                        HdlValueInt: 35
+                                                                                                                                                UPD HdlOp@@XOR to XOR
+                                                                                                                                                    INS list@@ops to XOR
+                                                                                                                                                    INS HdlOp@@XOR to ops
+                                                                                                                                                    INS HdlOp@@INDEX to ops
+                                                                                                                                                    HdlOp: INDEX
+                                                                                                                                                        list: ops
+                                                                                                                                                            HdlValueId: dr
+                                                                                                                                                            HdlValueInt: 36
+                                                                                                                                                    UPD HdlOp@@XOR to XOR
+                                                                                                                                                        INS list@@ops to XOR
+                                                                                                                                                        INS HdlOp@@INDEX to ops
+                                                                                                                                                        HdlOp: INDEX
+                                                                                                                                                            list: ops
+                                                                                                                                                                HdlValueId: dr
+                                                                                                                                                                HdlValueInt: 37
+                                                                                                                                                        UPD HdlOp@@XOR to XOR
+                                                                                                                                                            INS HdlValueInt@@1 to ops
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@XOR to 
+    HdlOp: XOR
+        list: ops
+            HdlValueId: checksum
+            HdlValueId: jt_tdi
+    UPD HdlOp@@XOR to XOR
+        DEL HdlValueId@@checksum from ops
+
+
+CommitId: ada8fafb52390e3ecde0ac2ed790b24cf056ae05
+A few modifications to udif's patch. Moved testing to a separate testbench. Created a testbenches folder with the first testbench in it. Tested udif's patch and it works for all LOOP_LOG2 settings from 0 to 5. Added golden_nonce adjustment code so the mining script no longer has to make the adjustments. Mining script updated with TODOs and removed the golden_nonce adjustments.
+--- a/src/fpgaminer_top.v
++++ b/src/fpgaminer_top.v
+@@ -34,29 +52,23 @@ module fpgaminer_top (osc_clk);
+ 	reg [511:0] data = 0;
+ 	reg [31:0] nonce = 32'h00000000;
+ 
++
+ 	//// PLL
+ 	wire hash_clk;
+ 	`ifndef SIM
+-	//main_pll pll_blk (osc_clk, hash_clk);
+-	assign hash_clk = osc_clk;
+-	`endif
+-
+-
+-	//// Simulation Timer
+-	`ifdef SIM
+-		reg gen_clk = 0;
+-		wire clk = gen_clk;
++		main_pll pll_blk (osc_clk, hash_clk);
+ 	`else
+-		wire clk = hash_clk;
++		assign hash_clk = osc_clk;
+ 	`endif
+ 
+ 
+ 	//// Hashers
+ 	wire [255:0] hash, hash2;
+-	reg is_golden_ticket = 0;
++	reg [5:0] cnt = 6'd0;
++	reg feedback = 1'b0;
+ 
+ 	sha256_transform #(.LOOP(LOOP)) uut (
+-		.clk(clk),
++		.clk(hash_clk),
+ 		.feedback(feedback),
+ 		.cnt(cnt),
+ 		.rx_state(state),
+
+ParseResult:
+MOV HdlIdDef@@is_golden_ticket to objs
+HdlIdDef: is_golden_ticket
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: reg
+    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+UPD HdlStmAssign@@ to 
+    MOV HdlValueId@@osc_clk to 
+    HdlValueId: osc_clk
+    MOV HdlValueId@@hash_clk to 
+    HdlValueId: hash_clk
+
+DEL HdlStmAssign@@ from objs
+
+DEL HdlIdDef@@clk from objs
+HdlIdDef: clk
+    HdlValueId: hash_clk
+    HdlDirection: INTERNAL
+
+
+CommitId: ada8fafb52390e3ecde0ac2ed790b24cf056ae05
+A few modifications to udif's patch. Moved testing to a separate testbench. Created a testbenches folder with the first testbench in it. Tested udif's patch and it works for all LOOP_LOG2 settings from 0 to 5. Added golden_nonce adjustment code so the mining script no longer has to make the adjustments. Mining script updated with TODOs and removed the golden_nonce adjustments.
+--- a/src/fpgaminer_top.v
++++ b/src/fpgaminer_top.v
+@@ -116,12 +127,11 @@ module fpgaminer_top (osc_clk);
+ 		feedback_next ? nonce : (nonce + 32'd1);
+ 
+ 	
+-	//// Control Unit
+-	always @ (posedge clk)
++	always @ (posedge hash_clk)
+ 	begin
+ 		`ifdef SIM
+-			midstate_buf <= 256'h2b3f81261b3cfd001db436cfd4c8f3f9c7450c9a0d049bee71cba0ea2619c0b5;
+-			data_buf <= 256'h00000000000000000000000080000000_00000000_39f3001b6b7b8d4dc14bfc31;
++			//midstate_buf <= 256'h2b3f81261b3cfd001db436cfd4c8f3f9c7450c9a0d049bee71cba0ea2619c0b5;
++			//data_buf <= 256'h00000000000000000000000080000000_00000000_39f3001b6b7b8d4dc14bfc31;
+ 			//nonce <= 30411740;
+ 		`else
+ 			midstate_buf <= midstate_vw;
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlOp@@RISING to RISING
+        UPD HdlValueId@@clk to hash_clk
+
+
+CommitId: 6b617a449b981cec4e0f867878de800a72df4322
+Yet another fix for loop rolling code.
+--- a/src/fpgaminer_top.v
++++ b/src/fpgaminer_top.v
+@@ -37,7 +37,8 @@ module fpgaminer_top (osc_clk);
+ 	//// PLL
+ 	wire hash_clk;
+ 	`ifndef SIM
+-	main_pll pll_blk (osc_clk, hash_clk);
++	//main_pll pll_blk (osc_clk, hash_clk);
++	assign hash_clk = osc_clk;
+ 	`endif
+ 
+ 
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+
+
+CommitId: 6b617a449b981cec4e0f867878de800a72df4322
+Yet another fix for loop rolling code.
+--- a/src/fpgaminer_top.v
++++ b/src/fpgaminer_top.v
+@@ -115,31 +130,43 @@ module fpgaminer_top (osc_clk);
+ 
+ 		cnt <= cnt_next;
+ 		feedback <= feedback_next;
++		feedback_d1 <= feedback;
+ 
+ 		// Give new data to the hasher
+ 		state <= midstate_buf;
+-		data <= {384'h000002800000000000000000000000000000000000000000000000000000000000000000000000000000000080000000, nonce, data_buf[95:0]};
+-		nonce <= feedback_next ? nonce : (nonce + 32'd1);
++		data <= {384'h000002800000000000000000000000000000000000000000000000000000000000000000000000000000000080000000, nonce_next, data_buf[95:0]};
++		nonce <= nonce_next;
+ 
+ 
+ 
+ 		// Check to see if the last hash generated is valid.
+-		is_golden_ticket <= (hash2[255:224] == 32'h00000000) && !feedback;
++		is_golden_ticket <= (hash2[255:224] == 32'h00000000) && !feedback_d1;
+ 		if(is_golden_ticket)
+ 		begin
+ 			golden_nonce <= nonce;
+ 		end
++`ifdef SIM
++		if (!feedback_d1)
++			$display ("nonce: %8x\nhash2: %54x\n", nonce, hash2);
++`endif
+ 	end
+ 
+ 
+ 	//// Simulation Clock
+ `ifdef SIM
+ 	initial begin
++		$dumpfile("test.vcd");
++		$dumpvars(0,fpgaminer_top);
++ 		reset = 1;
+ 		#100
+-
+-		while(1)
++		#5 gen_clk = 1; #5 gen_clk = 0;
++		#5 gen_clk = 1; #5 gen_clk = 0;
++		reset = 0;
++		#100
++		
++		repeat(500)
+ 		begin
+-			#6 gen_clk = 1; #6 gen_clk = 0;
++			#5 gen_clk = 1; #5 gen_clk = 0;
+ 		end
+ 	end
+ `endif
+ParseResult:
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: feedback_next
+            HdlValueId: nonce
+            HdlOp: ADD
+                list: ops
+                    HdlValueId: nonce
+                    HdlValueInt: 1
+    HdlValueId: nonce
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@nonce to nonce_next
+    MOV HdlOp@@TERNARY to 
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: feedback_next
+            HdlValueId: nonce
+            HdlOp: ADD
+                list: ops
+                    HdlValueId: nonce
+                    HdlValueInt: 1
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueId: nonce_next
+    HdlValueId: nonce
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@CONCAT to CONCAT
+        UPD HdlOp@@CONCAT to CONCAT
+            UPD HdlValueId@@nonce to nonce_next
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@AND_LOG to AND_LOG
+        UPD HdlOp@@NEG_LOG to NEG_LOG
+            UPD HdlValueId@@feedback to feedback_d1
+
+
+CommitId: de1507179cf3b0417769c0d1c5fcbb2840f9d5f1
+Added testbench for job queueing and pushing and fixed a bug.
+--- a/src/uart_comm.v
++++ b/src/uart_comm.v
+@@ -189,7 +189,7 @@ module uart_comm (
+ 				else if (msg_type == MSG_PUSH_JOB && msg_length == (JOB_SIZE/8 + 8))
+ 				begin
+ 					queued_job_en <= 1'b0;
+-					current_job <= msg_data[JOB_SIZE-1:0];
++					current_job <= msg_data[MSG_BUF_LEN*8-32-1:MSG_BUF_LEN*8-32-JOB_SIZE];
+ 					new_work_flag <= ~new_work_flag;
+ 
+ 					msg_type <= MSG_ACK;
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            INS HdlOp@@SUB to ops
+            UPD HdlOp@@SUB to SUB
+                INS list@@ops to SUB
+                INS HdlOp@@SUB to ops
+                INS HdlValueId@@JOB_SIZE to ops
+                UPD HdlOp@@SUB to SUB
+                    INS list@@ops to SUB
+                    INS HdlOp@@MUL to ops
+                    INS HdlValueInt@@32 to ops
+                    UPD HdlOp@@MUL to MUL
+                        INS list@@ops to MUL
+                        INS HdlValueId@@MSG_BUF_LEN to ops
+            UPD HdlOp@@SUB to SUB
+                INS HdlOp@@SUB to ops
+                UPD HdlOp@@SUB to SUB
+                    INS list@@ops to SUB
+                    INS HdlOp@@MUL to ops
+                    INS HdlValueInt@@32 to ops
+                    UPD HdlOp@@MUL to MUL
+                        INS list@@ops to MUL
+                        INS HdlValueInt@@8 to ops
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlOp@@SUB to SUB
+                UPD HdlValueId@@JOB_SIZE to MSG_BUF_LEN
+                MOV HdlValueId@@JOB_SIZE to ops
+                HdlValueId: JOB_SIZE
+            UPD HdlValueInt@@0 to 8
+            MOV HdlValueInt@@0 to ops
+            HdlValueInt: 0
+
+
+CommitId: de1507179cf3b0417769c0d1c5fcbb2840f9d5f1
+Added testbench for job queueing and pushing and fixed a bug.
+--- a/src/uart_comm.v
++++ b/src/uart_comm.v
+@@ -197,7 +197,7 @@ module uart_comm (
+ 				else if (msg_type == MSG_QUEUE_JOB && msg_length == (JOB_SIZE/8 + 8))
+ 				begin
+ 					queued_job_en <= 1'b1;
+-					queued_job <= msg_data[JOB_SIZE-1:0];
++					queued_job <= msg_data[MSG_BUF_LEN*8-32-1:MSG_BUF_LEN*8-32-JOB_SIZE];
+ 
+ 					msg_type <= MSG_ACK;
+ 				end
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            INS HdlOp@@SUB to ops
+            UPD HdlOp@@SUB to SUB
+                INS list@@ops to SUB
+                INS HdlOp@@SUB to ops
+                INS HdlValueId@@JOB_SIZE to ops
+                UPD HdlOp@@SUB to SUB
+                    INS list@@ops to SUB
+                    INS HdlOp@@MUL to ops
+                    INS HdlValueInt@@32 to ops
+                    UPD HdlOp@@MUL to MUL
+                        INS list@@ops to MUL
+                        INS HdlValueId@@MSG_BUF_LEN to ops
+            UPD HdlOp@@SUB to SUB
+                INS HdlOp@@SUB to ops
+                UPD HdlOp@@SUB to SUB
+                    INS list@@ops to SUB
+                    INS HdlOp@@MUL to ops
+                    INS HdlValueInt@@32 to ops
+                    UPD HdlOp@@MUL to MUL
+                        INS list@@ops to MUL
+                        INS HdlValueInt@@8 to ops
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlOp@@SUB to SUB
+                UPD HdlValueId@@JOB_SIZE to MSG_BUF_LEN
+                MOV HdlValueId@@JOB_SIZE to ops
+                HdlValueId: JOB_SIZE
+            UPD HdlValueInt@@0 to 8
+            MOV HdlValueInt@@0 to ops
+            HdlValueInt: 0
+
+
+CommitId: ada8fafb52390e3ecde0ac2ed790b24cf056ae05
+A few modifications to udif's patch. Moved testing to a separate testbench. Created a testbenches folder with the first testbench in it. Tested udif's patch and it works for all LOOP_LOG2 settings from 0 to 5. Added golden_nonce adjustment code so the mining script no longer has to make the adjustments. Mining script updated with TODOs and removed the golden_nonce adjustments.
+--- a/src/sha256_transform.v
++++ b/src/sha256_transform.v
+@@ -89,14 +98,17 @@ module sha256_transform #(
+ 
+ 	always @ (posedge clk)
+ 	begin
+-		tx_hash[`IDX(0)] <= feedback ? tx_hash[`IDX(0)] : (rx_state[`IDX(0)] + HASHERS[64/LOOP-6'd1].state[`IDX(0)]);
+-		tx_hash[`IDX(1)] <= feedback ? tx_hash[`IDX(1)] : (rx_state[`IDX(1)] + HASHERS[64/LOOP-6'd1].state[`IDX(1)]);
+-		tx_hash[`IDX(2)] <= feedback ? tx_hash[`IDX(2)] : (rx_state[`IDX(2)] + HASHERS[64/LOOP-6'd1].state[`IDX(2)]);
+-		tx_hash[`IDX(3)] <= feedback ? tx_hash[`IDX(3)] : (rx_state[`IDX(3)] + HASHERS[64/LOOP-6'd1].state[`IDX(3)]);
+-		tx_hash[`IDX(4)] <= feedback ? tx_hash[`IDX(4)] : (rx_state[`IDX(4)] + HASHERS[64/LOOP-6'd1].state[`IDX(4)]);
+-		tx_hash[`IDX(5)] <= feedback ? tx_hash[`IDX(5)] : (rx_state[`IDX(5)] + HASHERS[64/LOOP-6'd1].state[`IDX(5)]);
+-		tx_hash[`IDX(6)] <= feedback ? tx_hash[`IDX(6)] : (rx_state[`IDX(6)] + HASHERS[64/LOOP-6'd1].state[`IDX(6)]);
+-		tx_hash[`IDX(7)] <= feedback ? tx_hash[`IDX(7)] : (rx_state[`IDX(7)] + HASHERS[64/LOOP-6'd1].state[`IDX(7)]);
++		if (!feedback)
++		begin
++			tx_hash[`IDX(0)] <= rx_state[`IDX(0)] + HASHERS[64/LOOP-6'd1].state[`IDX(0)];
++			tx_hash[`IDX(1)] <= rx_state[`IDX(1)] + HASHERS[64/LOOP-6'd1].state[`IDX(1)];
++			tx_hash[`IDX(2)] <= rx_state[`IDX(2)] + HASHERS[64/LOOP-6'd1].state[`IDX(2)];
++			tx_hash[`IDX(3)] <= rx_state[`IDX(3)] + HASHERS[64/LOOP-6'd1].state[`IDX(3)];
++			tx_hash[`IDX(4)] <= rx_state[`IDX(4)] + HASHERS[64/LOOP-6'd1].state[`IDX(4)];
++			tx_hash[`IDX(5)] <= rx_state[`IDX(5)] + HASHERS[64/LOOP-6'd1].state[`IDX(5)];
++			tx_hash[`IDX(6)] <= rx_state[`IDX(6)] + HASHERS[64/LOOP-6'd1].state[`IDX(6)];
++			tx_hash[`IDX(7)] <= rx_state[`IDX(7)] + HASHERS[64/LOOP-6'd1].state[`IDX(7)];
++		end
+ 	end
+ 
+ 
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+INS HdlStmIf@@ to body
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@NEG_LOG to 
+    HdlOp: NEG_LOG
+        list: ops
+            HdlValueId: feedback
+    INS list@@elifs to 
+
+UPD HdlStmProcess@@ to 
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: TERNARY
+                    list: ops
+                        HdlValueId: feedback
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: tx_hash
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlOp: ADD
+                                                            list: ops
+                                                                HdlValueInt: 0
+                                                                HdlValueInt: 1
+                                                        HdlValueInt: 32
+                                                HdlValueInt: 1
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlValueInt: 0
+                                                HdlValueInt: 32
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: rx_state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 0
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 0
+                                                        HdlValueInt: 32
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlOp: DOT
+                                            list: ops
+                                                HdlOp: INDEX
+                                                    list: ops
+                                                        HdlValueId: HASHERS
+                                                        HdlOp: SUB
+                                                            list: ops
+                                                                HdlOp: DIV
+                                                                    list: ops
+                                                                        HdlValueInt: 64
+                                                                        HdlValueId: LOOP
+                                                                HdlValueInt: 1
+                                                HdlValueId: state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 0
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 0
+                                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tx_hash
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 0
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 0
+                                        HdlValueInt: 32
+            HdlStmAssign
+                HdlOp: TERNARY
+                    list: ops
+                        HdlValueId: feedback
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: tx_hash
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlOp: ADD
+                                                            list: ops
+                                                                HdlValueInt: 1
+                                                                HdlValueInt: 1
+                                                        HdlValueInt: 32
+                                                HdlValueInt: 1
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlValueInt: 1
+                                                HdlValueInt: 32
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: rx_state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 1
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 1
+                                                        HdlValueInt: 32
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlOp: DOT
+                                            list: ops
+                                                HdlOp: INDEX
+                                                    list: ops
+                                                        HdlValueId: HASHERS
+                                                        HdlOp: SUB
+                                                            list: ops
+                                                                HdlOp: DIV
+                                                                    list: ops
+                                                                        HdlValueInt: 64
+                                                                        HdlValueId: LOOP
+                                                                HdlValueInt: 1
+                                                HdlValueId: state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 1
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 1
+                                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tx_hash
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 1
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 1
+                                        HdlValueInt: 32
+            HdlStmAssign
+                HdlOp: TERNARY
+                    list: ops
+                        HdlValueId: feedback
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: tx_hash
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlOp: ADD
+                                                            list: ops
+                                                                HdlValueInt: 2
+                                                                HdlValueInt: 1
+                                                        HdlValueInt: 32
+                                                HdlValueInt: 1
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlValueInt: 2
+                                                HdlValueInt: 32
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: rx_state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 2
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 2
+                                                        HdlValueInt: 32
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlOp: DOT
+                                            list: ops
+                                                HdlOp: INDEX
+                                                    list: ops
+                                                        HdlValueId: HASHERS
+                                                        HdlOp: SUB
+                                                            list: ops
+                                                                HdlOp: DIV
+                                                                    list: ops
+                                                                        HdlValueInt: 64
+                                                                        HdlValueId: LOOP
+                                                                HdlValueInt: 1
+                                                HdlValueId: state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 2
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 2
+                                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tx_hash
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 2
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 2
+                                        HdlValueInt: 32
+            HdlStmAssign
+                HdlOp: TERNARY
+                    list: ops
+                        HdlValueId: feedback
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: tx_hash
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlOp: ADD
+                                                            list: ops
+                                                                HdlValueInt: 3
+                                                                HdlValueInt: 1
+                                                        HdlValueInt: 32
+                                                HdlValueInt: 1
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlValueInt: 3
+                                                HdlValueInt: 32
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: rx_state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 3
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 3
+                                                        HdlValueInt: 32
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlOp: DOT
+                                            list: ops
+                                                HdlOp: INDEX
+                                                    list: ops
+                                                        HdlValueId: HASHERS
+                                                        HdlOp: SUB
+                                                            list: ops
+                                                                HdlOp: DIV
+                                                                    list: ops
+                                                                        HdlValueInt: 64
+                                                                        HdlValueId: LOOP
+                                                                HdlValueInt: 1
+                                                HdlValueId: state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 3
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 3
+                                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tx_hash
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 3
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 3
+                                        HdlValueInt: 32
+            HdlStmAssign
+                HdlOp: TERNARY
+                    list: ops
+                        HdlValueId: feedback
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: tx_hash
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlOp: ADD
+                                                            list: ops
+                                                                HdlValueInt: 4
+                                                                HdlValueInt: 1
+                                                        HdlValueInt: 32
+                                                HdlValueInt: 1
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlValueInt: 4
+                                                HdlValueInt: 32
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: rx_state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 4
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 4
+                                                        HdlValueInt: 32
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlOp: DOT
+                                            list: ops
+                                                HdlOp: INDEX
+                                                    list: ops
+                                                        HdlValueId: HASHERS
+                                                        HdlOp: SUB
+                                                            list: ops
+                                                                HdlOp: DIV
+                                                                    list: ops
+                                                                        HdlValueInt: 64
+                                                                        HdlValueId: LOOP
+                                                                HdlValueInt: 1
+                                                HdlValueId: state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 4
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 4
+                                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tx_hash
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 4
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 4
+                                        HdlValueInt: 32
+            HdlStmAssign
+                HdlOp: TERNARY
+                    list: ops
+                        HdlValueId: feedback
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: tx_hash
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlOp: ADD
+                                                            list: ops
+                                                                HdlValueInt: 5
+                                                                HdlValueInt: 1
+                                                        HdlValueInt: 32
+                                                HdlValueInt: 1
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlValueInt: 5
+                                                HdlValueInt: 32
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: rx_state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 5
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 5
+                                                        HdlValueInt: 32
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlOp: DOT
+                                            list: ops
+                                                HdlOp: INDEX
+                                                    list: ops
+                                                        HdlValueId: HASHERS
+                                                        HdlOp: SUB
+                                                            list: ops
+                                                                HdlOp: DIV
+                                                                    list: ops
+                                                                        HdlValueInt: 64
+                                                                        HdlValueId: LOOP
+                                                                HdlValueInt: 1
+                                                HdlValueId: state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 5
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 5
+                                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tx_hash
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 5
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 5
+                                        HdlValueInt: 32
+            HdlStmAssign
+                HdlOp: TERNARY
+                    list: ops
+                        HdlValueId: feedback
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: tx_hash
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlOp: ADD
+                                                            list: ops
+                                                                HdlValueInt: 6
+                                                                HdlValueInt: 1
+                                                        HdlValueInt: 32
+                                                HdlValueInt: 1
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlValueInt: 6
+                                                HdlValueInt: 32
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: rx_state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 6
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 6
+                                                        HdlValueInt: 32
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlOp: DOT
+                                            list: ops
+                                                HdlOp: INDEX
+                                                    list: ops
+                                                        HdlValueId: HASHERS
+                                                        HdlOp: SUB
+                                                            list: ops
+                                                                HdlOp: DIV
+                                                                    list: ops
+                                                                        HdlValueInt: 64
+                                                                        HdlValueId: LOOP
+                                                                HdlValueInt: 1
+                                                HdlValueId: state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 6
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 6
+                                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tx_hash
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 6
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 6
+                                        HdlValueInt: 32
+            HdlStmAssign
+                HdlOp: TERNARY
+                    list: ops
+                        HdlValueId: feedback
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: tx_hash
+                                HdlOp: DOWNTO
+                                    list: ops
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlOp: ADD
+                                                            list: ops
+                                                                HdlValueInt: 7
+                                                                HdlValueInt: 1
+                                                        HdlValueInt: 32
+                                                HdlValueInt: 1
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlValueInt: 7
+                                                HdlValueInt: 32
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: rx_state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 7
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 7
+                                                        HdlValueInt: 32
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlOp: DOT
+                                            list: ops
+                                                HdlOp: INDEX
+                                                    list: ops
+                                                        HdlValueId: HASHERS
+                                                        HdlOp: SUB
+                                                            list: ops
+                                                                HdlOp: DIV
+                                                                    list: ops
+                                                                        HdlValueInt: 64
+                                                                        HdlValueId: LOOP
+                                                                HdlValueInt: 1
+                                                HdlValueId: state
+                                        HdlOp: DOWNTO
+                                            list: ops
+                                                HdlOp: SUB
+                                                    list: ops
+                                                        HdlOp: MUL
+                                                            list: ops
+                                                                HdlOp: ADD
+                                                                    list: ops
+                                                                        HdlValueInt: 7
+                                                                        HdlValueInt: 1
+                                                                HdlValueInt: 32
+                                                        HdlValueInt: 1
+                                                HdlOp: MUL
+                                                    list: ops
+                                                        HdlValueInt: 7
+                                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: tx_hash
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 7
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 7
+                                        HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@ADD to ops
+        HdlOp: ADD
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rx_state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 0
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 0
+                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: HASHERS
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: DIV
+                                                    list: ops
+                                                        HdlValueInt: 64
+                                                        HdlValueId: LOOP
+                                                HdlValueInt: 1
+                                HdlValueId: state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 0
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 0
+                                        HdlValueInt: 32
+        MOV HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: tx_hash
+                HdlOp: DOWNTO
+                    list: ops
+                        HdlOp: SUB
+                            list: ops
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlOp: ADD
+                                            list: ops
+                                                HdlValueInt: 0
+                                                HdlValueInt: 1
+                                        HdlValueInt: 32
+                                HdlValueInt: 1
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueInt: 0
+                                HdlValueInt: 32
+        DEL HdlValueId@@feedback from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlOp@@INDEX from 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 0
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 0
+                            HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@ADD to ops
+        HdlOp: ADD
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rx_state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 1
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 1
+                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: HASHERS
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: DIV
+                                                    list: ops
+                                                        HdlValueInt: 64
+                                                        HdlValueId: LOOP
+                                                HdlValueInt: 1
+                                HdlValueId: state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 1
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 1
+                                        HdlValueInt: 32
+        MOV HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: tx_hash
+                HdlOp: DOWNTO
+                    list: ops
+                        HdlOp: SUB
+                            list: ops
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlOp: ADD
+                                            list: ops
+                                                HdlValueInt: 1
+                                                HdlValueInt: 1
+                                        HdlValueInt: 32
+                                HdlValueInt: 1
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueInt: 1
+                                HdlValueInt: 32
+        DEL HdlValueId@@feedback from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlOp@@INDEX from 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 1
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 1
+                            HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@ADD to ops
+        HdlOp: ADD
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rx_state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 2
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 2
+                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: HASHERS
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: DIV
+                                                    list: ops
+                                                        HdlValueInt: 64
+                                                        HdlValueId: LOOP
+                                                HdlValueInt: 1
+                                HdlValueId: state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 2
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 2
+                                        HdlValueInt: 32
+        MOV HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: tx_hash
+                HdlOp: DOWNTO
+                    list: ops
+                        HdlOp: SUB
+                            list: ops
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlOp: ADD
+                                            list: ops
+                                                HdlValueInt: 2
+                                                HdlValueInt: 1
+                                        HdlValueInt: 32
+                                HdlValueInt: 1
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueInt: 2
+                                HdlValueInt: 32
+        DEL HdlValueId@@feedback from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlOp@@INDEX from 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 2
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 2
+                            HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@ADD to ops
+        HdlOp: ADD
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rx_state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 3
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 3
+                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: HASHERS
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: DIV
+                                                    list: ops
+                                                        HdlValueInt: 64
+                                                        HdlValueId: LOOP
+                                                HdlValueInt: 1
+                                HdlValueId: state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 3
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 3
+                                        HdlValueInt: 32
+        MOV HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: tx_hash
+                HdlOp: DOWNTO
+                    list: ops
+                        HdlOp: SUB
+                            list: ops
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlOp: ADD
+                                            list: ops
+                                                HdlValueInt: 3
+                                                HdlValueInt: 1
+                                        HdlValueInt: 32
+                                HdlValueInt: 1
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueInt: 3
+                                HdlValueInt: 32
+        DEL HdlValueId@@feedback from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlOp@@INDEX from 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 3
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 3
+                            HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@ADD to ops
+        HdlOp: ADD
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rx_state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 4
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 4
+                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: HASHERS
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: DIV
+                                                    list: ops
+                                                        HdlValueInt: 64
+                                                        HdlValueId: LOOP
+                                                HdlValueInt: 1
+                                HdlValueId: state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 4
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 4
+                                        HdlValueInt: 32
+        MOV HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: tx_hash
+                HdlOp: DOWNTO
+                    list: ops
+                        HdlOp: SUB
+                            list: ops
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlOp: ADD
+                                            list: ops
+                                                HdlValueInt: 4
+                                                HdlValueInt: 1
+                                        HdlValueInt: 32
+                                HdlValueInt: 1
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueInt: 4
+                                HdlValueInt: 32
+        DEL HdlValueId@@feedback from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlOp@@INDEX from 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 4
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 4
+                            HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@ADD to ops
+        HdlOp: ADD
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rx_state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 5
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 5
+                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: HASHERS
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: DIV
+                                                    list: ops
+                                                        HdlValueInt: 64
+                                                        HdlValueId: LOOP
+                                                HdlValueInt: 1
+                                HdlValueId: state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 5
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 5
+                                        HdlValueInt: 32
+        MOV HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: tx_hash
+                HdlOp: DOWNTO
+                    list: ops
+                        HdlOp: SUB
+                            list: ops
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlOp: ADD
+                                            list: ops
+                                                HdlValueInt: 5
+                                                HdlValueInt: 1
+                                        HdlValueInt: 32
+                                HdlValueInt: 1
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueInt: 5
+                                HdlValueInt: 32
+        DEL HdlValueId@@feedback from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlOp@@INDEX from 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 5
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 5
+                            HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@ADD to ops
+        HdlOp: ADD
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rx_state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 6
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 6
+                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: HASHERS
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: DIV
+                                                    list: ops
+                                                        HdlValueInt: 64
+                                                        HdlValueId: LOOP
+                                                HdlValueInt: 1
+                                HdlValueId: state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 6
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 6
+                                        HdlValueInt: 32
+        MOV HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: tx_hash
+                HdlOp: DOWNTO
+                    list: ops
+                        HdlOp: SUB
+                            list: ops
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlOp: ADD
+                                            list: ops
+                                                HdlValueInt: 6
+                                                HdlValueInt: 1
+                                        HdlValueInt: 32
+                                HdlValueInt: 1
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueInt: 6
+                                HdlValueInt: 32
+        DEL HdlValueId@@feedback from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlOp@@INDEX from 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 6
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 6
+                            HdlValueInt: 32
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@ADD to ops
+        HdlOp: ADD
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rx_state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 7
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 7
+                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: HASHERS
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: DIV
+                                                    list: ops
+                                                        HdlValueInt: 64
+                                                        HdlValueId: LOOP
+                                                HdlValueInt: 1
+                                HdlValueId: state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 7
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 7
+                                        HdlValueInt: 32
+        MOV HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: tx_hash
+                HdlOp: DOWNTO
+                    list: ops
+                        HdlOp: SUB
+                            list: ops
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlOp: ADD
+                                            list: ops
+                                                HdlValueInt: 7
+                                                HdlValueInt: 1
+                                        HdlValueInt: 32
+                                HdlValueInt: 1
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueInt: 7
+                                HdlValueInt: 32
+        DEL HdlValueId@@feedback from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlOp@@INDEX from 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 7
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 7
+                            HdlValueInt: 32
+
+
+CommitId: ada8fafb52390e3ecde0ac2ed790b24cf056ae05
+A few modifications to udif's patch. Moved testing to a separate testbench. Created a testbenches folder with the first testbench in it. Tested udif's patch and it works for all LOOP_LOG2 settings from 0 to 5. Added golden_nonce adjustment code so the mining script no longer has to make the adjustments. Mining script updated with TODOs and removed the golden_nonce adjustments.
+--- a/src/sha256_transform.v
++++ b/src/sha256_transform.v
+@@ -106,7 +118,7 @@ endmodule
+ module sha256_digester (clk, k, rx_w, rx_state, tx_w, tx_state);
+ 
+ 	input clk;
+-	input  [31:0] k;
++	input [31:0] k;
+ 	input [511:0] rx_w;
+ 	input [255:0] rx_state;
+ 
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@ADD to ops
+        HdlOp: ADD
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rx_state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 7
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 7
+                                        HdlValueInt: 32
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: HASHERS
+                                        HdlOp: SUB
+                                            list: ops
+                                                HdlOp: DIV
+                                                    list: ops
+                                                        HdlValueInt: 64
+                                                        HdlValueId: LOOP
+                                                HdlValueInt: 1
+                                HdlValueId: state
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlOp: SUB
+                                    list: ops
+                                        HdlOp: MUL
+                                            list: ops
+                                                HdlOp: ADD
+                                                    list: ops
+                                                        HdlValueInt: 7
+                                                        HdlValueInt: 1
+                                                HdlValueInt: 32
+                                        HdlValueInt: 1
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlValueInt: 7
+                                        HdlValueInt: 32
+        MOV HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: tx_hash
+                HdlOp: DOWNTO
+                    list: ops
+                        HdlOp: SUB
+                            list: ops
+                                HdlOp: MUL
+                                    list: ops
+                                        HdlOp: ADD
+                                            list: ops
+                                                HdlValueInt: 7
+                                                HdlValueInt: 1
+                                        HdlValueInt: 32
+                                HdlValueInt: 1
+                        HdlOp: MUL
+                            list: ops
+                                HdlValueInt: 7
+                                HdlValueInt: 32
+        DEL HdlValueId@@feedback from ops
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlOp@@INDEX from 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: tx_hash
+            HdlOp: DOWNTO
+                list: ops
+                    HdlOp: SUB
+                        list: ops
+                            HdlOp: MUL
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlValueInt: 7
+                                            HdlValueInt: 1
+                                    HdlValueInt: 32
+                            HdlValueInt: 1
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 7
+                            HdlValueInt: 32
+
+
+CommitId: 154f0c3b134577a2d4af02ea257848a38ad2d6ef
+Another patch for multi-FPGA device chains in jtag_comm.v.
+--- a/projects/X6000_ztex_comm4/hdl/jtag_comm.v
++++ b/projects/X6000_ztex_comm4/hdl/jtag_comm.v
+@@ -144,7 +144,7 @@ module jtag_comm # (
+ 	wire [31:0] tck_golden_nonce;
+ 	wire fifo_empty, fifo_full;
+ 	wire fifo_we = rx_new_nonce & (rx_golden_nonce != 32'hFFFFFFFF) & ~fifo_full;
+-	wire fifo_rd = checksum_valid & jt_update & ~jtag_we & (jtag_addr == 4'hE) & ~fifo_empty & ~jt_reset;
++	wire fifo_rd = checksum_valid & jt_update & ~jtag_we & (jtag_addr == 4'hE) & ~fifo_empty & ~jt_reset & jt_sel;
+ 	wire jtag_we = dr[36];
+ 	wire [3:0] jtag_addr = dr[35:32];
+ 
+
+ParseResult:
+UPD HdlIdDef@@fifo_rd to fifo_rd
+    INS HdlOp@@AND to fifo_rd
+    UPD HdlOp@@AND to AND
+        INS list@@ops to AND
+        INS HdlValueId@@jt_sel to ops
+
+UPD HdlIdDef@@fifo_rd to fifo_rd
+    MOV HdlOp@@AND to fifo_rd
+    HdlOp: AND
+        list: ops
+            HdlOp: AND
+                list: ops
+                    HdlOp: AND
+                        list: ops
+                            HdlOp: AND
+                                list: ops
+                                    HdlOp: AND
+                                        list: ops
+                                            HdlValueId: checksum_valid
+                                            HdlValueId: jt_update
+                                    HdlOp: NEG
+                                        list: ops
+                                            HdlValueId: jtag_we
+                            HdlOp: EQ
+                                list: ops
+                                    HdlValueId: jtag_addr
+                                    HdlValueInt: e
+                    HdlOp: NEG
+                        list: ops
+                            HdlValueId: fifo_empty
+            HdlOp: NEG
+                list: ops
+                    HdlValueId: jt_reset
+
+

@@ -1,0 +1,14 @@
+838b55817672ccfc1b1b14c034a7832b6c174ecd
+axi_ad9434: Fix adc_status
+diff --git a/library/axi_ad9434/axi_ad9434_if.v b/library/axi_ad9434/axi_ad9434_if.v
+index ccfa4b86..3475665a 100644
+--- a/library/axi_ad9434/axi_ad9434_if.v
++++ b/library/axi_ad9434/axi_ad9434_if.v
+@@ -242,6 +242,7 @@ module axi_ad9434_if (
+       adc_status <= 1'b0;
+     end else begin
+       adc_status_m1 <= up_drp_locked & delay_locked;
++      adc_status <= adc_status_m1;
+     end
+   end
+ 

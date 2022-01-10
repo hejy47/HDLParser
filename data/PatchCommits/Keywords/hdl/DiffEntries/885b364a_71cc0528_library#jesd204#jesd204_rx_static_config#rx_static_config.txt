@@ -1,0 +1,15 @@
+885b364a46c544af9d3cded8466317d092764b4e
+jesd204: rx_static_config: Set RBD to 0
+diff --git a/library/jesd204/jesd204_rx_static_config/rx_static_config.v b/library/jesd204/jesd204_rx_static_config/rx_static_config.v
+index 13a4ff58..9771cd63 100644
+--- a/library/jesd204/jesd204_rx_static_config/rx_static_config.v
++++ b/library/jesd204/jesd204_rx_static_config/rx_static_config.v
+@@ -69,7 +69,7 @@ assign cfg_octets_per_frame = OCTETS_PER_FRAME - 1;
+ assign cfg_lmfc_offset = 3;
+ assign cfg_sysref_oneshot = 1'b0;
+ assign cfg_sysref_disable = 1'b0;
+-assign cfg_buffer_delay = 'hb;
++assign cfg_buffer_delay = 'h0;
+ assign cfg_buffer_early_release = BUFFER_EARLY_RELEASE;
+ assign cfg_lanes_disable = {NUM_LANES{1'b0}};
+ assign cfg_disable_scrambler = SCR ? 1'b0 : 1'b1;

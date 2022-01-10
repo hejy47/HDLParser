@@ -1,0 +1,15 @@
+51b5335318c83e2662a0edb768b05ac7cbcd6603
+Remove z from default states for FSM inference
+diff --git a/rtl/udp_ip_rx_64.v b/rtl/udp_ip_rx_64.v
+index 63dda84..b0671a6 100644
+--- a/rtl/udp_ip_rx_64.v
++++ b/rtl/udp_ip_rx_64.v
+@@ -256,7 +256,7 @@ function [7:0] count2keep;
+ endfunction
+ 
+ always @* begin
+-    state_next = 2'bz;
++    state_next = STATE_IDLE;
+ 
+     input_ip_hdr_ready_next = 0;
+     input_ip_payload_tready_next = 0;

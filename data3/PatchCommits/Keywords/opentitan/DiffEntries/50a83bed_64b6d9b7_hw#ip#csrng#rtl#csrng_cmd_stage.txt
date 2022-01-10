@@ -1,0 +1,26 @@
+50a83bedd4d6e3af8ef3c3696cf12fdbce53aaad
+[csrng/rtl] internal state read timing improvements
+diff --git a/hw/ip/csrng/rtl/csrng_cmd_stage.sv b/hw/ip/csrng/rtl/csrng_cmd_stage.sv
+index 85940daba..1d074f01f 100644
+--- a/hw/ip/csrng/rtl/csrng_cmd_stage.sv
++++ b/hw/ip/csrng/rtl/csrng_cmd_stage.sv
+@@ -114,7 +114,8 @@ module csrng_cmd_stage import csrng_pkg::*; #(
+   prim_fifo_sync #(
+     .Width(CmdFifoWidth),
+     .Pass(0),
+-    .Depth(CmdFifoDepth)
++    .Depth(CmdFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_cmd (
+     .clk_i          (clk_i),
+     .rst_ni         (rst_ni),
+@@ -320,7 +321,8 @@ module csrng_cmd_stage import csrng_pkg::*; #(
+   prim_fifo_sync #(
+     .Width(GenBitsFifoWidth),
+     .Pass(0),
+-    .Depth(GenBitsFifoDepth)
++    .Depth(GenBitsFifoDepth),
++    .OutputZeroIfEmpty(1'b1) // Set to 1 to prevent triggering the output assert check for x's
+   ) u_prim_fifo_genbits (
+     .clk_i          (clk_i),
+     .rst_ni         (rst_ni),

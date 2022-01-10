@@ -1,0 +1,19 @@
+c7cb958f0d6f143d835e33d7efe27336cc7737c1
+Update lowrisc_ip to lowRISC/opentitan@ca950b43a
+diff --git a/vendor/lowrisc_ip/ip/prim/rtl/prim_lc_sender.sv b/vendor/lowrisc_ip/ip/prim/rtl/prim_lc_sender.sv
+index d8e5a02b..6502f836 100644
+--- a/vendor/lowrisc_ip/ip/prim/rtl/prim_lc_sender.sv
++++ b/vendor/lowrisc_ip/ip/prim/rtl/prim_lc_sender.sv
+@@ -20,10 +20,10 @@ module prim_lc_sender (
+   logic [lc_ctrl_pkg::TxWidth-1:0] lc_en, lc_en_out;
+   assign lc_en = lc_ctrl_pkg::TxWidth'(lc_en_i);
+ 
+-  prim_generic_flop #(
++  prim_flop #(
+     .Width(lc_ctrl_pkg::TxWidth),
+     .ResetValue(lc_ctrl_pkg::TxWidth'(lc_ctrl_pkg::Off))
+-  ) u_prim_generic_flop (
++  ) u_prim_flop (
+     .clk_i,
+     .rst_ni,
+     .d_i   ( lc_en     ),

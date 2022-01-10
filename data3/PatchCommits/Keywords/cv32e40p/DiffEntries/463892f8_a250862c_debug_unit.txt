@@ -1,0 +1,15 @@
+463892f8413d05fc8d9a2506c5c373b083007bbb
+fixed bug in debug unit when accessing gpr and fpr
+diff --git a/debug_unit.sv b/debug_unit.sv
+index 8c84195..392650c 100644
+--- a/debug_unit.sv
++++ b/debug_unit.sv
+@@ -138,7 +138,7 @@ module riscv_debug_unit
+     ssth_clear     = 1'b0;
+ 
+     regfile_fp_sel_n = 1'b0;
+-    regfile_fp_wr    = 1'b1;
++    regfile_fp_wr    = 1'b0;
+     
+     if (debug_req_i) begin
+       if (debug_we_i) begin

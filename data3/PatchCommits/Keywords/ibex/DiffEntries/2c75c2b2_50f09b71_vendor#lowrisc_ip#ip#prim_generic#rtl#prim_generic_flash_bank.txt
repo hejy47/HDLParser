@@ -1,0 +1,46 @@
+2c75c2b2ec90bebb756386e1360810474323c1ad
+Update lowrisc_ip to lowRISC/opentitan@1ae03937f
+diff --git a/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_flash_bank.sv b/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_flash_bank.sv
+index 05ea82c0..4698ac62 100644
+--- a/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_flash_bank.sv
++++ b/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_flash_bank.sv
+@@ -381,7 +381,8 @@ module prim_generic_flash_bank #(
+     .addr_i   (mem_addr),
+     .wdata_i  (mem_wdata[MemWidth-1:0]),
+     .wmask_i  ({MemWidth{1'b1}}),
+-    .rdata_o  (rd_nom_data_main)
++    .rdata_o  (rd_nom_data_main),
++    .cfg_i    ('0)
+   );
+ 
+   prim_ram_1p #(
+@@ -395,7 +396,8 @@ module prim_generic_flash_bank #(
+     .addr_i   (mem_addr),
+     .wdata_i  (mem_wdata[MemWidth +: MetaDataWidth]),
+     .wmask_i  ({MetaDataWidth{1'b1}}),
+-    .rdata_o  (rd_meta_data_main)
++    .rdata_o  (rd_meta_data_main),
++    .cfg_i    ('0)
+   );
+ 
+   for (genvar info_type = 0; info_type < InfoTypes; info_type++) begin : gen_info_types
+@@ -416,7 +418,8 @@ module prim_generic_flash_bank #(
+       .addr_i   (mem_addr[0 +: InfoAddrW]),
+       .wdata_i  (mem_wdata[MemWidth-1:0]),
+       .wmask_i  ({MemWidth{1'b1}}),
+-      .rdata_o  (rd_nom_data_info[info_type])
++      .rdata_o  (rd_nom_data_info[info_type]),
++      .cfg_i    ('0)
+     );
+ 
+     prim_ram_1p #(
+@@ -430,7 +433,8 @@ module prim_generic_flash_bank #(
+       .addr_i   (mem_addr[0 +: InfoAddrW]),
+       .wdata_i  (mem_wdata[MemWidth +: MetaDataWidth]),
+       .wmask_i  ({MetaDataWidth{1'b1}}),
+-      .rdata_o  (rd_meta_data_info[info_type])
++      .rdata_o  (rd_meta_data_info[info_type]),
++      .cfg_i    ('0)
+     );
+   end
+ 

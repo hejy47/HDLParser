@@ -1,0 +1,15 @@
+e38146466c337a0a5c9114e2fa90f7fe98ab93e9
+Update lowrisc_ibex to lowRISC/ibex@f30e84b
+diff --git a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_latch.sv b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_latch.sv
+index 0feb7a6e2..8c5fb35b0 100644
+--- a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_latch.sv
++++ b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_latch.sv
+@@ -11,7 +11,7 @@
+  * based RF. It requires a target technology-specific clock gating cell. Use this
+  * register file when targeting ASIC synthesis or event-based simulators.
+  */
+-module ibex_register_file #(
++module ibex_register_file_latch #(
+     parameter bit          RV32E             = 0,
+     parameter int unsigned DataWidth         = 32,
+     parameter bit          DummyInstructions = 0

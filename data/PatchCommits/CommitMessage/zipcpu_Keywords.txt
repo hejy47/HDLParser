@@ -1,0 +1,1496 @@
+======Commit: 0046fdc2======
+======Short Message======
+Moved GCC patch from zipcore to master
+======Full Message======
+Moved GCC patch from zipcore to master
+
+Includes fix for genzipops
+
+
+
+======Commit: 25d1d80b======
+======Short Message======
+Updated main makefile, should fix master make clean
+======Full Message======
+Updated main makefile, should fix master make clean
+
+
+
+======Commit: b7ef72dc======
+======Short Message======
+Merge pull request #15 from Olf0/patch-1
+======Full Message======
+Merge pull request #15 from Olf0/patch-1
+
+README.md: Fix and clarification
+
+
+======Commit: 3c0c9c6b======
+======Short Message======
+Merge pull request #13 from hasheddan/readme-verilated
+======Full Message======
+Merge pull request #13 from hasheddan/readme-verilated
+
+Fix minor typo in README.md
+
+
+======Commit: 3e4aa817======
+======Short Message======
+Fix minor typo in README.md
+======Full Message======
+Fix minor typo in README.md
+
+Updates minor README.md typo to point to correct verilator support in
+ZBasic distribution.
+
+Signed-off-by: hasheddan <georgedanielmangum@gmail.com>
+
+
+
+======Commit: 252d6783======
+======Short Message======
+Fixed offset instruction compilation
+======Full Message======
+Fixed offset instruction compilation
+
+
+
+======Commit: 9ca93237======
+======Short Message======
+Minor documentation fixes
+======Full Message======
+Minor documentation fixes
+
+
+
+======Commit: 1534094e======
+======Short Message======
+case vs casev fixes to zipcpu core
+======Full Message======
+case vs casev fixes to zipcpu core
+
+
+
+======Commit: 752bcc94======
+======Short Message======
+Fixed CMP 1(Rx),Ry peephole overflow problem
+======Full Message======
+Fixed CMP 1(Rx),Ry peephole overflow problem
+
+
+
+======Commit: bd6c82b0======
+======Short Message======
+Two GCC fixes: muldi3 and tail calls
+======Full Message======
+Two GCC fixes: muldi3 and tail calls
+
+1. muldi3: broken design took A0:A1 = A0:A1 * A2:A3 (with scratch), and ...
+	A. multiplied A0:A1 by A0:A1 instead of by A2:A3, and
+	B. was given a scratch register from A2,A3, which destroyed the
+	  algorithm
+	Both have now been fixed
+2. tail calls: edited to disallow tail calls when more than 4 arguments are used
+	Otherwise restoring the stack destroys the tailcalls arguments
+
+
+
+======Commit: 5a031a50======
+======Short Message======
+Fixed bench/formal/ make clean to remove SBY products
+======Full Message======
+Fixed bench/formal/ make clean to remove SBY products
+
+
+
+======Commit: 61c320df======
+======Short Message======
+Fixed CIS OpCode table in spec, wrong opcodes listed
+======Full Message======
+Fixed CIS OpCode table in spec, wrong opcodes listed
+
+
+
+======Commit: 0ec43b30======
+======Short Message======
+Fix issue #10: movsi w/ DI comparison
+======Full Message======
+Fix issue #10: movsi w/ DI comparison
+
+
+
+======Commit: 36ba5298======
+======Short Message======
+Fixed the new zipsys bus logic timing issue
+======Full Message======
+Fixed the new zipsys bus logic timing issue
+
+
+
+======Commit: 77381879======
+======Short Message======
+Patch fixes the broken char/short return
+======Full Message======
+Patch fixes the broken char/short return
+
+
+
+======Commit: 3fd22fc4======
+======Short Message======
+Fixed broken SW in the zasm/zopcodes.cpp file
+======Full Message======
+Fixed broken SW in the zasm/zopcodes.cpp file
+
+Also adjusted the spacing to make the table easier to read.
+
+
+
+======Commit: 875e400a======
+======Short Message======
+Fixed a broken make link for proving the watchdog
+======Full Message======
+Fixed a broken make link for proving the watchdog
+
+
+
+======Commit: 0a45a599======
+======Short Message======
+Removed debug code from zip-gas
+======Full Message======
+Removed debug code from zip-gas
+
+
+
+======Commit: 2d31ac93======
+======Short Message======
+Fixed/proved fixed an annoying non-pipeline freeze bug
+======Full Message======
+Fixed/proved fixed an annoying non-pipeline freeze bug
+
+
+
+======Commit: f56b6a88======
+======Short Message======
+Fixed an annoying dcache build bug--no change in functionality
+======Full Message======
+Fixed an annoying dcache build bug--no change in functionality
+
+
+
+======Commit: b3bee662======
+======Short Message======
+Fixed interrupt/op_phase hanging bug in zipcpu.v, update cpyright yr
+======Full Message======
+Fixed interrupt/op_phase hanging bug in zipcpu.v, update cpyright yr
+
+
+
+======Commit: 097c7934======
+======Short Message======
+Default to use OPT_DCACHE in ZipSystem
+======Full Message======
+Default to use OPT_DCACHE in ZipSystem
+
+
+
+======Commit: dfbad4d6======
+======Short Message======
+Fixed syntax errors in the slow multiply implementation
+======Full Message======
+Fixed syntax errors in the slow multiply implementation
+
+
+
+======Commit: a786b962======
+======Short Message======
+Fixed the broken misaligned data bus detection, now poss. with SymbiYosys scripts
+======Full Message======
+Fixed the broken misaligned data bus detection, now poss. with SymbiYosys scripts
+
+
+
+======Commit: 19112823======
+======Short Message======
+Started simplifying the ZipCPU master proof
+======Full Message======
+Started simplifying the ZipCPU master proof
+
+Adjusted the ASSERT -> ASSUME blocks to get around the "skynet" bug,
+where the assume ends up masking reality.
+
+
+
+======Commit: 0cee05c1======
+======Short Message======
+Fixed a bug when starting the CPU from non-reset PC
+======Full Message======
+Fixed a bug when starting the CPU from non-reset PC
+
+
+
+======Commit: 1a4fe0ed======
+======Short Message======
+Fixed some bugs in the non-distributed ram code
+======Full Message======
+Fixed some bugs in the non-distributed ram code
+
+
+
+======Commit: 367e7f54======
+======Short Message======
+Fixed the broken flag signals from the multiply when it isn't present
+======Full Message======
+Fixed the broken flag signals from the multiply when it isn't present
+
+
+
+======Commit: b2188af8======
+======Short Message======
+Changes to get ZBasic and S6Soc building and working under test
+======Full Message======
+Changes to get ZBasic and S6Soc building and working under test
+
+dcache now has pipelined writes (not reads)
+Fixed the bug in ZipCPU preventing pipelined mem ops from working
+	Fixed formal to match
+ZipCPU formal proofs succeed (again) --- not (yet) with dcache
+Removed a lot of (hopefully) unnecessary reset logic to fit in S6/LX4
+Got the non-pipelined code working (again)--dcd_valid is now a strobe signal
+	All of dcd_* wires stay constant throughout pipeline
+	dcd_* changes when pipeline clears
+
+
+
+======Commit: e4e59aea======
+======Short Message======
+Fixed broken sby file, now proves nopipe CPU
+======Full Message======
+Fixed broken sby file, now proves nopipe CPU
+
+Integrated the data cache
+Adjusted idecode so that o_DV is only ever true if OPT_DIVIDE
+  is also set
+Fixed several flaws with the ZipCPU logic for the no-pipe situation
+Broke the locations where op_* variables were copied from the decode
+  stage with no clock.
+
+
+
+======Commit: 3525a5a3======
+======Short Message======
+Fixed reset address for zipcpu_tb, named generate blocks in zipsys
+======Full Message======
+Fixed reset address for zipcpu_tb, named generate blocks in zipsys
+
+
+
+======Commit: f0d7095a======
+======Short Message======
+Fixed idecode to return phase=0 on illegal fetch, fixes illegal insn behav
+======Full Message======
+Fixed idecode to return phase=0 on illegal fetch, fixes illegal insn behav
+
+
+
+======Commit: 3585593c======
+======Short Message======
+Fixed the formal only wires in wbdblpriarb
+======Full Message======
+Fixed the formal only wires in wbdblpriarb
+
+
+
+======Commit: 51b9d2a4======
+======Short Message======
+Fixed the formal only wires in wbdblpriarb
+======Full Message======
+Fixed the formal only wires in wbdblpriarb
+
+
+
+======Commit: 17c22565======
+======Short Message======
+Fixed mpy option propagation, labeled generic mpy blocks
+======Full Message======
+Fixed mpy option propagation, labeled generic mpy blocks
+
+
+
+======Commit: 2e9042bf======
+======Short Message======
+Switched default async flag in fwb_ to synchronous
+======Full Message======
+Switched default async flag in fwb_ to synchronous
+
+
+
+======Commit: 0f9210a9======
+======Short Message======
+Two formal changes, still not done.
+======Full Message======
+Two formal changes, still not done.
+
+1. Exported the internal formal state of the pipe memory, otherwise
+   induction wasn't succeeding.  This internal value indicates that
+   the last memory access would write to the PC (or CC) register.
+
+2. Initialized the B register coming out of the idecode(r) to zero.
+
+   Now op_R and op_A are fixed to be the same register.
+
+
+
+======Commit: 6326e6cf======
+======Short Message======
+Formal verification fixes
+======Full Message======
+Formal verification fixes
+
+- OPT_PIPELINED_BUS_ACCESS made into a parameter that can be controlled
+	externally
+- div_ce now depends upon !alu_busy.  Otherwise, a divide immediately following
+  a multiply might not wait for the results of the multiply
+- alu_ce is now prevented from becoming active anytime the operation is illegal
+  This helps to prevent the writeback of a result from an illegal operation
+- Something at line 663-669 or so w/ mem_rdbusy&&op_illegal
+- abs_div(ide) now uses the same parameter code as the regular divide (they
+  were using the same parameters before, but now the code is properly shared)
+- Illegal instructions in the ALU are now cleared on any adf_ce_unconditional,
+  rather than only alu_ce's
+- The write flags control register now waits for the ALU to become valid,
+  and hence any flags from the ALU to become valid, before writing the flags
+- Break-pending is now a sticky bit.  It will not be cleared apart from any
+  clear_pipeline associated with either a switch to user mode, or an external
+  register write command that clears the pipeline
+- Prefetch instructions are now compared against their word address, rather
+  than their CIS half-word address, to know if the f_const_insn logic is to be
+  applied
+- The program counter of the f_const_insn is now properly associated with its
+  phase
+- The decoder and f_idecode now share teh same OPT_LOCK, OPT_OPIPE, and OP_SIM
+  parameters
+- The logic to calculate the formal version of the B operand has been rewritten
+- The formal logic now tracks if the X_pc register was replaced by a prior
+  branch, and hence has branch related NOOP information rather than useful
+  instruction information
+
+
+
+======Commit: defc5128======
+======Short Message======
+Fixed abstrace MPY busy flag
+======Full Message======
+Fixed abstrace MPY busy flag
+
+It now requires a request before it can become busy
+
+
+
+======Commit: ec28be56======
+======Short Message======
+Fixed the extra trailing (unmatched) endif in wbdblpriarb
+======Full Message======
+Fixed the extra trailing (unmatched) endif in wbdblpriarb
+
+
+
+======Commit: 1786a852======
+======Short Message======
+First working formal proof of the ZipCPU core!
+======Full Message======
+First working formal proof of the ZipCPU core!
+
+- Moved `ifdef's into parameters for later formal control: OPT_PIPELINED, and
+	OPT_NO_USERMODE ... At least one parameter still remains
+- Removed the last (I think) OPT_ILLEGAL_INSTRUCTION `ifdef dependency
+	Illegal instruction support (i.e. exception handling) is no longer an
+	option
+- Placed a global stall onto the master_ce line for any CC writes
+	Otherwise, an instruction might be issued before any clear cache
+	instruction has the opportunity to take effect
+  -- This includes the new last_write_to_cc variable, indicating that the last
+	write from the ops modes were to the CC register
+- Added master_ce stall detection to the memory stall logic
+- op_gie placed into its own always block, one that is sensitive to the reset
+- op_phase made to clear on reset OR clear_pipeline
+- same for alu_phase, now gets cleared on clear_pipeline
+- alu_gie is now sensitive to resets
+- r_pre_lock_primed now starts initially clear
+- Debug writes now depend upon the CPU being fully halted (r_halted)
+	This includes the external request line to clear the i-cache
+	(which may now be superfluous and unneeded ...)
+- r_halted now doesn't go through until any bus lock is released, else the bus
+	lock would be removed by the process and ... the restart would be buggy
+- Much expanded formal methods section--changes too numerous to count
+
+
+
+======Commit: d511239e======
+======Short Message======
+Updated pipemem with formal differences
+======Full Message======
+Updated pipemem with formal differences
+
+- Moved resets to the first condition
+- Fixed an over assumption about the i_lock input
+- Fixed the mixed units assertions about pipeline operations
+- Restricted (not assumed/asserted) operations from crossing local boundary
+- Added invariance conditions
+
+
+
+======Commit: 128cab89======
+======Short Message======
+Formal based corrections to the pfcache module
+======Full Message======
+Formal based corrections to the pfcache module
+
+- Resets pulled into the first test
+- Tabbing adjustments
+- BUG: Removed o_wb_stb_* from the test of being done
+	this allows the memory access to finish in the cycle it begins
+	it also simplifies the required logic
+- BUG: o_valid and o_err now properly reset themselves on a reset
+- Formal: Invariants were declared, swapping assumptions and assertions
+- Formal BUG: the pipeline requirement wasn't properly expressed, confusing
+	the addressing units of i_addr (octets) with those of o_wb_addr (words)
+- Formal BUG: the lock may be assserted mid cycle, this is now allowed
+
+
+
+======Commit: 3a83ca4c======
+======Short Message======
+Fixed pipelinable memory bugs in the instruction decoder
+======Full Message======
+Fixed pipelinable memory bugs in the instruction decoder
+
+To be a pipelinable memory operation
+- immediates must now increase in values
+- Ops writing into the PC or the CC registers cannot be pipelined, lest they
+  return after a mode switch
+
+
+
+======Commit: 1cff03f0======
+======Short Message======
+Updates to binutils, both assembler and disassembler
+======Full Message======
+Updates to binutils, both assembler and disassembler
+
+Assembler updates:
+- Assembler now replaces two long LDI instructions for nearly the same value
+	with an LDI followed by a MOV instruction, allowing for a known
+	offset between the two values
+- The "OUT" instruction has been replaced by an "NOUT" instruction.  As a
+	result, the "NOOP" version of the "OUT" instruction is clearly marked,
+	matching the corresponding simulation "SOUT" version of the same
+	instruction
+- TRAP x is no longer replaced with "LDI x,CC".  Instead, the TRAP
+        instruction now forces the GIE bit to be cleared, hence replacing
+	TRAP x with trap (x& ~0x200)
+- CIS update: Fixed a bug preventing MOV instructions from being merged into
+	CIS double instruction words.  Initial estimates suggest an additional
+	10% improvement as a result
+
+Disassembler updates
+
+- The disassembler now recognizes "MOV PC+4,R0, LW #(R),PC" and
+	"MOV PC+4,R0, MOV #(R),PC" instruction sequences as JSR instructions
+- The disassembler now disassembles the two-word CIS long JSR into an LJSR insn,
+	rather than a JSR instruction.  The difference between the two being
+	that LJSR (and LJMP) instructions have the full 32-bit target encoded
+	in the instruction
+
+
+
+======Commit: 6b5ce16b======
+======Short Message======
+Fixed a nasty early branching long jump bug
+======Full Message======
+Fixed a nasty early branching long jump bug
+
+
+
+======Commit: b4a3df72======
+======Short Message======
+Fixed erroneous break err, removed long debug trigger
+======Full Message======
+Fixed erroneous break err, removed long debug trigger
+
+
+
+======Commit: 364dbf37======
+======Short Message======
+Fixed Windows build tkt#5, added WORDSIZE=64
+======Full Message======
+Fixed Windows build tkt#5, added WORDSIZE=64
+
+
+
+======Commit: 16b343da======
+======Short Message======
+Updated Makefile's to fix Windows build
+======Full Message======
+Updated Makefile's to fix Windows build
+
+
+
+======Commit: de1193e0======
+======Short Message======
+Incorporated the OpenArty ZipCPU debug port into main stream ZipCPU
+======Full Message======
+Incorporated the OpenArty ZipCPU debug port into main stream ZipCPU
+
+
+
+======Commit: 48423aad======
+======Short Message======
+Fixed a double issue bug coming from pfcache
+======Full Message======
+Fixed a double issue bug coming from pfcache
+
+This revealed a bug in the pf_pc signal.  This appears to be an additional
+consequence of splitting the early_branch signal into two: early_branch_stb
+and early_branch.
+
+
+
+======Commit: ec357c40======
+======Short Message======
+Updated Simtest
+======Full Message======
+Updated Simtest
+
+Fixed trap -1 statements, which weren't trapping but rather putting the CPU
+to sleep.  A future modification to the binutils will make certain the
+GIE bit is cleared whenever a trap command is issued--this wasn't.
+
+Once the trap was fixed, it then became possible to see that there were
+other bugs that hadn't been properly fixed--primary among these was a
+misalignment bug.
+
+
+
+======Commit: 882b2d65======
+======Short Message======
+Two idecode fixes, early-branch stb and sim/noop
+======Full Message======
+Two idecode fixes, early-branch stb and sim/noop
+
+1. On early_branch_stb, the incoming instruction cannot be valid
+2. Noop instructions should also set off the op_sim bit
+
+Both fixed.
+
+
+
+======Commit: e7dc0b6b======
+======Short Message======
+Fixed dblfetch to assert o_valid whenever o_illegal
+======Full Message======
+Fixed dblfetch to assert o_valid whenever o_illegal
+
+This was a bug causing a test failure.  o_illegal is ignored unless o_valid
+is also true, so in order for o_illegal to take effect, o_valid must also
+be true.  This was a prior oversight.
+
+
+
+======Commit: 31e01315======
+======Short Message======
+Fixed simtest to properly trap on error
+======Full Message======
+Fixed simtest to properly trap on error
+
+
+
+======Commit: b2aa9499======
+======Short Message======
+Fixed the accessed wire set on the case of a lookup reuse
+======Full Message======
+Fixed the accessed wire set on the case of a lookup reuse
+
+
+
+======Commit: adced841======
+======Short Message======
+Fixed issue building rtl/ without OPT_CIS
+======Full Message======
+Fixed issue building rtl/ without OPT_CIS
+
+
+
+======Commit: 149c5914======
+======Short Message======
+Fixed a wrong # of bits bug
+======Full Message======
+Fixed a wrong # of bits bug
+
+
+
+======Commit: 6d6854c3======
+======Short Message======
+Fixed a bug causing certain instructions to be repeated following early br
+======Full Message======
+Fixed a bug causing certain instructions to be repeated following early br
+
+
+
+======Commit: 672e5325======
+======Short Message======
+Fixed broken delay branch implementation, following broken formal prop
+======Full Message======
+Fixed broken delay branch implementation, following broken formal prop
+
+
+
+======Commit: 13568207======
+======Short Message======
+Fixed some Verilator lint issues with the (formally proven) DMA
+======Full Message======
+Fixed some Verilator lint issues with the (formally proven) DMA
+
+
+
+======Commit: b0c30eae======
+======Short Message======
+More complete formal ZipMMU coverage, more bugs corrected
+======Full Message======
+More complete formal ZipMMU coverage, more bugs corrected
+
+
+
+======Commit: 294c989b======
+======Short Message======
+memops now creates a memory fault (bus err) on an unaligned access
+======Full Message======
+memops now creates a memory fault (bus err) on an unaligned access
+
+
+
+======Commit: 99cb25bc======
+======Short Message======
+Fixed a bug in zipmmu
+======Full Message======
+Fixed a bug in zipmmu
+
+
+
+======Commit: 258d09a3======
+======Short Message======
+Fixed an errant blocking assignmeent in the updated ziptimer.v
+======Full Message======
+Fixed an errant blocking assignmeent in the updated ziptimer.v
+
+
+
+======Commit: 48740c94======
+======Short Message======
+Formally proved the ZipTimer
+======Full Message======
+Formally proved the ZipTimer
+
+Added a reset wire
+Forced ACK low following a reset
+Fixed an ugly issue dealing with i_ce and the interrupt.  The interrupt is
+now guaranteed, in spite of whatever i_ce does.
+
+
+
+======Commit: 0ddda84a======
+======Short Message======
+Added default_nettype none to the arbiters
+======Full Message======
+Added default_nettype none to the arbiters
+
+
+
+======Commit: 5077278a======
+======Short Message======
+Updated formal WB specifications
+======Full Message======
+Updated formal WB specifications
+
+- The spec doesn't require an ACK to wait a clock
+- Other busses require a request before an error can be created
+- Created the CLK2FFLOGIC option, in case you wish to run without it
+
+
+
+======Commit: 97b941f1======
+======Short Message======
+Fixed an fpu_busy use before declared error
+======Full Message======
+Fixed an fpu_busy use before declared error
+
+
+
+======Commit: a7e50107======
+======Short Message======
+Fixed a register use-before-name issue
+======Full Message======
+Fixed a register use-before-name issue
+
+
+
+======Commit: 844d70dc======
+======Short Message======
+Fixed the multiply test bench, so it reflects the current ISA
+======Full Message======
+Fixed the multiply test bench, so it reflects the current ISA
+
+
+
+======Commit: 99a649aa======
+======Short Message======
+Fixed some more RPi word-length bugs
+======Full Message======
+Fixed some more RPi word-length bugs
+
+
+
+======Commit: 7976f34e======
+======Short Message======
+Fixed RPi-related word-length bugs
+======Full Message======
+Fixed RPi-related word-length bugs
+
+
+
+======Commit: fa8e83ba======
+======Short Message======
+Fixed a GCC build error in ubsan (bad pointer lookup in GCC)
+======Full Message======
+Fixed a GCC build error in ubsan (bad pointer lookup in GCC)
+
+
+
+======Commit: b6555db9======
+======Short Message======
+Fixed the Verilator Signal 13 error
+======Full Message======
+Fixed the Verilator Signal 13 error
+
+
+
+======Commit: 0453c94a======
+======Short Message======
+Fixed a blocking vs non-blocking issue in the ALU
+======Full Message======
+Fixed a blocking vs non-blocking issue in the ALU
+
+
+
+======Commit: f40f40af======
+======Short Message======
+Added default_nettype to many more RTL files
+======Full Message======
+Added default_nettype to many more RTL files
+
+
+
+======Commit: 2f686fe6======
+======Short Message======
+Fixed the ZipCPU's problems with running the testbench
+======Full Message======
+Fixed the ZipCPU's problems with running the testbench
+
+Test bench now works for both stepping, as well as running with single fetch
+(no pipelining), double fetch, and regular cache'd prefetch.
+
+Fixed lots of bugs all around.
+
+The instruction decoder now produces a strobe signal for early branching,
+in addition to the decoded wire associated with the instruction.  The
+strobe is for the prefetch which will act on it immediately, the other
+for the logic which may be busy for a while.
+
+Aux busdelay: dropped an excess wire, added logic to handle the case where
+the buffer is empty and the output is stalled.
+
+Fixed an ugly bug in dblfetch, causing it to output an old out of date
+instruction together with the valid bit high.
+
+The test bench has been renamed zipcpu_tb.cpp, which produces both
+zipsys_tb and zipbones_tb.
+
+The test program, simtest.s, was also modified so as to use the NOOP
+version of the simulation instructions--the instructions which won't crash
+the simulator on an illegal instruction.
+
+
+
+======Commit: 513bcea4======
+======Short Message======
+Fixed legal notice(s) in sw/Makefile
+======Full Message======
+Fixed legal notice(s) in sw/Makefile
+
+
+
+======Commit: dd4e68fc======
+======Short Message======
+Simplified ZipBones dbg interface, fixed ack on cyc bug
+======Full Message======
+Simplified ZipBones dbg interface, fixed ack on cyc bug
+
+
+
+======Commit: c742310a======
+======Short Message======
+Fixed the never-ending GCC rebuild
+======Full Message======
+Fixed the never-ending GCC rebuild
+
+
+
+======Commit: af29287d======
+======Short Message======
+Fixed some remaining 8-bit byte bugs in wbdmac
+======Full Message======
+Fixed some remaining 8-bit byte bugs in wbdmac
+
+This now supports a flash to memory boot-loader. (Again)  It had done so
+before the 8-bit byte branch, now it does so again.
+
+
+
+======Commit: 5812d1ca======
+======Short Message======
+Fixed the double set of o_we in wbdblpriarb
+======Full Message======
+Fixed the double set of o_we in wbdblpriarb
+
+
+
+======Commit: 0b5cef83======
+======Short Message======
+Fixed the broken build system
+======Full Message======
+Fixed the broken build system
+
+Prior to this, the build system needed the PATH to be adjusted to complete.
+This fixes that build problem.
+
+
+
+======Commit: b3fbd90f======
+======Short Message======
+Fixed a missing comment in the docs saying the ZipCPU had no 8-bit access, when it does
+======Full Message======
+Fixed a missing comment in the docs saying the ZipCPU had no 8-bit access, when it does
+
+
+
+======Commit: 9d6b9b71======
+======Short Message======
+Turned the MMU off (OPT_MMU) by default in the cpudefs
+======Full Message======
+Turned the MMU off (OPT_MMU) by default in the cpudefs
+
+
+
+======Commit: e5f60b0d======
+======Short Message======
+Turned off the default OPT_MMU CPU option
+======Full Message======
+Turned off the default OPT_MMU CPU option
+
+
+
+======Commit: 0eae59a3======
+======Short Message======
+Adjusted zipbones for default_nettype none
+======Full Message======
+Adjusted zipbones for default_nettype none
+
+
+
+======Commit: 8ac44b06======
+======Short Message======
+Adjusted prefetch components to support default nettype none
+======Full Message======
+Adjusted prefetch components to support default nettype none
+
+
+
+======Commit: c249d2cb======
+======Short Message======
+DMA bugfix, required following the implementation of the end-DMA cmd and 8-bit bytes
+======Full Message======
+DMA bugfix, required following the implementation of the end-DMA cmd and 8-bit bytes
+
+
+
+======Commit: 95db65c8======
+======Short Message======
+Sent zipelf debugging messages to stderr, rather than stdout
+======Full Message======
+Sent zipelf debugging messages to stderr, rather than stdout
+
+
+
+======Commit: db97cc45======
+======Short Message======
+Modified ZipCPU to build in a default_nettype none environment
+======Full Message======
+Modified ZipCPU to build in a default_nettype none environment
+
+
+
+======Commit: af1b64c3======
+======Short Message======
+Fixed GCC LW:DI (R0),R0 bug
+======Full Message======
+Fixed GCC LW:DI (R0),R0 bug
+
+This fixes a GCC bug that caused loading a DI register from address R0 into
+R0,R1 from producing the code:
+	LW  (R0),R0
+	LW 4(R0),R1
+Our solution was to change that into,
+	LW 4(R0),R1
+	LW  (R0),R0
+While this defeats the pipelined optimizations, it also still works.  Ideally,
+we'd want to load into another register, but ... that fix will be the longterm
+one.
+
+
+
+======Commit: 617962e5======
+======Short Message======
+Removed the debug wires from the double-fetch core
+======Full Message======
+Removed the debug wires from the double-fetch core
+
+
+
+======Commit: 13644afb======
+======Short Message======
+Fixed an address to LDI conversion when the segment address is unknown
+======Full Message======
+Fixed an address to LDI conversion when the segment address is unknown
+
+The problem had to do with a LDI label,Rx instruction.  If the label was known
+to be within the current segment, an LDI instruction was issued--even before
+it was known that the current segment would fit within the 23-bits of an
+LDI instruction.
+
+The solution is in two parts.  First, the LDI-MOV conversion was adjusted to
+handle 15 bits of offset instead of 13, since PC offsets assume the bottom
+two bits are zero anyway.  Second, for those instructions where a label is
+used, and where it doesn't fit into a MOV, a full 32-bit LDI instruction
+was chosen to be used instead.
+
+
+
+======Commit: d2cb17d7======
+======Short Message======
+Fixed PC-relative move instructions
+======Full Message======
+Fixed PC-relative move instructions
+
+PC relative move instructions now properly have a 4-byte offset--referencing
+the PC of the next instruction instead of the PC of the current instruction.
+
+Also adjusted the CIS combine-tester to prohibit moving any MOV instruction
+that references the PC into the first of the two instructions.
+
+Finally, strengthened the OP_ADDRESS decoding so as not to produce a segfault
+when the address isn't given
+
+
+
+======Commit: 741f436b======
+======Short Message======
+Adjusted the gas-script.sh to properly generate a patch--if so needed
+======Full Message======
+Adjusted the gas-script.sh to properly generate a patch--if so needed
+
+
+
+======Commit: 485c0448======
+======Short Message======
+Cleaned up some errors in cpuops, insured initial conditions, made sure mpypipe was declared before being used
+======Full Message======
+Cleaned up some errors in cpuops, insured initial conditions, made sure mpypipe was declared before being used
+
+
+
+======Commit: 4af67e27======
+======Short Message======
+Placed the (more) relevant bits of the PC into the ZipCPU trace/debug output
+======Full Message======
+Placed the (more) relevant bits of the PC into the ZipCPU trace/debug output
+
+
+
+======Commit: 0e3d32d6======
+======Short Message======
+GAS: Turned on the Zip machine emulation, fixed processing of JSRs so no values knwon upon return
+======Full Message======
+GAS: Turned on the Zip machine emulation, fixed processing of JSRs so no values knwon upon return
+
+
+
+======Commit: acbbec3e======
+======Short Message======
+GCC update: fixed comparison elimination code
+======Full Message======
+GCC update: fixed comparison elimination code
+
+Made instructions that clobber the CC set the attribute that the CCRESULT is SET
+Removed the CONDITIONAL attribute that wasn't being used anyway.
+
+
+
+======Commit: 405f68c6======
+======Short Message======
+Fixed the B operand as PC register read, and the pf_pc update for non-pipelined operation
+======Full Message======
+Fixed the B operand as PC register read, and the pf_pc update for non-pipelined operation
+
+
+
+======Commit: ba7ae5f9======
+======Short Message======
+Fixed the non-pipelined memops result for address offset 0
+======Full Message======
+Fixed the non-pipelined memops result for address offset 0
+
+
+
+======Commit: 28d9958e======
+======Short Message======
+Fixed the pc out of the decoder for non-CIS cases
+======Full Message======
+Fixed the pc out of the decoder for non-CIS cases
+
+
+
+======Commit: acd3b2ba======
+======Short Message======
+Fixed prefetch, so it won't declare an error if the address changes mid cycle
+======Full Message======
+Fixed prefetch, so it won't declare an error if the address changes mid cycle
+
+
+
+======Commit: 402b7be7======
+======Short Message======
+Tried to rearrange genzipops to be more fault tolerant, and not to create the output on failure
+======Full Message======
+Tried to rearrange genzipops to be more fault tolerant, and not to create the output on failure
+
+
+
+======Commit: c6f7659b======
+======Short Message======
+Fixed add-to-pc offset for the busy instruction, and then for the LJSR instructions as well
+======Full Message======
+Fixed add-to-pc offset for the busy instruction, and then for the LJSR instructions as well
+
+
+
+======Commit: c6cdab26======
+======Short Message======
+Fixed a bug while trying to set the path (still dont know if itll work)
+======Full Message======
+Fixed a bug while trying to set the path (still dont know if itll work)
+
+
+
+======Commit: b25f5617======
+======Short Message======
+Adjusted/fixed treatment of constants in assembly
+======Full Message======
+Adjusted/fixed treatment of constants in assembly
+
+Changed the word pseudo-op to be 32-bits instead of 16, to match architecture
+Added code to the assembler to automatically align shorts and ints
+Added code to the disassembler to deal with misaligned symbols
+Updated GCC to reflect the changes in the assembler
+
+
+
+======Commit: 092d62fe======
+======Short Message======
+Fixed DI handling.  memcpy now works
+======Full Message======
+Fixed DI handling.  memcpy now works
+
+
+
+======Commit: 37d02ca5======
+======Short Message======
+Added a simple comparison test to work out min/max integer comparisons and fix the bug(s)
+======Full Message======
+Added a simple comparison test to work out min/max integer comparisons and fix the bug(s)
+
+
+
+======Commit: 13fcbe15======
+======Short Message======
+Added a quick C file to debug the multiply
+======Full Message======
+Added a quick C file to debug the multiply
+
+
+
+======Commit: 4c8cf57c======
+======Short Message======
+Fixed the lock capability for ZipSystem addresses
+======Full Message======
+Fixed the lock capability for ZipSystem addresses
+
+
+
+======Commit: 151e3a49======
+======Short Message======
+Rebuilt GCCs representation of the Zip Operators
+======Full Message======
+Rebuilt GCCs representation of the Zip Operators
+
+Added a genzipops.c file to generate zip-ops.md
+Completely rebuilt the conditional execution support using genzipops
+Rearranged conditional execution to use if_then_else RTX constructs
+Fixed the problem whereby GCC thought conditional execution wiped the CC register
+
+
+
+======Commit: 7992fc4c======
+======Short Message======
+Renamed BRK to BREAK, Added NSTR and SSTR debug/sim pseudo-instructions
+======Full Message======
+Renamed BRK to BREAK, Added NSTR and SSTR debug/sim pseudo-instructions
+
+
+
+======Commit: c963c602======
+======Short Message======
+Lots of compiler cleanups, centered around DI ops
+======Full Message======
+Lots of compiler cleanups, centered around DI ops
+
+Cleaned up the movdi instruction, fixing a lot of stuff in the process.  movdi now does most of its work via a movdi_raw instruction, rather than define_expand'ing everything into a subreg.  As a result, __udivdi3 is about 50% smaller, and it actually (properly) uses the cbranch with immediate instruction.
+Optimized load byte and load halfword instructions to incorporate the zero extension within them
+
+Returned many of the atomic instructions to their original form, without the expand, so that movdi_raw and atomic_loaddi will not have different RTX semantics.
+Removed the "zip_memory_operand_p" predicate, now that I understand how reloads work better it's not needed.
+Cleaned up the movsi instruction
+Increased the buffer size for printing out debug symbols via zip_debug_rtx, necessary for supporting extra-long C++ symbols.
+
+
+
+======Commit: 3a45de28======
+======Short Message======
+Fixed the ZERO_ON_IDLE option, so it now builds
+======Full Message======
+Fixed the ZERO_ON_IDLE option, so it now builds
+
+
+
+======Commit: 64546a15======
+======Short Message======
+Fixed a bug introduced by the last commit preventing the break instruction from working.
+======Full Message======
+Fixed a bug introduced by the last commit preventing the break instruction from working.
+
+
+
+======Commit: a60dbb82======
+======Short Message======
+Fixed a signed/unsigned bug within div_tb.cpp
+======Full Message======
+Fixed a signed/unsigned bug within div_tb.cpp
+
+
+
+======Commit: c6f30b3d======
+======Short Message======
+Core changes: Simplified reset and clear pipeline logic, fixed lock insn (was deadlocking), fixed MEM-DIV pipeline hazard, simplified bus arbiter between pf and mem, and switched to a 32-bit reset address parameter
+======Full Message======
+Core changes: Simplified reset and clear pipeline logic, fixed lock insn (was deadlocking), fixed MEM-DIV pipeline hazard, simplified bus arbiter between pf and mem, and switched to a 32-bit reset address parameter
+
+
+
+======Commit: 65c020cc======
+======Short Message======
+Fixed negative flag in the case of overflow(s)
+======Full Message======
+Fixed negative flag in the case of overflow(s)
+
+
+
+======Commit: 21fed59a======
+======Short Message======
+Adjusted opcodes file for debugger to match the disassembler in binutils
+======Full Message======
+Adjusted opcodes file for debugger to match the disassembler in binutils
+
+
+
+======Commit: 22adca15======
+======Short Message======
+Fixed assembler support for atomic LOAD/STOREs for DI ops, NDUMP w/ no ops, CIS_JSR for register destinations (now address word), increased the address word difference of CIS_JSR for the mov insn
+======Full Message======
+Fixed assembler support for atomic LOAD/STOREs for DI ops, NDUMP w/ no ops, CIS_JSR for register destinations (now address word), increased the address word difference of CIS_JSR for the mov insn
+
+
+
+======Commit: 3221f6dd======
+======Short Message======
+Created LDI:DI and MUL:DI insns, fixed SMAX:SI, simplified CBRANCH:DI, added comments to many assembler multi-insns, adjusted LOAD_EXTEND_OP to reflect loads are zero extended, fixed calls that return DI values, fixed atomic LOD and STOres for DI values
+======Full Message======
+Created LDI:DI and MUL:DI insns, fixed SMAX:SI, simplified CBRANCH:DI, added comments to many assembler multi-insns, adjusted LOAD_EXTEND_OP to reflect loads are zero extended, fixed calls that return DI values, fixed atomic LOD and STOres for DI values
+
+
+
+======Commit: c364db9b======
+======Short Message======
+Fixed Newlib/libgloss dependency issues within the libgloss makefile
+======Full Message======
+Fixed Newlib/libgloss dependency issues within the libgloss makefile
+
+
+
+======Commit: 283f0f43======
+======Short Message======
+Made trace generation part of the default testbench
+======Full Message======
+Made trace generation part of the default testbench
+
+
+
+======Commit: f115b849======
+======Short Message======
+Fixed make clean
+======Full Message======
+Fixed make clean
+
+
+
+======Commit: f7b2fbc3======
+======Short Message======
+Added prologue support for large local variables, and fixed a LTE comparison bug
+======Full Message======
+Added prologue support for large local variables, and fixed a LTE comparison bug
+
+
+
+======Commit: 9ad6b25e======
+======Short Message======
+Fixed local non-CIS JSR insn, fixed disassembly of CIS SW, added err msgs to immediate fit tests, and made the opcodes file match (closer) the one used by the debugger
+======Full Message======
+Fixed local non-CIS JSR insn, fixed disassembly of CIS SW, added err msgs to immediate fit tests, and made the opcodes file match (closer) the one used by the debugger
+
+
+
+======Commit: ea44d4ec======
+======Short Message======
+Fixed a problem whereby crt0.s wasnt getting made, and crt0.o was a precompiled header
+======Full Message======
+Fixed a problem whereby crt0.s wasnt getting made, and crt0.o was a precompiled header
+
+
+
+======Commit: fc7e2563======
+======Short Message======
+Fixed the LDILO assert to allow large unsigned 16-bit numbers as well as signed
+======Full Message======
+Fixed the LDILO assert to allow large unsigned 16-bit numbers as well as signed
+
+
+
+======Commit: 2b08c180======
+======Short Message======
+Fixed VSIM build process so it doesnt build headers, but rather object files
+======Full Message======
+Fixed VSIM build process so it doesnt build headers, but rather object files
+
+
+
+======Commit: 742c4b33======
+======Short Message======
+Removed the gen-patches script, as not necessary for a public distribution
+======Full Message======
+Removed the gen-patches script, as not necessary for a public distribution
+
+
+
+======Commit: 455d7739======
+======Short Message======
+Fixed newlib patch, now patches correctly
+======Full Message======
+Fixed newlib patch, now patches correctly
+
+
+
+======Commit: 98cc3276======
+======Short Message======
+Lots of updates to atomic code, fixed .equ assembler directive instantiations, EH data, and made libraries included by default
+======Full Message======
+Lots of updates to atomic code, fixed .equ assembler directive instantiations, EH data, and made libraries included by default
+
+
+
+======Commit: e2f156c9======
+======Short Message======
+Fixed setjump/longjump code
+======Full Message======
+Fixed setjump/longjump code
+
+
+
+======Commit: 9df1f842======
+======Short Message======
+Add a first version of patching code to gas-script.sh
+======Full Message======
+Add a first version of patching code to gas-script.sh
+
+
+
+======Commit: 338e7f53======
+======Short Message======
+Fixed addresses of zbasic peripherals, switched cflags from -g -O2 to -O3
+======Full Message======
+Fixed addresses of zbasic peripherals, switched cflags from -g -O2 to -O3
+
+
+
+======Commit: f4cd65a1======
+======Short Message======
+Fixed MOVDI, ADDSICC(3-reg), CSTORE, and adjusted the TST peephole to where it can be applied more often
+======Full Message======
+Fixed MOVDI, ADDSICC(3-reg), CSTORE, and adjusted the TST peephole to where it can be applied more often
+
+
+
+======Commit: 9b78dec7======
+======Short Message======
+Fixed suprvsr negate, added 1+X capability for DI load/stores, trimmed traliing spaces from disasm, fixed disassembly of LOCK, ILLV, and CMP insn
+======Full Message======
+Fixed suprvsr negate, added 1+X capability for DI load/stores, trimmed traliing spaces from disasm, fixed disassembly of LOCK, ILLV, and CMP insn
+
+
+
+======Commit: b6bd7ab1======
+======Short Message======
+Last GCC patch appears to have been imcomplete
+======Full Message======
+Last GCC patch appears to have been imcomplete
+
+
+
+======Commit: eeffe4fe======
+======Short Message======
+Removed the old binutils patch, we have a new one now for binutils 2.27
+======Full Message======
+Removed the old binutils patch, we have a new one now for binutils 2.27
+
+
+
+======Commit: cfe7f5a2======
+======Short Message======
+Updated toolsuite patchset.
+======Full Message======
+Updated toolsuite patchset.
+
+
+
+======Commit: 7bd4ab48======
+======Short Message======
+Fixed a syntax err
+======Full Message======
+Fixed a syntax err
+
+
+
+======Commit: d8008eef======
+======Short Message======
+Added a default trace capability
+======Full Message======
+Added a default trace capability
+
+
+
+======Commit: 2e3bb304======
+======Short Message======
+Removed default requirement to build zasm
+======Full Message======
+Removed default requirement to build zasm
+
+
+
+======Commit: 06ac4104======
+======Short Message======
+Lots of 64-bit fixes
+======Full Message======
+Lots of 64-bit fixes
+
+
+
+======Commit: 3f58e14e======
+======Short Message======
+Fixed the scripts so they properly break for non x86 targets
+======Full Message======
+Fixed the scripts so they properly break for non x86 targets
+
+
+
+======Commit: cd2ee43c======
+======Short Message======
+Fixed some build script errors, limited the build to x86 machines
+======Full Message======
+Fixed some build script errors, limited the build to x86 machines
+
+
+
+======Commit: 979dd4a6======
+======Short Message======
+Fixed the early branch/illegal instruction/break bug.  Early branches to illegal instructions or breaks now report properly.  Also added the NO_USERMODE option to try to rescue a couple LUTs from the smallest CPU options.
+======Full Message======
+Fixed the early branch/illegal instruction/break bug.  Early branches to illegal instructions or breaks now report properly.  Also added the NO_USERMODE option to try to rescue a couple LUTs from the smallest CPU options.
+
+
+
+======Commit: c3d0dba0======
+======Short Message======
+Separated the floating-point machine instruction definitions to its own file, removed atomic dependence on VLIW, adjusted long (and double) type sizes to 64-bits, fixed long opcodes iOR and XOR, removed the unused multiply code, updated mulhi instructions to depend upon the existence of DI type (64-bit), added test code for a new condition code (experimental), fixed the broken conditional DI branch, replaced jump to R0 instructions with RETN mnemonics, moved peephole optimizations to their own file, and created a machine description file for atomic access opcodes and filled them out (not yet tested).
+======Full Message======
+Separated the floating-point machine instruction definitions to its own file, removed atomic dependence on VLIW, adjusted long (and double) type sizes to 64-bits, fixed long opcodes iOR and XOR, removed the unused multiply code, updated mulhi instructions to depend upon the existence of DI type (64-bit), added test code for a new condition code (experimental), fixed the broken conditional DI branch, replaced jump to R0 instructions with RETN mnemonics, moved peephole optimizations to their own file, and created a machine description file for atomic access opcodes and filled them out (not yet tested).
+
+
+
+======Commit: 90855945======
+======Short Message======
+Fixed a problem with constant alignment
+======Full Message======
+Fixed a problem with constant alignment
+
+
+
+======Commit: 997b52ab======
+======Short Message======
+Fixed addsicc GCC reload bug, added machine preliminary machine tracking capability to gas
+======Full Message======
+Fixed addsicc GCC reload bug, added machine preliminary machine tracking capability to gas
+
+
+
+======Commit: 7202d78a======
+======Short Message======
+Updated toolchain, bugfixes
+======Full Message======
+Updated toolchain, bugfixes
+
+
+
+======Commit: a5086c4b======
+======Short Message======
+Fixed a new build issue with calling make zasm from sw/
+======Full Message======
+Fixed a new build issue with calling make zasm from sw/
+
+
+

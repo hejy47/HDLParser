@@ -1,0 +1,14 @@
+010e3cc350cf011452b3c79b8d3362ee27670d9b
+[top] Minor lint fixes
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv b/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv
+index 1f0551df2..37e90c7a7 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv
+@@ -437,6 +437,7 @@ module top_earlgrey_nexysvideo #(
+ 
+     // DFT signals
+     .scan_rst_ni     ( 1'b1          ),
++    .scan_en_i       ( 1'b0          ),
+     .scanmode_i      ( 1'b0          )
+   );
+ 

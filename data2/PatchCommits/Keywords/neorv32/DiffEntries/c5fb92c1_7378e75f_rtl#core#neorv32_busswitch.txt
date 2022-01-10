@@ -1,0 +1,17 @@
+c5fb92c155d56debe730ea7f7c85f5f5fbdd1255
+[rtl] clean-up of generic defaults
+diff --git a/rtl/core/neorv32_busswitch.vhd b/rtl/core/neorv32_busswitch.vhd
+index 3909a77..2d737b3 100644
+--- a/rtl/core/neorv32_busswitch.vhd
++++ b/rtl/core/neorv32_busswitch.vhd
+@@ -44,8 +44,8 @@ use neorv32.neorv32_package.all;
+ 
+ entity neorv32_busswitch is
+   generic (
+-    PORT_CA_READ_ONLY : boolean := false; -- set if controller port A is read-only
+-    PORT_CB_READ_ONLY : boolean := false  -- set if controller port B is read-only
++    PORT_CA_READ_ONLY : boolean; -- set if controller port A is read-only
++    PORT_CB_READ_ONLY : boolean  -- set if controller port B is read-only
+   );
+   port (
+     -- global control --

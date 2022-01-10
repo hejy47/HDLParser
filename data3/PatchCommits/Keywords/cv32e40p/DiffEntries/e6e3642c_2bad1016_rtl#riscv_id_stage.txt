@@ -1,0 +1,14 @@
+e6e3642c36f0efcf17d5dcf4ef2778cca1707375
+fix performance bug on load stall
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index e5e2414..7f13aee 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -1201,6 +1201,7 @@ module riscv_id_stage
+     .dbg_trap_o                     ( dbg_trap_o             ),
+ 
+     // Write targets from ID
++    .regfile_we_id_i                ( regfile_we_id          ),
+     .regfile_alu_waddr_id_i         ( regfile_alu_waddr_id   ),
+ 
+     // Forwarding signals from regfile

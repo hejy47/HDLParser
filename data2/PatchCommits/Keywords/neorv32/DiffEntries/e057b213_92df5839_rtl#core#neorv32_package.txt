@@ -1,0 +1,15 @@
+e057b213ffc5ed16a56baf433cc309dfadd4c828
+fixed issue: using regs above x15 when E extensions is enabled will now correctly trigger an illegal instruction exception
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index acc2150..c24e6f1 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -41,7 +41,7 @@ package neorv32_package is
+   -- Architecture Constants -----------------------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+   constant data_width_c  : natural := 32; -- data width - FIXED!
+-  constant hw_version_c  : std_ulogic_vector(31 downto 0) := x"01040000"; -- no touchy!
++  constant hw_version_c  : std_ulogic_vector(31 downto 0) := x"01040001"; -- no touchy!
+   constant pmp_max_r_c   : natural := 8; -- max PMP regions
+   constant ipb_entries_c : natural := 2; -- entries in instruction prefetch buffer, must be a power of 2, default=2
+ 

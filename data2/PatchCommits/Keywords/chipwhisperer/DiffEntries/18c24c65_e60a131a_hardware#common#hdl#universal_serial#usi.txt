@@ -1,0 +1,18 @@
+18c24c65d2a6dcfa4beba7aa0d393dd3994273ba
+FPGA: Fix USI problem
+diff --git a/hardware/common/hdl/universal_serial/usi.v b/hardware/common/hdl/universal_serial/usi.v
+index a160952b..9d87b19f 100644
+--- a/hardware/common/hdl/universal_serial/usi.v
++++ b/hardware/common/hdl/universal_serial/usi.v
+@@ -306,9 +306,9 @@ module usirx#(
+ 	always @(posedge clk)
+ 		if (prevclkdiv)
+ 			if (bitcnt == 3'b000)
+-				ram_wr <= 'b1;
++				ram_wr <= go;
+ 			else
+-				ram_wr <= 'b0;
++				ram_wr <= 1'b0;
+ 	
+ 	wire[7:0] read_data;
+ 	

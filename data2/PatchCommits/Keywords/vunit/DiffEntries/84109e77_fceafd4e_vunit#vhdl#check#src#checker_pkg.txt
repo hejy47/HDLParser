@@ -1,0 +1,14 @@
+84109e778c3b562d1745ea30339a19cd24d1d9e1
+Default check logger is named check again
+diff --git a/vunit/vhdl/check/src/checker_pkg.vhd b/vunit/vhdl/check/src/checker_pkg.vhd
+index e0ccd6e4..efa1a850 100644
+--- a/vunit/vhdl/check/src/checker_pkg.vhd
++++ b/vunit/vhdl/check/src/checker_pkg.vhd
+@@ -20,7 +20,6 @@ package checker_pkg is
+                               default_log_level : log_level_t := error) return checker_t;
+   impure function new_checker(logger            : logger_t;
+                               default_log_level : log_level_t := error) return checker_t;
+-  impure function new_checker(default_log_level : log_level_t := error) return checker_t;
+ 
+   impure function get_logger(checker            : checker_t) return logger_t;
+   impure function get_default_log_level(checker : checker_t) return log_level_t;

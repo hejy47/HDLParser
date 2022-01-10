@@ -1,0 +1,22 @@
+38d51a33839f1c7407e42bb51a6104a8bad88aec
+Deassert pcpi_valid upon asserting sbreak IRQ
+diff --git a/picorv32.v b/picorv32.v
+index 278452e..4e01a6b 100644
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1270,6 +1270,7 @@ module picorv32 #(
+ 									cpu_state <= cpu_state_fetch;
+ 								end else
+ 								if (CATCH_ILLINSN && pcpi_timeout) begin
++								    pcpi_valid <= 0;
+ 									`debug($display("SBREAK OR UNSUPPORTED INSN AT 0x%08x", reg_pc);)
+ 									if (ENABLE_IRQ && !irq_mask[irq_sbreak] && !irq_active) begin
+ 										next_irq_pending[irq_sbreak] = 1;
+@@ -1419,6 +1420,7 @@ module picorv32 #(
+ 							cpu_state <= cpu_state_fetch;
+ 						end else
+ 						if (CATCH_ILLINSN && pcpi_timeout) begin
++							pcpi_valid <= 0;
+ 							`debug($display("SBREAK OR UNSUPPORTED INSN AT 0x%08x", reg_pc);)
+ 							if (ENABLE_IRQ && !irq_mask[irq_sbreak] && !irq_active) begin
+ 								next_irq_pending[irq_sbreak] = 1;

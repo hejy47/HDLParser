@@ -1,0 +1,38 @@
+4f735bc6e72691152b3a87dd7d29bb394be5c785
+Update lowrisc_ibex to lowRISC/ibex@dd39ec0
+diff --git a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_fpga.sv b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_fpga.sv
+index 13ba74a34..aa88cdc45 100644
+--- a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_fpga.sv
++++ b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_fpga.sv
+@@ -12,14 +12,16 @@
+  * FPGA architectures, it will produce RAM32M primitives. Other vendors have not yet been tested.
+  */
+ module ibex_register_file #(
+-  parameter bit RV32E              = 0,
+-  parameter int unsigned DataWidth = 32
++  parameter bit          RV32E             = 0,
++  parameter int unsigned DataWidth         = 32,
++  parameter bit          DummyInstructions = 0
+ ) (
+   // Clock and Reset
+   input  logic                 clk_i,
+   input  logic                 rst_ni,
+ 
+   input  logic                 test_en_i,
++  input  logic                 dummy_instr_id_i,
+ 
+   //Read port R1
+   input  logic [          4:0] raddr_a_i,
+@@ -54,4 +56,12 @@ module ibex_register_file #(
+     end
+   end : sync_write
+ 
++  // Reset not used in this register file version
++  logic unused_rst_ni;
++  assign unused_rst_ni = rst_ni;
++
++  // Dummy instruction changes not relevant for FPGA implementation
++  logic unused_dummy_instr;
++  assign unused_dummy_instr = dummy_instr_id_i;
++
+ endmodule : ibex_register_file

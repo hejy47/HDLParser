@@ -1,0 +1,175 @@
+======Commit: 87c23b99======
+======Short Message======
+Merge pull request #101 from antmicro/fix-vivado-tcl
+======Full Message======
+Merge pull request #101 from antmicro/fix-vivado-tcl
+
+Remove not existing file from vivado.tcl
+
+
+======Commit: d4e7b25f======
+======Short Message======
+Merge pull request #93 from antmicro/variable-order-fix
+======Full Message======
+Merge pull request #93 from antmicro/variable-order-fix
+
+Declare variables before using them
+Thank you for this update.
+
+
+======Commit: bcb5b337======
+======Short Message======
+Merge pull request #82 from chipsalliance/quartus_core_fix
+======Full Message======
+Merge pull request #82 from chipsalliance/quartus_core_fix
+
+Only load Vivado TCL files when using Vivado
+
+
+======Commit: bb9f9ef3======
+======Short Message======
+Merge pull request #89 from olofk/scan_mode
+======Full Message======
+Merge pull request #89 from olofk/scan_mode
+
+Remove unused scan_mode input from dmi_wrapper.
+We will be releasing some fixes shortly which will have this change too. Accepting your PR so as not hold up any progress.
+
+
+======Commit: 801d0f66======
+======Short Message======
+Set snapshot dir to a known location in FuseSoC SweRV config generator
+======Full Message======
+Set snapshot dir to a known location in FuseSoC SweRV config generator
+
+The previous fix for the FuseSoC SweRV config generator was not complete
+
+
+
+======Commit: 27507b79======
+======Short Message======
+Merge pull request #49 from dawidzim/enum_from_diff_type
+======Full Message======
+Merge pull request #49 from dawidzim/enum_from_diff_type
+
+fix for assignment to enum variable from expression of different type
+
+
+======Commit: a4cc4368======
+======Short Message======
+Update RISC-V_SweRV_EH1_PRM.pdf
+======Full Message======
+Update RISC-V_SweRV_EH1_PRM.pdf
+
+Fixed typo in Section 18.3.
+
+
+
+======Commit: 241ad18e======
+======Short Message======
+fix for assignment to enum variable from expression of different type
+======Full Message======
+fix for assignment to enum variable from expression of different type
+
+
+
+======Commit: 040d2807======
+======Short Message======
+Fix Riviera -l switch
+======Full Message======
+Fix Riviera -l switch
+
+
+
+======Commit: 2a1d9be0======
+======Short Message======
+Update dmi_jtag_to_core_sync.v
+======Full Message======
+Update dmi_jtag_to_core_sync.v
+
+Fixed incorrect syntax
+
+
+======Commit: 63e74e23======
+======Short Message======
+Add initial FuseSoC support
+======Full Message======
+Add initial FuseSoC support
+
+This adds support for using SweRV with FuseSoC. For SweRV itself, it allows linting with verilator running simulations with the provided testbench using most available simulators and doing synthesis for resource usage analysis with Vivado. It also allows SweRV to be integrated into FuseSoC-built SoCs, such as [SweRVolf](https://github.com/chipsalliance/Cores-SweRVolf)
+
+**Quickstart**
+
+1. Install [FuseSoC](https://github.com/olofk/fusesoc) and Verilator
+2. Create an empty workspace directory. All subsequent commands are run from this directory
+3. Add SweRV as FuseSoC library `fusesoc library add swerv https://github.com/chipsalliance/Cores-SweRV`
+4. Run linting with Verilator `fusesoc run --target=lint chipsalliance.org:cores:SweRV_EH1`
+5. Run testbench with default simulator (Verilator) `fusesoc run --target=sim chipsalliance.org:cores:SweRV_EH1`
+6. Run testbench with another supported simulator (e.g. ModelSim) `fusesoc run --target=sim --tool=modelsim chipsalliance.org:cores:SweRV_EH1`
+7. Run synthesis with Vivado `fusesoc run --target=synth chipsalliance.org:cores:SweRV_EH1`
+
+* configs/swerv_config_gen.py is a wrapper around `configs/swerv.config` to dynamically create a SweRV configuration by setting parameters in the FuseSoC .core file
+* swerv.core is the FuseSoC core description file
+* tools/vivado.tcl marks `common_defines.vh` as a global include file when using Vivado
+
+
+
+======Commit: 1651bdf9======
+======Short Message======
+Merge pull request #29 from arupde171/master
+======Full Message======
+Merge pull request #29 from arupde171/master
+
+Fixed FPGA build error
+
+
+======Commit: aa2bc226======
+======Short Message======
+Fixed FPGA build error
+======Full Message======
+Fixed FPGA build error
+
+
+
+======Commit: 3820e84e======
+======Short Message======
+Move declarations to top of Verilog file to fix fpga compile issues.
+======Full Message======
+Move declarations to top of Verilog file to fix fpga compile issues.
+
+
+
+======Commit: 8242950a======
+======Short Message======
+Fixed branch numbers
+======Full Message======
+Fixed branch numbers
+
+
+======Commit: c5a699aa======
+======Short Message======
+Fixed release notes
+======Full Message======
+Fixed release notes
+
+
+======Commit: 1cf98e76======
+======Short Message======
+fix synthesis syntax in rvdffe in beh_lib.sv
+======Full Message======
+fix synthesis syntax in rvdffe in beh_lib.sv
+
+
+
+======Commit: 0dacc978======
+======Short Message======
+Merged bug fix corresponding to Jira RISCV-1454: Write to SBDATA0 does
+======Full Message======
+Merged bug fix corresponding to Jira RISCV-1454: Write to SBDATA0 does
+not start an SB write access when sbreadonaddr/dbreadondata is set.
+
+Add fpga_optimize option to swerv.config; eliminates over 90% of
+clock-gating to support faster FPGA simulation.
+
+
+

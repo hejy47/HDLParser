@@ -1,0 +1,17 @@
+f59058dd8a682bddeee171306127602b2e6fe3fc
+axi_ad9434: Fix the up interface for IO_DELAYs
+diff --git a/library/axi_ad9434/axi_ad9434_core.v b/library/axi_ad9434/axi_ad9434_core.v
+index e893461c..0ac49b74 100644
+--- a/library/axi_ad9434/axi_ad9434_core.v
++++ b/library/axi_ad9434/axi_ad9434_core.v
+@@ -194,8 +194,8 @@ module axi_ad9434_core (
+       up_wack <= 'd0;
+     end else begin
+       up_rdata <= up_rdata_s[0] | up_rdata_s[1] | up_rdata_s[2];
+-      up_rack <= up_rack_s[0] | up_rack_s[1] | up_rdata_s[2];
+-      up_wack <= up_wack_s[0] | up_wack_s[1] | up_rdata_s[2];
++      up_rack <= up_rack_s[0] | up_rack_s[1] | up_rack_s[2];
++      up_wack <= up_wack_s[0] | up_wack_s[1] | up_wack_s[2];
+     end
+   end
+ 

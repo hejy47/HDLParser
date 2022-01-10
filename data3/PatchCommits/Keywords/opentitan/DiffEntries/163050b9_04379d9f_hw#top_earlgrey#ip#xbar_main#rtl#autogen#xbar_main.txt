@@ -1,0 +1,28 @@
+163050b9c89b00dbac598f9b8ea68d2e99883a05
+[pwrmgr] - pwrmgr integration into top_earlgrey
+diff --git a/hw/top_earlgrey/ip/xbar_main/rtl/autogen/xbar_main.sv b/hw/top_earlgrey/ip/xbar_main/rtl/autogen/xbar_main.sv
+index 029a952e3..08282bc5c 100644
+--- a/hw/top_earlgrey/ip/xbar_main/rtl/autogen/xbar_main.sv
++++ b/hw/top_earlgrey/ip/xbar_main/rtl/autogen/xbar_main.sv
+@@ -408,7 +408,9 @@ end
+       ((tl_s1n_20_us_h2d.a_address <= (ADDR_MASK_PERI[1] + ADDR_SPACE_PERI[1])) &&
+        (tl_s1n_20_us_h2d.a_address >= ADDR_SPACE_PERI[1])) ||
+       ((tl_s1n_20_us_h2d.a_address <= (ADDR_MASK_PERI[2] + ADDR_SPACE_PERI[2])) &&
+-       (tl_s1n_20_us_h2d.a_address >= ADDR_SPACE_PERI[2]))
++       (tl_s1n_20_us_h2d.a_address >= ADDR_SPACE_PERI[2])) ||
++      ((tl_s1n_20_us_h2d.a_address <= (ADDR_MASK_PERI[3] + ADDR_SPACE_PERI[3])) &&
++       (tl_s1n_20_us_h2d.a_address >= ADDR_SPACE_PERI[3]))
+     ) begin
+       dev_sel_s1n_20 = 4'd4;
+ 
+@@ -453,7 +455,9 @@ end
+       ((tl_s1n_30_us_h2d.a_address <= (ADDR_MASK_PERI[1] + ADDR_SPACE_PERI[1])) &&
+        (tl_s1n_30_us_h2d.a_address >= ADDR_SPACE_PERI[1])) ||
+       ((tl_s1n_30_us_h2d.a_address <= (ADDR_MASK_PERI[2] + ADDR_SPACE_PERI[2])) &&
+-       (tl_s1n_30_us_h2d.a_address >= ADDR_SPACE_PERI[2]))
++       (tl_s1n_30_us_h2d.a_address >= ADDR_SPACE_PERI[2])) ||
++      ((tl_s1n_30_us_h2d.a_address <= (ADDR_MASK_PERI[3] + ADDR_SPACE_PERI[3])) &&
++       (tl_s1n_30_us_h2d.a_address >= ADDR_SPACE_PERI[3]))
+     ) begin
+       dev_sel_s1n_30 = 4'd3;
+ 

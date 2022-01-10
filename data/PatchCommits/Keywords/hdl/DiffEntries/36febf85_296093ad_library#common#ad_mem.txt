@@ -1,0 +1,27 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/common/ad_mem.v b/library/common/ad_mem.v
+index b9673046..412e17f8 100644
+--- a/library/common/ad_mem.v
++++ b/library/common/ad_mem.v
+@@ -51,9 +51,9 @@ module ad_mem (
+   doutb);
+ 
+   parameter       DATA_WIDTH = 16;
+-  parameter       ADDR_WIDTH =  5;
++  parameter       ADDRESS_WIDTH =  5;
+   localparam      DW = DATA_WIDTH - 1;
+-  localparam      AW = ADDR_WIDTH - 1;
++  localparam      AW = ADDRESS_WIDTH - 1;
+ 
+   input           clka;
+   input           wea;
+@@ -64,7 +64,7 @@ module ad_mem (
+   input   [AW:0]  addrb;
+   output  [DW:0]  doutb;
+ 
+-  reg     [DW:0]  m_ram[0:((2**ADDR_WIDTH)-1)];
++  reg     [DW:0]  m_ram[0:((2**ADDRESS_WIDTH)-1)];
+   reg     [DW:0]  doutb;
+ 
+   always @(posedge clka) begin

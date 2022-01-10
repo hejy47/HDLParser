@@ -1,0 +1,24 @@
+a60e3728b737efdc26150a275cb784bc05f70b44
+[rtl/prim_async_fifo] Fix async fifo typo when depth <= 2
+diff --git a/hw/ip/prim/rtl/prim_fifo_async.sv b/hw/ip/prim/rtl/prim_fifo_async.sv
+index e28dfa87f..8da084fd8 100644
+--- a/hw/ip/prim/rtl/prim_fifo_async.sv
++++ b/hw/ip/prim/rtl/prim_fifo_async.sv
+@@ -253,7 +253,7 @@ module prim_fifo_async #(
+     assign fifo_wptr_sync_combi = {fifo_wptr_gray_sync[PTR_WIDTH-1], ^fifo_rptr_gray_sync};
+ 
+     assign fifo_rptr_gray_d = {fifo_rptr_d[PTR_WIDTH-1], ^fifo_rptr_d};
+-    assign fifo_wptr_gray_d = {fifo_wptr_d[PTR_WIDTH-1], ^fifo_rptr_d};
++    assign fifo_wptr_gray_d = {fifo_wptr_d[PTR_WIDTH-1], ^fifo_wptr_d};
+ 
+   end else begin : g_no_gray_conversion
+ 
+@@ -261,7 +261,7 @@ module prim_fifo_async #(
+     assign fifo_wptr_sync_combi = fifo_wptr_gray_sync;
+ 
+     assign fifo_rptr_gray_d = fifo_rptr_d;
+-    assign fifo_wptr_gray_d = fifo_rptr_d;
++    assign fifo_wptr_gray_d = fifo_wptr_d;
+ 
+   end
+ 

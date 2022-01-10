@@ -1,0 +1,16 @@
+0352d550843c18c0435af6690e83715740054d8c
+Add default case
+diff --git a/rtl/eth_mac_10g_rx.v b/rtl/eth_mac_10g_rx.v
+index 5239070..d50c3c6 100644
+--- a/rtl/eth_mac_10g_rx.v
++++ b/rtl/eth_mac_10g_rx.v
+@@ -285,6 +285,9 @@ always @* begin
+     8'b10000000: begin
+         detect_error_masked = detect_error[6:0];
+     end
++    default: begin
++        detect_error_masked = detect_error;
++    end
+     endcase
+ end
+ 

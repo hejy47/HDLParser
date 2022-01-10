@@ -1,0 +1,15 @@
+ef348c9995b53217479ebda6af8f7501042ecb72
+[reggen] Add naming check for REGWEN and standardize on RW0C accesses
+diff --git a/hw/ip/edn/rtl/edn_core.sv b/hw/ip/edn/rtl/edn_core.sv
+index ed048f304..088105e57 100644
+--- a/hw/ip/edn/rtl/edn_core.sv
++++ b/hw/ip/edn/rtl/edn_core.sv
+@@ -533,7 +533,7 @@ module edn_core import edn_pkg::*; #(
+   //--------------------------------------------
+ 
+   assign     hw2reg.sum_sts.internal_use.de = !edn_enable;
+-  assign     hw2reg.sum_sts.internal_use.d  = reg2hw.regen.q;
++  assign     hw2reg.sum_sts.internal_use.d  = reg2hw.regwen.q;
+ 
+ 
+ endmodule

@@ -1,0 +1,16 @@
+95de42fca7f4cf78e46bd9eaf334254060e39abf
+fix pmp errors
+diff --git a/rtl/riscv_if_stage.sv b/rtl/riscv_if_stage.sv
+index e71bf67..c436b31 100644
+--- a/rtl/riscv_if_stage.sv
++++ b/rtl/riscv_if_stage.sv
+@@ -230,7 +230,8 @@ module riscv_if_stage
+         .busy_o            ( prefetch_busy               )
+        );
+ 
+-       assign hwlp_branch = 1'b0;
++       assign hwlp_branch  = 1'b0;
++       assign fetch_failed = 1'b0;
+ 
+     end
+   endgenerate

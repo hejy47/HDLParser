@@ -1,0 +1,15 @@
+4fe515fd5f41eb82ff3738b9f85a3eb8ef1ef9f1
+Merge remote-tracking branch 'origin' into fix325
+diff --git a/rtl/riscv_register_file.sv b/rtl/riscv_register_file.sv
+index 3c11449..129bd1a 100644
+--- a/rtl/riscv_register_file.sv
++++ b/rtl/riscv_register_file.sv
+@@ -39,7 +39,7 @@ module riscv_register_file
+     input  logic         clk,
+     input  logic         rst_n,
+ 
+-    input  logic         test_en_i,
++    input  logic         scan_cg_en_i,
+ 
+     //Read port R1
+     input  logic [ADDR_WIDTH-1:0]  raddr_a_i,

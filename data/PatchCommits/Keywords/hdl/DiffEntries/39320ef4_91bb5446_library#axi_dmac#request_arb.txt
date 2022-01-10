@@ -1,0 +1,15 @@
+39320ef48bdcb2c19c3540cdc921aeb3961ff4a3
+axi_dmac: Fix source pause signal
+diff --git a/library/axi_dmac/request_arb.v b/library/axi_dmac/request_arb.v
+index a6f7afd9..0e2958e3 100644
+--- a/library/axi_dmac/request_arb.v
++++ b/library/axi_dmac/request_arb.v
+@@ -618,7 +618,7 @@ dmac_src_mm_axi #(
+ 	.m_axi_aclk(m_src_axi_aclk),
+ 	.m_axi_aresetn(src_resetn),
+ 
+-	.pause(pause),
++	.pause(src_pause),
+ 	.enable(src_enable),
+ 	.enabled(src_enabled),
+ 	.sync_id(src_sync_id),

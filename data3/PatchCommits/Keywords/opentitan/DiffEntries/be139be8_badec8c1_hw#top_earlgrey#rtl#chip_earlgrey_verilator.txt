@@ -1,0 +1,15 @@
+be139be85c3a9bfcba7219f4b8413196949b051e
+[pwrmgr] Harden pwrmgr FSM / main_pok handling
+diff --git a/hw/top_earlgrey/rtl/chip_earlgrey_verilator.sv b/hw/top_earlgrey/rtl/chip_earlgrey_verilator.sv
+index b38e3ca3a..5f2b92e2f 100644
+--- a/hw/top_earlgrey/rtl/chip_earlgrey_verilator.sv
++++ b/hw/top_earlgrey/rtl/chip_earlgrey_verilator.sv
+@@ -176,7 +176,7 @@ module chip_earlgrey_verilator (
+     .SramCtrlMainInstrExec(1),
+     .PinmuxAonTargetCfg(PinmuxTargetCfg)
+   ) top_earlgrey (
+-    .por_n_i                      (rst_ni            ),
++    .por_n_i                      ( {rst_ni, rst_ni} ),
+     .clk_main_i                   (clk_i             ),
+     .clk_io_i                     (clk_i             ),
+     .clk_usb_i                    (clk_i             ),

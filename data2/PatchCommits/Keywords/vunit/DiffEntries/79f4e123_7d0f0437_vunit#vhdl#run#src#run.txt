@@ -1,0 +1,18 @@
+79f4e1238c9864b01157d7ab546b720ad48c0081
+Make fail_on_warning first parameter of test_runner_cleanup.
+diff --git a/vunit/vhdl/run/src/run.vhd b/vunit/vhdl/run/src/run.vhd
+index e5348db4..31d8d93f 100644
+--- a/vunit/vhdl/run/src/run.vhd
++++ b/vunit/vhdl/run/src/run.vhd
+@@ -92,9 +92,9 @@ package body run_pkg is
+ 
+   procedure test_runner_cleanup (
+     signal runner: inout runner_sync_t;
++    fail_on_warning : boolean := false;
+     allow_disabled_errors : boolean := false;
+-    allow_disabled_failures : boolean := false;
+-    fail_on_warning : boolean := false) is
++    allow_disabled_failures : boolean := false) is
+   begin
+     set_phase(runner_state, test_runner_cleanup);
+     runner.phase <= test_runner_cleanup;

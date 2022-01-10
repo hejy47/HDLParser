@@ -1,0 +1,14 @@
+c90e0c58a98990c1fc667f558c05db6367d5cc37
+[aes] Use sparse encodings for FSMs, trigger alert for invalid states
+diff --git a/hw/ip/csrng/rtl/csrng_block_encrypt.sv b/hw/ip/csrng/rtl/csrng_block_encrypt.sv
+index 54e61855e..72c2b3fe4 100644
+--- a/hw/ip/csrng/rtl/csrng_block_encrypt.sv
++++ b/hw/ip/csrng/rtl/csrng_block_encrypt.sv
+@@ -105,6 +105,7 @@ module csrng_block_encrypt #(
+     .key_clear_o        (                            ),
+     .data_out_clear_i   ( 1'b0                       ), // Disable
+     .data_out_clear_o   (                            ),
++    .alert_o            (                            ), // Currently unused.
+     .prd_clearing_i     ( '0                         ),
+     .force_zero_masks_i ( 1'b0                       ),
+     .data_in_mask_o     (                            ),

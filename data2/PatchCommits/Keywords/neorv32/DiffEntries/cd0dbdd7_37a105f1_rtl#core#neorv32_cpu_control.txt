@@ -1,0 +1,15 @@
+cd0dbdd771b1d9aca30f2af6c34b72cdd7c2605a
+:bug: [cpu/rtl] fixed bug/typo in minstreth CSR counter logic
+diff --git a/rtl/core/neorv32_cpu_control.vhd b/rtl/core/neorv32_cpu_control.vhd
+index 372d993..6712216 100644
+--- a/rtl/core/neorv32_cpu_control.vhd
++++ b/rtl/core/neorv32_cpu_control.vhd
+@@ -2432,7 +2432,7 @@ begin
+       end if;
+ 
+       -- [m]instreth --
+-      if (cpu_cnt_hi_width_c = 0) then
++      if (cpu_cnt_hi_width_c > 0) then
+         if (csr.we = '1') and (csr.addr = csr_minstreth_c) then -- write access
+           csr.minstreth(cpu_cnt_hi_width_c-1 downto 0) <= csr.wdata(cpu_cnt_hi_width_c-1 downto 0);
+         elsif (csr.minstret_msb = '0') and (csr.minstret(csr.minstret'left) = '1') then -- automatic update (continued)

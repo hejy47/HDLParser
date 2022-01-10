@@ -1,0 +1,24 @@
+bc64b96b31c0fb591c1775fffba1ada37f1914db
+ieee2008: backport fixed_generic_pkg-body changes from opensource.ieee.org
+diff --git a/libraries/ieee2008/fixed_generic_pkg-body.vhdl b/libraries/ieee2008/fixed_generic_pkg-body.vhdl
+index 6c18fcb9..37222eb0 100644
+--- a/libraries/ieee2008/fixed_generic_pkg-body.vhdl
++++ b/libraries/ieee2008/fixed_generic_pkg-body.vhdl
+@@ -919,7 +919,7 @@ package body fixed_generic_pkg is
+       lslv       := to_uns (lresize);
+       rslv       := to_uns (rresize);
+       result_slv := lslv + rslv + cx;
+-      c_out      := result_slv(left_index);
++      c_out      := result_slv(left_index-right_index);
+       result := to_fixed(result_slv (left_index-right_index-1 downto 0),
+                          left_index-1, right_index);
+     end if;
+@@ -950,7 +950,7 @@ package body fixed_generic_pkg is
+       lslv       := to_s (lresize);
+       rslv       := to_s (rresize);
+       result_slv := lslv + rslv + cx;
+-      c_out      := result_slv(left_index);
++      c_out      := result_slv(left_index-right_index);
+       result := to_fixed(result_slv (left_index-right_index-1 downto 0),
+                          left_index-1, right_index);
+     end if;

@@ -1,0 +1,25 @@
+d5422c2ecc3d4c4ff3cd30f215c0752e8c30ed82
+fmcomms2: Zed, fixed iic multiplexer ad_iobuf connections
+diff --git a/projects/fmcomms2/zed/system_top.v b/projects/fmcomms2/zed/system_top.v
+index 51411a1b..1f08eb0b 100644
+--- a/projects/fmcomms2/zed/system_top.v
++++ b/projects/fmcomms2/zed/system_top.v
+@@ -225,14 +225,14 @@ module system_top (
+ 
+    ad_iobuf #(.DATA_WIDTH(2)) i_iobuf_iic_scl (
+     .dt ({iic_mux_scl_t_s,iic_mux_scl_t_s}),
+-    .di (iic_mux_scl_i_s),
+-    .do (iic_mux_scl_o_s),
++    .di (iic_mux_scl_o_s),
++    .do (iic_mux_scl_i_s),
+     .dio(iic_mux_scl));
+ 
+    ad_iobuf #(.DATA_WIDTH(2)) i_iobuf_iic_sda (
+     .dt ({iic_mux_sda_t_s,iic_mux_sda_t_s}),
+-    .di (iic_mux_sda_i_s),
+-    .do (iic_mux_sda_o_s),
++    .di (iic_mux_sda_o_s),
++    .do (iic_mux_sda_i_s),
+     .dio(iic_mux_sda));
+ 
+   system_wrapper i_system_wrapper (

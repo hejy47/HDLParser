@@ -1,0 +1,15 @@
+101f455de120d14421f1dffa30a9e119a6bb2597
+Merge pull request #358 from Silabs-ArjanB/ArjanB_irq
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index 1e89055..4266649 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -221,7 +221,7 @@ module riscv_id_stage
+     input  logic        m_irq_enable_i,
+     input  logic        u_irq_enable_i,
+     output logic        irq_ack_o,
+-    output logic [4:0]  irq_id_o,
++    output logic [5:0]  irq_id_o,
+     output logic [5:0]  exc_cause_o,
+ 
+     // Debug Signal

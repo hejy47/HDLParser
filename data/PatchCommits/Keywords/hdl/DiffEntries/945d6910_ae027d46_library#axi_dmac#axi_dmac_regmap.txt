@@ -1,0 +1,15 @@
+945d6910e79fc0b73a4ff2df2c4aa17c0af3286b
+axi_dmac: version bump for minor patches
+diff --git a/library/axi_dmac/axi_dmac_regmap.v b/library/axi_dmac/axi_dmac_regmap.v
+index 5f8bfafb..a87ff5a6 100644
+--- a/library/axi_dmac/axi_dmac_regmap.v
++++ b/library/axi_dmac/axi_dmac_regmap.v
+@@ -112,7 +112,7 @@ module axi_dmac_regmap #(
+   input [31:0] dbg_ids1
+ );
+ 
+-localparam PCORE_VERSION = 'h00040261;
++localparam PCORE_VERSION = 'h00040262;
+ 
+ // Register interface signals
+ reg [31:0] up_rdata = 32'h00;

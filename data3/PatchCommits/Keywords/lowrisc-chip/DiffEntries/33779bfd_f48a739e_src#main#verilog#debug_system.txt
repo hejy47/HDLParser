@@ -1,0 +1,14 @@
+33779bfddedd1a5ffe7dcb28d718f260fa9ecdd4
+Debug: Set HIM parameters
+diff --git a/src/main/verilog/debug_system.sv b/src/main/verilog/debug_system.sv
+index 8367281..d97f704 100644
+--- a/src/main/verilog/debug_system.sv
++++ b/src/main/verilog/debug_system.sv
+@@ -118,6 +118,7 @@ module debug_system
+    dii_flit [N-1:0] dii_in; logic [N-1:0] dii_in_ready;   
+    
+    osd_him
++     #(.MAX_PKT_LEN(MAX_PKT_LEN))
+      u_him(.*,
+            .glip_in  (fifo_in),
+            .glip_out (fifo_out),

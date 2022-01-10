@@ -1,0 +1,15 @@
+6f533c40d552ab6521604f80b46925e627174d6c
+the original freedom-e310 chisel generated QSPI have a bug in Quad-mode, fix it here
+diff --git a/rtl/e203/perips/sirv_qspi_physical_2.v b/rtl/e203/perips/sirv_qspi_physical_2.v
+index 70d12ae..9673819 100644
+--- a/rtl/e203/perips/sirv_qspi_physical_2.v
++++ b/rtl/e203/perips/sirv_qspi_physical_2.v
+@@ -275,7 +275,7 @@ module sirv_qspi_physical_2(
+   assign io_port_dq_2_o = T_208;
+   assign io_port_dq_2_oe = T_196;
+   assign io_port_dq_3_o = T_209;
+-  assign io_port_dq_3_oe = 1'h0;
++  assign io_port_dq_3_oe = io_port_dq_2_oe;
+   assign io_port_cs_0 = T_202_0;
+   assign io_op_ready = T_251;
+   assign io_rx_valid = done;

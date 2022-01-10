@@ -1,0 +1,15 @@
+cabf26f33f6964caba640d9638873d681ba4a6a5
+[prim] Restore ability to select default implementation
+diff --git a/hw/ip/prim/rtl/prim_ram_2p_adv.sv b/hw/ip/prim/rtl/prim_ram_2p_adv.sv
+index 758205123..196bd9c88 100644
+--- a/hw/ip/prim/rtl/prim_ram_2p_adv.sv
++++ b/hw/ip/prim/rtl/prim_ram_2p_adv.sv
+@@ -85,7 +85,7 @@ module prim_ram_2p_adv #(
+     prim_ram_2p #(
+       .Width (TotalWidth),
+       .Depth (Depth),
+-      .Impl  ("generic")
++      .Impl  (prim_pkg::ImplGeneric)
+     ) u_mem (
+       .clk_a_i    (clk_i),
+       .clk_b_i    (clk_i),

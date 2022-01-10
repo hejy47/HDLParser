@@ -1,0 +1,14 @@
+9ef3c13f87a7112da3be35e7c45934d8a4c6a035
+Fix control for interrupts, debug request and multicycle instr
+diff --git a/rtl/ibex_id_stage.sv b/rtl/ibex_id_stage.sv
+index a9d02272..ff36b8b2 100644
+--- a/rtl/ibex_id_stage.sv
++++ b/rtl/ibex_id_stage.sv
+@@ -636,6 +636,7 @@ module ibex_id_stage #(
+       WAIT_MULTICYCLE: begin
+         if ((data_req_dec & lsu_valid_i) | (~data_req_dec & ex_valid_i)) begin
+           id_wb_fsm_ns            = IDLE;
++          instr_multicycle        = 1'b1;
+           instr_multicycle_done_n = 1'b1;
+         end else begin
+           regfile_we              = 1'b0;

@@ -1,0 +1,20 @@
+204d98d1d7d42247de8225cf46f47525f61adf63
+[vsg] fix _i/_o for several modules
+diff --git a/hw/ip/prim/rtl/prim_pulse_sync.sv b/hw/ip/prim/rtl/prim_pulse_sync.sv
+index 143b0884a..ad275fd9c 100644
+--- a/hw/ip/prim/rtl/prim_pulse_sync.sv
++++ b/hw/ip/prim/rtl/prim_pulse_sync.sv
+@@ -39,11 +39,11 @@ module prim_pulse_sync (
+ 
+   prim_flop_2sync #(.Width(1)) prim_flop_2sync (
+     // source clock domain
+-    .d      (src_level),
++    .d_i    (src_level),
+     // destination clock domain
+     .clk_i  (clk_dst_i),
+     .rst_ni (rst_dst_ni),
+-    .q      (dst_level)
++    .q_o    (dst_level)
+   );
+ 
+   ////////////////////////////////////////

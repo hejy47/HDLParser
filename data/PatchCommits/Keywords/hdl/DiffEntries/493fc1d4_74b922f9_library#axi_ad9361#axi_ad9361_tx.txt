@@ -1,0 +1,16 @@
+493fc1d48b8b34a944fad0ddfb240d7db084dede
+axi_*: Fix instantiation of up_[adc|dac]_[common|channel]
+diff --git a/library/axi_ad9361/axi_ad9361_tx.v b/library/axi_ad9361/axi_ad9361_tx.v
+index 33bce4f4..bfd3da0b 100644
+--- a/library/axi_ad9361/axi_ad9361_tx.v
++++ b/library/axi_ad9361/axi_ad9361_tx.v
+@@ -343,7 +343,8 @@ module axi_ad9361_tx #(
+     .CONFIG (CONFIG),
+     .CLK_EDGE_SEL (CLK_EDGE_SEL),
+     .DRP_DISABLE (1),
+-    .USERPORTS_DISABLE (USERPORTS_DISABLE))
++    .USERPORTS_DISABLE (USERPORTS_DISABLE),
++    .GPIO_DISABLE (0))
+   i_up_dac_common (
+     .mmcm_rst (),
+     .dac_clk (dac_clk),

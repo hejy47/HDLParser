@@ -1,0 +1,15 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/axi_adcfifo/axi_adcfifo_rd.v b/library/axi_adcfifo/axi_adcfifo_rd.v
+index 9069e3ff..8018d467 100644
+--- a/library/axi_adcfifo/axi_adcfifo_rd.v
++++ b/library/axi_adcfifo/axi_adcfifo_rd.v
+@@ -91,7 +91,7 @@ module axi_adcfifo_rd (
+   parameter   AXI_SIZE = 2;
+   parameter   AXI_LENGTH = 16;
+   parameter   AXI_ADDRESS = 32'h00000000;
+-  parameter   AXI_ADDRLIMIT = 32'h00000000;
++  parameter   AXI_ADDRESS_LIMIT = 32'h00000000;
+   localparam  AXI_BYTE_WIDTH = AXI_DATA_WIDTH/8;
+   localparam  AXI_AWINCR = AXI_LENGTH * AXI_BYTE_WIDTH;
+   localparam  BUF_THRESHOLD_LO = 6'd3;

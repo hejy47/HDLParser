@@ -1,0 +1,28 @@
+c7cc32ed95644b50a1cd22e2005cacdba5b63388
+Fix verilog code for modelsim
+diff --git a/picorv32.v b/picorv32.v
+index e6fde6d..b6c8707 100644
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -34,7 +34,7 @@
+   `define assert(assert_expr) assert(assert_expr)
+ `else
+   `define FORMAL_KEEP
+-  `define assert(assert_expr)
++  `define assert(assert_expr) empty_statement
+ `endif
+ 
+ /***************************************************************
+@@ -176,6 +176,12 @@ module picorv32 #(
+ 		end
+ 	end
+ 
++	task empty_statement;
++		// This task is used by the `assert directive in non-formal mode to
++		// avoid empty statement (which are unsupported by plain Verilog syntax).
++		begin end
++	endtask
++
+ `ifdef DEBUGREGS
+ 	wire [31:0] dbg_reg_x0  = cpuregs[0];
+ 	wire [31:0] dbg_reg_x1  = cpuregs[1];

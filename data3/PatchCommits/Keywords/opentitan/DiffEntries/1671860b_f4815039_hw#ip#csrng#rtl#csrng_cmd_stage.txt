@@ -1,0 +1,15 @@
+1671860bd9c24744d9d2df2d024049e150dcc55e
+[csrng/rtl] bug fix for csrng command stage FIFO
+diff --git a/hw/ip/csrng/rtl/csrng_cmd_stage.sv b/hw/ip/csrng/rtl/csrng_cmd_stage.sv
+index 21f31fdf1..f9fa3963d 100644
+--- a/hw/ip/csrng/rtl/csrng_cmd_stage.sv
++++ b/hw/ip/csrng/rtl/csrng_cmd_stage.sv
+@@ -132,7 +132,7 @@ module csrng_cmd_stage import csrng_pkg::*; #(
+ 
+   assign sfifo_cmd_wdata = cmd_stage_bus_i;
+ 
+-  assign sfifo_cmd_push = cs_enable_i && cmd_stage_vld_i;
++  assign sfifo_cmd_push = cs_enable_i && cmd_stage_rdy_o && cmd_stage_vld_i;
+ 
+   assign sfifo_cmd_pop = cs_enable_i && cmd_fifo_pop;
+ 

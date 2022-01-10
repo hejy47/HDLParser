@@ -1,0 +1,14 @@
+fa7c85a9ebfd7ad3dc8744ba688dd9625b0b5725
+all: Drive undriven input signals, complete interface
+diff --git a/projects/daq3/zcu102/system_top.v b/projects/daq3/zcu102/system_top.v
+index 982b242e..8124fa19 100644
+--- a/projects/daq3/zcu102/system_top.v
++++ b/projects/daq3/zcu102/system_top.v
+@@ -173,6 +173,7 @@ module system_top (
+   system_wrapper i_system_wrapper (
+     .gpio_i (gpio_i),
+     .gpio_o (gpio_o),
++    .gpio_t (),
+     .rx_data_0_n (rx_data_n[0]),
+     .rx_data_0_p (rx_data_p[0]),
+     .rx_data_1_n (rx_data_n[1]),

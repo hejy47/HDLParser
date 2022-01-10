@@ -1,0 +1,24 @@
+8d669cc2eb08bd4e7d00228904be31577262b4ad
+Fix very stupid oversight in the FPGA compute unit wrapper. One of these days this wrapper will no longer be necessary. Hopefully.
+diff --git a/src/verilog/rtl/fpga/compute_unit_fpga.v b/src/verilog/rtl/fpga/compute_unit_fpga.v
+index 8070327..151ba8a 100644
+--- a/src/verilog/rtl/fpga/compute_unit_fpga.v
++++ b/src/verilog/rtl/fpga/compute_unit_fpga.v
+@@ -1001,7 +1001,7 @@ rfa rfa0 (
+ simd simd0 (
+   // Contains a 16 wide vector alu for vector operations
+   .clk(clk),
+-  .rst(rst),
++  .rst(rst_signal),
+   //  Inputs
+   .issue_source_reg1(issue2alu_source_reg1),
+   .issue_source_reg2(issue2alu_source_reg2),
+@@ -1055,7 +1055,7 @@ simd simd0 (
+ simf simf0 (
+   // Contains a 16 wide floating point vector alu for vector operations
+   .clk(clk),
+-  .rst(rst),
++  .rst(rst_signal),
+   //  Inputs
+   .issue_source_reg1(issue2alu_source_reg1),
+   .issue_source_reg2(issue2alu_source_reg2),

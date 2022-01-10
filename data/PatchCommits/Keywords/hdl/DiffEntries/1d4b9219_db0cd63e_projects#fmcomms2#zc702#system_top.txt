@@ -1,0 +1,17 @@
+1d4b92190aab3ed96cbde543a14ca162f7b14fb5
+fmcomms2/zc702: Fix Warning[Synth 8-2611]
+diff --git a/projects/fmcomms2/zc702/system_top.v b/projects/fmcomms2/zc702/system_top.v
+index 57b27992..15d59724 100644
+--- a/projects/fmcomms2/zc702/system_top.v
++++ b/projects/fmcomms2/zc702/system_top.v
+@@ -117,10 +117,6 @@ module system_top (
+   wire    [63:0]  gpio_o;
+   wire    [63:0]  gpio_t;
+ 
+-  wire            spi_udc_csn_tx;
+-  wire            spi_udc_csn_rx;
+-  wire            spi_udc_sclk;
+-  wire            spi_udc_data;
+   wire            tdd_sync_t;
+   wire            tdd_sync_o;
+   wire            tdd_sync_i;

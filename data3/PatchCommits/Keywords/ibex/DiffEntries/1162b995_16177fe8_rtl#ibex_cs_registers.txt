@@ -1,0 +1,15 @@
+1162b995fa5c75c222a0aa6a48fa746e6ceb0249
+CSRs: reset `dcsr.XDEBUGVER` to `XDEBUGVER_STD` instead of 0
+diff --git a/rtl/ibex_cs_registers.sv b/rtl/ibex_cs_registers.sv
+index f65ab51c..d7763df2 100644
+--- a/rtl/ibex_cs_registers.sv
++++ b/rtl/ibex_cs_registers.sv
+@@ -596,7 +596,7 @@ module ibex_cs_registers #(
+       mtval_q        <= '0;
+       mtvec_q        <= 32'b01;
+       dcsr_q         <= '{
+-          xdebugver: XDEBUGVER_NO,   // 4'h0
++          xdebugver: XDEBUGVER_STD,
+           cause:     DBG_CAUSE_NONE, // 3'h0
+           prv:       PRIV_LVL_M,
+           default:   '0

@@ -1,0 +1,28 @@
+e7600eb55201d252688e746cf364ff1dec020f7d
+ad7616_sdz: Fix the project, after SDI ports were merged
+diff --git a/library/axi_ad7616/axi_ad7616.v b/library/axi_ad7616/axi_ad7616.v
+index fea28a83..ac1bdb61 100644
+--- a/library/axi_ad7616/axi_ad7616.v
++++ b/library/axi_ad7616/axi_ad7616.v
+@@ -45,8 +45,7 @@ module axi_ad7616 #(
+   output                  rx_sclk,
+   output                  rx_cs_n,
+   output                  rx_sdo,
+-  input                   rx_sdi_0,
+-  input                   rx_sdi_1,
++  input       [ 1:0]      rx_sdi,
+ 
+   output      [15:0]      rx_db_o,
+   input       [15:0]      rx_db_i,
+@@ -344,10 +343,7 @@ module axi_ad7616 #(
+       .sclk (rx_sclk),
+       .sdo (rx_sdo),
+       .sdo_t (),
+-      .sdi (rx_sdi_0),
+-      .sdi_1 (rx_sdi_1),
+-      .sdi_2 (1'b0),
+-      .sdi_3 (1'b0),
++      .sdi (rx_sdi),
+       .cs (rx_cs_n),
+       .three_wire ());
+ 

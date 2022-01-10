@@ -1,0 +1,14 @@
+401cfe2022f91131d664fc5e79c2dbfcb3742b84
+:bug: [rtl/cpu] fixed bug in instruction fetch misalignment/bus_error ack logic
+diff --git a/rtl/core/neorv32_cpu_control.vhd b/rtl/core/neorv32_cpu_control.vhd
+index 726a0ee..2bb7e42 100644
+--- a/rtl/core/neorv32_cpu_control.vhd
++++ b/rtl/core/neorv32_cpu_control.vhd
+@@ -344,6 +344,7 @@ begin
+ 
+       when IFETCH_ISSUE => -- store instruction data to prefetch buffer
+       -- ------------------------------------------------------------
++        fetch_engine.bus_err_ack <= be_instr_i or ma_instr_i; -- ACK bus/alignment errors
+         if (bus_i_wait_i = '0') or (be_instr_i = '1') or (ma_instr_i = '1') then -- wait for bus response
+           fetch_engine.pc_nxt    <= std_ulogic_vector(unsigned(fetch_engine.pc) + 4);
+           ipb.we                 <= '1';

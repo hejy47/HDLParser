@@ -1,0 +1,1265 @@
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/ifu/ifu_ifc_ctl.sv
++++ b/design/ifu/ifu_ifc_ctl.sv
+@@ -185,11 +185,11 @@ module ifu_ifc_ctl
+ //11 0-10- 01
+ //11 0-00- 11
+ 
+-   assign next_state[1] = (~state[1] & state[0] & ~reset_delayed & miss_f2 & ~goto_idle) |
+-                          (state[1] & ~reset_delayed & ~mb_empty_mod & ~goto_idle);
++   assign next_state[1] = state_t'((~state[1] & state[0] & ~reset_delayed & miss_f2 & ~goto_idle) |
++                          (state[1] & ~reset_delayed & ~mb_empty_mod & ~goto_idle));
+ 
+-   assign next_state[0] = (~goto_idle & leave_idle) | (state[0] & ~goto_idle) |
+-                          (reset_delayed);
++   assign next_state[0] = state_t'((~goto_idle & leave_idle) | (state[0] & ~goto_idle) |
++                          (reset_delayed));
+ 
+    assign flush_fb = exu_flush_final;
+ 
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@CALL to 
+    UPD HdlOp@@CALL to CALL
+        INS list@@ops to CALL
+        INS HdlValueId@@state_t to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@CALL to 
+    UPD HdlOp@@CALL to CALL
+        INS list@@ops to CALL
+        INS HdlValueId@@state_t to ops
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@OR to 
+    HdlOp: OR
+        list: ops
+            HdlOp: AND
+                list: ops
+                    HdlOp: AND
+                        list: ops
+                            HdlOp: AND
+                                list: ops
+                                    HdlOp: AND
+                                        list: ops
+                                            HdlOp: NEG
+                                                list: ops
+                                                    HdlOp: INDEX
+                                                        list: ops
+                                                            HdlValueId: state
+                                                            HdlValueInt: 1
+                                            HdlOp: INDEX
+                                                list: ops
+                                                    HdlValueId: state
+                                                    HdlValueInt: 0
+                                    HdlOp: NEG
+                                        list: ops
+                                            HdlValueId: reset_delayed
+                            HdlValueId: miss_f2
+                    HdlOp: NEG
+                        list: ops
+                            HdlValueId: goto_idle
+            HdlOp: AND
+                list: ops
+                    HdlOp: AND
+                        list: ops
+                            HdlOp: AND
+                                list: ops
+                                    HdlOp: INDEX
+                                        list: ops
+                                            HdlValueId: state
+                                            HdlValueInt: 1
+                                    HdlOp: NEG
+                                        list: ops
+                                            HdlValueId: reset_delayed
+                            HdlOp: NEG
+                                list: ops
+                                    HdlValueId: mb_empty_mod
+                    HdlOp: NEG
+                        list: ops
+                            HdlValueId: goto_idle
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@OR to 
+    HdlOp: OR
+        list: ops
+            HdlOp: OR
+                list: ops
+                    HdlOp: AND
+                        list: ops
+                            HdlOp: NEG
+                                list: ops
+                                    HdlValueId: goto_idle
+                            HdlValueId: leave_idle
+                    HdlOp: AND
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: state
+                                    HdlValueInt: 0
+                            HdlOp: NEG
+                                list: ops
+                                    HdlValueId: goto_idle
+            HdlValueId: reset_delayed
+
+
+CommitId: 0dacc978daa610cb604b54a3bb68c1aaff70c44c
+Merged bug fix corresponding to Jira RISCV-1454: Write to SBDATA0 does
+--- a/design/lsu/lsu_clkdomain.sv
++++ b/design/lsu/lsu_clkdomain.sv
+@@ -66,13 +66,16 @@ module lsu_clkdomain
+    output logic     lsu_c2_dc4_clk,                    // dc4 pipe double pulse clock
+    output logic     lsu_c2_dc5_clk,                    // dc5 pipe double pulse clock
+ 
+-   output logic     lsu_store_c1_dc1_clk,              // store in dc1 
+-   output logic     lsu_store_c1_dc2_clk,              // store in dc2
+-   output logic     lsu_store_c1_dc3_clk,              // store in dc3
++   output logic     lsu_store_c1_dc1_clken,              // store in dc1 
++   output logic     lsu_store_c1_dc2_clken,              // store in dc2
++   output logic     lsu_store_c1_dc3_clken,              // store in dc3
+    output logic     lsu_store_c1_dc4_clk,              // store in dc4
+    output logic     lsu_store_c1_dc5_clk,              // store in dc5
+ 
+-   output logic     lsu_freeze_c1_dc1_clk,             // freeze               
++   output logic     lsu_freeze_c1_dc1_clken,             // freeze               
++   output logic     lsu_freeze_c1_dc2_clken,             // freeze               
++   output logic     lsu_freeze_c1_dc3_clken,             // freeze               
++
+    output logic     lsu_freeze_c1_dc2_clk,             // freeze               
+    output logic     lsu_freeze_c1_dc3_clk,             // freeze               
+ 
+
+ParseResult:
+MOV HdlIdDef@@lsu_store_c1_dc3_clk to ports
+HdlIdDef: lsu_store_c1_dc3_clk
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: OUT
+
+UPD HdlIdDef@@lsu_store_c1_dc1_clk to lsu_store_c1_dc2_clken
+
+UPD HdlIdDef@@lsu_store_c1_dc2_clk to lsu_store_c1_dc3_clken
+
+UPD HdlIdDef@@lsu_store_c1_dc3_clk to lsu_freeze_c1_dc1_clken
+
+UPD HdlIdDef@@lsu_freeze_c1_dc1_clk to lsu_freeze_c1_dc2_clken
+
+
+CommitId: 0dacc978daa610cb604b54a3bb68c1aaff70c44c
+Merged bug fix corresponding to Jira RISCV-1454: Write to SBDATA0 does
+--- a/design/lsu/lsu_clkdomain.sv
++++ b/design/lsu/lsu_clkdomain.sv
+@@ -82,7 +85,7 @@ module lsu_clkdomain
+    output logic     lsu_freeze_c2_dc4_clk,
+ 
+    output logic     lsu_dccm_c1_dc3_clk,               // dccm clock
+-   output logic     lsu_pic_c1_dc3_clk,                // pic clock
++   output logic     lsu_pic_c1_dc3_clken,              // pic clock enable
+ 
+    output logic     lsu_stbuf_c1_clk,                      
+    output logic     lsu_bus_obuf_c1_clk,               // ibuf clock
+
+ParseResult:
+UPD HdlIdDef@@lsu_pic_c1_dc3_clk to lsu_pic_c1_dc3_clken
+
+
+CommitId: 0dacc978daa610cb604b54a3bb68c1aaff70c44c
+Merged bug fix corresponding to Jira RISCV-1454: Write to SBDATA0 does
+--- a/design/lsu/lsu_clkdomain.sv
++++ b/design/lsu/lsu_clkdomain.sv
+@@ -98,16 +101,16 @@ module lsu_clkdomain
+    logic lsu_c1_dc1_clken, lsu_c1_dc2_clken, lsu_c1_dc3_clken, lsu_c1_dc4_clken, lsu_c1_dc5_clken; 
+    logic lsu_c2_dc3_clken, lsu_c2_dc4_clken, lsu_c2_dc5_clken; 
+    logic lsu_c1_dc1_clken_q, lsu_c1_dc2_clken_q, lsu_c1_dc3_clken_q, lsu_c1_dc4_clken_q, lsu_c1_dc5_clken_q; 
+-   logic lsu_store_c1_dc1_clken, lsu_store_c1_dc2_clken, lsu_store_c1_dc3_clken, lsu_store_c1_dc4_clken, lsu_store_c1_dc5_clken;
++   logic lsu_store_c1_dc4_clken, lsu_store_c1_dc5_clken;
+ 
+-   logic lsu_freeze_c1_dc1_clken, lsu_freeze_c1_dc2_clken, lsu_freeze_c1_dc3_clken, lsu_freeze_c1_dc4_clken; 
++   logic lsu_freeze_c1_dc4_clken; 
+    logic lsu_freeze_c2_dc1_clken, lsu_freeze_c2_dc2_clken, lsu_freeze_c2_dc3_clken, lsu_freeze_c2_dc4_clken; 
+    logic lsu_freeze_c1_dc1_clken_q, lsu_freeze_c1_dc2_clken_q, lsu_freeze_c1_dc3_clken_q, lsu_freeze_c1_dc4_clken_q; 
+ 
+    logic lsu_stbuf_c1_clken;
+    logic lsu_bus_ibuf_c1_clken, lsu_bus_obuf_c1_clken, lsu_bus_buf_c1_clken;
+    
+-   logic lsu_dccm_c1_dc3_clken, lsu_pic_c1_dc3_clken;
++   logic lsu_dccm_c1_dc3_clken;
+    
+    logic lsu_free_c1_clken, lsu_free_c1_clken_q, lsu_free_c2_clken;
+    logic lsu_bus_valid_clken;
+
+ParseResult:
+MOV HdlIdDef@@lsu_store_c1_dc1_clken to objs
+HdlIdDef: lsu_store_c1_dc1_clken
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+MOV HdlIdDef@@lsu_freeze_c1_dc3_clken to objs
+HdlIdDef: lsu_freeze_c1_dc3_clken
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+UPD HdlIdDef@@lsu_store_c1_dc1_clken to lsu_store_c1_dc1_clken
+    UPD HdlDirection@@INTERNAL to OUT
+
+UPD HdlIdDef@@lsu_freeze_c1_dc3_clken to lsu_freeze_c1_dc3_clken
+    UPD HdlDirection@@INTERNAL to OUT
+
+DEL HdlIdDef@@lsu_store_c1_dc2_clken from objs
+HdlIdDef: lsu_store_c1_dc2_clken
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@lsu_store_c1_dc3_clken from objs
+HdlIdDef: lsu_store_c1_dc3_clken
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@lsu_freeze_c1_dc1_clken from objs
+HdlIdDef: lsu_freeze_c1_dc1_clken
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@lsu_freeze_c1_dc2_clken from objs
+HdlIdDef: lsu_freeze_c1_dc2_clken
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@lsu_pic_c1_dc3_clken from objs
+HdlIdDef: lsu_pic_c1_dc3_clken
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+
+CommitId: bcb5b33726a1993cf15e98a1858eddc6c989f0b0
+Merge pull request #82 from chipsalliance/quartus_core_fix
+--- a/design/dmi/dmi_wrapper.v
++++ b/design/dmi/dmi_wrapper.v
+@@ -22,7 +22,6 @@
+ //-------------------------------------------------------------------------------------
+ 
+ module dmi_wrapper(
+-  input              scan_mode,           // scan mode
+ 
+   // JTAG signals
+   input              trst_n,              // JTAG reset
+
+ParseResult:
+DEL HdlIdDef@@scan_mode from ports
+HdlIdDef: scan_mode
+    HdlValueId: wire
+    HdlDirection: IN
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -29,7 +29,7 @@ module ram_32768x39
+ 
+    reg [38:0]   ram_core [32767:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -53,7 +53,7 @@ module ram_16384x39
+ 
+    reg [38:0]   ram_core [16383:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -76,7 +76,7 @@ module ram_8192x39
+ 
+    reg [38:0]   ram_core [8191:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -99,7 +99,7 @@ module ram_4096x39
+ 
+    reg [38:0]   ram_core [4095:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -122,7 +122,7 @@ module ram_3072x39
+ 
+    reg [38:0]   ram_core [3071:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -147,7 +147,7 @@ module ram_2048x39
+ 
+    reg [38:0]   ram_core [2047:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -170,7 +170,7 @@ module ram_1536x39     // need this for the 48KB DCCM option
+ 
+    reg [38:0]   ram_core [1535:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -194,7 +194,7 @@ module ram_1024x39
+ 
+    reg [38:0]   ram_core [1023:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -217,7 +217,7 @@ module ram_768x39
+ 
+    reg [38:0]   ram_core [767:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -241,7 +241,7 @@ module ram_512x39
+ 
+    reg [38:0]   ram_core [511:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -265,7 +265,7 @@ module ram_256x39
+ 
+    reg [38:0]   ram_core [255:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -289,7 +289,7 @@ module ram_128x39
+ 
+    reg [38:0]   ram_core [127:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -316,7 +316,7 @@ module ram_1024x20
+ 
+    reg [19:0]   ram_core [1023:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -338,7 +338,7 @@ module ram_512x20
+ 
+    reg [19:0]   ram_core [511:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -361,7 +361,7 @@ module ram_256x20
+ 
+    reg [19:0]   ram_core [255:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -383,7 +383,7 @@ module ram_128x20
+ 
+    reg [19:0]   ram_core [127:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -406,7 +406,7 @@ module ram_64x20
+ 
+    reg [19:0]   ram_core [63:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -433,7 +433,7 @@ module ram_4096x34
+ 
+    reg [33:0]   ram_core [4095:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -458,7 +458,7 @@ module ram_2048x34
+ 
+    reg [33:0]   ram_core [2047:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -483,7 +483,7 @@ module ram_1024x34
+ 
+    reg [33:0]   ram_core [1023:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -508,7 +508,7 @@ module ram_512x34
+ 
+    reg [33:0]   ram_core [511:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -533,7 +533,7 @@ module ram_256x34
+ 
+    reg [33:0]   ram_core [255:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -558,7 +558,7 @@ module ram_128x34
+ 
+    reg [33:0]   ram_core [127:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -582,7 +582,7 @@ module ram_64x34
+ 
+    reg [33:0]   ram_core [63:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -609,7 +609,7 @@ module ram_4096x42
+ 
+    reg [41:0]   ram_core [4095:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -634,7 +634,7 @@ module ram_2048x42
+ 
+    reg [41:0]   ram_core [2047:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -658,7 +658,7 @@ module ram_1024x42
+ 
+    reg [41:0]   ram_core [1023:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -682,7 +682,7 @@ module ram_512x42
+ 
+    reg [41:0]   ram_core [511:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -708,7 +708,7 @@ module ram_256x42
+ 
+    reg [41:0]   ram_core [255:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -733,7 +733,7 @@ module ram_128x42
+ 
+    reg [41:0]   ram_core [127:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -758,7 +758,7 @@ module ram_64x42
+ 
+    reg [41:0]   ram_core [63:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -786,7 +786,7 @@ module ram_1024x21
+ 
+    reg [20:0]   ram_core [1023:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -809,7 +809,7 @@ module ram_512x21
+ 
+    reg [20:0]   ram_core [511:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -834,7 +834,7 @@ module ram_256x21
+ 
+    reg [20:0]   ram_core [255:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -859,7 +859,7 @@ module ram_128x21
+ 
+    reg [20:0]   ram_core [127:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -884,7 +884,7 @@ module ram_64x21
+ 
+    reg [20:0]   ram_core [63:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -908,7 +908,7 @@ module ram_1024x25
+ 
+    reg [24:0]   ram_core [1023:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -934,7 +934,7 @@ module ram_512x25
+ 
+    reg [24:0]   ram_core [511:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -960,7 +960,7 @@ module ram_256x25
+ 
+    reg [24:0]   ram_core [255:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -986,7 +986,7 @@ module ram_128x25
+ 
+    reg [24:0]   ram_core [127:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/mem_lib.sv
++++ b/design/lib/mem_lib.sv
+@@ -1012,7 +1012,7 @@ module ram_64x25
+ 
+    reg [24:0]   ram_core [63:0];
+ 
+-   always_ff @(posedge CLK) begin
++   always @(posedge CLK) begin
+       if (WE) begin// for active high WE - must be specified by user
+          ram_core[ADR] <= D; Q <= 'x; end else
+            Q <= ram_core[ADR];
+ParseResult:
+UPD HdlStmProcess@@ to 
+    DEL HdlStmProcessTriggerConstrain@@FF from 
+
+
+CommitId: 241ad18e259462da2643941c8b5c5319c1633a2b
+fix for assignment to enum variable from expression of different type
+--- a/design/ifu/ifu_ifc_ctl.sv
++++ b/design/ifu/ifu_ifc_ctl.sv
+@@ -185,11 +185,11 @@ module ifu_ifc_ctl
+ //11 0-10- 01
+ //11 0-00- 11
+ 
+-   assign next_state[1] = (~state[1] & state[0] & ~reset_delayed & miss_f2 & ~goto_idle) |
+-                          (state[1] & ~reset_delayed & ~mb_empty_mod & ~goto_idle);
++   assign next_state[1] = state_t'((~state[1] & state[0] & ~reset_delayed & miss_f2 & ~goto_idle) |
++                          (state[1] & ~reset_delayed & ~mb_empty_mod & ~goto_idle));
+ 
+-   assign next_state[0] = (~goto_idle & leave_idle) | (state[0] & ~goto_idle) |
+-                          (reset_delayed);
++   assign next_state[0] = state_t'((~goto_idle & leave_idle) | (state[0] & ~goto_idle) |
++                          (reset_delayed));
+ 
+    assign flush_fb = exu_flush_final;
+ 
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@CALL to 
+    UPD HdlOp@@CALL to CALL
+        INS list@@ops to CALL
+        INS HdlValueId@@state_t to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@CALL to 
+    UPD HdlOp@@CALL to CALL
+        INS list@@ops to CALL
+        INS HdlValueId@@state_t to ops
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@OR to 
+    HdlOp: OR
+        list: ops
+            HdlOp: AND
+                list: ops
+                    HdlOp: AND
+                        list: ops
+                            HdlOp: AND
+                                list: ops
+                                    HdlOp: AND
+                                        list: ops
+                                            HdlOp: NEG
+                                                list: ops
+                                                    HdlOp: INDEX
+                                                        list: ops
+                                                            HdlValueId: state
+                                                            HdlValueInt: 1
+                                            HdlOp: INDEX
+                                                list: ops
+                                                    HdlValueId: state
+                                                    HdlValueInt: 0
+                                    HdlOp: NEG
+                                        list: ops
+                                            HdlValueId: reset_delayed
+                            HdlValueId: miss_f2
+                    HdlOp: NEG
+                        list: ops
+                            HdlValueId: goto_idle
+            HdlOp: AND
+                list: ops
+                    HdlOp: AND
+                        list: ops
+                            HdlOp: AND
+                                list: ops
+                                    HdlOp: INDEX
+                                        list: ops
+                                            HdlValueId: state
+                                            HdlValueInt: 1
+                                    HdlOp: NEG
+                                        list: ops
+                                            HdlValueId: reset_delayed
+                            HdlOp: NEG
+                                list: ops
+                                    HdlValueId: mb_empty_mod
+                    HdlOp: NEG
+                        list: ops
+                            HdlValueId: goto_idle
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@OR to 
+    HdlOp: OR
+        list: ops
+            HdlOp: OR
+                list: ops
+                    HdlOp: AND
+                        list: ops
+                            HdlOp: NEG
+                                list: ops
+                                    HdlValueId: goto_idle
+                            HdlValueId: leave_idle
+                    HdlOp: AND
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: state
+                                    HdlValueInt: 0
+                            HdlOp: NEG
+                                list: ops
+                                    HdlValueId: goto_idle
+            HdlValueId: reset_delayed
+
+
+CommitId: 27507b79a1fe800aa82d70cbd883d4131d8f6491
+Merge pull request #49 from dawidzim/enum_from_diff_type
+--- a/design/lib/axi4_to_ahb.sv
++++ b/design/lib/axi4_to_ahb.sv
+@@ -387,10 +387,8 @@ module axi4_to_ahb #(parameter TAG  = 1) (
+                                    (wrbuf_byteen[7:0] == 8'hf)  | (wrbuf_byteen[7:0] == 8'hf0)  | (wrbuf_byteen[7:0] == 8'hff)));
+ 
+    // Generate the ahb signals
+-   assign ahb_haddr[31:0] = bypass_en ? {master_addr[31:3],buf_cmd_byte_ptr[2:0]}  : {buf_addr[31:3],buf_cmd_byte_ptr[2:0]};
+-   // assign ahb_hsize[2:0]  = ((buf_state == CMD_RD) | (buf_state == STREAM_RD) | (buf_state == STREAM_ERR_RD) | rd_bypass_idle) ? 3'b011 :
+-   //                                                                               bypass_en ? {1'b0, ({2{buf_aligned_in}} & buf_size_in[1:0])} :
+-   //                                                                                           {1'b0, ({2{buf_aligned}} & buf_size[1:0])};   // Send the full size for aligned trxn
++   assign ahb_haddr[31:3] = bypass_en ? master_addr[31:3]  : buf_addr[31:3];
++   assign ahb_haddr[2:0]  = {3{(ahb_htrans == 2'b10)}} & buf_cmd_byte_ptr[2:0];    // Trxn should be aligned during IDLE
+    assign ahb_hsize[2:0]  = bypass_en ? {1'b0, ({2{buf_aligned_in}} & buf_size_in[1:0])} :
+                                         {1'b0, ({2{buf_aligned}} & buf_size[1:0])};   // Send the full size for aligned trxn
+    assign ahb_hburst[2:0] = 3'b0;
+ParseResult:
+INS HdlStmAssign@@ to objs
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlOp@@CONCAT to AND
+        MOV HdlOp@@CONCAT to ops
+        HdlOp: CONCAT
+            list: ops
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: master_addr
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 31
+                                HdlValueInt: 3
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: buf_cmd_byte_ptr
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 2
+                                HdlValueInt: 0
+        UPD HdlOp@@CONCAT to CONCAT
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: master_addr
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 31
+                            HdlValueInt: 3
+        UPD HdlOp@@CONCAT to CONCAT
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: buf_addr
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 31
+                            HdlValueInt: 3
+            DEL HdlOp@@INDEX from ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: buf_cmd_byte_ptr
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 2
+                            HdlValueInt: 0
+            DEL list@@ops from CONCAT
+        DEL HdlOp@@CONCAT from ops
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@0 to 3
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: ahb_haddr
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 2
+                    HdlValueInt: 0
+    UPD HdlOp@@AND to AND
+        INS HdlOp@@REPL_CONCAT to ops
+        HdlOp: REPL_CONCAT
+            list: ops
+                HdlValueInt: 3
+                HdlOp: EQ
+                    list: ops
+                        HdlValueId: ahb_htrans
+                        HdlValueInt: 10
+
+
+CommitId: bb9f9ef37be69226700024da536114d2e1f385a2
+Merge pull request #89 from olofk/scan_mode
+--- a/design/dmi/dmi_wrapper.v
++++ b/design/dmi/dmi_wrapper.v
+@@ -22,7 +22,6 @@
+ //-------------------------------------------------------------------------------------
+ 
+ module dmi_wrapper(
+-  input              scan_mode,           // scan mode
+ 
+   // JTAG signals
+   input              trst_n,              // JTAG reset
+
+ParseResult:
+DEL HdlIdDef@@scan_mode from ports
+HdlIdDef: scan_mode
+    HdlValueId: wire
+    HdlDirection: IN
+
+

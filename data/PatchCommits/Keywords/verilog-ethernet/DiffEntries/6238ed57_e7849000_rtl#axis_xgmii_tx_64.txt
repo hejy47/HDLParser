@@ -1,0 +1,21 @@
+6238ed5755fc87671156cd2c417866ab71b62a9a
+Report error for invalid encoding
+diff --git a/rtl/axis_xgmii_tx_64.v b/rtl/axis_xgmii_tx_64.v
+index c78b574..1b6f106 100644
+--- a/rtl/axis_xgmii_tx_64.v
++++ b/rtl/axis_xgmii_tx_64.v
+@@ -357,10 +357,10 @@ always @* begin
+             extra_cycle = 1'b1;
+         end
+         default: begin
+-            fcs_output_txd_0 = 64'd0;
+-            fcs_output_txd_1 = 64'd0;
+-            fcs_output_txc_0 = 8'd0;
+-            fcs_output_txc_1 = 8'd0;
++            fcs_output_txd_0 = {8{XGMII_ERROR}};
++            fcs_output_txd_1 = {8{XGMII_ERROR}};
++            fcs_output_txc_0 = 8'b11111111;
++            fcs_output_txc_1 = 8'b11111111;
+             ifg_offset = 8'd0;
+             extra_cycle = 1'b1;
+         end

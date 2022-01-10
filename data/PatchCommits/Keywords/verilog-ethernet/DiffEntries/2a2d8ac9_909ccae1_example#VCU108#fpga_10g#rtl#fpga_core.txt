@@ -1,0 +1,15 @@
+2a2d8ac966d0c9ed3cff9ff99efb85a97551076d
+Fix reg type in VCU108 and VCU118 example designs
+diff --git a/example/VCU108/fpga_10g/rtl/fpga_core.v b/example/VCU108/fpga_10g/rtl/fpga_core.v
+index fdf63d8..740b86f 100644
+--- a/example/VCU108/fpga_10g/rtl/fpga_core.v
++++ b/example/VCU108/fpga_10g/rtl/fpga_core.v
+@@ -603,7 +603,7 @@ axis_switch #(
+     .M_TOP({2'd2, 2'd1, 2'd0}),
+     .M_CONNECT({3{3'b111}}),
+     .S_REG_TYPE(0),
+-    .M_REG_TYPE(1),
++    .M_REG_TYPE(2),
+     .ARB_TYPE("PRIORITY"),
+     .LSB_PRIORITY("HIGH")
+ )

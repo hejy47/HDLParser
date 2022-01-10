@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+
+# This file is part of hdlparser.
+
+# hdlparser is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# hdlparser is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with hdlparser.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Copyright 2020-2021 Jean-Rémy Falleri <jr.falleri@gmail.com>
+
+from xml.dom import minidom 
+import sys
+import pyhdl
+from pyhdl.vparser.parser import parse
+
+doc = minidom.Document()
+positions = [0]
+
+def main(file):
+  vAst, _ = parse(readFile(file))
+  gumtreeAst = toGumtreeNode(vAst)
+  doc.appendChild(gumtreeAst)
+  processNode(vAst, gumtreeAst)
+  print(doc)
+  xml = doc.toprettyxml()
+  print(xml)
+
+def processNode(parsoNode, gumtreeNode):
+  if parsoNode.__class__.__name__ == 'error_node':
+    sys.exit(parsoNode)
+
+  for parsoChild in parsoNode.children():
+    gumtreeChild = toGumtreeNode(parsoChild)
+    if gumtreeChild != None:
+      gumtreeNode.appendChild(gumtreeChild)
+      if hasattr(parsoChild, 'children'):
+        processNode(parsoChild, gumtreeChild)
+
+def toGumtreeNode(vNode):
+  if vNode.__class__.__name__ in ['keyword', 'newline', 'endmarker']:
+    return
+  # if vNode.__class__.__name__ == 'operator' and vNode.value in ['.', '(', ')', '[', ']', ':', ';']:
+  #   return
+  gumtreeNode = doc.createElement('tree')
+  gumtreeNode.setAttribute("type", str(vNode.__class__.__name__))
+  gumtreeNode.setAttribute("pos", str(vNode.lineno))
+  if hasattr(vNode, 'name'):
+    gumtreeNode.setAttribute("label", str(vNode.name))
+  elif hasattr(vNode, 'value'):
+    gumtreeNode.setAttribute("label", str(vNode.value))
+  # elif hasattr(vNode, 'var'):
+  #   gumtreeNode.setAttribute("label", str(vNode.var))
+  return gumtreeNode
+
+def readFile(file):
+  fname = [file]
+  with open(file, 'r') as file:
+    data = file.read()
+  index = 0
+  for chr in data:
+    index += 1
+    if chr == '\n':
+      positions.append(index)
+  return fname
+  
+if __name__ == '__main__':
+  main(sys.argv[1])

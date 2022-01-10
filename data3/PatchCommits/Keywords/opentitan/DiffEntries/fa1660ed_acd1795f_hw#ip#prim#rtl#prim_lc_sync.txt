@@ -1,0 +1,18 @@
+fa1660ed017a84c489fd54a1259b40af9eef61d1
+[otp_ctrl] Fix warnings from VCS
+diff --git a/hw/ip/prim/rtl/prim_lc_sync.sv b/hw/ip/prim/rtl/prim_lc_sync.sv
+index 516e2cb46..b9cd0886e 100644
+--- a/hw/ip/prim/rtl/prim_lc_sync.sv
++++ b/hw/ip/prim/rtl/prim_lc_sync.sv
+@@ -45,10 +45,9 @@ module prim_lc_sync #(
+         .clk_o(lc_en_copies[j][k])
+       );
+     end
++    assign lc_en_o[j] = lc_ctrl_pkg::lc_tx_t'(lc_en_copies[j]);
+   end
+ 
+-  assign lc_en_o = lc_en_copies;
+-
+   ////////////////
+   // Assertions //
+   ////////////////

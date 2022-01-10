@@ -1,0 +1,15 @@
+c5fb92c155d56debe730ea7f7c85f5f5fbdd1255
+[rtl] clean-up of generic defaults
+diff --git a/rtl/core/neorv32_cpu_regfile.vhd b/rtl/core/neorv32_cpu_regfile.vhd
+index 4e9048a..ecd8069 100644
+--- a/rtl/core/neorv32_cpu_regfile.vhd
++++ b/rtl/core/neorv32_cpu_regfile.vhd
+@@ -51,7 +51,7 @@ use neorv32.neorv32_package.all;
+ 
+ entity neorv32_cpu_regfile is
+   generic (
+-    CPU_EXTENSION_RISCV_E : boolean := false -- implement embedded RF extension?
++    CPU_EXTENSION_RISCV_E : boolean -- implement embedded RF extension?
+   );
+   port (
+     -- global control --

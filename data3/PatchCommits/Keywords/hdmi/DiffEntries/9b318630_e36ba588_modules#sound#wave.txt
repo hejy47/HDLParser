@@ -1,0 +1,15 @@
+9b3186308f5f07ddb195205847cebfc99c7ccd08
+Create top testbench, fix some bit size errors, fix a variable rename mistake, speed up clocks in hdmi/assembler TBs
+diff --git a/modules/sound/wave.sv b/modules/sound/wave.sv
+index 87e5344..79039de 100644
+--- a/modules/sound/wave.sv
++++ b/modules/sound/wave.sv
+@@ -4,7 +4,7 @@ module sawtooth
+ )
+ (
+     input logic clk_audio,
+-    output logic [BIT_WIDTH:0] level = BIT_WIDTH'(0)
++    output logic [BIT_WIDTH-1:0] level = BIT_WIDTH'(0)
+ );
+ 
+ always @(posedge clk_audio)

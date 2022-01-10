@@ -1,0 +1,15 @@
+c5fb92c155d56debe730ea7f7c85f5f5fbdd1255
+[rtl] clean-up of generic defaults
+diff --git a/rtl/core/neorv32_neoled.vhd b/rtl/core/neorv32_neoled.vhd
+index f134e4e..099c55f 100644
+--- a/rtl/core/neorv32_neoled.vhd
++++ b/rtl/core/neorv32_neoled.vhd
+@@ -56,7 +56,7 @@ use neorv32.neorv32_package.all;
+ 
+ entity neorv32_neoled is
+   generic (
+-    FIFO_DEPTH : natural := 1 -- TX FIFO depth (1..32k, power of two)
++    FIFO_DEPTH : natural -- TX FIFO depth (1..32k, power of two)
+   );
+   port (
+     -- host access --

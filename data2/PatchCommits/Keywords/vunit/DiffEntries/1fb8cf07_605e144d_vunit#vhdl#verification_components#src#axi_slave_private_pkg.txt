@@ -1,0 +1,24 @@
+1fb8cf07c2dc93562ec0f067d13d6a541bfd5e99
+Integrated AXI protocol checker into other AXI VCs. Some lint fixing.
+diff --git a/vunit/vhdl/verification_components/src/axi_slave_private_pkg.vhd b/vunit/vhdl/verification_components/src/axi_slave_private_pkg.vhd
+index bb98565d..2177c18b 100644
+--- a/vunit/vhdl/verification_components/src/axi_slave_private_pkg.vhd
++++ b/vunit/vhdl/verification_components/src/axi_slave_private_pkg.vhd
+@@ -364,7 +364,7 @@ package body axi_slave_private_pkg is
+     end;
+ 
+     impure function pop_resp return axi_burst_t is
+-      variable resp_burst : axi_burst_t := pop_axi_burst(p_resp_queue);
++      constant resp_burst : axi_burst_t := pop_axi_burst(p_resp_queue);
+     begin
+       if is_visible(p_axi_slave.p_logger, debug) then
+         debug(p_axi_slave.p_logger,
+@@ -499,7 +499,7 @@ package body axi_slave_private_pkg is
+     variable clear_stat : boolean;
+     variable stat : axi_statistics_t;
+   begin
+-    loop
++    while true loop
+       receive(net, self.get_actor, request_msg);
+       msg_type := message_type(request_msg);
+ 

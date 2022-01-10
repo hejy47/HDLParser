@@ -1,0 +1,24 @@
+330b74e53a16c31c8d3064b4b45dd173446aad8c
+Fixed incorrect use of 'value attribute. GHDL gives error, modelsim warns
+diff --git a/vhdl/com/src/com_codec_debug.vhd b/vhdl/com/src/com_codec_debug.vhd
+index 4f6bfa91..3a322e42 100644
+--- a/vhdl/com/src/com_codec_debug.vhd
++++ b/vhdl/com/src/com_codec_debug.vhd
+@@ -131,7 +131,7 @@ package body com_codec_pkg is
+     constant code : string)
+     return bit is
+   begin
+-    return bit'value(code);
++    return bit'value("'" & code & "'");
+   end;
+ 
+   function encode (
+@@ -145,7 +145,7 @@ package body com_codec_pkg is
+     constant code : string)
+     return std_ulogic is
+   begin
+-    return std_ulogic'value(code);
++    return std_ulogic'value("'" & code & "'");
+   end;
+ 
+   function encode (

@@ -1,0 +1,15 @@
+9b0409dcdab3c4ea0b8d35dee146d02d3434c9fa
+ifdef fix
+diff --git a/rtl/cv32e40p_sleep_unit.sv b/rtl/cv32e40p_sleep_unit.sv
+index d7f6a2a..6a5a241 100644
+--- a/rtl/cv32e40p_sleep_unit.sv
++++ b/rtl/cv32e40p_sleep_unit.sv
+@@ -164,7 +164,7 @@ module cv32e40p_sleep_unit
+   // Assertions
+   //----------------------------------------------------------------------------
+ 
+-`ifndef VERILATOR
++`ifdef CV32E40P_ASSERT_ON
+ 
+   // Clock gate is disabled during RESET state of the controller
+   property p_clock_en_0;

@@ -1,0 +1,16 @@
+4c2a420f056b70d30dace56f9754550e079dc4fe
+propagate debug_req_i signal (core->id_stage->controller)
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 092c47e..686494f 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -108,6 +108,9 @@ module riscv_controller
+   output logic        exc_ack_o,
+   output logic        exc_kill_o,
+ 
++  // Debug Signal
++  input  logic        debug_req_i,
++
+   output logic        csr_save_if_o,
+   output logic        csr_save_id_o,
+   output logic        csr_save_ex_o,

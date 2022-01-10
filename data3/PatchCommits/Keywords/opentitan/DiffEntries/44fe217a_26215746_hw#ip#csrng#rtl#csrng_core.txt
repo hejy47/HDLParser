@@ -1,0 +1,15 @@
+44fe217af660b1abbe22fa00e70583482f096871
+[csrng] Fix some width mismatches
+diff --git a/hw/ip/csrng/rtl/csrng_core.sv b/hw/ip/csrng/rtl/csrng_core.sv
+index 2b46146d2..e3ea366c4 100644
+--- a/hw/ip/csrng/rtl/csrng_core.sv
++++ b/hw/ip/csrng/rtl/csrng_core.sv
+@@ -671,7 +671,7 @@ module csrng_core import csrng_pkg::*; #(
+   // SW interface connection (only 1, and must be present)
+   // cmd req
+   assign cmd_stage_vld[NApps-1] = reg2hw.cmd_req.qe;
+-  assign cmd_stage_shid[NApps-1] = (NApps-1);
++  assign cmd_stage_shid[NApps-1] = StateId'(NApps-1);
+   assign cmd_stage_bus[NApps-1] = reg2hw.cmd_req.q;
+   assign hw2reg.sw_cmd_sts.cmd_rdy.de = 1'b1;
+   assign hw2reg.sw_cmd_sts.cmd_rdy.d = cmd_stage_rdy[NApps-1];

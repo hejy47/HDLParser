@@ -1,0 +1,16 @@
+5f70428ee9ce0dd1787d2efb4bee9d6908606274
+[prim_lfsr] Fix spyglass lint warnings
+diff --git a/hw/ip/prim/rtl/prim_lfsr.sv b/hw/ip/prim/rtl/prim_lfsr.sv
+index 73e18b4ec..be43175e9 100644
+--- a/hw/ip/prim/rtl/prim_lfsr.sv
++++ b/hw/ip/prim/rtl/prim_lfsr.sv
+@@ -354,6 +354,9 @@ module prim_lfsr #(
+   // Unknown //
+   /////////////
+   end else begin : gen_unknown_type
++    assign coeffs = '0;
++    assign next_lfsr_state = '0;
++    assign lockup = 1'b0;
+     `ASSERT_INIT(UnknownLfsrType_A, 0)
+   end
+ 

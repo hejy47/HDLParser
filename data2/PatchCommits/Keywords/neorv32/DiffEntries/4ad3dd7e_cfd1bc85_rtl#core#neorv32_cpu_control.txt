@@ -1,0 +1,19 @@
+4ad3dd7e3fe5f479d3a531cac60b3964cd461d5f
+:warning: [rtl/cpu] fixed missing reset of mcause hardware register
+diff --git a/rtl/core/neorv32_cpu_control.vhd b/rtl/core/neorv32_cpu_control.vhd
+index b7c0d5b..71d6ae3 100644
+--- a/rtl/core/neorv32_cpu_control.vhd
++++ b/rtl/core/neorv32_cpu_control.vhd
+@@ -1575,7 +1575,11 @@ begin
+       csr.mtvec        <= (others => '0');
+       csr.mscratch     <= x"19880704"; -- :)
+       csr.mepc         <= (others => '0');
+-      csr.mcause       <= (others => '0');
++      -- mcause = TRAP_CODE_RESET (hardware reset, 0x80000000)
++      csr.mcause                               <= (others => '0');
++      csr.mcause(csr.mcause'left)              <= trap_reset_c(trap_reset_c'left);
++      csr.mcause(trap_reset_c'left-1 downto 0) <= trap_reset_c(trap_reset_c'left-1 downto 0);
++      --
+       csr.mtval        <= (others => '0');
+       csr.pmpcfg       <= (others => (others => '0'));
+       csr.pmpaddr      <= (others => (others => '1'));

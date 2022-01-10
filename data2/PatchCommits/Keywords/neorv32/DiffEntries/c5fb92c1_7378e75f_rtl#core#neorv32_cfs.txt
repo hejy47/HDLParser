@@ -1,0 +1,17 @@
+c5fb92c155d56debe730ea7f7c85f5f5fbdd1255
+[rtl] clean-up of generic defaults
+diff --git a/rtl/core/neorv32_cfs.vhd b/rtl/core/neorv32_cfs.vhd
+index c6cea95..eb6ba15 100644
+--- a/rtl/core/neorv32_cfs.vhd
++++ b/rtl/core/neorv32_cfs.vhd
+@@ -46,8 +46,8 @@ use neorv32.neorv32_package.all;
+ entity neorv32_cfs is
+   generic (
+     CFS_CONFIG   : std_ulogic_vector(31 downto 0); -- custom CFS configuration generic
+-    CFS_IN_SIZE  : positive := 32; -- size of CFS input conduit in bits
+-    CFS_OUT_SIZE : positive := 32  -- size of CFS output conduit in bits
++    CFS_IN_SIZE  : positive; -- size of CFS input conduit in bits
++    CFS_OUT_SIZE : positive  -- size of CFS output conduit in bits
+   );
+   port (
+     -- host access --

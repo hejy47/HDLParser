@@ -1,0 +1,15 @@
+090d3aee04d3fc95f2b92abd4f9ace7c5618a44f
+axi_dmac: Change C_DMA_LENGTH_WIDTH default to 24
+diff --git a/library/axi_dmac/axi_dmac.v b/library/axi_dmac/axi_dmac.v
+index c63a24aa..ae9bb9d6 100644
+--- a/library/axi_dmac/axi_dmac.v
++++ b/library/axi_dmac/axi_dmac.v
+@@ -141,7 +141,7 @@ parameter C_HIGHADDR = 32'h00000000;
+ parameter C_DMA_DATA_WIDTH_SRC = 64;
+ parameter C_DMA_DATA_WIDTH_DEST = 64;
+ parameter C_ADDR_ALIGN_BITS = 3;
+-parameter C_DMA_LENGTH_WIDTH = 14;
++parameter C_DMA_LENGTH_WIDTH = 24;
+ parameter C_2D_TRANSFER = 1;
+ 
+ parameter C_CLKS_ASYNC_REQ_SRC = 1;

@@ -1,0 +1,15 @@
+8c9023b123bad4fbab2f8a520899503c4a022bd8
+Fixed some linting issues.
+diff --git a/vunit/vhdl/com/src/com.vhd b/vunit/vhdl/com/src/com.vhd
+index 1277d86d..becc9239 100644
+--- a/vunit/vhdl/com/src/com.vhd
++++ b/vunit/vhdl/com/src/com.vhd
+@@ -537,8 +537,6 @@ package body com_pkg is
+     constant receiver : in    actor_t;
+     variable msg      : inout msg_t;
+     constant timeout  : in    time := max_timeout_c) is
+-    variable status                  : com_status_t;
+-    variable started_with_full_inbox : boolean;
+   begin
+     receive(net, actor_vec_t'(0 => receiver), msg, timeout);
+   end;

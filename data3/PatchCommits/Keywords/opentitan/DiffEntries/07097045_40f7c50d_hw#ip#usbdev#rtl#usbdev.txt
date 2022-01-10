@@ -1,0 +1,17 @@
+0709704583312c74c6028aec1a065a168e5fd4a5
+[usbdev] Fix a port mismatch in usbdev.sv
+diff --git a/hw/ip/usbdev/rtl/usbdev.sv b/hw/ip/usbdev/rtl/usbdev.sv
+index 1192fd841..ebf8b8176 100644
+--- a/hw/ip/usbdev/rtl/usbdev.sv
++++ b/hw/ip/usbdev/rtl/usbdev.sv
+@@ -509,9 +509,7 @@ module usbdev (
+     .tl_win_i (tl_sram_d2h),
+ 
+     .reg2hw,
+-    .hw2reg,
+-
+-    .devmode_i  (1'b1)
++    .hw2reg
+   );
+ 
+   prim_intr_hw #(.Width(1)) intr_hw_pkt_received (

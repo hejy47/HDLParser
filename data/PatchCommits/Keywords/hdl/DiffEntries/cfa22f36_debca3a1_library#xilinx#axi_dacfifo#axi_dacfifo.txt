@@ -1,0 +1,15 @@
+cfa22f36bcdaead437bc87a6c2e304a1d88ca456
+axi_dacfifo: Fix the dma_ready signal generation
+diff --git a/library/xilinx/axi_dacfifo/axi_dacfifo.v b/library/xilinx/axi_dacfifo/axi_dacfifo.v
+index 10cc9a8c..3f08952d 100644
+--- a/library/xilinx/axi_dacfifo/axi_dacfifo.v
++++ b/library/xilinx/axi_dacfifo/axi_dacfifo.v
+@@ -278,7 +278,7 @@ module axi_dacfifo #(
+     // mux for the dma_ready
+ 
+     always @(posedge dma_clk) begin
+-      dma_ready <= (dma_bypass) ? dma_ready_wr_s : dma_ready_bypass_s;
++      dma_ready <= (dma_bypass) ? dma_ready_bypass_s : dma_ready_wr_s;
+     end
+ 
+     // mux for dac data

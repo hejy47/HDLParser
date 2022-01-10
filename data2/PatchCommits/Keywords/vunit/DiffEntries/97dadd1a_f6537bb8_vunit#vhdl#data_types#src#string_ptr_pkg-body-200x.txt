@@ -1,0 +1,40 @@
+97dadd1ac03a4526b736623b97f34d086b95b4b6
+Moved com codecs to datatypes. Removed support for debug codecs.
+diff --git a/vunit/vhdl/data_types/src/string_ptr_pkg-body-200x.vhd b/vunit/vhdl/data_types/src/string_ptr_pkg-body-200x.vhd
+index e5cebba1..76e7a817 100644
+--- a/vunit/vhdl/data_types/src/string_ptr_pkg-body-200x.vhd
++++ b/vunit/vhdl/data_types/src/string_ptr_pkg-body-200x.vhd
+@@ -4,6 +4,9 @@
+ --
+ -- Copyright (c) 2017, Lars Asplund lars.anders.asplund@gmail.com
+ 
++use work.codec_pkg.all;
++use work.codec_builder_pkg.all;
++
+ package body string_ptr_pkg is
+   type string_access_t is access string;
+   type string_access_vector_t is array (natural range <>) of string_access_t;
+@@ -176,4 +179,23 @@ package body string_ptr_pkg is
+     return string_ptr_storage.to_string(ptr);
+   end;
+ 
++  function encode(data : string_ptr_t) return string is
++  begin
++    return encode(data.index);
++  end;
++
++  function decode(code : string) return string_ptr_t is
++    variable ret_val : string_ptr_t;
++    variable index : positive := code'left;
++  begin
++    decode(code, index, ret_val);
++
++    return ret_val;
++  end;
++
++  procedure decode (constant code : string; variable index : inout positive; variable result : out string_ptr_t) is
++  begin
++    decode(code, index, result.index);
++  end;
++
+ end package body;

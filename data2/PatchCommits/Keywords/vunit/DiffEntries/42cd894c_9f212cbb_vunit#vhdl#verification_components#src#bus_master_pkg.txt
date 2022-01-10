@@ -1,0 +1,16 @@
+42cd894cb2f54940875fb14c6d3fa04c9b5084f1
+Add debug logging to axi_lite_master
+diff --git a/vunit/vhdl/verification_components/src/bus_master_pkg.vhd b/vunit/vhdl/verification_components/src/bus_master_pkg.vhd
+index 82b55194..6e65ee5c 100644
+--- a/vunit/vhdl/verification_components/src/bus_master_pkg.vhd
++++ b/vunit/vhdl/verification_components/src/bus_master_pkg.vhd
+@@ -37,6 +37,9 @@ package bus_master_pkg is
+                           logger : logger_t := bus_logger;
+                           actor : actor_t := null_actor) return bus_master_t;
+ 
++  -- Return the logger used by the bus master
++  function get_logger(bus_handle : bus_master_t) return logger_t;
++
+   -- Return the length of the data on this bus
+   impure function data_length(bus_handle : bus_master_t) return natural;
+ 

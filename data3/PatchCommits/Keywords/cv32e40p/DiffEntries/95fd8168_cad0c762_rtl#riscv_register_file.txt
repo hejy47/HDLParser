@@ -1,0 +1,15 @@
+95fd81685f4b897a9902378b2dc008c4fc16f385
+Merge pull request #262 from davideschiavone/fix256
+diff --git a/rtl/riscv_register_file.sv b/rtl/riscv_register_file.sv
+index 0bdc235..6ee4d87 100644
+--- a/rtl/riscv_register_file.sv
++++ b/rtl/riscv_register_file.sv
+@@ -161,7 +161,7 @@ module riscv_register_file
+ 
+     end
+ 
+-    if (FPU == 1) begin
++    if (FPU == 1 && Zfinx == 0) begin
+       // Floating point registers
+       for(l = 0; l < NUM_FP_WORDS; l++) begin
+         always_ff @(posedge clk, negedge rst_n)

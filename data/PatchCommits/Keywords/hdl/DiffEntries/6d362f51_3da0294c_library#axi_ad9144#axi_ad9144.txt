@@ -1,0 +1,21 @@
+6d362f51ec86fa72422a3141f5de56d927bea045
+ad_ip_jesd204_tpl_dac: Drop DAC prefix from parameters
+diff --git a/library/axi_ad9144/axi_ad9144.v b/library/axi_ad9144/axi_ad9144.v
+index 35a231f8..352ee025 100644
+--- a/library/axi_ad9144/axi_ad9144.v
++++ b/library/axi_ad9144/axi_ad9144.v
+@@ -132,10 +132,10 @@ module axi_ad9144 #(
+     .ID (ID),
+     .NUM_LANES (NUM_CHANNELS * 2),
+     .NUM_CHANNELS (NUM_CHANNELS),
+-    .DAC_DDS_TYPE (DAC_DDS_TYPE),
+-    .DAC_DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
+-    .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW),
+-    .DAC_DATAPATH_DISABLE (DAC_DATAPATH_DISABLE)
++    .DDS_TYPE (DAC_DDS_TYPE),
++    .DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
++    .DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW),
++    .DATAPATH_DISABLE (DAC_DATAPATH_DISABLE)
+   ) i_dac_jesd204 (
+     .link_clk (tx_clk),
+ 

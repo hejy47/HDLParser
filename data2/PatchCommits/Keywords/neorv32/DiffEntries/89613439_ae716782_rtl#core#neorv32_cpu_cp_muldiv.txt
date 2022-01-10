@@ -1,0 +1,70 @@
+8961343981665e3a3e16db3e2e682cb7988825ac
+[rtl/cpu] fixed minor issue in CP interface; multiplier is now slightly faster (~1 cycle)
+diff --git a/rtl/core/neorv32_cpu_cp_muldiv.vhd b/rtl/core/neorv32_cpu_cp_muldiv.vhd
+index b3af555..6fb688f 100644
+--- a/rtl/core/neorv32_cpu_cp_muldiv.vhd
++++ b/rtl/core/neorv32_cpu_cp_muldiv.vhd
+@@ -73,6 +73,7 @@ architecture neorv32_cpu_cp_muldiv_rtl of neorv32_cpu_cp_muldiv is
+   signal state         : state_t;
+   signal cnt           : std_ulogic_vector(4 downto 0);
+   signal cp_op         : std_ulogic_vector(2 downto 0); -- operation to execute
++  signal cp_op_ff      : std_ulogic_vector(2 downto 0); -- operation that was executed
+   signal start         : std_ulogic;
+   signal operation     : std_ulogic;
+   signal opx, opy      : std_ulogic_vector(data_width_c-1 downto 0); -- input operands
+@@ -115,10 +116,12 @@ begin
+       valid        <= '0';
+       div_res_corr <= '0';
+       opy_is_zero  <= '0';
++      cp_op_ff     <= (others => '0');
+     elsif rising_edge(clk_i) then
+       -- defaults --
+-      start <= '0';
+-      valid <= '0';
++      start    <= '0';
++      valid    <= '0';
++      cp_op_ff <= cp_op;
+ 
+       -- FSM --
+       case state is
+@@ -189,9 +192,6 @@ begin
+     end if;
+   end process coprocessor_ctrl;
+ 
+-  -- processing done? --
+-  valid_o <= valid;
+-
+   -- co-processor command --
+   cp_op <= ctrl_i(ctrl_ir_funct3_2_c downto ctrl_ir_funct3_0_c);
+ 
+@@ -290,10 +290,11 @@ begin
+ 
+   -- Data Output ----------------------------------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+-  operation_result: process(valid, cp_op, mul_product, div_res, quotient, opy_is_zero, opx, remainder)
++  operation_result: process(valid, cp_op_ff, mul_product, div_res, quotient, opy_is_zero, rs1_i, remainder)
+   begin
+     if (valid = '1') then
+-      case cp_op is
++      valid_o <= '1';
++      case cp_op_ff is
+         when cp_op_mul_c =>
+           res_o <= mul_product(31 downto 00);
+         when cp_op_mulh_c | cp_op_mulhsu_c | cp_op_mulhu_c =>
+@@ -306,13 +307,14 @@ begin
+           if (opy_is_zero = '0') then
+             res_o <= div_res;
+           else
+-            res_o <= opx;
++            res_o <= rs1_i;
+           end if;
+         when others => -- cp_op_remu_c
+           res_o <= remainder;
+       end case;
+     else
+-      res_o <= (others => '0');
++      valid_o <= '0';
++      res_o   <= (others => '0');
+     end if;
+   end process operation_result;
+ 

@@ -1,0 +1,15 @@
+97dadd1ac03a4526b736623b97f34d086b95b4b6
+Moved com codecs to datatypes. Removed support for debug codecs.
+diff --git a/vunit/vhdl/com/src/com_string_payload.vhd b/vunit/vhdl/com/src/com_string_payload.vhd
+index 5eaabd3a..4821e049 100644
+--- a/vunit/vhdl/com/src/com_string_payload.vhd
++++ b/vunit/vhdl/com/src/com_string_payload.vhd
+@@ -6,7 +6,7 @@
+ 
+ use work.com_types_pkg.all;
+ use work.com_pkg.all;
+-use work.com_codec_pkg.all;
++use work.codec_pkg.all;
+ 
+ package com_string_payload_pkg is
+   procedure send (

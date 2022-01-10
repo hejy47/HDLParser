@@ -1,0 +1,15 @@
+35e3d5381bc5da0be4b522aed5a436705bf63b7a
+:bug: fixed bug in debugger park loop
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index adbd395..dcaf4da 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -70,7 +70,7 @@ package neorv32_package is
+   -- Architecture Constants (do not modify!) ------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+   constant data_width_c   : natural := 32; -- native data path width - do not change!
+-  constant hw_version_c   : std_ulogic_vector(31 downto 0) := x"01050613"; -- no touchy!
++  constant hw_version_c   : std_ulogic_vector(31 downto 0) := x"01050614"; -- no touchy!
+   constant archid_c       : natural := 19; -- official NEORV32 architecture ID - hands off!
+   constant rf_r0_is_reg_c : boolean := true; -- x0 is a *physical register* that has to be initialized to zero by the CPU
+ 

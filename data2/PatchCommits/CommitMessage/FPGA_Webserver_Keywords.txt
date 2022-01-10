@@ -1,0 +1,59 @@
+======Commit: ee45f3ff======
+======Short Message======
+Fixing bug in checksum of data packets.
+======Full Message======
+Fixing bug in checksum of data packets.
+
+
+
+======Commit: c86aaa19======
+======Short Message======
+Debugging on TCP/IP - now able to keep a session running.
+======Full Message======
+Debugging on TCP/IP - now able to keep a session running.
+
+
+
+======Commit: 212d8ff6======
+======Short Message======
+Remove timing error from eth_tx interface
+======Full Message======
+Remove timing error from eth_tx interface
+
+
+
+======Commit: 379db994======
+======Short Message======
+Minor bug fix - sending two extra bytes on the ICMP packets)
+======Full Message======
+Minor bug fix - sending two extra bytes on the ICMP packets)
+
+
+
+======Commit: a8174211======
+======Short Message======
+Second attempt at fixing ICMP checksum bug, and remove UDP padding.
+======Full Message======
+Second attempt at fixing ICMP checksum bug, and remove UDP padding.
+
+
+
+======Commit: 2c641194======
+======Short Message======
+* Fix ICMP Checksums (will test tonight)
+======Full Message======
+* Fix ICMP Checksums (will test tonight)
+* Add UDP RX to main design.
+* Add requried infrastrcture ready for UDP TX
+
+
+
+======Commit: 12bebc95======
+======Short Message======
+Merge pull request #1 from JsWatt/patch-1
+======Full Message======
+Merge pull request #1 from JsWatt/patch-1
+
+Update README.txt
+
+

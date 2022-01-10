@@ -1,0 +1,14 @@
+df96e0c2a6cc99652e459b22c1bcb2c1ce5f59f1
+[AST] AscentLint, HJSON fixes, and rgn_fips_i port
+diff --git a/hw/top_earlgrey/ip/ast/rtl/rglts_pdm_3p3v.sv b/hw/top_earlgrey/ip/ast/rtl/rglts_pdm_3p3v.sv
+index 8cd7e91b8..34abfd3c9 100644
+--- a/hw/top_earlgrey/ip/ast/rtl/rglts_pdm_3p3v.sv
++++ b/hw/top_earlgrey/ip/ast/rtl/rglts_pdm_3p3v.sv
+@@ -17,6 +17,7 @@ module rglts_pdm_3p3v (
+   input vcmain_pok_o_h_i,                // vcmain_pok_o signal (1.1v) @3.3v
+   input clk_src_aon_h_i,                 // AON Clock @3.3v
+   input main_pd_h_ni,                    // VCMAIN/Regulator Power Down @3.3v
++  input main_iso_en_i,                   // Isolation enable for main core power (VCMAIN).
+   input [1:0] otp_power_seq_h_i,         // MMR0,24 in @3.3v
+   output logic vcaon_pok_h_o,            // VCAON (1.1v) Exist @3.3v
+   output logic main_pwr_dly_o,           // For modeling only.

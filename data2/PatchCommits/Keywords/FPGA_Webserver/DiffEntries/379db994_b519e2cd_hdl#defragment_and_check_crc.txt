@@ -1,0 +1,19 @@
+379db9945d4742a75c6f999dc13dc235a2b83196
+Minor bug fix - sending two extra bytes on the ICMP packets)
+diff --git a/hdl/defragment_and_check_crc.vhd b/hdl/defragment_and_check_crc.vhd
+index a5914ce..8e7477b 100644
+--- a/hdl/defragment_and_check_crc.vhd
++++ b/hdl/defragment_and_check_crc.vhd
+@@ -36,9 +36,9 @@ architecture Behavioral of defragment_and_check_crc is
+     type a_buffer is array(0 to 2047) of std_logic_vector(8 downto 0);
+     signal data_buffer : a_buffer := (others => (others => '0'));
+     
+-    signal read_addr            : unsigned(12 downto 0) := (others => '0'); 
+-    signal start_of_packet_addr : unsigned(12 downto 0) := (others => '0'); 
+-    signal write_addr           : unsigned(12 downto 0) := (others => '0');
++    signal read_addr            : unsigned(10 downto 0) := (others => '0'); 
++    signal start_of_packet_addr : unsigned(10 downto 0) := (others => '0'); 
++    signal write_addr           : unsigned(10 downto 0) := (others => '0');
+     --------------------------------------------------------------------
+     -- because all frames must be > 15 bytes long, the maximum frames 
+     -- in the buffer is 2048/15 = 136

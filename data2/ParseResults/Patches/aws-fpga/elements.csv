@@ -1,0 +1,5 @@
+,HdlOp-InfixExpression,HdlOp-Assignment,HdlOp-FunctionCall,HdlOp-PARAMETRIZATION,HdlOp-DOWNTO
+update,14,5.0,,7.0,5.0
+delete,4,1.0,,1.0,2.0
+move,6,,1.0,,
+insert,2,20.0,,,

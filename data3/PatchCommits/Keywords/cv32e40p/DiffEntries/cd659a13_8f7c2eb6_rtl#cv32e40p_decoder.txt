@@ -1,0 +1,15 @@
+cd659a13fc082ee9aad44220802ab7e5710071b3
+Merge pull request #399 from silabs-PaulZ/trigger_access
+diff --git a/rtl/cv32e40p_decoder.sv b/rtl/cv32e40p_decoder.sv
+index f05921c..67182e1 100644
+--- a/rtl/cv32e40p_decoder.sv
++++ b/rtl/cv32e40p_decoder.sv
+@@ -2556,7 +2556,7 @@ module cv32e40p_decoder import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*;
+               CSR_TINFO     ,
+               CSR_MCONTEXT  ,
+               CSR_SCONTEXT  :
+-                if(!debug_mode_i || DEBUG_TRIGGER_EN != 1)
++                if(DEBUG_TRIGGER_EN != 1)
+                   csr_illegal = 1'b1;
+ 
+             // Hardware Loop register access

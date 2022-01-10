@@ -1,0 +1,15 @@
+5f2681314f8ca2c1a0ee05d7e30ba8d3086ccc15
+xilinx/axi_adxcvr/axi_adxcvr_up: Fix force error control bit
+diff --git a/library/xilinx/axi_adxcvr/axi_adxcvr_up.v b/library/xilinx/axi_adxcvr/axi_adxcvr_up.v
+index e616b32f..57925e05 100644
+--- a/library/xilinx/axi_adxcvr/axi_adxcvr_up.v
++++ b/library/xilinx/axi_adxcvr/axi_adxcvr_up.v
+@@ -290,7 +290,7 @@ module axi_adxcvr_up #(
+       if ((up_wreq == 1'b1) && (up_waddr == 10'h060)) begin
+         up_prbssel <= up_wdata[3:0];
+         up_prbscntreset <= up_wdata[8];
+-        up_prbsforceerr <= up_wdata[15];
++        up_prbsforceerr <= up_wdata[16];
+       end
+     end
+   end

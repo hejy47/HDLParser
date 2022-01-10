@@ -1,0 +1,30 @@
+6338dfd8b7939bd87e5115b0c186ddbbe51d54b8
+ad9361: ip defaults & rst output
+diff --git a/library/axi_ad9361/axi_ad9361.v b/library/axi_ad9361/axi_ad9361.v
+index e24890db..cf289ec7 100644
+--- a/library/axi_ad9361/axi_ad9361.v
++++ b/library/axi_ad9361/axi_ad9361.v
+@@ -72,6 +72,7 @@ module axi_ad9361 (
+ 
+   l_clk,
+   clk,
++  rst,
+ 
+   // dma interface
+ 
+@@ -185,6 +186,7 @@ module axi_ad9361 (
+ 
+   output          l_clk;
+   input           clk;
++  output          rst;
+ 
+   // dma interface
+ 
+@@ -266,7 +268,6 @@ module axi_ad9361 (
+ 
+   // internal clocks and resets
+ 
+-  wire            rst;
+   wire            up_clk;
+   wire            up_rstn;
+   wire            delay_rst;

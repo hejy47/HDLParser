@@ -1,0 +1,16 @@
+a3ec3ba3f5f6eda1529c0ac53716459bab5140c2
+[Ibex] Expose PMP-related parameters in wrapper
+diff --git a/hw/top_earlgrey/doc/top_earlgrey.tpl.sv b/hw/top_earlgrey/doc/top_earlgrey.tpl.sv
+index 9b146cd45..1b1937366 100644
+--- a/hw/top_earlgrey/doc/top_earlgrey.tpl.sv
++++ b/hw/top_earlgrey/doc/top_earlgrey.tpl.sv
+@@ -134,6 +134,9 @@ module top_${top["name"]} #(
+ 
+   // processor core
+   rv_core_ibex #(
++    .PMPEnable           (0),
++    .PMPGranularity      (0),
++    .PMPNumRegions       (4),
+     .MHPMCounterNum      (8),
+     .MHPMCounterWidth    (40),
+     .RV32E               (0),

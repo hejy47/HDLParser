@@ -1,0 +1,26 @@
+91a2335db7c362ea12962a6d0ccc6f589c1d01a3
+[sysrst_ctrl] cleaned up unused lint errors
+diff --git a/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_timerfsm.sv b/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_timerfsm.sv
+index b87671c84..2167f3f51 100644
+--- a/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_timerfsm.sv
++++ b/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_timerfsm.sv
+@@ -20,7 +20,7 @@ module sysrst_ctrl_timerfsm #(
+ 
+   logic trigger_q;
+   logic trigger_h2l, trigger_l2h, trigger_h2h, trigger_l2l;
+-  logic trigger_tgl, trigger_sty;
++  //logic trigger_tgl, trigger_sty;
+ 
+   logic [TIMERBIT-1:0] timer_cnt_d, timer_cnt_q;
+   logic timer_cnt_clr, timer_cnt_en;
+@@ -37,8 +37,8 @@ module sysrst_ctrl_timerfsm #(
+   assign trigger_l2h = (trigger_q == 1'b0) && (trigger_i == 1'b1);
+   assign trigger_h2h = (trigger_q == 1'b1) && (trigger_i == 1'b1);
+   assign trigger_l2l = (trigger_q == 1'b0) && (trigger_i == 1'b0);
+-  assign trigger_tgl = trigger_q != trigger_i;
+-  assign trigger_sty = trigger_q == trigger_i;
++  //assign trigger_tgl = trigger_q != trigger_i;
++  //assign trigger_sty = trigger_q == trigger_i;
+ 
+   //three-state FSM
+   //IDLE->WAITL2H->DONEL2H or IDLE->WAITH2L->DONEH2L

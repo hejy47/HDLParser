@@ -1,0 +1,17 @@
+7a9fdb5fc34ca0fa33a20e338c8f0a84cd4f8f96
+Add default case statements to avoid inferring latches
+diff --git a/rtl/axis_demux_4.v b/rtl/axis_demux_4.v
+index 6b853ae..9d5b831 100644
+--- a/rtl/axis_demux_4.v
++++ b/rtl/axis_demux_4.v
+@@ -116,6 +116,10 @@ always @* begin
+             current_output_tvalid = output_3_axis_tvalid;
+             current_output_tready = output_3_axis_tready;
+         end
++        default: begin
++            current_output_tvalid = 1'b0;
++            current_output_tready = 1'b0;
++        end
+     endcase
+ end
+ 

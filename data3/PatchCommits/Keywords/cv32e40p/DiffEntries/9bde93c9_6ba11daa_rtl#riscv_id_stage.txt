@@ -1,0 +1,15 @@
+9bde93c932ad5fbd23fc7d43a744ff5936a899ae
+fixed parameter in id stage
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index c58ead2..99fa762 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -946,7 +946,7 @@ module riscv_id_stage
+   register_file_test_wrap
+   #(
+     .ADDR_WIDTH(6),
+-    .FPU(0) // forcing the register_file fr FP to be disabled
++    .FPU(FPU)
+   )
+   registers_i
+   (

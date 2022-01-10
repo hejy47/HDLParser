@@ -1,0 +1,22 @@
+493fc1d48b8b34a944fad0ddfb240d7db084dede
+axi_*: Fix instantiation of up_[adc|dac]_[common|channel]
+diff --git a/library/axi_ad9379/axi_ad9379_rx.v b/library/axi_ad9379/axi_ad9379_rx.v
+index 9dbe5a43..95990d82 100644
+--- a/library/axi_ad9379/axi_ad9379_rx.v
++++ b/library/axi_ad9379/axi_ad9379_rx.v
+@@ -254,8 +254,13 @@ module axi_ad9379_rx #(
+   // common processor control
+ 
+   up_adc_common #(
+-    .COMMON_ID ('h00),
+-    .ID (ID))
++    .COMMON_ID (6'h00),
++    .ID (ID),
++    .CONFIG(0),
++    .DRP_DISABLE(1),
++    .USERPORTS_DISABLE(1),
++    .GPIO_DISABLE(1),
++    .START_CODE_DISABLE(1))
+   i_up_adc_common (
+     .mmcm_rst (),
+     .adc_clk (adc_clk),

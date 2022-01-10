@@ -1,0 +1,32 @@
+023b7b6856269296a481c0f8e7c21575878b4fe1
+[RTL/Tracer] Fix compressed jump RD write (#416)
+diff --git a/rtl/ibex_tracer.sv b/rtl/ibex_tracer.sv
+index deba8e54..40eaa1e0 100644
+--- a/rtl/ibex_tracer.sv
++++ b/rtl/ibex_tracer.sv
+@@ -463,7 +463,13 @@ module ibex_tracer (
+ 
+   function void decode_cr_insn(input string mnemonic);
+     if (rvfi_rs2_addr == 5'b0) begin
+-      data_accessed = RS1;
++      if (rvfi_insn[12] == 1'b1) begin
++        // C.JALR
++        data_accessed = RS1 | RD;
++      end else begin
++        // C.JR
++        data_accessed = RS1;
++      end
+       decoded_str = $sformatf("%s\tx%0d", mnemonic, rvfi_rs1_addr);
+     end else begin
+       data_accessed = RS1 | RS2 | RD; // RS1 == RD
+@@ -549,6 +555,10 @@ module ibex_tracer (
+   endfunction
+ 
+   function void decode_cj_insn(input string mnemonic);
++    if (rvfi_insn[15:13] == 3'b001) begin
++      // C.JAL
++      data_accessed = RD;
++    end
+     decoded_str = $sformatf("%s\t%0x", mnemonic, rvfi_pc_wdata);
+   endfunction
+ 

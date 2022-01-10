@@ -1,0 +1,14 @@
+d710dc821b9e7beef0725052c99d152817934514
+Merge remote-tracking branch 'origin/fix_loadstall' into dbg_dev
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index 38bf2fe..bf70743 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -1223,6 +1223,7 @@ module riscv_id_stage
+     .csr_irq_sec_o                  ( csr_irq_sec_o          ),
+ 
+     // Write targets from ID
++    .regfile_we_id_i                ( regfile_we_id          ),
+     .regfile_alu_waddr_id_i         ( regfile_alu_waddr_id   ),
+ 
+     // Forwarding signals from regfile

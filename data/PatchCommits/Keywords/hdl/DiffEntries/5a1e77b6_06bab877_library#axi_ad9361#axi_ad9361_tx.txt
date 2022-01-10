@@ -1,0 +1,24 @@
+5a1e77b6dcace615c661d52c3cf215e3c21a8e54
+axi_ad9361: Fix dac_datarate counter implementation
+diff --git a/library/axi_ad9361/axi_ad9361_tx.v b/library/axi_ad9361/axi_ad9361_tx.v
+index db6f7c25..33bce4f4 100644
+--- a/library/axi_ad9361/axi_ad9361_tx.v
++++ b/library/axi_ad9361/axi_ad9361_tx.v
+@@ -162,10 +162,14 @@ module axi_ad9361_tx #(
+   // rate counters and data sync signals
+ 
+   always @(posedge dac_clk) begin
+-    if ((dac_data_sync == 1'b1) || (dac_rate_cnt == 16'd0)) begin
+-      dac_rate_cnt <= dac_datarate_s;
++    if (dac_rst == 1'b1) begin
++      dac_rate_cnt <= 16'b0;
+     end else begin
+-      dac_rate_cnt <= dac_rate_cnt - 1;
++      if ((dac_data_sync == 1'b1) || (dac_rate_cnt == 16'd0)) begin
++        dac_rate_cnt <= dac_datarate_s;
++      end else begin
++        dac_rate_cnt <= dac_rate_cnt - 1'b1;
++      end
+     end
+   end
+ 

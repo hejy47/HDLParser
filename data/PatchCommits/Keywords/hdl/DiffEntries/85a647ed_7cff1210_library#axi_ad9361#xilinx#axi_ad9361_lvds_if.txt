@@ -1,0 +1,22 @@
+85a647eda8626f76c70ae771eedc8c0ac8449c67
+axi_ad9361: Fix ad_cmos_out instantiations
+diff --git a/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v b/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v
+index 122637e5..b9c0f232 100644
+--- a/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v
++++ b/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v
+@@ -525,7 +525,6 @@ module axi_ad9361_lvds_if #(
+ 
+   ad_cmos_out #(
+     .DEVICE_TYPE (DEVICE_TYPE),
+-    .SINGLE_ENDED (1),
+     .IODELAY_ENABLE (DAC_IODELAY_ENABLE),
+     .IODELAY_CTRL (0),
+     .IODELAY_GROUP (IO_DELAY_GROUP))
+@@ -546,7 +545,6 @@ module axi_ad9361_lvds_if #(
+ 
+   ad_cmos_out #(
+     .DEVICE_TYPE (DEVICE_TYPE),
+-    .SINGLE_ENDED (1),
+     .IODELAY_ENABLE (DAC_IODELAY_ENABLE),
+     .IODELAY_CTRL (0),
+     .IODELAY_GROUP (IO_DELAY_GROUP))

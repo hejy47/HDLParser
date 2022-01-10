@@ -1,0 +1,14 @@
+6ec9eab7b9c33072a4dd151c2c7b8e9b0ac7d7a6
+fmcjesdadc1/a10soc- fix sysref, lvds io and such
+diff --git a/projects/fmcjesdadc1/a10soc/system_top.v b/projects/fmcjesdadc1/a10soc/system_top.v
+index 0a0a1fcf..c0d2b233 100644
+--- a/projects/fmcjesdadc1/a10soc/system_top.v
++++ b/projects/fmcjesdadc1/a10soc/system_top.v
+@@ -142,6 +142,7 @@ module system_top (
+   assign gpio_bd_o = gpio_o[3:0];
+ 
+   assign spi_csn = spi_csn_s[0];
++  assign sys_resetn_s = sys_resetn & sys_hps_resetn;
+ 
+   // instantiations
+  

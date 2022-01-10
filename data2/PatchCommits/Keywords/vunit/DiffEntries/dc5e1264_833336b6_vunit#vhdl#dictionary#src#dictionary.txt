@@ -1,0 +1,17 @@
+dc5e12649c01329de9f9e7d3edeee8d12e39ddac
+Deprecated constants with _c suffix.
+diff --git a/vunit/vhdl/dictionary/src/dictionary.vhd b/vunit/vhdl/dictionary/src/dictionary.vhd
+index edb1b2a5..6ef49feb 100644
+--- a/vunit/vhdl/dictionary/src/dictionary.vhd
++++ b/vunit/vhdl/dictionary/src/dictionary.vhd
+@@ -12,7 +12,9 @@ use std.textio.all;
+ 
+ package dictionary is
+   subtype frozen_dictionary_t is string;
+-  constant empty_c : frozen_dictionary_t := "";
++  constant empty : frozen_dictionary_t := "";
++  -- Deprecated
++  alias empty_c is empty;
+ 
+   function len (
+     constant d : frozen_dictionary_t)

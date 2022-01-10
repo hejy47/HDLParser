@@ -1,0 +1,15 @@
+cab7d367f2f571c24a999fc65f933d32faa7f6f5
+Fix default width
+diff --git a/rtl/axis_frame_length_adjust_fifo_64.v b/rtl/axis_frame_length_adjust_fifo_64.v
+index eb55d62..b5728c6 100644
+--- a/rtl/axis_frame_length_adjust_fifo_64.v
++++ b/rtl/axis_frame_length_adjust_fifo_64.v
+@@ -31,7 +31,7 @@ THE SOFTWARE.
+  */
+ module axis_frame_length_adjust_fifo_64 #
+ (
+-    parameter DATA_WIDTH = 8,
++    parameter DATA_WIDTH = 64,
+     parameter KEEP_WIDTH = (DATA_WIDTH/8),
+     parameter FRAME_FIFO_ADDR_WIDTH = 12,
+     parameter HEADER_FIFO_ADDR_WIDTH = 3

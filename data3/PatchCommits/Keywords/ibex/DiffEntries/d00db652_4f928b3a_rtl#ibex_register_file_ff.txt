@@ -1,0 +1,15 @@
+d00db652277ba9d33a8ac68794b5260c6ed168d9
+Avoid WIDTH lint warnings in Verilator
+diff --git a/rtl/ibex_register_file_ff.sv b/rtl/ibex_register_file_ff.sv
+index 308decb5..86e7a082 100644
+--- a/rtl/ibex_register_file_ff.sv
++++ b/rtl/ibex_register_file_ff.sv
+@@ -62,7 +62,7 @@ module ibex_register_file #(
+ 
+   always_comb begin : we_a_decoder
+     for (int i = 1; i < NUM_WORDS; i++) begin
+-      we_a_dec[i] = (waddr_a_i == i) ?  we_a_i : 1'b0;
++      we_a_dec[i] = (waddr_a_i == 5'(i)) ?  we_a_i : 1'b0;
+     end
+   end
+ 

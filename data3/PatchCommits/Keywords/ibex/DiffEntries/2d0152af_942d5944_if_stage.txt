@@ -1,0 +1,18 @@
+2d0152afe9aa00fe359842193c5ddc6ff2e1034c
+Fix missing parameter due to removing of hardware loop
+diff --git a/if_stage.sv b/if_stage.sv
+index cfb2f718..9c48831c 100644
+--- a/if_stage.sv
++++ b/if_stage.sv
+@@ -31,8 +31,10 @@ import riscv_defines::*;
+     module riscv_if_stage #(
+       // CONFIG_REGION: HWL_SUPPORT
+       `ifdef HWL_SUPPORT
++      parameter N_HWLP      = 2,
++      `endif
+       parameter RDATA_WIDTH = 32
+-      `endif // HWL_SUPPORT
++
+ ) (
+       input  logic        clk,
+       input  logic        rst_n,

@@ -1,0 +1,16 @@
+63851ac4c88bf17af9711c4a8137bfd2fdd11de2
+[ast] Rewrite assignment leading to syntax error in Verible
+diff --git a/hw/top_earlgrey/ip/ast/rtl/usb_osc.sv b/hw/top_earlgrey/ip/ast/rtl/usb_osc.sv
+index 62c075a20..66574c185 100644
+--- a/hw/top_earlgrey/ip/ast/rtl/usb_osc.sv
++++ b/hw/top_earlgrey/ip/ast/rtl/usb_osc.sv
+@@ -52,7 +52,8 @@ end
+ 
+ assign en_osc = en_osc_re || en_osc_fe;  // EN -> 1 || EN -> 0
+ 
+-wire #(USB_VAL_RDLY, USB_VAL_FDLY) ref_val = usb_ref_val_i;
++wire ref_val;
++assign #(USB_VAL_RDLY, USB_VAL_FDLY) ref_val = usb_ref_val_i;
+ assign drift = ref_val ? 0 : rand32;
+ 
+ always begin

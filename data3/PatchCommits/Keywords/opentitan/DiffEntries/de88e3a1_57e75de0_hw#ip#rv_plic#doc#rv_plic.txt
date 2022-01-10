@@ -1,0 +1,17 @@
+de88e3a1673bdeb490b7620d0180d8805aa8a76c
+[reggen] Add devmode_i to register module
+diff --git a/hw/ip/rv_plic/doc/rv_plic.tpl.sv b/hw/ip/rv_plic/doc/rv_plic.tpl.sv
+index 0125be30c..16d828e47 100644
+--- a/hw/ip/rv_plic/doc/rv_plic.tpl.sv
++++ b/hw/ip/rv_plic/doc/rv_plic.tpl.sv
+@@ -222,7 +222,9 @@ module rv_plic #(
+     .tl_o,
+ 
+     .reg2hw,
+-    .hw2reg
++    .hw2reg,
++
++    .devmode_i  (1'b1)
+   );
+ 
+ endmodule

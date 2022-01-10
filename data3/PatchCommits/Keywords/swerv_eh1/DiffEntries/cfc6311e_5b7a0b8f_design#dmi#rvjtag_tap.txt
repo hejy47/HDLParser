@@ -1,0 +1,15 @@
+cfc6311efc4e606b25decc8d32745bb1a8bbc0d5
+Fixed Capture IR value error for TAP controller
+diff --git a/design/dmi/rvjtag_tap.v b/design/dmi/rvjtag_tap.v
+index 89b76fb..6e0ee4e 100644
+--- a/design/dmi/rvjtag_tap.v
++++ b/design/dmi/rvjtag_tap.v
+@@ -201,7 +201,7 @@ always_comb begin
+                     endcase
+                 end
+     shift_ir:   nsr = {{USER_DR_LENGTH-5{1'b0}},tdi, sr[4:1]};
+-    capture_ir: nsr = '1;
++    capture_ir: nsr = {{USER_DR_LENGTH-1{1'b0}},1'b1};
+     endcase
+ end
+ 

@@ -1,0 +1,15 @@
+41d01e7c44e9ed8a86fdecc4100ff238d051b4c8
+Fix timing for first clock tmds output
+diff --git a/modules/hdmi/hdmi.sv b/modules/hdmi/hdmi.sv
+index ec2cef4..553043e 100644
+--- a/modules/hdmi/hdmi.sv
++++ b/modules/hdmi/hdmi.sv
+@@ -234,7 +234,7 @@ generate
+     end
+ endgenerate
+ // See Section 5.4.1
+-logic [3:0] tmds_counter = 4'd0;
++logic [3:0] tmds_counter = 4'd1;
+ 
+ integer j;
+ always @(posedge clk_tmds)

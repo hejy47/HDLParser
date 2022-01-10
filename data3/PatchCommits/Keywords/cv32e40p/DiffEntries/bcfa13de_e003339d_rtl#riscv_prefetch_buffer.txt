@@ -1,0 +1,14 @@
+bcfa13de5ad83b82dd062e57cfbb2e513bd14f2d
+updated rtl/riscv_prefetch_buffer.sv: added default for fifo_flush
+diff --git a/rtl/riscv_prefetch_buffer.sv b/rtl/riscv_prefetch_buffer.sv
+index b196bea..a949911 100644
+--- a/rtl/riscv_prefetch_buffer.sv
++++ b/rtl/riscv_prefetch_buffer.sv
+@@ -108,6 +108,7 @@ module riscv_prefetch_buffer
+     fetch_failed_o = 1'b0;
+     fifo_push      = 1'b0;
+     NS             = CS;
++    fifo_flush     = 1'b0;
+ 
+     save_hwloop_target = 1'b0;
+ 

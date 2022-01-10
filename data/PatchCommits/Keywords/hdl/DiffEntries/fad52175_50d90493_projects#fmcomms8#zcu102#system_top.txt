@@ -1,0 +1,15 @@
+fad52175d1ddb634405298daffc2afc8fbe02860
+fmcomms8: Fix spi connection
+diff --git a/projects/fmcomms8/zcu102/system_top.v b/projects/fmcomms8/zcu102/system_top.v
+index b261ac9c..f530f636 100644
+--- a/projects/fmcomms8/zcu102/system_top.v
++++ b/projects/fmcomms8/zcu102/system_top.v
+@@ -349,7 +349,7 @@ module system_top (
+ 
+     .spi0_sclk (spi_clk),
+     .spi0_csn (spi_csn),
+-    .spi0_miso (spi_miso),
++    .spi0_miso (spi0_miso),
+     .spi0_mosi (spi_mosi),
+     .spi1_sclk (),
+     .spi1_csn (),

@@ -1,0 +1,15 @@
+badee90e7374cf64ad69cce591176ab65c176d65
+:fix: fix again mtvec
+diff --git a/rtl/riscv_cs_registers.sv b/rtl/riscv_cs_registers.sv
+index bc677b6..921fb28 100644
+--- a/rtl/riscv_cs_registers.sv
++++ b/rtl/riscv_cs_registers.sv
+@@ -762,7 +762,7 @@ end //PULP_SECURE
+ 
+         assign uepc_q       = '0;
+         assign ucause_q     = '0;
+-        assign mtvec_q      = boot_addr_i[31:8];
++        assign mtvec_q      = boot_addr_i[30:7];
+         assign utvec_q      = '0;
+         assign priv_lvl_q   = PRIV_LVL_M;
+ 

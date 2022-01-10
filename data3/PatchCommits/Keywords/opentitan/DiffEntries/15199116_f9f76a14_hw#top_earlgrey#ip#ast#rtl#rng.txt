@@ -1,0 +1,27 @@
+151991161cdb9063b5a79d908d33520ec912f14f
+[ast] Add Fix AscentLint Errors
+diff --git a/hw/top_earlgrey/ip/ast/rtl/rng.sv b/hw/top_earlgrey/ip/ast/rtl/rng.sv
+index 84405838c..6f442c238 100644
+--- a/hw/top_earlgrey/ip/ast/rtl/rng.sv
++++ b/hw/top_earlgrey/ip/ast/rtl/rng.sv
+@@ -36,7 +36,7 @@ prim_lfsr #(
+   .StatePermEn ( 1'b1 ),
+   .StatePerm ( ast_pkg::RndCnstLfsrPermDefault ),
+   .ExtSeedSVA ( 1'b0 )  // ext seed is unused
+-) u_sys_lfsr (
++) u_rng_lfsr (
+   .clk_i ( clk_i ),
+   .rst_ni ( rst_n ),
+   .lfsr_en_i ( rng_en_i ),
+@@ -102,4 +102,11 @@ always_ff @( posedge clk_ast_rng_i, negedge rst_ast_rng_ni ) begin
+   end
+ end
+ 
++
++///////////////////////
++// Unused Signals
++///////////////////////
++logic unused_sigs;
++assign unused_sigs = ^{ rng_fips_i };  // Used in ASIC implementation
++
+ endmodule : rng

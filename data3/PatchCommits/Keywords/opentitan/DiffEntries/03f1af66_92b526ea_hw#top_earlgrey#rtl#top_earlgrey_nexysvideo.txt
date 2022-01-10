@@ -1,0 +1,19 @@
+03f1af66a5f73f1fdc23bc41864f1e9d5f6502bb
+[top] Various top related fixes
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv b/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv
+index 3accf8c37..1f0551df2 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv
+@@ -394,9 +394,9 @@ module top_earlgrey_nexysvideo #(
+     .clk_io_i        ( clk_main      ),
+     .clk_usb_i       ( clk_usb_48mhz ),
+     .clk_aon_i       ( clk_main      ),
+-    .rstmgr_ast_i                 ( ast_base_rst    ),
+-    .pwrmgr_pwr_ast_req_o         (                 ),
+-    .pwrmgr_pwr_ast_rsp_i         ( ast_base_pwr    ),
++    .rstmgr_ast_i             ( ast_base_rst    ),
++    .pwrmgr_ast_req_o         (                 ),
++    .pwrmgr_ast_rsp_i         ( ast_base_pwr    ),
+     .sensor_ctrl_ast_alert_req_i  ( ast_base_alerts ),
+     .sensor_ctrl_ast_alert_rsp_o  (                 ),
+     .sensor_ctrl_ast_status_i     ( ast_base_status ),

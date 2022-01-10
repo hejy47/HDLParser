@@ -1,0 +1,15 @@
+b27cff9584c6d42b71a89c66ec64f15b166435b2
+[i2c, rtl] Format flag assignments
+diff --git a/hw/ip/i2c/rtl/i2c_fsm.sv b/hw/ip/i2c/rtl/i2c_fsm.sv
+index 14f598e15..067a65082 100644
+--- a/hw/ip/i2c/rtl/i2c_fsm.sv
++++ b/hw/ip/i2c/rtl/i2c_fsm.sv
+@@ -92,7 +92,7 @@ module i2c_fsm (
+         tClockPulse : tcount_d = t_r_i + thigh_i;
+         tHoldBit    : tcount_d = t_f_i + thd_dat_i;
+         tSetupStop  : tcount_d = t_r_i + tsu_sto_i;
+-        tHoldStop   : tcount_d = t_r_i + t_buf_i;
++        tHoldStop   : tcount_d = t_r_i + t_buf_i - tsu_sta_i;
+         tNoDelay    : tcount_d = '0;
+         default     : tcount_d = '0;
+       endcase

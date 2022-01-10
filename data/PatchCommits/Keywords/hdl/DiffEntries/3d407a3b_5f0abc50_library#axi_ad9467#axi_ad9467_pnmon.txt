@@ -1,0 +1,14 @@
+3d407a3ba5ea56ef0f9c69c27b68ea9f77a5048f
+axi_ad9467: Fix missing connection warnings
+diff --git a/library/axi_ad9467/axi_ad9467_pnmon.v b/library/axi_ad9467/axi_ad9467_pnmon.v
+index 7d62a419..5b059baa 100644
+--- a/library/axi_ad9467/axi_ad9467_pnmon.v
++++ b/library/axi_ad9467/axi_ad9467_pnmon.v
+@@ -166,6 +166,7 @@ module axi_ad9467_pnmon (
+     .adc_valid_in (adc_valid_in),
+     .adc_data_in (adc_pn_data_in),
+     .adc_data_pn (adc_pn_data_pn),
++    .adc_pattern_has_zero (1'b0),
+     .adc_pn_oos (adc_pn_oos),
+     .adc_pn_err (adc_pn_err));
+ 

@@ -1,0 +1,14 @@
+df96e0c2a6cc99652e459b22c1bcb2c1ce5f59f1
+[AST] AscentLint, HJSON fixes, and rgn_fips_i port
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+index 9302aa9bb..718328f86 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+@@ -554,6 +554,7 @@ module top_earlgrey_asic (
+     .adc_d_val_o           (  ),
+     // rng
+     .rng_en_i              ( es_rng_req.rng_enable ),
++    .rng_fips_i            ( '0 ),
+     .rng_val_o             ( es_rng_rsp.rng_valid ),
+     .rng_b_o               ( es_rng_rsp.rng_b ),
+     // entropy

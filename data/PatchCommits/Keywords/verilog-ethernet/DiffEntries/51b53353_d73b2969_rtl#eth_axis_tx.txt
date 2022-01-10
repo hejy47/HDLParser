@@ -1,0 +1,15 @@
+51b5335318c83e2662a0edb768b05ac7cbcd6603
+Remove z from default states for FSM inference
+diff --git a/rtl/eth_axis_tx.v b/rtl/eth_axis_tx.v
+index c420d20..f62c079 100644
+--- a/rtl/eth_axis_tx.v
++++ b/rtl/eth_axis_tx.v
+@@ -113,7 +113,7 @@ assign input_eth_payload_tready = input_eth_payload_tready_reg;
+ assign busy = busy_reg;
+ 
+ always @* begin
+-    state_next = 2'bz;
++    state_next = STATE_IDLE;
+ 
+     input_eth_hdr_ready_next = 0;
+     input_eth_payload_tready_next = 0;

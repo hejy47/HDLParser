@@ -1,0 +1,15 @@
+d3b548de65694816cace18e2fe4b2d5aec723727
+jesd204_rx: Reset lane error statistics when link is disabled
+diff --git a/library/jesd204/jesd204_rx/jesd204_rx_lane.v b/library/jesd204/jesd204_rx/jesd204_rx_lane.v
+index 2911029a..b0c8488c 100644
+--- a/library/jesd204/jesd204_rx/jesd204_rx_lane.v
++++ b/library/jesd204/jesd204_rx/jesd204_rx_lane.v
+@@ -181,7 +181,7 @@ endgenerate
+   end
+ 
+ always @(posedge clk) begin
+-  if (ctrl_err_statistics_reset == 1'b1) begin
++  if (reset == 1'b1 || ctrl_err_statistics_reset == 1'b1) begin
+     status_err_statistics_cnt <= 32'h0;
+   end else if (status_err_statistics_cnt[31:5] != 27'h7ffffff) begin
+     status_err_statistics_cnt <= status_err_statistics_cnt + phy_notintable_cnt + phy_disperr_cnt + phy_unexpectedk_cnt;

@@ -1,0 +1,14 @@
+ce8bcfd192be4b57b394397ac0487ea80f367ead
+fmcjesdadc1: Remove wire that is a redeclaration of a port
+diff --git a/projects/fmcjesdadc1/vc707/system_top.v b/projects/fmcjesdadc1/vc707/system_top.v
+index e6d15286..f180901e 100644
+--- a/projects/fmcjesdadc1/vc707/system_top.v
++++ b/projects/fmcjesdadc1/vc707/system_top.v
+@@ -109,7 +109,6 @@ module system_top (
+   wire            spi_miso;
+   wire            rx_ref_clk;
+   wire            rx_clk;
+-  wire            rx_sysref;
+ 
+   assign ddr3_1_p = 2'b11;
+   assign ddr3_1_n = 3'b000;

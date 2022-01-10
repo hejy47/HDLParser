@@ -1,0 +1,22 @@
+0f2dc5c64ada16118a8621df9f34cf07eb943f4e
+[rtl] Avoid latch creation
+diff --git a/shared/rtl/bus.sv b/shared/rtl/bus.sv
+index 6650fec6..2fcf09c2 100644
+--- a/shared/rtl/bus.sv
++++ b/shared/rtl/bus.sv
+@@ -59,6 +59,7 @@ module bus #(
+ 
+   // Master select prio arbiter
+   always_comb begin
++    host_sel_req = '0;
+     for (integer host = NrHosts - 1; host >= 0; host = host - 1) begin
+       if (host_req_i[host]) begin
+         host_sel_req = NumBitsHostSel'(host);
+@@ -68,6 +69,7 @@ module bus #(
+ 
+   // Device select
+   always_comb begin
++    device_sel_req = '0;
+     for (integer device = 0; device < NrDevices; device = device + 1) begin
+       if ((host_addr_i[host_sel_req] & cfg_device_addr_mask[device])
+           == cfg_device_addr_base[device]) begin

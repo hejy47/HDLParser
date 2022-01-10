@@ -1,0 +1,17 @@
+6ae0c8f85e1a8d4a429b3621f990343528eed571
+library: Fixed changes related to parameters
+diff --git a/library/common/ad_csc_1_mul.v b/library/common/ad_csc_1_mul.v
+index d656e483..e92641a2 100644
+--- a/library/common/ad_csc_1_mul.v
++++ b/library/common/ad_csc_1_mul.v
+@@ -103,8 +103,8 @@ module ad_csc_1_mul (
+ 
+   MULT_MACRO #(
+     .LATENCY (3),
+-    .A_DATA_WIDTH (17),
+-    .B_DATA_WIDTH (9))
++    .WIDTH_A (17),
++    .WIDTH_B (9))
+   i_mult_macro (
+     .CE (1'b1),
+     .RST (1'b0),

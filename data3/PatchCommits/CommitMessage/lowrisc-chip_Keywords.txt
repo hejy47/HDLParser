@@ -1,0 +1,1329 @@
+======Commit: be68af1a======
+======Short Message======
+Update default boot loader executable image for larger payload
+======Full Message======
+Update default boot loader executable image for larger payload
+
+
+
+======Commit: d5c50f74======
+======Short Message======
+Fix timing error in video cursor
+======Full Message======
+Fix timing error in video cursor
+
+
+
+======Commit: 211ccbca======
+======Short Message======
+Enable /dev/gpio0 by default
+======Full Message======
+Enable /dev/gpio0 by default
+
+
+
+======Commit: 148c883a======
+======Short Message======
+Add IPV6 and NFS server options to Linux default .config
+======Full Message======
+Add IPV6 and NFS server options to Linux default .config
+
+
+
+======Commit: 07ff1078======
+======Short Message======
+Revert changes to recvRawEth.c due to bugs being introduced
+======Full Message======
+Revert changes to recvRawEth.c due to bugs being introduced
+
+
+
+======Commit: 17f8535c======
+======Short Message======
+Switch to JTAG version of Chisel by default
+======Full Message======
+Switch to JTAG version of Chisel by default
+
+
+
+======Commit: ae3e6be8======
+======Short Message======
+revert the use of nasti_bram_ctrl from socip as it is buggy and I do not have time to debug it
+======Full Message======
+revert the use of nasti_bram_ctrl from socip as it is buggy and I do not have time to debug it
+
+
+
+======Commit: c3ea7b5f======
+======Short Message======
+add the lowRISC prefix (LoRC) to the default configuration in ci-travis
+======Full Message======
+add the lowRISC prefix (LoRC) to the default configuration in ci-travis
+
+
+
+======Commit: 38456ada======
+======Short Message======
+simulation currrently fails with an internal error during elaboration using Vivado 2015.4 [ci skip]
+======Full Message======
+simulation currrently fails with an internal error during elaboration using Vivado 2015.4 [ci skip]
+
+
+
+======Commit: 681d1fc1======
+======Short Message======
+bugfix: bind the IO connection of the root node of the virtual network in SlaveAXI [ci skip]
+======Full Message======
+bugfix: bind the IO connection of the root node of the virtual network in SlaveAXI [ci skip]
+
+
+
+======Commit: f76d2383======
+======Short Message======
+add a small delay in behavioural ram to fix a strange instability when simulating using VCS [ci skip]
+======Full Message======
+add a small delay in behavioural ram to fix a strange instability when simulating using VCS [ci skip]
+
+
+
+======Commit: f23b6164======
+======Short Message======
+add dummy debug DTM [ci skip]
+======Full Message======
+add dummy debug DTM [ci skip]
+
+
+
+======Commit: 21776a1c======
+======Short Message======
+fix a zero size boundary check bug in elfloader [ci skip]
+======Full Message======
+fix a zero size boundary check bug in elfloader [ci skip]
+
+
+
+======Commit: 57cfccaa======
+======Short Message======
+in debugging of an elf loading error [ci skip]
+======Full Message======
+in debugging of an elf loading error [ci skip]
+
+
+
+======Commit: 103c24dc======
+======Short Message======
+temporarily remove debug and minion, revise SV top and various bugfixes in rocket-chip
+======Full Message======
+temporarily remove debug and minion, revise SV top and various bugfixes in rocket-chip
+
+
+
+======Commit: 89ad0746======
+======Short Message======
+Merge pull request #56 from lowRISC/update
+======Full Message======
+Merge pull request #56 from lowRISC/update
+
+Bugfix for the tag cache concurrency issue
+
+
+======Commit: eefc7dd9======
+======Short Message======
+disable memory debug print in unitests
+======Full Message======
+disable memory debug print in unitests
+
+
+
+======Commit: b93ffedc======
+======Short Message======
+fix the lock logic in tag cache
+======Full Message======
+fix the lock logic in tag cache
+
+
+
+======Commit: 8da4e00c======
+======Short Message======
+try to fix verilator error still related to dpi
+======Full Message======
+try to fix verilator error still related to dpi
+
+
+
+======Commit: 86926ff0======
+======Short Message======
+fix mismatch in dpi function declarations
+======Full Message======
+fix mismatch in dpi function declarations
+
+
+
+======Commit: 09a8f7c1======
+======Short Message======
+fix locks in tag cache
+======Full Message======
+fix locks in tag cache
+
+
+
+======Commit: 88ac48de======
+======Short Message======
+Merge remote-tracking branch 'origin/internal' into fix-tagcache
+======Full Message======
+Merge remote-tracking branch 'origin/internal' into fix-tagcache
+
+
+
+======Commit: 5145278a======
+======Short Message======
+fix bugs for run-tag-tests
+======Full Message======
+fix bugs for run-tag-tests
+
+
+
+======Commit: 05528158======
+======Short Message======
+Merge pull request #50 from lowRISC/fix-multicore
+======Full Message======
+Merge pull request #50 from lowRISC/fix-multicore
+
+fix compile error when change NTile to 2, the incoherent signal for c…
+
+
+======Commit: c1dc406c======
+======Short Message======
+fix compile error when change NTile to 2, the incoherent signal for coherence manager is per core.
+======Full Message======
+fix compile error when change NTile to 2, the incoherent signal for coherence manager is per core.
+
+
+
+======Commit: 547f6a55======
+======Short Message======
+Enable L2 cache by default
+======Full Message======
+Enable L2 cache by default
+
+
+
+======Commit: f79c828c======
+======Short Message======
+Merge branch 'update' into debug-v0.3
+======Full Message======
+Merge branch 'update' into debug-v0.3
+
+
+
+======Commit: e82f07cb======
+======Short Message======
+backport acq_fix and use small memory for tagcache tests without L2 $
+======Full Message======
+backport acq_fix and use small memory for tagcache tests without L2 $
+
+
+
+======Commit: 856b94f7======
+======Short Message======
+try to fix a strange Chisel failure related to coherent hub
+======Full Message======
+try to fix a strange Chisel failure related to coherent hub
+
+
+
+======Commit: 9e68c69e======
+======Short Message======
+temporarily fixup tagcache
+======Full Message======
+temporarily fixup tagcache
+
+
+
+======Commit: ddda4780======
+======Short Message======
+bugfix for tests runing without L2 cache and adding tagcache tests without L2 in ci
+======Full Message======
+bugfix for tests runing without L2 cache and adding tagcache tests without L2 in ci
+
+
+
+======Commit: 2a3432bb======
+======Short Message======
+Merge pull request #32 from furkanturan/debug-v0.3
+======Full Message======
+Merge pull request #32 from furkanturan/debug-v0.3
+
+Extend debug v0.3 with Zedboard support
+
+
+======Commit: f939b452======
+======Short Message======
+enforce regression error when simulation runs time-out
+======Full Message======
+enforce regression error when simulation runs time-out
+
+
+
+======Commit: d1e18e9e======
+======Short Message======
+further fix for excepted load
+======Full Message======
+further fix for excepted load
+
+
+
+======Commit: b7b217c8======
+======Short Message======
+pass tag store check with a bugfix in L1 D$
+======Full Message======
+pass tag store check with a bugfix in L1 D$
+
+
+
+======Commit: 9649580e======
+======Short Message======
+bug fix in L2 and add indirectional branch target tag
+======Full Message======
+bug fix in L2 and add indirectional branch target tag
+
+
+
+======Commit: db889d72======
+======Short Message======
+fix isa regression error
+======Full Message======
+fix isa regression error
+
+
+
+======Commit: c3c1eb81======
+======Short Message======
+begin to actually debug in tag cache [ci skip]
+======Full Message======
+begin to actually debug in tag cache [ci skip]
+
+
+
+======Commit: 9d3e7cdf======
+======Short Message======
+bump opensocdebug/hardware for the wrong MAM connection due to endian changes
+======Full Message======
+bump opensocdebug/hardware for the wrong MAM connection due to endian changes
+
+
+
+======Commit: 51a9980d======
+======Short Message======
+bump uncore for bugfix in tag cache
+======Full Message======
+bump uncore for bugfix in tag cache
+
+
+
+======Commit: 6c3e6a58======
+======Short Message======
+fix vsim/Makefile path issue
+======Full Message======
+fix vsim/Makefile path issue
+
+
+
+======Commit: 2d4bf1fe======
+======Short Message======
+Bump to newest Open SoC Debug version
+======Full Message======
+Bump to newest Open SoC Debug version
+
+
+
+======Commit: 6a357f7b======
+======Short Message======
+fix asm regression test for tagcache (zero tag use)
+======Full Message======
+fix asm regression test for tagcache (zero tag use)
+
+
+
+======Commit: 209fff68======
+======Short Message======
+testing tagcache with asm-tests fails in normal run, asserting error in behav memory model [ci skip]
+======Full Message======
+testing tagcache with asm-tests fails in normal run, asserting error in behav memory model [ci skip]
+
+
+
+======Commit: 785617a9======
+======Short Message======
+typo fix in the sin-opt target in vsim
+======Full Message======
+typo fix in the sin-opt target in vsim
+
+
+
+======Commit: 3948c74b======
+======Short Message======
+Merge pull request #22 from lowRISC/dev-wallento
+======Full Message======
+Merge pull request #22 from lowRISC/dev-wallento
+
+Make the UART debug stable and really fast
+
+
+======Commit: e135578d======
+======Short Message======
+Bump for fixed UART issues
+======Full Message======
+Bump for fixed UART issues
+
+We had an issue with incoming data, that is fixed with these updates.
+
+
+
+======Commit: 07c47075======
+======Short Message======
+merge debug-v0.3 (update) [ci-skip]
+======Full Message======
+merge debug-v0.3 (update) [ci-skip]
+
+
+
+======Commit: a3931f6b======
+======Short Message======
+add verilog include directory path to fix Verilator compilation
+======Full Message======
+add verilog include directory path to fix Verilator compilation
+
+
+
+======Commit: 0b2a7cb6======
+======Short Message======
+fix default config for ISA regression and fix fpga non-driver DRC error for flash
+======Full Message======
+fix default config for ISA regression and fix fpga non-driver DRC error for flash
+
+
+
+======Commit: b3e7cb68======
+======Short Message======
+Merge pull request #16 from lowRISC/dev
+======Full Message======
+Merge pull request #16 from lowRISC/dev
+
+BugFix for SD compatibility and multi-Banked L2
+
+
+======Commit: 8cd21d5b======
+======Short Message======
+merge tilelink id fix from dev
+======Full Message======
+merge tilelink id fix from dev
+
+
+
+======Commit: 32baad6e======
+======Short Message======
+various bugfixes for nasti_narrower_reader and push before merge the TileLink id increasement
+======Full Message======
+various bugfixes for nasti_narrower_reader and push before merge the TileLink id increasement
+
+
+
+======Commit: 04aed57d======
+======Short Message======
+fix bare-metal make
+======Full Message======
+fix bare-metal make
+
+
+
+======Commit: 06a8620a======
+======Short Message======
+Fix BRAM size info in debug MAM
+======Full Message======
+Fix BRAM size info in debug MAM
+
+
+
+======Commit: 1458bea2======
+======Short Message======
+Bump hardware to fix incoming character handling
+======Full Message======
+Bump hardware to fix incoming character handling
+
+
+
+======Commit: 176a1e8a======
+======Short Message======
+fix the wrong DDR RAM size
+======Full Message======
+fix the wrong DDR RAM size
+
+
+
+======Commit: a3f0e24f======
+======Short Message======
+Merge pull request #11 from asb/update-fix-setenv
+======Full Message======
+Merge pull request #11 from asb/update-fix-setenv
+
+Various fixes to set_env.sh
+
+
+======Commit: ff8dcda2======
+======Short Message======
+Fixes to set_env.sh
+======Full Message======
+Fixes to set_env.sh
+
+The primary issue was that `[ ! -d $UNDEFVAR ]` is always false, meaning that
+$TOP wouldn't be set. I've adjusted the conditional. Additionally, I've
+reformatted the opensocdebug related lines to use more conventional
+indentation which matches the rest of the file. After discussion, we decided
+no to quote variables at the moment in set_env because other scripts also need
+updating, and it would be better if people encounter an error due to their
+directory containing spaces early.
+
+
+
+======Commit: 323534aa======
+======Short Message======
+Merge pull request #10 from lowRISC/update-dem_uart
+======Full Message======
+Merge pull request #10 from lowRISC/update-dem_uart
+
+Debug: Add UART characters from host
+
+
+======Commit: 002c5191======
+======Short Message======
+Merge pull request #9 from lowRISC/update-debugspeed
+======Full Message======
+Merge pull request #9 from lowRISC/update-debugspeed
+
+Debug: Change baudrate of UART
+
+
+======Commit: 79dd8540======
+======Short Message======
+Debug: Add UART characters from host
+======Full Message======
+Debug: Add UART characters from host
+
+We now can boot and interact with Linux. It seems that device
+interrupts are missing in Rocket (driver is polling maybe?).
+
+
+
+======Commit: 35cc2c37======
+======Short Message======
+Debug: Change baudrate of UART
+======Full Message======
+Debug: Change baudrate of UART
+
+3 MBaud is the maximum, use this.
+
+
+
+======Commit: 5f0fcf0e======
+======Short Message======
+Merge pull request #8 from lowRISC/update-fix-setenv
+======Full Message======
+Merge pull request #8 from lowRISC/update-fix-setenv
+
+Fix test in set_env.sh
+
+
+======Commit: f74d80b1======
+======Short Message======
+Fix test in set_env.sh
+======Full Message======
+Fix test in set_env.sh
+
+Error should be "if directory not exists" when checking TOP.
+
+
+
+======Commit: dfc21f95======
+======Short Message======
+cherry pick fix from Berkeley to replay wb when IOMSHR resp
+======Full Message======
+cherry pick fix from Berkeley to replay wb when IOMSHR resp
+
+
+
+======Commit: f988c956======
+======Short Message======
+Merge pull request #6 from cirosantilli/patch-1
+======Full Message======
+Merge pull request #6 from cirosantilli/patch-1
+
+Replace [ == "" ] with [ -z ] set_riscv_env.sh
+
+
+======Commit: 863a65de======
+======Short Message======
+Merge remote-tracking branch 'origin/debug-chisel' into update
+======Full Message======
+Merge remote-tracking branch 'origin/debug-chisel' into update
+
+
+
+======Commit: f7a4bc52======
+======Short Message======
+bump opensocdebug [ci skip]
+======Full Message======
+bump opensocdebug [ci skip]
+
+
+
+======Commit: 3f91d330======
+======Short Message======
+fix nasti-lite bridge again, fix uart base address, expand individual io space for each slave
+======Full Message======
+fix nasti-lite bridge again, fix uart base address, expand individual io space for each slave
+
+
+
+======Commit: c098d72e======
+======Short Message======
+Merge pull request #7 from nbdd0121/patch-1
+======Full Message======
+Merge pull request #7 from nbdd0121/patch-1
+
+Fix dpi_ram_behav.cpp compilation problem
+
+
+======Commit: 081420f9======
+======Short Message======
+Fix dpi_ram_behav.cpp compilation problem
+======Full Message======
+Fix dpi_ram_behav.cpp compilation problem
+
+Add missing #include<iostream>
+
+
+======Commit: 83c91e36======
+======Short Message======
+fix ISim compatibility issue and bugs in nasti_lite_writer
+======Full Message======
+fix ISim compatibility issue and bugs in nasti_lite_writer
+
+
+
+======Commit: 46655613======
+======Short Message======
+fix the unavail inittab URL in make_root.sh
+======Full Message======
+fix the unavail inittab URL in make_root.sh
+
+
+
+======Commit: 1ef4d358======
+======Short Message======
+fix nasti_lite bridge, need FPGA debug test with UART print out
+======Full Message======
+fix nasti_lite bridge, need FPGA debug test with UART print out
+
+
+
+======Commit: 91962c93======
+======Short Message======
+nasti_lite_reader pass simulation, change Rocket.io_lite to 64-bit full nasti IO, pass parameter N_CORES to debug system rather than macros
+======Full Message======
+nasti_lite_reader pass simulation, change Rocket.io_lite to 64-bit full nasti IO, pass parameter N_CORES to debug system rather than macros
+
+
+
+======Commit: 41185d27======
+======Short Message======
+remove tilelink narrower, fix make verilog in vsim, and fix dpi memory model
+======Full Message======
+remove tilelink narrower, fix make verilog in vsim, and fix dpi memory model
+
+
+
+======Commit: 76b99bf9======
+======Short Message======
+connect debug MAM and increase D$ client id field for IOMSHR
+======Full Message======
+connect debug MAM and increase D$ client id field for IOMSHR
+
+
+
+======Commit: 9eb4045a======
+======Short Message======
+replace DefaultConfig to RegressionConfig
+======Full Message======
+replace DefaultConfig to RegressionConfig
+
+
+
+======Commit: f69dbfcf======
+======Short Message======
+using id_map for debug ring
+======Full Message======
+using id_map for debug ring
+
+
+
+======Commit: 639b6d88======
+======Short Message======
+merge the latest trace debugger
+======Full Message======
+merge the latest trace debugger
+
+
+
+======Commit: 6405e086======
+======Short Message======
+fix the delayed priv for CTM
+======Full Message======
+fix the delayed priv for CTM
+
+
+
+======Commit: 37b7aeb7======
+======Short Message======
+Travis: Fix source script
+======Full Message======
+Travis: Fix source script
+
+
+
+======Commit: cdc0ae6c======
+======Short Message======
+Fix prvchange
+======Full Message======
+Fix prvchange
+
+
+
+======Commit: 150d73c6======
+======Short Message======
+Add tools and rename script to be more generic
+======Full Message======
+Add tools and rename script to be more generic
+
+The open soc debug stuff is intalled in $TOP/tools
+
+
+
+======Commit: 2b1f9f57======
+======Short Message======
+Make the nexys board the default
+======Full Message======
+Make the nexys board the default
+
+
+
+======Commit: 544b9c1c======
+======Short Message======
+Add option to silence the debug messages
+======Full Message======
+Add option to silence the debug messages
+
+This affects the instruction log of rocket and the RAM model.
+
+
+
+======Commit: 45e64e0c======
+======Short Message======
+Smaller fixes and add ingress buffer in HIM
+======Full Message======
+Smaller fixes and add ingress buffer in HIM
+
+
+
+======Commit: 3d0b248e======
+======Short Message======
+fix trace debug network's losing tail flit issue
+======Full Message======
+fix trace debug network's losing tail flit issue
+
+
+
+======Commit: fd7916dd======
+======Short Message======
+allow nexys4 simulate trace debugger with glip-tcp
+======Full Message======
+allow nexys4 simulate trace debugger with glip-tcp
+
+
+
+======Commit: 1517602d======
+======Short Message======
+Fix regaccess issue in osd
+======Full Message======
+Fix regaccess issue in osd
+
+
+
+======Commit: 61da0036======
+======Short Message======
+Add opensocdebug software to tree
+======Full Message======
+Add opensocdebug software to tree
+
+
+
+======Commit: 2170e78e======
+======Short Message======
+Fix CTM
+======Full Message======
+Fix CTM
+
+
+
+======Commit: dca54cb1======
+======Short Message======
+Fix STM
+======Full Message======
+Fix STM
+
+
+
+======Commit: dea5a6c2======
+======Short Message======
+Merge remote-tracking branch 'origin/debug-chisel' into debug
+======Full Message======
+Merge remote-tracking branch 'origin/debug-chisel' into debug
+
+
+
+======Commit: 622bc732======
+======Short Message======
+MAM: Fix stop-and-go for writes
+======Full Message======
+MAM: Fix stop-and-go for writes
+
+
+
+======Commit: 5d81517b======
+======Short Message======
+fix exception when trigger software trace
+======Full Message======
+fix exception when trigger software trace
+
+
+
+======Commit: 200ef08b======
+======Short Message======
+Revert bug commit
+======Full Message======
+Revert bug commit
+
+
+
+======Commit: 744c5c67======
+======Short Message======
+Change debug ring numbering to linear
+======Full Message======
+Change debug ring numbering to linear
+
+
+
+======Commit: 43b5bc5b======
+======Short Message======
+reset cores, bump junctions and rocket, and move debug port to conditional connection.
+======Full Message======
+reset cores, bump junctions and rocket, and move debug port to conditional connection.
+
+
+
+======Commit: b1e76805======
+======Short Message======
+fix a network header overflow error and lowrisc chip connection error (aw/ar id)
+======Full Message======
+fix a network header overflow error and lowrisc chip connection error (aw/ar id)
+
+
+
+======Commit: 22edd63b======
+======Short Message======
+try to fix single beat TileLink issue for MMIO, and change external nasti to devices.
+======Full Message======
+try to fix single beat TileLink issue for MMIO, and change external nasti to devices.
+
+
+
+======Commit: 7c2a9882======
+======Short Message======
+debug pass Chisel compiler
+======Full Message======
+debug pass Chisel compiler
+
+
+
+======Commit: 699a8261======
+======Short Message======
+merge debug
+======Full Message======
+merge debug
+
+
+
+======Commit: 09abe754======
+======Short Message======
+Merge branch 'debug-chisel' into debug
+======Full Message======
+Merge branch 'debug-chisel' into debug
+
+
+
+======Commit: 89eed93e======
+======Short Message======
+Merge remote-tracking branch 'origin/debug-chisel' into debug
+======Full Message======
+Merge remote-tracking branch 'origin/debug-chisel' into debug
+
+
+
+======Commit: d74cecbc======
+======Short Message======
+refectoring chip top level and fix cache write-back in simulation mode
+======Full Message======
+refectoring chip top level and fix cache write-back in simulation mode
+
+
+
+======Commit: c82959c6======
+======Short Message======
+Verilator: Wait for debugger on +waitdebug
+======Full Message======
+Verilator: Wait for debugger on +waitdebug
+
+To avoid unnecessarily large vcd files, the execution now stops if
++waitdebug is given.
+
+
+
+======Commit: e7a900ba======
+======Short Message======
+Change debug system for multi-region MAM
+======Full Message======
+Change debug system for multi-region MAM
+
+
+
+======Commit: 42a496bd======
+======Short Message======
+Merge remote-tracking branch 'origin/debug-chisel' into debug
+======Full Message======
+Merge remote-tracking branch 'origin/debug-chisel' into debug
+
+
+
+======Commit: 3a35148f======
+======Short Message======
+fix MAM address offset and block write issue
+======Full Message======
+fix MAM address offset and block write issue
+
+
+
+======Commit: 2e27f390======
+======Short Message======
+fix reset connection
+======Full Message======
+fix reset connection
+
+
+
+======Commit: df29bf8c======
+======Short Message======
+do not reset debug ring when system reset
+======Full Message======
+do not reset debug ring when system reset
+
+
+
+======Commit: 2844bcd2======
+======Short Message======
+fix bugs in the Chisel Router for debug ring network
+======Full Message======
+fix bugs in the Chisel Router for debug ring network
+
+
+
+======Commit: c7149b98======
+======Short Message======
+Merge branch 'debug' into debug-chisel
+======Full Message======
+Merge branch 'debug' into debug-chisel
+
+
+
+======Commit: 22a8ca6b======
+======Short Message======
+bump opensocdebug/hardware for emrge
+======Full Message======
+bump opensocdebug/hardware for emrge
+
+
+
+======Commit: ef36f07a======
+======Short Message======
+fix MAM read/write error
+======Full Message======
+fix MAM read/write error
+
+
+
+======Commit: 33779bfd======
+======Short Message======
+Debug: Set HIM parameters
+======Full Message======
+Debug: Set HIM parameters
+
+
+
+======Commit: 56e4d3a9======
+======Short Message======
+update Makefile to track opensocdebug chisel source files
+======Full Message======
+update Makefile to track opensocdebug chisel source files
+
+
+
+======Commit: 01a223c6======
+======Short Message======
+connect stm to roket, needs to fix id assignment
+======Full Message======
+connect stm to roket, needs to fix id assignment
+
+
+
+======Commit: f48a739e======
+======Short Message======
+fix the MAM buffer big-endien and SerDes acquire sequence control
+======Full Message======
+fix the MAM buffer big-endien and SerDes acquire sequence control
+
+
+
+======Commit: 191834a8======
+======Short Message======
+fix address map error for address 0
+======Full Message======
+fix address map error for address 0
+
+
+
+======Commit: 1055cf76======
+======Short Message======
+fix mem/IO space error at address 0
+======Full Message======
+fix mem/IO space error at address 0
+
+
+
+======Commit: e26dfc54======
+======Short Message======
+fix MAM serdes, chasing AXI memory AR address error
+======Full Message======
+fix MAM serdes, chasing AXI memory AR address error
+
+
+
+======Commit: 320efde9======
+======Short Message======
+partially fix SerDes buffer
+======Full Message======
+partially fix SerDes buffer
+
+
+
+======Commit: 1fd2edc4======
+======Short Message======
+Add debug system to verilator simulation
+======Full Message======
+Add debug system to verilator simulation
+
+
+
+======Commit: ed1660bd======
+======Short Message======
+Verilator fixed fwrite, so remove sed, remove ASSIGNIN error, redirect 2>&1
+======Full Message======
+Verilator fixed fwrite, so remove sed, remove ASSIGNIN error, redirect 2>&1
+
+
+
+======Commit: 9fab7471======
+======Short Message======
+add debug_rst to the soft reset of Tiles
+======Full Message======
+add debug_rst to the soft reset of Tiles
+
+
+
+======Commit: aaf5411e======
+======Short Message======
+add ENABLE_DEBUG macro
+======Full Message======
+add ENABLE_DEBUG macro
+
+
+
+======Commit: c795109e======
+======Short Message======
+start the trace debugger work on the chisel side
+======Full Message======
+start the trace debugger work on the chisel side
+
+
+
+======Commit: 95b62be5======
+======Short Message======
+Some first debug prototyping
+======Full Message======
+Some first debug prototyping
+
+Add the host interface with UART glip, the system control module and a
+UART device emulation module. This is the base setup that allows the
+old software to still run.
+
+UART lacks the incoming part currently, but this will be added soon.
+
+
+
+======Commit: 17633ba3======
+======Short Message======
+Add current prototyping of opensocdebug
+======Full Message======
+Add current prototyping of opensocdebug
+
+
+
+======Commit: db3a45f2======
+======Short Message======
+Add opensocdebug/hardware
+======Full Message======
+Add opensocdebug/hardware
+
+
+
+======Commit: acc097fc======
+======Short Message======
+Travis: Fix badge path
+======Full Message======
+Travis: Fix badge path
+
+lowRISC, not lowrisc
+
+
+
+======Commit: aa102094======
+======Short Message======
+Reduce scala classname length
+======Full Message======
+Reduce scala classname length
+
+When running in an ecryptfs-encrypted directory, the underlying
+filenames become too long for ext4 (and most probably others). Chisel
+than exits with "File name too long". Reducing the classname length
+fixes this.
+
+
+
+======Commit: a92a55e7======
+======Short Message======
+update the default boot.mem for Nexys4
+======Full Message======
+update the default boot.mem for Nexys4
+
+
+
+======Commit: 70baff32======
+======Short Message======
+fix nexys4 boot issue
+======Full Message======
+fix nexys4 boot issue
+
+
+
+======Commit: 6d12774a======
+======Short Message======
+bugfix in code verification
+======Full Message======
+bugfix in code verification
+
+
+
+======Commit: 17d53f40======
+======Short Message======
+Linux boot to ramdisk. Bugfix in chip top
+======Full Message======
+Linux boot to ramdisk. Bugfix in chip top
+
+
+
+======Commit: c7a88fc2======
+======Short Message======
+bugfix in nasti crossbar and pass the first asm test
+======Full Message======
+bugfix in nasti crossbar and pass the first asm test
+
+
+
+======Commit: 7c07bcdc======
+======Short Message======
+in bugfixing for nasti interconnects
+======Full Message======
+in bugfixing for nasti interconnects
+
+
+
+======Commit: 0cae45e4======
+======Short Message======
+pass verilator and now able to start debug
+======Full Message======
+pass verilator and now able to start debug
+
+
+
+======Commit: cda5c30a======
+======Short Message======
+bugfix in uncore and remove a warning about CHiselMain.run()
+======Full Message======
+bugfix in uncore and remove a warning about CHiselMain.run()
+
+
+
+======Commit: 6f797bb1======
+======Short Message======
+bugfix in TileLink/NASTI interface due to acquire and release at the same time.
+======Full Message======
+bugfix in TileLink/NASTI interface due to acquire and release at the same time.
+
+
+
+======Commit: 6d5773b7======
+======Short Message======
+various bugfix
+======Full Message======
+various bugfix
+
+
+
+======Commit: bb14a495======
+======Short Message======
+fix memory write bug in TileLink/NASTI interface
+======Full Message======
+fix memory write bug in TileLink/NASTI interface
+
+
+
+======Commit: eb6b8a06======
+======Short Message======
+tune make file and delay exit when an error is found
+======Full Message======
+tune make file and delay exit when an error is found
+
+
+
+======Commit: 8b0bb1a7======
+======Short Message======
+bugfix: fix unstable arbiter output and hopefully fix the TileLink/NASTI interface issues.
+======Full Message======
+bugfix: fix unstable arbiter output and hopefully fix the TileLink/NASTI interface issues.
+
+
+
+======Commit: 6f07f0bb======
+======Short Message======
+bugfix: ddr3 simulation model we_n open. MIG initialize successfully in simulation
+======Full Message======
+bugfix: ddr3 simulation model we_n open. MIG initialize successfully in simulation
+
+
+
+======Commit: 1d3d4ff2======
+======Short Message======
+fix boot.mem problem in simulation
+======Full Message======
+fix boot.mem problem in simulation
+
+
+
+======Commit: 830d4eb5======
+======Short Message======
+bugfix: IO uncached acquire wmask
+======Full Message======
+bugfix: IO uncached acquire wmask
+
+
+
+======Commit: d12ea62f======
+======Short Message======
+bugfix update
+======Full Message======
+bugfix update
+
+
+
+======Commit: aed1f8fc======
+======Short Message======
+various bugfix related to IOMSHR and shared tilelink crossbar
+======Full Message======
+various bugfix related to IOMSHR and shared tilelink crossbar
+
+
+
+======Commit: af1c3059======
+======Short Message======
+bump version and bugfix in fpga/uncore/riscv-tools
+======Full Message======
+bump version and bugfix in fpga/uncore/riscv-tools
+
+
+
+======Commit: cea374c6======
+======Short Message======
+walk around for a vivado sim SV parser bug and iSim runs now
+======Full Message======
+walk around for a vivado sim SV parser bug and iSim runs now
+
+
+
+======Commit: b5e742f5======
+======Short Message======
+could not fix the hadMultibeatData problem in superChannel. Use a bit instead to bypass this problem
+======Full Message======
+could not fix the hadMultibeatData problem in superChannel. Use a bit instead to bypass this problem
+
+
+
+======Commit: cdcd4d73======
+======Short Message======
+error in tilelink related to the hasData function of super channels
+======Full Message======
+error in tilelink related to the hasData function of super channels
+
+
+
+======Commit: ad881e1a======
+======Short Message======
+bumping fpga-zynq, riscv-tools and uncore due to bugfix in tag cache
+======Full Message======
+bumping fpga-zynq, riscv-tools and uncore due to bugfix in tag cache
+
+
+
+======Commit: 2e2b5045======
+======Short Message======
+Bugfix for fpga-zynq
+======Full Message======
+Bugfix for fpga-zynq
+
+
+
+======Commit: 63f327fe======
+======Short Message======
+bugfix for supporting tagged memory in the rocket chip
+======Full Message======
+bugfix for supporting tagged memory in the rocket chip
+
+
+

@@ -1,0 +1,15 @@
+d2ef1bcef5c4120363154811e2ab666e2a1e3b91
+library/commmon: Fix data width warnings
+diff --git a/library/common/up_dac_common.v b/library/common/up_dac_common.v
+index 47f44fb6..72f0ac19 100644
+--- a/library/common/up_dac_common.v
++++ b/library/common/up_dac_common.v
+@@ -45,7 +45,7 @@ module up_dac_common #(
+   parameter [ 7:0]  SPEED_GRADE = 0,
+   parameter [ 7:0]  DEV_PACKAGE = 0,
+   parameter         CONFIG = 0,
+-  parameter         CLK_EDGE_SEL = 1'b0,
++  parameter [ 0:0]  CLK_EDGE_SEL = 1'b0,
+   parameter         COMMON_ID = 6'h10,
+   parameter         DRP_DISABLE = 0,
+   parameter         USERPORTS_DISABLE = 0,

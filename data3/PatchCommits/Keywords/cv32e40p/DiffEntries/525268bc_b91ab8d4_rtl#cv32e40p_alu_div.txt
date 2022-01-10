@@ -1,0 +1,15 @@
+525268bc0520bf6ff726ee56f375f8381c93e052
+Merge from master plus misa fix
+diff --git a/rtl/cv32e40p_alu_div.sv b/rtl/cv32e40p_alu_div.sv
+index 3e6345c..572f93f 100644
+--- a/rtl/cv32e40p_alu_div.sv
++++ b/rtl/cv32e40p_alu_div.sv
+@@ -213,7 +213,7 @@ module cv32e40p_alu_div
+   // assertions
+   ///////////////////////////////////////////////////////////////////////////////
+ 
+-`ifndef SYNTHESIS
++`ifdef CV32E40P_ASSERT_ON
+   initial
+   begin : p_assertions
+     assert (C_LOG_WIDTH == $clog2(C_WIDTH+1)) else $error("C_LOG_WIDTH must be $clog2(C_WIDTH+1)");

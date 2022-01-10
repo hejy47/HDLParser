@@ -1,0 +1,15 @@
+9eebf525904b8bba61276a141d8fa2afdcb481cb
+Fix `RegFile` parameter overriding in ArtyA7 example
+diff --git a/examples/fpga/artya7/rtl/top_artya7.sv b/examples/fpga/artya7/rtl/top_artya7.sv
+index a6faecc6..c26ca459 100644
+--- a/examples/fpga/artya7/rtl/top_artya7.sv
++++ b/examples/fpga/artya7/rtl/top_artya7.sv
+@@ -43,7 +43,7 @@ module top_artya7 (
+ 
+ 
+   ibex_core #(
+-     .RegFile(RegFileFPGA),
++     .RegFile(ibex_pkg::RegFileFPGA),
+      .DmHaltAddr(32'h00000000),
+      .DmExceptionAddr(32'h00000000)
+   ) u_core (

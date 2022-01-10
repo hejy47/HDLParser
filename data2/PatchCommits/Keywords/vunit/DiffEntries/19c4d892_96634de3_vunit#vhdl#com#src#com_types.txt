@@ -1,0 +1,15 @@
+19c4d89270da4081ad0e4c79bafdefd4a8ba6980
+Fixed memory leak when popping messages from queues.
+diff --git a/vunit/vhdl/com/src/com_types.vhd b/vunit/vhdl/com/src/com_types.vhd
+index 9b26ca2b..ba9aa3dd 100644
+--- a/vunit/vhdl/com/src/com_types.vhd
++++ b/vunit/vhdl/com/src/com_types.vhd
+@@ -521,7 +521,7 @@ package body com_types_pkg is
+   end;
+ 
+   impure function pop(queue : queue_t) return msg_t is
+-    variable ret_val : msg_t := new_msg;
++    variable ret_val : msg_t;
+   begin
+     ret_val.id          := pop(queue);
+     ret_val.status      := com_status_t'val(integer'(pop(queue)));

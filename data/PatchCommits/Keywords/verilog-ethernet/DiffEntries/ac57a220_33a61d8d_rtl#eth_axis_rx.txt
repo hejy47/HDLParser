@@ -1,0 +1,17 @@
+ac57a22050804f139cd75ef88995e35104c71f5d
+Abort with early termination error on last assert on first header word
+diff --git a/rtl/eth_axis_rx.v b/rtl/eth_axis_rx.v
+index 30617a8..ebc3c6d 100644
+--- a/rtl/eth_axis_rx.v
++++ b/rtl/eth_axis_rx.v
+@@ -180,6 +180,10 @@ always @* begin
+                 frame_ptr_next = 1;
+                 store_eth_dest_mac_5 = 1;
+                 state_next = STATE_READ_HEADER;
++                if (input_axis_tlast) begin
++                    state_next = STATE_IDLE;
++                    error_header_early_termination_next = 1;
++                end
+             end else begin
+                 state_next = STATE_IDLE;
+             end

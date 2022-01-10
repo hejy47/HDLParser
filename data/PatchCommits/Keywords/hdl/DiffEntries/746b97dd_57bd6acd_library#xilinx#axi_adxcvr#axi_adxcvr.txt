@@ -1,0 +1,17 @@
+746b97dd96e79f51c2ec3071098ca2185c3a3ebc
+xilin/axi_adxcvr: Fix clock and reset nets[C
+diff --git a/library/xilinx/axi_adxcvr/axi_adxcvr.v b/library/xilinx/axi_adxcvr/axi_adxcvr.v
+index af417379..c6055e00 100644
+--- a/library/xilinx/axi_adxcvr/axi_adxcvr.v
++++ b/library/xilinx/axi_adxcvr/axi_adxcvr.v
+@@ -661,8 +661,8 @@ module axi_adxcvr (
+ 
+   // channel broadcast
+ 
+-  assign up_rstn = axi_aresetn;
+-  assign up_clk = axi_clk;
++  assign up_rstn = s_axi_aresetn;
++  assign up_clk = s_axi_aclk;
+ 
+   assign up_cm_sel_0 = up_cm_sel;
+   assign up_cm_enb_0 = up_cm_enb;

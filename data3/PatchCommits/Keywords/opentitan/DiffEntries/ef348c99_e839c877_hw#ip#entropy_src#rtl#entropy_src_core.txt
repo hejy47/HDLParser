@@ -1,0 +1,15 @@
+ef348c9995b53217479ebda6af8f7501042ecb72
+[reggen] Add naming check for REGWEN and standardize on RW0C accesses
+diff --git a/hw/ip/entropy_src/rtl/entropy_src_core.sv b/hw/ip/entropy_src/rtl/entropy_src_core.sv
+index 828aa7485..114c49bb0 100644
+--- a/hw/ip/entropy_src/rtl/entropy_src_core.sv
++++ b/hw/ip/entropy_src/rtl/entropy_src_core.sv
+@@ -1499,7 +1499,7 @@ module entropy_src_core import entropy_src_pkg::*; #(
+   //--------------------------------------------
+ 
+   assign hw2reg.debug_status.diag.d  =
+-         reg2hw.regen.q &&
++         reg2hw.regwen.q &&
+          (&reg2hw.entropy_data.q) &&
+          (&reg2hw.fw_ov_rd_data.q);
+ 

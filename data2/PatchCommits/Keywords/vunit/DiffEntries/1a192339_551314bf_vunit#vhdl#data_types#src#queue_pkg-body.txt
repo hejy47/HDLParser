@@ -1,0 +1,45 @@
+1a1923390afef703c5f3ac580836021fc8a8e3ec
+Merge pull request #434 from bradleyharden/test_modelsim_fixup
+diff --git a/vunit/vhdl/data_types/src/queue_pkg-body.vhd b/vunit/vhdl/data_types/src/queue_pkg-body.vhd
+index 37f0b945..f07b5441 100644
+--- a/vunit/vhdl/data_types/src/queue_pkg-body.vhd
++++ b/vunit/vhdl/data_types/src/queue_pkg-body.vhd
+@@ -415,10 +415,11 @@ package body queue_pkg is
+     return decode(pop_fix_string(queue, time_code_length));
+   end;
+ 
+-  procedure push(queue : queue_t; value : integer_vector_ptr_t) is
++  procedure push(queue : queue_t; variable value : inout integer_vector_ptr_t) is
+   begin
+     push_type(queue, vunit_integer_vector_ptr_t);
+     push_fix_string(queue, encode(value));
++    value := null_ptr;
+   end;
+ 
+   impure function pop(queue : queue_t) return integer_vector_ptr_t is
+@@ -437,10 +438,11 @@ package body queue_pkg is
+     return decode(pop_fix_string(queue, integer_vector_ptr_t_code_length));
+   end;
+ 
+-  procedure push(queue : queue_t; value : string_ptr_t) is
++  procedure push(queue : queue_t; variable value : inout string_ptr_t) is
+   begin
+     push_type(queue, vunit_string_ptr_t);
+     push_fix_string(queue, encode(value));
++    value := null_string_ptr;
+   end;
+ 
+   impure function pop(queue : queue_t) return string_ptr_t is
+@@ -449,10 +451,11 @@ package body queue_pkg is
+     return decode(pop_fix_string(queue, string_ptr_t_code_length));
+   end;
+ 
+-  procedure push(queue : queue_t; value : queue_t) is
++  procedure push(queue : queue_t; variable value : inout queue_t) is
+   begin
+     push_type(queue, vunit_queue_t);
+     push_fix_string(queue, encode(value));
++    value := null_queue;
+   end;
+ 
+   impure function pop(queue : queue_t) return queue_t is

@@ -1,0 +1,33 @@
+ad16aec101ba104da7c6246cd4a4b9a043ddbe53
+axi_ad9684: Fix SERDES modules
+diff --git a/library/axi_ad9684/axi_ad9684.v b/library/axi_ad9684/axi_ad9684.v
+index 010bcf5f..8a0c51d2 100644
+--- a/library/axi_ad9684/axi_ad9684.v
++++ b/library/axi_ad9684/axi_ad9684.v
+@@ -191,7 +191,7 @@ module axi_ad9684 (
+   wire    [15:0]  up_drp_rdata_s;
+   wire            up_drp_ready_s;
+   wire            up_drp_locked_s;
+-  wire            mmcm_rst_s;
++  wire            rst_s;
+ 
+   //defaults
+ 
+@@ -239,7 +239,7 @@ module axi_ad9684 (
+     .delay_wdata (up_dwdata_s),
+     .delay_rdata (up_drdata_s),
+     .delay_locked (delay_locked_s),
+-    .mmcm_rst (mmcm_rst_s),
++    .rst (rst_s),
+     .up_clk (up_clk),
+     .up_rstn (up_rstn),
+     .up_drp_sel (up_drp_sel_s),
+@@ -259,7 +259,7 @@ module axi_ad9684 (
+   up_adc_common #(
+     .ID(ID))
+   i_up_adc_common (
+-    .mmcm_rst (mmcm_rst_s),
++    .mmcm_rst (rst_s),
+     .adc_clk (adc_clk),
+     .adc_rst (adc_rst),
+     .adc_r1_mode (),

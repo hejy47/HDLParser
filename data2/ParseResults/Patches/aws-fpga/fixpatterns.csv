@@ -1,0 +1,10 @@
+,update,delete,insert,move
+HdlOp-InfixExpression-HdlStmIf,6.0,,,4.0
+HdlOp-InfixExpression-HdlOp-InfixExpression,8.0,4.0,2.0,
+HdlOp-Assignment-HdlStmIf,4.0,,12.0,
+HdlOp-Assignment-HdlStmProcess,1.0,1.0,6.0,
+HdlOp-PARAMETRIZATION-HdlIdDef,7.0,1.0,,
+HdlOp-DOWNTO-HdlOp-PARAMETRIZATION,5.0,2.0,,
+HdlOp-Assignment-HdlStmCase,,,2.0,
+HdlOp-InfixExpression-HdlStmAssign,,,,2.0
+HdlOp-FunctionCall-HdlOp-Assignment,,,,1.0

@@ -1,0 +1,15 @@
+f98c9e439b204fd48e32cd2d8985968153c1ba75
+ad_dds_2: Don't try to round if signal is not truncated
+diff --git a/library/common/ad_dds_2.v b/library/common/ad_dds_2.v
+index 81129f6e..3f965bc3 100644
+--- a/library/common/ad_dds_2.v
++++ b/library/common/ad_dds_2.v
+@@ -97,7 +97,7 @@ module ad_dds_2 #(
+ 
+     // set desired data width
+     always @(posedge clk) begin
+-      if (DDS_DW <= DDS_D_DW) begin // truncation
++      if (DDS_DW < DDS_D_DW) begin // truncation
+         // fair rownding
+         dds_data_rownd <= dds_data_int + {(C_T_WIDTH){dds_data_int[DDS_D_DW-1]}};
+         dds_data_width <= dds_data_rownd[DDS_D_DW-1:DDS_D_DW-DDS_DW];

@@ -1,0 +1,14 @@
+c7149b9806363d03820d67c1d82314ecdf1fc57e
+Merge branch 'debug' into debug-chisel
+diff --git a/src/main/verilog/debug_system.sv b/src/main/verilog/debug_system.sv
+index f0a8a6e..7a4bff0 100644
+--- a/src/main/verilog/debug_system.sv
++++ b/src/main/verilog/debug_system.sv
+@@ -122,6 +122,7 @@ module debug_system
+    dii_flit [N-1:0] dii_in; logic [N-1:0] dii_in_ready;   
+    
+    osd_him
++     #(.MAX_PKT_LEN(MAX_PKT_LEN))
+      u_him(.*,
+            .glip_in  (fifo_in),
+            .glip_out (fifo_out),

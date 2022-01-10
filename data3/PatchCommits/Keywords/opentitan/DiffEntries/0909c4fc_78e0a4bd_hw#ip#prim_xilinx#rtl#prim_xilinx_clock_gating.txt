@@ -1,0 +1,17 @@
+0909c4fca50b853e86f9a4a47fc7a227169a75a3
+[prim_clock_gating] Target 7series Xilinx devices
+diff --git a/hw/ip/prim_xilinx/rtl/prim_xilinx_clock_gating.sv b/hw/ip/prim_xilinx/rtl/prim_xilinx_clock_gating.sv
+index daf2e1d81..23c6257f0 100644
+--- a/hw/ip/prim_xilinx/rtl/prim_xilinx_clock_gating.sv
++++ b/hw/ip/prim_xilinx/rtl/prim_xilinx_clock_gating.sv
+@@ -14,7 +14,9 @@ module prim_xilinx_clock_gating #(
+   if (NoFpgaGate) begin : gen_no_gate
+     assign clk_o = clk_i;
+   end else begin : gen_gate
+-    BUFGCE u_bufgce (
++    BUFGCE #(
++      .SIM_DEVICE("7SERIES")
++    ) u_bufgce (
+       .I (clk_i),
+       .CE(en_i | test_en_i),
+       .O (clk_o)

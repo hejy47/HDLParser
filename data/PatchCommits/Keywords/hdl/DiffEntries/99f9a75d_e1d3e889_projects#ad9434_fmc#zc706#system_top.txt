@@ -1,0 +1,15 @@
+99f9a75dfb0849f156c192df99ac15f33fce4e50
+ad9434_zc706: Fix SPI interface
+diff --git a/projects/ad9434_fmc/zc706/system_top.v b/projects/ad9434_fmc/zc706/system_top.v
+index 64c243ef..9a073318 100644
+--- a/projects/ad9434_fmc/zc706/system_top.v
++++ b/projects/ad9434_fmc/zc706/system_top.v
+@@ -217,7 +217,7 @@ module system_top (
+     .adc_or_p(adc_or_p),
+     .adc_or_n(adc_or_n),
+     .spi0_clk_i (1'b0),
+-    .spi0_clk_o (spi_clk),
++    .spi0_clk_o (spi_sclk),
+     .spi0_csn_0_o (spi_csn_adc),
+     .spi0_csn_1_o (spi_csn_clk),
+     .spi0_csn_2_o (),

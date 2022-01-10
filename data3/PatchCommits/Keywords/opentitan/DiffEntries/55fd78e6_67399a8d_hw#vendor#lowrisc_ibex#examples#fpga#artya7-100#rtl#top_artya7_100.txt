@@ -1,0 +1,16 @@
+55fd78e67b61c8ec2a4e9a23277c530eef242eb9
+Update lowrisc_ibex to lowRISC/ibex@f025236
+diff --git a/hw/vendor/lowrisc_ibex/examples/fpga/artya7-100/rtl/top_artya7_100.sv b/hw/vendor/lowrisc_ibex/examples/fpga/artya7-100/rtl/top_artya7_100.sv
+index 8391f68a4..056a41adb 100644
+--- a/hw/vendor/lowrisc_ibex/examples/fpga/artya7-100/rtl/top_artya7_100.sv
++++ b/hw/vendor/lowrisc_ibex/examples/fpga/artya7-100/rtl/top_artya7_100.sv
+@@ -78,7 +78,8 @@ module top_artya7_100 (
+ 
+      .debug_req_i           ('b0),
+ 
+-     .fetch_enable_i        ('b1)
++     .fetch_enable_i        ('b1),
++     .core_sleep_o          ()
+   );
+ 
+   // Connect Ibex to SRAM

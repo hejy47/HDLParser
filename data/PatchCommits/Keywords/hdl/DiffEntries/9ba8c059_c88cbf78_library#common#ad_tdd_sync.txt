@@ -1,0 +1,15 @@
+9ba8c059ce7aac413065809f71d85434638bc48e
+ad_tdd_sync: Fix reset value of the pulse_counter
+diff --git a/library/common/ad_tdd_sync.v b/library/common/ad_tdd_sync.v
+index c24301e6..13976886 100644
+--- a/library/common/ad_tdd_sync.v
++++ b/library/common/ad_tdd_sync.v
+@@ -81,7 +81,7 @@ module ad_tdd_sync (
+       pulse_counter <= 0;
+       sync_pulse <= 0;
+     end else begin
+-      pulse_counter <= (sync_pulse == 1'b1) ? pulse_counter + 1 : 3'h0;
++      pulse_counter <= (sync_pulse == 1'b1) ? pulse_counter + 1 : {PULSE_CNTR_WIDTH{1'h0}};
+       if(sync_period_eof == 1'b1) begin
+         sync_pulse <= 1'b1;
+       end else if(pulse_counter == {PULSE_CNTR_WIDTH{1'b1}}) begin

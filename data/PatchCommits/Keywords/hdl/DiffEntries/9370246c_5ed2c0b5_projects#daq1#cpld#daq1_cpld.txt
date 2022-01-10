@@ -1,0 +1,15 @@
+9370246cfa5bb7ea69e3c405f67f1765fb7b867c
+daq1: Fix bugs on CPLD design
+diff --git a/projects/daq1/cpld/daq1_cpld.v b/projects/daq1/cpld/daq1_cpld.v
+index 75724d0f..b2bcdd62 100644
+--- a/projects/daq1/cpld/daq1_cpld.v
++++ b/projects/daq1/cpld/daq1_cpld.v
+@@ -186,7 +186,7 @@ module daq1_cpld (
+       fmc_spi_csn_enb <= 1'b1;
+     end else begin
+       fmc_spi_counter <= fmc_spi_counter + 1;
+-      fmc_spi_csn_enb <= (fmc_spi_counter <= 7) ? 1'b1 : 1'b0;
++      fmc_spi_csn_enb <= (fmc_spi_counter < 7) ? 1'b1 : 1'b0;
+       if (adc_spicsn & clk_spicsn) begin
+         fpga_to_cpld <= (fmc_spi_counter >= 15) ? rdnwr : 1'b1;
+       end else begin

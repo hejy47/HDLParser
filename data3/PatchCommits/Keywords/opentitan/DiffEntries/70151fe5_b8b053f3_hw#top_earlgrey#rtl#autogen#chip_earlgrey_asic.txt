@@ -1,0 +1,14 @@
+70151fe5370f2b454b8ba53ba699d7bd1345b8d9
+[keymgr] Add otbn sideload and expand to 384-bit sideload key support
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+index f23ba7db1..48cf27772 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+@@ -1077,7 +1077,6 @@ module chip_earlgrey_asic (
+     .AesSBoxImpl(aes_pkg::SBoxImplDom),
+     .SecAesStartTriggerDelay(0),
+     .SecAesAllowForcingMasks(1'b0),
+-    .KmacEnMasking(1),  // DOM AND + Masking scheme
+     .KmacReuseShare(0),
+     .SramCtrlRetAonInstrExec(0),
+     .SramCtrlMainInstrExec(1),

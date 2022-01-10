@@ -1,0 +1,20 @@
+0b8067ec761d202fd7699c566081f8b022454d70
+further optimized CPU's fetch and execute engines; instruction prefetch buffer (ipb) is now a true FIFO with (default) 2 entries
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index 433a172..cf94d65 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -40,9 +40,10 @@ package neorv32_package is
+ 
+   -- Architecture Constants -----------------------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+-  constant data_width_c : natural := 32; -- data width - FIXED!
+-  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01030605"; -- no touchy!
+-  constant pmp_max_r_c  : natural := 8; -- max PMP regions
++  constant data_width_c  : natural := 32; -- data width - FIXED!
++  constant hw_version_c  : std_ulogic_vector(31 downto 0) := x"01030700"; -- no touchy!
++  constant pmp_max_r_c   : natural := 8; -- max PMP regions
++  constant ipb_entries_c : natural := 2; -- entries in instruction prefetch buffer, power of 2
+ 
+   -- Helper Functions -----------------------------------------------------------------------
+   -- -------------------------------------------------------------------------------------------

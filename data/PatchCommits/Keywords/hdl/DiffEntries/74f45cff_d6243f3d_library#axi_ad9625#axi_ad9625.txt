@@ -1,0 +1,15 @@
+74f45cff240d8d75e71ac852868d66ce63637fe9
+axi-ad9625: fix clock ratio to match sampling clock
+diff --git a/library/axi_ad9625/axi_ad9625.v b/library/axi_ad9625/axi_ad9625.v
+index 9f7be37b..18ef759f 100644
+--- a/library/axi_ad9625/axi_ad9625.v
++++ b/library/axi_ad9625/axi_ad9625.v
+@@ -227,7 +227,7 @@ module axi_ad9625 (
+     .adc_sync_status (1'd0),
+     .adc_status_ovf (adc_dovf),
+     .adc_status_unf (adc_dunf),
+-    .adc_clk_ratio (32'd1),
++    .adc_clk_ratio (32'd16),
+     .adc_start_code (),
+     .adc_sync (),
+     .up_status_pn_err (up_adc_pn_err_s),

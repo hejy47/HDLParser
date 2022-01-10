@@ -1,0 +1,25 @@
+d44f7d1e4ffba1848e90198d0bfbb239fda094ca
+axi_ad9434: Fix bad parameter definition
+diff --git a/library/axi_ad9434/axi_ad9434.v b/library/axi_ad9434/axi_ad9434.v
+index a97733d1..1ab3bd5f 100644
+--- a/library/axi_ad9434/axi_ad9434.v
++++ b/library/axi_ad9434/axi_ad9434.v
+@@ -38,7 +38,7 @@
+ module axi_ad9434 #(
+ 
+   parameter ID = 0,
+-  parameter DEVICE_TYPE = SERIES7,
++  parameter DEVICE_TYPE = 0,
+   parameter IO_DELAY_GROUP = "dev_if_delay_group") (
+ 
+   // physical interface
+@@ -82,9 +82,6 @@ module axi_ad9434 #(
+   input       [ 2:0]      s_axi_awprot,
+   input       [ 2:0]      s_axi_arprot);
+ 
+-  localparam SERIES7 = 0;
+-  localparam SERIES6 = 1;
+-
+ 
+   // internal clocks & resets
+   wire            adc_rst;

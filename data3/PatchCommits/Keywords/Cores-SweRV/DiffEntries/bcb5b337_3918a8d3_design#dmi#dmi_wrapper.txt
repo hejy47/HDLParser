@@ -1,0 +1,14 @@
+bcb5b33726a1993cf15e98a1858eddc6c989f0b0
+Merge pull request #82 from chipsalliance/quartus_core_fix
+diff --git a/design/dmi/dmi_wrapper.v b/design/dmi/dmi_wrapper.v
+index 01d29d6..573945e 100644
+--- a/design/dmi/dmi_wrapper.v
++++ b/design/dmi/dmi_wrapper.v
+@@ -22,7 +22,6 @@
+ //-------------------------------------------------------------------------------------
+ 
+ module dmi_wrapper(
+-  input              scan_mode,           // scan mode
+ 
+   // JTAG signals
+   input              trst_n,              // JTAG reset

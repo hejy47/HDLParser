@@ -1,0 +1,24 @@
+3646fec05aeb97ecba35f301c6ac665b2c1e5bd4
+Set stop level only for warning, error, failure
+diff --git a/vunit/vhdl/run/src/run.vhd b/vunit/vhdl/run/src/run.vhd
+index 9dbf75f3..f88eaffe 100644
+--- a/vunit/vhdl/run/src/run.vhd
++++ b/vunit/vhdl/run/src/run.vhd
+@@ -44,8 +44,6 @@ package body run_pkg is
+     end if;
+ 
+     if not active_python_runner(runner_cfg) then
+-      set_stop_level(error);
+-    else
+       set_stop_level(failure);
+     end if;
+ 
+@@ -117,7 +115,7 @@ package body run_pkg is
+           return false;
+         end if;
+ 
+-        for level in error to standard_log_level_t'high loop
++        for level in error to alert_log_level_t'high loop
+           if is_valid(level) then
+             count := get_log_count(child, level);
+             if count > 0 then

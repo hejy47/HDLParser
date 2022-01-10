@@ -1,0 +1,15 @@
+ad80561379d1fa923b23c085958c1b4deef7fcc8
+TDD_regmap: Fix CDC for control signals
+diff --git a/library/common/up_tdd_cntrl.v b/library/common/up_tdd_cntrl.v
+index 0a15978f..bfbd8b23 100644
+--- a/library/common/up_tdd_cntrl.v
++++ b/library/common/up_tdd_cntrl.v
+@@ -371,7 +371,7 @@ module up_tdd_cntrl (
+ 
+   // rf tdd control signal CDC
+ 
+-  up_xfer_cntrl #(.DATA_WIDTH(15)) i_tdd_control (
++  up_xfer_cntrl #(.DATA_WIDTH(16)) i_tdd_control (
+     .up_rstn(up_rstn),
+     .up_clk(up_clk),
+     .up_data_cntrl({up_tdd_enable,

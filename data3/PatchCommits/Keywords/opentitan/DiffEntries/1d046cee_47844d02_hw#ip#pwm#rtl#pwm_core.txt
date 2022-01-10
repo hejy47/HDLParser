@@ -1,0 +1,15 @@
+1d046cee10b7d152a623379f603964fa049cca94
+[pwm] Minor lint fix
+diff --git a/hw/ip/pwm/rtl/pwm_core.sv b/hw/ip/pwm/rtl/pwm_core.sv
+index 721160720..f18db9f08 100644
+--- a/hw/ip/pwm/rtl/pwm_core.sv
++++ b/hw/ip/pwm/rtl/pwm_core.sv
+@@ -114,4 +114,8 @@ module pwm_core #(
+ 
+   end : gen_chan_insts
+ 
++  // unused register configuration
++  logic unused_reg;
++  assign unused_reg = ^reg2hw.alert_test | ^reg2hw_sync.alert_test;
++
+ endmodule : pwm_core

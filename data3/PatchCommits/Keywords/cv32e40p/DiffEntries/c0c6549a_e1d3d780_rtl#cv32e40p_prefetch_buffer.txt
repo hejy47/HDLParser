@@ -1,0 +1,16 @@
+c0c6549a5b15b3713a572c131e4a1bef1ef25315
+Merge pull request #464 from Silabs-ArjanB/ArjanB_bge_div
+diff --git a/rtl/cv32e40p_prefetch_buffer.sv b/rtl/cv32e40p_prefetch_buffer.sv
+index 23a8490..109bd33 100644
+--- a/rtl/cv32e40p_prefetch_buffer.sv
++++ b/rtl/cv32e40p_prefetch_buffer.sv
+@@ -66,9 +66,6 @@ module cv32e40p_prefetch_buffer
+   logic        trans_valid;
+   logic        trans_ready;
+   logic [31:0] trans_addr;
+-  logic        trans_we;
+-  logic  [3:0] trans_be;
+-  logic [31:0] trans_wdata;
+ 
+   logic        fifo_flush;
+   logic        fifo_flush_but_first;

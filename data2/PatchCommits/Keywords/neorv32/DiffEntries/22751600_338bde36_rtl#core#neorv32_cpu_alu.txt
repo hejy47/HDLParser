@@ -1,0 +1,25 @@
+227516009b3a81f6b0ae4692dab7406bd2fca830
+misa CSR is read-only! mtval and mcause CSRs can now also be written by user; fixed error in bus unit - controller can now force bus unit reset and bus transaction termination
+diff --git a/rtl/core/neorv32_cpu_alu.vhd b/rtl/core/neorv32_cpu_alu.vhd
+index d51b3d0..af76fa4 100644
+--- a/rtl/core/neorv32_cpu_alu.vhd
++++ b/rtl/core/neorv32_cpu_alu.vhd
+@@ -42,6 +42,9 @@ library neorv32;
+ use neorv32.neorv32_package.all;
+ 
+ entity neorv32_cpu_alu is
++  generic (
++    CPU_EXTENSION_RISCV_M : boolean := true -- implement muld/div extension?
++  );
+   port (
+     -- global control --
+     clk_i       : in  std_ulogic; -- global clock, rising edge
+@@ -200,7 +203,7 @@ begin
+       cp_rb_ff0 <= '0';
+       cp_rb_ff1 <= '0';
+     elsif rising_edge(clk_i) then
+-      if (ctrl_i(ctrl_sys_m_ext_en_c) = '1') then -- FIXME add second cp (floating point stuff?)
++      if (CPU_EXTENSION_RISCV_M = true) then -- FIXME add second cp (floating point stuff?)
+         cp_cmd_ff <= ctrl_i(ctrl_cp_use_c);
+         cp_rb_ff0 <= '0';
+         cp_rb_ff1 <= cp_rb_ff0;

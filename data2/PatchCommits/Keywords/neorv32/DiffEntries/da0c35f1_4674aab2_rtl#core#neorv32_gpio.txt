@@ -1,0 +1,15 @@
+da0c35f18ac6a0787c879ffd6881ffbec83959af
+bug fix
+diff --git a/rtl/core/neorv32_gpio.vhd b/rtl/core/neorv32_gpio.vhd
+index 626747d..208aabf 100644
+--- a/rtl/core/neorv32_gpio.vhd
++++ b/rtl/core/neorv32_gpio.vhd
+@@ -124,7 +124,7 @@ begin
+       in_buf <= gpio_i;
+       din    <= in_buf;
+       -- IRQ --
+-      irq_o <= or_all_f(in_buf xor (din and irq_en)); -- any enabled pin transition triggers an interrupt
++      irq_o <= or_all_f((in_buf xor din) and irq_en); -- any enabled pin transition triggers an interrupt
+     end if;
+   end process irq_detector;
+ 

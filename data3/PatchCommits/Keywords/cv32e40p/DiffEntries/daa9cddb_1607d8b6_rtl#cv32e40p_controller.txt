@@ -1,0 +1,14 @@
+daa9cddb88ae068b40e04830a570c0ec277387ac
+Fixing various lint errors/warnings
+diff --git a/rtl/cv32e40p_controller.sv b/rtl/cv32e40p_controller.sv
+index a619952..3cd1ef9 100644
+--- a/rtl/cv32e40p_controller.sv
++++ b/rtl/cv32e40p_controller.sv
+@@ -59,7 +59,6 @@ module cv32e40p_controller import cv32e40p_pkg::*;
+   input  logic        ebrk_insn_i,                // decoder encountered an ebreak instruction
+   input  logic        fencei_insn_i,              // decoder encountered an fence.i instruction
+   input  logic        csr_status_i,               // decoder encountered an csr status instruction
+-  input  logic        instr_multicycle_i,         // true when multiple cycles are decoded
+ 
+   output logic        hwloop_mask_o,              //prevent writes on the hwloop instructions in case interrupt are taken
+ 

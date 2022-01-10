@@ -1,0 +1,23 @@
+67cb33d876ee5ec1efb20292d5cc578c18f95f79
+Merge remote-tracking branch 'origin' into btaken_multicycl_perfbug_fix
+diff --git a/rtl/riscv_if_stage.sv b/rtl/riscv_if_stage.sv
+index 2cf924e..c7f50a9 100644
+--- a/rtl/riscv_if_stage.sv
++++ b/rtl/riscv_if_stage.sv
+@@ -221,11 +221,13 @@ module riscv_if_stage
+ 
+         // Prefetch Buffer Status
+         .busy_o            ( prefetch_busy               )
+-      );
++       );
++       
++       assign hwlp_branch = 1'b0;
++       
+     end
+   endgenerate
+-
+-
++  
+   // offset FSM state
+   always_ff @(posedge clk, negedge rst_n)
+   begin

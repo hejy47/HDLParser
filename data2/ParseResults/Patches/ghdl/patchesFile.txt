@@ -1,0 +1,77 @@
+CommitId: bc64b96b31c0fb591c1775fffba1ada37f1914db
+ieee2008: backport fixed_generic_pkg-body changes from opensource.ieee.org
+--- a/libraries/ieee2008/fixed_generic_pkg-body.vhdl
++++ b/libraries/ieee2008/fixed_generic_pkg-body.vhdl
+@@ -919,7 +919,7 @@ package body fixed_generic_pkg is
+       lslv       := to_uns (lresize);
+       rslv       := to_uns (rresize);
+       result_slv := lslv + rslv + cx;
+-      c_out      := result_slv(left_index);
++      c_out      := result_slv(left_index-right_index);
+       result := to_fixed(result_slv (left_index-right_index-1 downto 0),
+                          left_index-1, right_index);
+     end if;
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        INS HdlOp@@SUB to ops
+        UPD HdlOp@@SUB to SUB
+            INS list@@ops to SUB
+            INS HdlValueId@@right_index to ops
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        MOV HdlValueId@@left_index to ops
+        HdlValueId: left_index
+
+
+CommitId: bc64b96b31c0fb591c1775fffba1ada37f1914db
+ieee2008: backport fixed_generic_pkg-body changes from opensource.ieee.org
+--- a/libraries/ieee2008/fixed_generic_pkg-body.vhdl
++++ b/libraries/ieee2008/fixed_generic_pkg-body.vhdl
+@@ -950,7 +950,7 @@ package body fixed_generic_pkg is
+       lslv       := to_s (lresize);
+       rslv       := to_s (rresize);
+       result_slv := lslv + rslv + cx;
+-      c_out      := result_slv(left_index);
++      c_out      := result_slv(left_index-right_index);
+       result := to_fixed(result_slv (left_index-right_index-1 downto 0),
+                          left_index-1, right_index);
+     end if;
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        INS HdlOp@@SUB to ops
+        UPD HdlOp@@SUB to SUB
+            INS list@@ops to SUB
+            INS HdlValueId@@right_index to ops
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        MOV HdlValueId@@left_index to ops
+        HdlValueId: left_index
+
+
+CommitId: 40ed4c7f9394c9881577f18f91b6db131752c9ba
+openieee: fix missing subprograms, fix wrong interface name.
+--- a/libraries/openieee/std_logic_1164.vhdl
++++ b/libraries/openieee/std_logic_1164.vhdl
+@@ -103,9 +103,9 @@ package std_logic_1164 is
+ 
+   function to_stdulogic (b : bit) return std_ulogic;
+   function to_stdlogicvector (b : bit_vector) return std_logic_vector;
+-  function to_stdlogicvector (b : std_ulogic_vector) return std_logic_vector;
++  function to_stdlogicvector (s : std_ulogic_vector) return std_logic_vector;
+   function to_stdulogicvector (b : bit_vector) return std_ulogic_vector;
+-  function to_stdulogicvector (b : std_logic_vector) return std_ulogic_vector;
++  function to_stdulogicvector (s : std_logic_vector) return std_ulogic_vector;
+ 
+   --  Normalization.
+   --  The result range (for vectors) is 1 to S'Length.
+ParseResult:
+UPD HdlIdDef@@b to s
+
+UPD HdlIdDef@@b to s
+
+

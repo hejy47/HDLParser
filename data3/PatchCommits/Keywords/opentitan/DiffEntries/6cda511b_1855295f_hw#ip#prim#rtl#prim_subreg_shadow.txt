@@ -1,0 +1,43 @@
+6cda511b96a69a43884834203182f82f64527edb
+[prim_subreg_shadow] Fix for W1S/W0C corner case
+diff --git a/hw/ip/prim/rtl/prim_subreg_shadow.sv b/hw/ip/prim/rtl/prim_subreg_shadow.sv
+index c744e4106..7f1bcd1a6 100644
+--- a/hw/ip/prim/rtl/prim_subreg_shadow.sv
++++ b/hw/ip/prim/rtl/prim_subreg_shadow.sv
+@@ -38,7 +38,7 @@ module prim_subreg_shadow
+   output logic err_storage
+ );
+ 
+-  // Since the shadow and staging registers work with the 1's complement value,
++  // Since the shadow register works with the 1's complement value,
+   // we need to invert the polarity of the SW access if it is either "W1S" or "W0C".
+   // W1C is forbidden since the W0S complement is not implemented.
+   `ASSERT_INIT(CheckSwAccessIsLegal_A,
+@@ -46,6 +46,14 @@ module prim_subreg_shadow
+   localparam sw_access_e InvertedSwAccess = (SwAccess == SwAccessW1S) ? SwAccessW0C :
+                                             (SwAccess == SwAccessW0C) ? SwAccessW1S : SwAccess;
+ 
++  // For the staging register, we set the SwAccess to RW in case of W1S and W0C in
++  // order to always capture the data value on the first write operation - no matter
++  // whether the data value will actually have an effect. That way, we can still capture
++  // inconsistent double writes which would otherwise be ignored due to the data value filtering
++  // effect that W1S and W0C can have.
++  localparam sw_access_e StagedSwAccess = (SwAccess == SwAccessW1S) ? SwAccessRW :
++                                          (SwAccess == SwAccessW0C) ? SwAccessRW : SwAccess;
++
+   // Subreg control signals
+   logic          phase_clear;
+   logic          phase_q;
+@@ -100,9 +108,9 @@ module prim_subreg_shadow
+   assign staged_we = we & ~phase_q & ~err_storage;
+   assign staged_de = de & ~phase_q & ~err_storage;
+   prim_subreg #(
+-    .DW       ( DW               ),
+-    .SwAccess ( InvertedSwAccess ),
+-    .RESVAL   ( ~RESVAL          )
++    .DW       ( DW             ),
++    .SwAccess ( StagedSwAccess ),
++    .RESVAL   ( ~RESVAL        )
+   ) staged_reg (
+     .clk_i    ( clk_i     ),
+     .rst_ni   ( rst_ni    ),

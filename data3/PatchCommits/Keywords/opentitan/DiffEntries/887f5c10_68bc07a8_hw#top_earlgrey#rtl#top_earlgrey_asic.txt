@@ -1,0 +1,17 @@
+887f5c101318368d378351da2d48ac7e0c29839e
+[top] Change pad variant array to packed logic
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+index 18e05e3d7..b2415cf0f 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+@@ -78,8 +78,8 @@ module top_earlgrey_asic (
+     .ConnectDioIn  ( 15'h7F63 ),
+     .ConnectDioOut ( 15'h7F63 ),
+     // Pad types
+-    .MioPadVariant ( '{default: 0} ),
+-    .DioPadVariant ( '{default: 0} )
++    .MioPadVariant ( '0 ),
++    .DioPadVariant ( '0 )
+   ) padring (
+     // Clk / Rst
+     .clk_pad_i           ( IO_CLK           ),

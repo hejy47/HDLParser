@@ -1,0 +1,31 @@
+f6537bb85d5ef051583d49253de4b01f859c3e51
+Update com.
+diff --git a/vunit/vhdl/com/src/com_codec_api.vhd b/vunit/vhdl/com/src/com_codec_api.vhd
+index 0c3e3cbe..3463e9fd 100644
+--- a/vunit/vhdl/com/src/com_codec_api.vhd
++++ b/vunit/vhdl/com/src/com_codec_api.vhd
+@@ -9,6 +9,9 @@
+ 
+ library vunit_lib;
+ context vunit_lib.vunit_context;
++use work.queue_pkg.all;
++use work.integer_vector_ptr_pkg.all;
++use work.string_ptr_pkg.all;
+ 
+ library ieee;
+ use ieee.std_logic_1164.all;
+@@ -185,6 +188,14 @@ package com_codec_pkg is
+     constant code : string)
+     return float;
+ 
++  -----------------------------------------------------------------------------
++  -- VUnit types
++  -----------------------------------------------------------------------------
++  function encode(data : queue_t) return string;
++  function decode(code : string) return queue_t;
++  function encode(data : integer_vector_ptr_t) return string;
++  function decode(code : string) return integer_vector_ptr_t;
++
+   -----------------------------------------------------------------------------
+   -- Aliases
+   -----------------------------------------------------------------------------

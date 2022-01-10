@@ -1,0 +1,15 @@
+af7b278272b485601238ce55548daa1fc6743826
+Update pulp_riscv_dbg to pulp-platform/riscv-dbg@2b1e9d0
+diff --git a/hw/vendor/pulp_riscv_dbg/src/dm_csrs.sv b/hw/vendor/pulp_riscv_dbg/src/dm_csrs.sv
+index 6f9028b01..f9c946a2f 100644
+--- a/hw/vendor/pulp_riscv_dbg/src/dm_csrs.sv
++++ b/hw/vendor/pulp_riscv_dbg/src/dm_csrs.sv
+@@ -532,7 +532,7 @@ module dm_csrs #(
+     // default assignment
+     haltreq_o = '0;
+     resumereq_o = '0;
+-    if (selected_hart < HartSelLen'(NrHarts)) begin
++    if (selected_hart < (HartSelLen+1)'(NrHarts)) begin
+       haltreq_o[selected_hart]   = dmcontrol_q.haltreq;
+       resumereq_o[selected_hart] = dmcontrol_q.resumereq;
+     end

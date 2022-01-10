@@ -1,0 +1,14 @@
+5ff9581b9e3f2bbc44e515137258a68baec6585a
+:bug: [rtl/system_integration] fixed missing NMI connection
+diff --git a/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd b/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd
+index efd0b7e..e13160a 100644
+--- a/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd
++++ b/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd
+@@ -425,6 +425,7 @@ begin
+ 
+   xirq_i_int      <= std_ulogic_vector(xirq_i);
+ 
++  nm_irq_i_int    <= std_ulogic(nm_irq_i);
+   msw_irq_i_int   <= std_ulogic(msw_irq_i);
+   mext_irq_i_int  <= std_ulogic(mext_irq_i);
+ 

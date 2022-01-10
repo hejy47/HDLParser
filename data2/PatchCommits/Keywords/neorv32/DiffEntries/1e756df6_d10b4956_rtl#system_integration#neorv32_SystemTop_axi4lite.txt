@@ -1,0 +1,17 @@
+1e756df6362ecc1c805f911f4a99504ba10c4eab
+:bug: [rtl/system_integration] fix uart1 rx/tx signals
+diff --git a/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd b/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd
+index 4747a88..156d31b 100644
+--- a/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd
++++ b/rtl/system_integration/neorv32_SystemTop_axi4lite.vhd
+@@ -405,8 +405,8 @@ begin
+ 
+   uart0_txd_o     <= std_logic(uart0_txd_o_int);
+   uart0_rxd_i_int <= std_ulogic(uart0_rxd_i);
+-  uart1_txd_o     <= std_logic(uart0_txd_o_int);
+-  uart1_rxd_i_int <= std_ulogic(uart0_rxd_i);
++  uart1_txd_o     <= std_logic(uart1_txd_o_int);
++  uart1_rxd_i_int <= std_ulogic(uart1_rxd_i);
+ 
+   spi_sck_o       <= std_logic(spi_sck_o_int);
+   spi_sdo_o       <= std_logic(spi_sdo_o_int);

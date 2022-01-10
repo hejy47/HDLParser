@@ -1,0 +1,15 @@
+2bc785e7d9ec632f9d5bb6a6ef19667c6746fccb
+[RTL] Prevent CSR write on any illegal CSR reason
+diff --git a/rtl/ibex_cs_registers.sv b/rtl/ibex_cs_registers.sv
+index ed69b2ed..c48334fc 100644
+--- a/rtl/ibex_cs_registers.sv
++++ b/rtl/ibex_cs_registers.sv
+@@ -552,7 +552,7 @@ module ibex_cs_registers #(
+   end
+ 
+   // only write CSRs during one clock cycle
+-  assign csr_we_int  = csr_wreq & ~illegal_csr_priv & instr_new_id_i;
++  assign csr_we_int  = csr_wreq & ~illegal_csr_insn_o & instr_new_id_i;
+ 
+   assign csr_rdata_o = csr_rdata_int;
+ 

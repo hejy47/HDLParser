@@ -1,0 +1,24 @@
+bdb0dceaa3a4becad9a28d0e88dffcdc7a616cce
+[aes] Add u_-prefix to module instances inside S-Boxes
+diff --git a/hw/ip/aes/rtl/aes_sbox_canright_masked_noreuse.sv b/hw/ip/aes/rtl/aes_sbox_canright_masked_noreuse.sv
+index 72578b2d3..7c6dad0dc 100644
+--- a/hw/ip/aes/rtl/aes_sbox_canright_masked_noreuse.sv
++++ b/hw/ip/aes/rtl/aes_sbox_canright_masked_noreuse.sv
+@@ -199,7 +199,7 @@ module aes_masked_inverse_gf2p8_noreuse (
+   assign b   = b_4 ^ mul_m0_m1;
+ 
+   // b is masked by q, b_inv is masked by t.
+-  aes_masked_inverse_gf2p4_noreuse aes_masked_inverse_gf2p4 (
++  aes_masked_inverse_gf2p4_noreuse u_aes_masked_inverse_gf2p4 (
+     .b     ( b     ),
+     .q     ( q     ),
+     .r     ( r     ),
+@@ -286,7 +286,7 @@ module aes_sbox_canright_masked_noreuse (
+                                                  aes_mvm(mask_o, S2X);
+ 
+   // Do the inversion in normal basis X.
+-  aes_masked_inverse_gf2p8_noreuse aes_masked_inverse_gf2p8 (
++  aes_masked_inverse_gf2p8_noreuse u_aes_masked_inverse_gf2p8 (
+     .a     ( in_data_basis_x  ), // input
+     .m     ( in_mask_basis_x  ), // input
+     .n     ( out_mask_basis_x ), // input

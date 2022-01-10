@@ -1,0 +1,16 @@
+4d38b358430c75bd822e0c6f812d70836d29b3aa
+Make memory permission checking off by default.
+diff --git a/vunit/vhdl/bfm/src/axi_write_slave.vhd b/vunit/vhdl/bfm/src/axi_write_slave.vhd
+index 2df85f07..3e4a46c6 100644
+--- a/vunit/vhdl/bfm/src/axi_write_slave.vhd
++++ b/vunit/vhdl/bfm/src/axi_write_slave.vhd
+@@ -90,7 +90,8 @@ begin
+         aligned_address := address - (address mod self.data_size);
+         for j in 0 to self.data_size-1 loop
+           if wstrb(j) = '1' then
+-            write_byte(memory, aligned_address+j, to_integer(unsigned(wdata(8*j+7 downto 8*j))));
++            write_byte(memory, aligned_address+j, to_integer(unsigned(wdata(8*j+7 downto 8*j))),
++                       check_permissions => true);
+           end if;
+         end loop;
+ 

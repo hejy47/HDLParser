@@ -1,0 +1,16 @@
+9e50f5afa84d13bc7827892435a5d1abe1aef33a
+jesd204: Handle sysref events in the register map
+diff --git a/library/jesd204/axi_jesd204_tx/axi_jesd204_tx.v b/library/jesd204/axi_jesd204_tx/axi_jesd204_tx.v
+index 0d75eabc..31601141 100644
+--- a/library/jesd204/axi_jesd204_tx/axi_jesd204_tx.v
++++ b/library/jesd204/axi_jesd204_tx/axi_jesd204_tx.v
+@@ -240,7 +240,8 @@ jesd204_up_sysref i_up_sysref (
+   .up_reset(up_reset),
+ 
+   .core_clk(core_clk),
+-  .core_event_sysref_alignment_error(1'b0), // FIXME
++  .core_event_sysref_alignment_error(core_event_sysref_alignment_error),
++  .core_event_sysref_edge(core_event_sysref_edge),
+ 
+   .up_cfg_lmfc_offset(up_cfg_lmfc_offset),
+   .up_cfg_sysref_oneshot(up_cfg_sysref_oneshot),

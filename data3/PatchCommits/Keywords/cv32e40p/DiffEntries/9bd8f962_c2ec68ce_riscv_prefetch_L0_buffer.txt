@@ -1,0 +1,15 @@
+9bd8f962dea8cc0de2e37d16b1e80c7177bf5b87
+fixed riscv_prefetch_L0_buffer.sv, crossword hwloop, when waitining r_valid from icache
+diff --git a/riscv_prefetch_L0_buffer.sv b/riscv_prefetch_L0_buffer.sv
+index d987223..40a0d4f 100644
+--- a/riscv_prefetch_L0_buffer.sv
++++ b/riscv_prefetch_L0_buffer.sv
+@@ -462,7 +462,7 @@ module riscv_prefetch_L0_buffer
+         if (fetch_valid) begin
+           is_hwlp_n = 1'b1;
+ 
+-          if (hwlp_is_crossword) begin
++          if ( (addr_L0[3:1] == 3'b111) && (~upper_is_compressed)) begin
+             NS = NOT_VALID_CROSS;
+           end else begin
+             NS = VALID;

@@ -1,0 +1,14 @@
+bb9f9ef37be69226700024da536114d2e1f385a2
+Merge pull request #89 from olofk/scan_mode
+diff --git a/design/dmi/dmi_wrapper.v b/design/dmi/dmi_wrapper.v
+index 01d29d6..573945e 100644
+--- a/design/dmi/dmi_wrapper.v
++++ b/design/dmi/dmi_wrapper.v
+@@ -22,7 +22,6 @@
+ //-------------------------------------------------------------------------------------
+ 
+ module dmi_wrapper(
+-  input              scan_mode,           // scan mode
+ 
+   // JTAG signals
+   input              trst_n,              // JTAG reset

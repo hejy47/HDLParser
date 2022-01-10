@@ -1,0 +1,16 @@
+53ef2ec43c1c1eb00b771e17fc157f5bb1103ed5
+Update lowrisc_ibex to lowRISC/ibex@d14312c
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_usb.sv b/hw/top_earlgrey/rtl/top_earlgrey_usb.sv
+index a9b0b6762..fd79548bf 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_usb.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_usb.sv
+@@ -93,8 +93,7 @@ module top_earlgrey_usb #(
+     .rst_ni               (ndmreset_n),
+     .test_en_i            (1'b0),
+     // static pinning
+-    .core_id_i            (4'b0000),
+-    .cluster_id_i         (6'b000000),
++    .hart_id_i            (32'b0),
+     .boot_addr_i          (ADDR_SPACE_RAM_MAIN + 'h1000),  // no ROM for now, straight out of SRAM
+     // TL-UL buses
+     .tl_i_o               (tl_h_h2d[TlCorei]),

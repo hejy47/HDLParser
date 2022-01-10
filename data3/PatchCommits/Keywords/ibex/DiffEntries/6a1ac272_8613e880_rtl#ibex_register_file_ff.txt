@@ -1,0 +1,15 @@
+6a1ac272da5c17945fe1b058b1a8cfb8fc922e57
+Fix linting errors
+diff --git a/rtl/ibex_register_file_ff.sv b/rtl/ibex_register_file_ff.sv
+index 86e7a082..07907ec7 100644
+--- a/rtl/ibex_register_file_ff.sv
++++ b/rtl/ibex_register_file_ff.sv
+@@ -61,7 +61,7 @@ module ibex_register_file #(
+   logic [NUM_WORDS-1:1]                we_a_dec;
+ 
+   always_comb begin : we_a_decoder
+-    for (int i = 1; i < NUM_WORDS; i++) begin
++    for (int unsigned i = 1; i < NUM_WORDS; i++) begin
+       we_a_dec[i] = (waddr_a_i == 5'(i)) ?  we_a_i : 1'b0;
+     end
+   end

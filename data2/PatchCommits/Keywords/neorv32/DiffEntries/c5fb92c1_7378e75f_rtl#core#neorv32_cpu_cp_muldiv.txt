@@ -1,0 +1,17 @@
+c5fb92c155d56debe730ea7f7c85f5f5fbdd1255
+[rtl] clean-up of generic defaults
+diff --git a/rtl/core/neorv32_cpu_cp_muldiv.vhd b/rtl/core/neorv32_cpu_cp_muldiv.vhd
+index 888dafc..a701c12 100644
+--- a/rtl/core/neorv32_cpu_cp_muldiv.vhd
++++ b/rtl/core/neorv32_cpu_cp_muldiv.vhd
+@@ -48,8 +48,8 @@ use neorv32.neorv32_package.all;
+ 
+ entity neorv32_cpu_cp_muldiv is
+   generic (
+-    FAST_MUL_EN : boolean := false; -- use DSPs for faster multiplication
+-    DIVISION_EN : boolean := true   -- implement divider hardware
++    FAST_MUL_EN : boolean; -- use DSPs for faster multiplication
++    DIVISION_EN : boolean  -- implement divider hardware
+   );
+   port (
+     -- global control --

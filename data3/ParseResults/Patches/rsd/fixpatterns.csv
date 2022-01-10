@@ -1,0 +1,7 @@
+,insert,update,move,delete
+HdlOp-MemberAccessing-HdlStmIf,6.0,,,
+HdlOp-Assignment-HdlStmFor,,1.0,,
+HdlOp-InfixExpression-HdlOp-Assignment,,1.0,,
+HdlOp-InfixExpression-HdlOp-InfixExpression,,1.0,,1.0
+HdlOp-MemberAccessing-HdlOp-InfixExpression,,1.0,1.0,1.0
+HdlOp-MemberAccessing-HdlOp-MemberAccessing,,1.0,,

@@ -1,0 +1,15 @@
+51b5335318c83e2662a0edb768b05ac7cbcd6603
+Remove z from default states for FSM inference
+diff --git a/rtl/ip_64.v b/rtl/ip_64.v
+index b7ed26b..126b0e9 100644
+--- a/rtl/ip_64.v
++++ b/rtl/ip_64.v
+@@ -262,7 +262,7 @@ assign arp_request_ip = input_ip_dest_ip;
+ assign tx_error_arp_failed = arp_response_error;
+ 
+ always @* begin
+-    state_next = 8'bz;
++    state_next = STATE_IDLE;
+ 
+     arp_request_valid_next = 0;
+     drop_packet_next = 0;

@@ -1,0 +1,20 @@
+edbd9f7b8f5fd1f2da3a25170f31a14aa4b5acae
+jesd204_framework: Add Stratix10 support
+diff --git a/library/intel/adi_jesd204/adi_jesd204_glue.v b/library/intel/adi_jesd204/adi_jesd204_glue.v
+index a59cf0ac..3f797857 100644
+--- a/library/intel/adi_jesd204/adi_jesd204_glue.v
++++ b/library/intel/adi_jesd204/adi_jesd204_glue.v
+@@ -38,10 +38,12 @@
+ module adi_jesd204_glue (
+   input in_pll_powerdown,
+   output out_pll_powerdown,
+-  output out_mcgb_rst
++  output out_mcgb_rst,
++  output out_pll_select_gnd
+ );
+ 
+ assign out_pll_powerdown = in_pll_powerdown;
+ assign out_mcgb_rst = in_pll_powerdown;
++assign out_pll_select_gnd = 1'b0;
+ 
+ endmodule

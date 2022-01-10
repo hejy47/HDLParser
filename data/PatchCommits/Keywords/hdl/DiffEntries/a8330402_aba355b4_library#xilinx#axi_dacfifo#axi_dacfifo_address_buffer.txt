@@ -1,0 +1,15 @@
+a8330402d23c95031cf47a6174a27b8ba37ae734
+axi_dacfifo: Fix address buffer read logic
+diff --git a/library/xilinx/axi_dacfifo/axi_dacfifo_address_buffer.v b/library/xilinx/axi_dacfifo/axi_dacfifo_address_buffer.v
+index 5784ab2d..5c94d3b9 100644
+--- a/library/xilinx/axi_dacfifo/axi_dacfifo_address_buffer.v
++++ b/library/xilinx/axi_dacfifo/axi_dacfifo_address_buffer.v
+@@ -71,7 +71,7 @@ module axi_dacfifo_address_buffer #(
+     .addra (waddr),
+     .dina (din),
+     .clkb (clk),
+-    .reb (rea),
++    .reb (1'b1),
+     .addrb (raddr),
+     .doutb (dout));
+ 

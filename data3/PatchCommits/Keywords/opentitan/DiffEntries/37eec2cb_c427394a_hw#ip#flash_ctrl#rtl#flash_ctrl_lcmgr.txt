@@ -1,0 +1,33 @@
+37eec2cbcb02ab1639382d3dbb8ab2bc5b3b904d
+[flash_ctrl] Various clean-up and updates
+diff --git a/hw/ip/flash_ctrl/rtl/flash_ctrl_lcmgr.sv b/hw/ip/flash_ctrl/rtl/flash_ctrl_lcmgr.sv
+index fd5931b5f..53b8e1f84 100644
+--- a/hw/ip/flash_ctrl/rtl/flash_ctrl_lcmgr.sv
++++ b/hw/ip/flash_ctrl/rtl/flash_ctrl_lcmgr.sv
+@@ -25,7 +25,7 @@ module flash_ctrl_lcmgr import flash_ctrl_pkg::*; #(
+   output logic req_o,
+   output logic [top_pkg::TL_AW-1:0] addr_o,
+   input done_i,
+-  input err_i,
++  input flash_ctrl_err_t err_i,
+ 
+   // interface to ctrl_arb data ports
+   output logic rready_o,
+@@ -590,7 +590,7 @@ module flash_ctrl_lcmgr import flash_ctrl_pkg::*; #(
+         rma_start = 1'b1;
+         rma_op = FlashOpErase;
+         if (done_i) begin
+-          err_sts_set = err_i;
++          err_sts_set = |err_i;
+           rma_state_d = StRmaWordSel;
+         end
+       end
+@@ -621,7 +621,7 @@ module flash_ctrl_lcmgr import flash_ctrl_pkg::*; #(
+ 
+         if (done_i) begin
+           beat_cnt_clr = 1'b1;
+-          err_sts_set = err_i;
++          err_sts_set = |err_i;
+           rma_state_d = StRmaRdVerify;
+         end
+       end

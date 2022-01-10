@@ -1,0 +1,21 @@
+a5ec2db5cc3eabb6d0315658f11ae8e82bbf994d
+Merge pull request #417 from Silabs-ArjanB/ArjanB_ifdef
+diff --git a/bhv/cv32e40p_apu_tracer.sv b/bhv/cv32e40p_apu_tracer.sv
+index 2dae86f..cf4552b 100644
+--- a/bhv/cv32e40p_apu_tracer.sv
++++ b/bhv/cv32e40p_apu_tracer.sv
+@@ -35,6 +35,8 @@
+ //                                                                            //
+ ////////////////////////////////////////////////////////////////////////////////
+ 
++`ifdef CV32E40P_APU_TRACE
++
+ module cv32e40p_apu_tracer
+ (
+ );
+@@ -72,3 +74,5 @@ module cv32e40p_apu_tracer
+      end
+ 
+ endmodule // cv32e40p_apu_tracer
++
++`endif // CV32E40P_APU_TRACE

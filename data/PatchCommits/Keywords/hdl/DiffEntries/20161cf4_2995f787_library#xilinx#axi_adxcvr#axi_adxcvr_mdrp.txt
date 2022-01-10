@@ -1,0 +1,15 @@
+20161cf458cd036907e6f110209dc83ddc45d4cd
+xilinx/axi_adxcvr/axi_adxcvr_mdrp: Fix read if all channels are selected
+diff --git a/library/xilinx/axi_adxcvr/axi_adxcvr_mdrp.v b/library/xilinx/axi_adxcvr/axi_adxcvr_mdrp.v
+index 025f4348..8c78b4a2 100644
+--- a/library/xilinx/axi_adxcvr/axi_adxcvr_mdrp.v
++++ b/library/xilinx/axi_adxcvr/axi_adxcvr_mdrp.v
+@@ -116,7 +116,7 @@ module axi_adxcvr_mdrp (
+       up_rdata_i <= 16'd0;
+       up_ready_i <= 1'b0;
+     end else begin
+-      if (up_ready_in == 1'b1) begin
++      if (up_ready_in == 1'b1 || XCVR_ID == 0) begin
+         up_rdata_i <= up_rdata_in;
+         up_ready_i <= 1'b1;
+       end else if (up_enb == 1'b1) begin

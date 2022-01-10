@@ -1,0 +1,15 @@
+85ae06d054b6d886276d2e5d3e2021df4c237049
+Controller: fix `nmi_mode` default assignment
+diff --git a/rtl/ibex_controller.sv b/rtl/ibex_controller.sv
+index 1ef0fac7..5a8fc54a 100644
+--- a/rtl/ibex_controller.sv
++++ b/rtl/ibex_controller.sv
+@@ -215,7 +215,7 @@ module ibex_controller (
+     debug_csr_save_o      = 1'b0;
+     debug_cause_o         = DBG_CAUSE_EBREAK;
+     debug_mode_d          = debug_mode_q;
+-    nmi_mode_d            = 1'b0;
++    nmi_mode_d            = nmi_mode_q;
+ 
+     perf_tbranch_o        = 1'b0;
+     perf_jump_o           = 1'b0;

@@ -1,0 +1,15 @@
+460a49f114e74965703a9fa77cbb7195aac84438
+Merge conflict fix. Fixed double assign to irq_sec_i
+diff --git a/rtl/riscv_register_file.sv b/rtl/riscv_register_file.sv
+index 3f1325e..e0ab27a 100644
+--- a/rtl/riscv_register_file.sv
++++ b/rtl/riscv_register_file.sv
+@@ -39,7 +39,7 @@ module riscv_register_file
+     input  logic         clk,
+     input  logic         rst_n,
+ 
+-    input  logic         test_en_i,
++    input  logic         scan_cg_en_i,
+ 
+     //Read port R1
+     input  logic [ADDR_WIDTH-1:0]  raddr_a_i,

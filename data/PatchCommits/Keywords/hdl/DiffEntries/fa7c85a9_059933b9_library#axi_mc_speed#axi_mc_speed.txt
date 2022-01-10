@@ -1,0 +1,15 @@
+fa7c85a9ebfd7ad3dc8744ba688dd9625b0b5725
+all: Drive undriven input signals, complete interface
+diff --git a/library/axi_mc_speed/axi_mc_speed.v b/library/axi_mc_speed/axi_mc_speed.v
+index ea0d0fa7..1a1bc914 100644
+--- a/library/axi_mc_speed/axi_mc_speed.v
++++ b/library/axi_mc_speed/axi_mc_speed.v
+@@ -192,6 +192,8 @@ up_adc_common i_up_adc_common(
+   .adc_start_code(),
+   .adc_sref_sync(),
+   .adc_sync(),
++  .up_pps_rcounter (32'b0),
++  .up_pps_status (1'b0),
+   .up_adc_ce(),
+   .up_status_pn_err(1'b0),
+   .up_status_pn_oos(1'b0),

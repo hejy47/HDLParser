@@ -1,0 +1,15 @@
+6f4dc92dd2e5573305f915e00fd8010ae1a909a2
+util_fir_int: Fix channel data assignment
+diff --git a/library/util_fir_int/util_fir_int.v b/library/util_fir_int/util_fir_int.v
+index 47ea8c56..183a4140 100644
+--- a/library/util_fir_int/util_fir_int.v
++++ b/library/util_fir_int/util_fir_int.v
+@@ -54,7 +54,7 @@ module util_fir_int (
+   wire [31:0] m_axis_data_tdata_s;
+   wire        s_axis_data_tready_s;
+ 
+-  assign {channel_1, channel_0} = (interpolate == 1'b1) ? {m_axis_data_tdata_s[30:16], 1'b0, m_axis_data_tdata_s[14:0], 1'b0} : s_axis_data_tdata;
++  assign {channel_1, channel_0} = (interpolate == 1'b1) ? m_axis_data_tdata_s : s_axis_data_tdata;
+   assign s_axis_data_tready = (interpolate == 1'b1) ? s_axis_data_tready_s : dac_read;
+ 
+   fir_interp interpolator (

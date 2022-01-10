@@ -1,0 +1,8 @@
+-classpath '/home/user/Desktop/FPGA/Tools/gumtree/gen.hdl/build/classes/java/main:/home/user/Desktop/FPGA/Tools/gumtree/gen.hdl/build/resources/main:/home/user/.gradle/caches/modules-2/files-2.1/org.atteo.classindex/classindex/3.10/8cc8e54208c07c75d5e190b46125e3879059f6f4/classindex-3.10.jar:/home/user/Desktop/FPGA/Tools/gumtree/core/build/libs/core-3.0.0-SNAPSHOT.jar'
+-d '/home/user/Desktop/FPGA/Tools/gumtree/gen.hdl/build/docs/javadoc'
+-doctitle 'gen.hdl 3.0.0-SNAPSHOT API'
+-html5 
+-notimestamp 
+-quiet 
+-windowtitle 'gen.hdl 3.0.0-SNAPSHOT API'
+'/home/user/Desktop/FPGA/Tools/gumtree/gen.hdl/src/main/java/com/github/gumtreediff/gen/hdl/HdlTreeGenerator.java'

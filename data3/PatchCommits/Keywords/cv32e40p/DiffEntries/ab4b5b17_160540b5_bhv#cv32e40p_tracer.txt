@@ -1,0 +1,21 @@
+ab4b5b17a412e75831f10b3ab6183de530172f58
+Merge pull request #446 from dawidzim/correct_makefile
+diff --git a/bhv/cv32e40p_tracer.sv b/bhv/cv32e40p_tracer.sv
+index 2e05ac9..a9c68eb 100644
+--- a/bhv/cv32e40p_tracer.sv
++++ b/bhv/cv32e40p_tracer.sv
+@@ -22,6 +22,8 @@
+ //                                                                            //
+ ////////////////////////////////////////////////////////////////////////////////
+ 
++`ifdef CV32E40P_TRACE_EXECUTION
++
+ module cv32e40p_tracer import cv32e40p_pkg::*;
+ (
+   // Clock and Reset
+@@ -1101,3 +1103,5 @@ module cv32e40p_tracer import cv32e40p_pkg::*;
+   end // always @ (posedge clk)
+ 
+ endmodule
++
++`endif // CV32E40P_TRACE_EXECUTION

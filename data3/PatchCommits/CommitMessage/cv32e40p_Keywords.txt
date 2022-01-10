@@ -1,0 +1,5999 @@
+======Commit: 0822318c======
+======Short Message======
+fix #657 (#658)
+======Full Message======
+fix #657 (#658)
+
+
+
+
+======Commit: 6065bba0======
+======Short Message======
+stricter decoder to fix #650 (#659)
+======Full Message======
+stricter decoder to fix #650 (#659)
+
+* making decoder stricter
+
+Signed-off-by: Schiavone Davide <davide@openhwgroup.org>
+
+* fix decoder
+
+Signed-off-by: Pasquale Davide Schiavone <davide@openhwgroup.org>
+
+* fix in clpconj and abs
+
+
+======Commit: e857213a======
+======Short Message======
+Merge pull request #656 from openhwgroup/davideschiavone-patch-1
+======Full Message======
+Merge pull request #656 from openhwgroup/davideschiavone-patch-1
+
+update format in instruction set extensions file
+
+
+======Commit: 20edf83d======
+======Short Message======
+Merge pull request #635 from davideschiavone/fix616
+======Full Message======
+Merge pull request #635 from davideschiavone/fix616
+
+fixed #616
+
+
+======Commit: cc35a755======
+======Short Message======
+Merge pull request #634 from davideschiavone/fix605
+======Full Message======
+Merge pull request #634 from davideschiavone/fix605
+
+fix #605
+
+
+======Commit: dfaa3857======
+======Short Message======
+fixed #616
+======Full Message======
+fixed #616
+
+
+
+======Commit: da7e83d0======
+======Short Message======
+fix #605
+======Full Message======
+fix #605
+
+Signed-off-by: Pasquale Davide Schiavone <pschiavo@larain6.ee.ethz.ch>
+
+
+
+======Commit: 702b3b10======
+======Short Message======
+Merge pull request #627 from flip1995/patch-1
+======Full Message======
+Merge pull request #627 from flip1995/patch-1
+
+Fix encoding of cv.addNr instruction of ALU extension
+
+
+======Commit: 83ef8aa6======
+======Short Message======
+Merge pull request #628 from davideschiavone/fix_delay_clk
+======Full Message======
+Merge pull request #628 from davideschiavone/fix_delay_clk
+
+:bug: fix #626
+
+
+======Commit: 4c293526======
+======Short Message======
+:bug: fix #626
+======Full Message======
+:bug: fix #626
+
+
+
+======Commit: a3310627======
+======Short Message======
+Fix encoding of cv.addNr instruction of ALU extension
+======Full Message======
+Fix encoding of cv.addNr instruction of ALU extension
+
+Signed-off-by: flip1995 <philipp.krones@embecosm.com>
+
+
+
+======Commit: 388f299a======
+======Short Message======
+Merge pull request #625 from davideschiavone/fix_delay_clk
+======Full Message======
+Merge pull request #625 from davideschiavone/fix_delay_clk
+
+Fix tracer during random gnt and valid stalls
+
+
+======Commit: 53cff7c7======
+======Short Message======
+Merge pull request #622 from emmicro-us/fix-tdata2
+======Full Message======
+Merge pull request #622 from emmicro-us/fix-tdata2
+
+Fix tdata2 to be marked as RW in the description (docs)
+
+
+======Commit: 3cb89a3d======
+======Short Message======
+Fix tdata2 to be marked as RW in the description (docs)
+======Full Message======
+Fix tdata2 to be marked as RW in the description (docs)
+
+Signed-off-by: John Eric Martin <John.Martin@emmicro-us.com>
+
+
+
+======Commit: 120ac3ee======
+======Short Message======
+Merge pull request #589 from davideschiavone/fix586
+======Full Message======
+Merge pull request #589 from davideschiavone/fix586
+
+Update tracer to dump cv. instead of p. or pv. for custom extensions
+
+
+======Commit: 89fbbd1b======
+======Short Message======
+Merge pull request #596 from davideschiavone/fix_dc_shell_mult
+======Full Message======
+Merge pull request #596 from davideschiavone/fix_dc_shell_mult
+
+fix for DC Shell
+
+
+======Commit: acc55e69======
+======Short Message======
+:bug: fix for DC Shell
+======Full Message======
+:bug: fix for DC Shell
+
+
+
+======Commit: 295b5fb3======
+======Short Message======
+Merge pull request #587 from davideschiavone/fix_for_rtl_freeze
+======Full Message======
+Merge pull request #587 from davideschiavone/fix_for_rtl_freeze
+
+removed a todo
+
+
+======Commit: 83aaecca======
+======Short Message======
+Merge pull request #581 from davideschiavone/fix_rand_interrupt_gen
+======Full Message======
+Merge pull request #581 from davideschiavone/fix_rand_interrupt_gen
+
+:bug: fix trigger function of random interrupt generator
+
+
+======Commit: 75f83bbb======
+======Short Message======
+:bug: fix trigger function of random interrupt generator
+======Full Message======
+:bug: fix trigger function of random interrupt generator
+
+
+
+======Commit: 6c858bca======
+======Short Message======
+Merge pull request #570 from strichmo/strichmo/pr/sva_warning_fix
+======Full Message======
+Merge pull request #570 from strichmo/strichmo/pr/sva_warning_fix
+
+fix format string in action block of an assertion
+
+
+======Commit: 2e988ddd======
+======Short Message======
+fix format string in action block of an assertion
+======Full Message======
+fix format string in action block of an assertion
+
+Signed-off-by: Steve Richmond <Steve.Richmond@silabs.com>
+
+
+
+======Commit: 769e00cc======
+======Short Message======
+Merge pull request #564 from Silabs-ArjanB/ArjanB_debug_itf
+======Full Message======
+Merge pull request #564 from Silabs-ArjanB/ArjanB_debug_itf
+
+Added debug status pins; fix for #563
+
+
+======Commit: 66bc864f======
+======Short Message======
+Added debug status pins; fix for #563
+======Full Message======
+Added debug status pins; fix for #563
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: cfc3d478======
+======Short Message======
+Merge pull request #559 from davideschiavone/fix363
+======Full Message======
+Merge pull request #559 from davideschiavone/fix363
+
+fix #363
+
+
+======Commit: 872e9a59======
+======Short Message======
+:bug: cplxconj requires src2 field to be 0
+======Full Message======
+:bug: cplxconj requires src2 field to be 0
+
+
+
+======Commit: 578d3e4b======
+======Short Message======
+fix #363
+======Full Message======
+fix #363
+
+
+
+======Commit: 68bb847e======
+======Short Message======
+Merge pull request #558 from davideschiavone/fix537
+======Full Message======
+Merge pull request #558 from davideschiavone/fix537
+
+:recycle: clean up apu interface
+
+
+======Commit: ee17dc0a======
+======Short Message======
+Merge pull request #557 from strichmo/strichmo/pr/tracer_with_ebrk
+======Full Message======
+Merge pull request #557 from strichmo/strichmo/pr/tracer_with_ebrk
+
+Tracer and debug RTL fixes
+
+
+======Commit: 7ba6868f======
+======Short Message======
+remove commented code
+======Full Message======
+remove commented code
+remove debug_force_wakeup_n as requested by PaulZ
+
+Signed-off-by: Steve Richmond <Steve.Richmond@silabs.com>
+
+
+
+======Commit: d7cb64eb======
+======Short Message======
+Fix for wrong dcsr.cause in case of aborted sleep
+======Full Message======
+Fix for wrong dcsr.cause in case of aborted sleep
+due to debug_req before we get into sleep state.
+
+Signed-off-by: Oystein Knauserud <Oystein.Knauserud@silabs.com>
+
+
+
+======Commit: c636701f======
+======Short Message======
+Fix for #529, wfi wakeup.
+======Full Message======
+Fix for #529, wfi wakeup.
+
+Signed-off-by: Oystein Knauserud <Oystein.Knauserud@silabs.com>
+
+
+
+======Commit: 09b9624a======
+======Short Message======
+stall qualified ebreak instruction retirement until debug_mode is entered (via h/w hint)
+======Full Message======
+stall qualified ebreak instruction retirement until debug_mode is entered (via h/w hint)
+
+Signed-off-by: Steve Richmond <Steve.Richmond@silabs.com>
+
+
+
+======Commit: 8e2daa45======
+======Short Message======
+Merge pull request #535 from Silabs-ArjanB/ArjanB_per_counter_illegal
+======Full Message======
+Merge pull request #535 from Silabs-ArjanB/ArjanB_per_counter_illegal
+
+Fix for #533
+
+
+======Commit: f4948778======
+======Short Message======
+Merge pull request #547 from Silabs-ArjanB/ArjanB_uvm_fix
+======Full Message======
+Merge pull request #547 from Silabs-ArjanB/ArjanB_uvm_fix
+
+Re-enabled tracer with uvm
+
+
+======Commit: fabe3b43======
+======Short Message======
+Fix for #540 and #533
+======Full Message======
+Fix for #540 and #533
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 7d2ff677======
+======Short Message======
+Merge pull request #542 from silabs-PaulZ/dbg_taken_id_cause_pri
+======Full Message======
+Merge pull request #542 from silabs-PaulZ/dbg_taken_id_cause_pri
+
+reorder debug cause priority due to race condition. 
+
+
+======Commit: 6ac4a06d======
+======Short Message======
+reorder debug cause priority due to race condition. Eases debug use model.
+======Full Message======
+reorder debug cause priority due to race condition. Eases debug use model.
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: 7294cc36======
+======Short Message======
+Merge pull request #538 from silabs-PaulZ/debug_req_single_step_fix
+======Full Message======
+Merge pull request #538 from silabs-PaulZ/debug_req_single_step_fix
+
+fix priority of debug_req and single step
+
+
+======Commit: c2ddbdbc======
+======Short Message======
+fix priority of debug_req and single step
+======Full Message======
+fix priority of debug_req and single step
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: b322748e======
+======Short Message======
+Fix for #533
+======Full Message======
+Fix for #533
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 7bceba24======
+======Short Message======
+Merge pull request #534 from Silabs-ArjanB/ArjanB_tbfix
+======Full Message======
+Merge pull request #534 from Silabs-ArjanB/ArjanB_tbfix
+
+Testbench fix for hierarchy change
+
+
+======Commit: 3c7c251f======
+======Short Message======
+Testbench fix for hierarchy change
+======Full Message======
+Testbench fix for hierarchy change
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 80c1d3fe======
+======Short Message======
+Merge pull request #531 from silabs-PaulZ/debug_ebrk_cause_fix
+======Full Message======
+Merge pull request #531 from silabs-PaulZ/debug_ebrk_cause_fix
+
+fix debug cause ebreak and debug_req corner case
+
+
+======Commit: 5ec45f38======
+======Short Message======
+fix debug cause for corner case where ebrk entry occurs just before debug_req. Also added names to existing assertions in id_stage.
+======Full Message======
+fix debug cause for corner case where ebrk entry occurs just before debug_req. Also added names to existing assertions in id_stage.
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: f04f1e8c======
+======Short Message======
+Merge pull request #525 from davideschiavone/fix372
+======Full Message======
+Merge pull request #525 from davideschiavone/fix372
+
+:bug: fix #372
+
+
+======Commit: 4a1a3082======
+======Short Message======
+Merge pull request #524 from davideschiavone/fix518
+======Full Message======
+Merge pull request #524 from davideschiavone/fix518
+
+:recycle: clean up TODO  #518
+
+
+======Commit: 5915e052======
+======Short Message======
+:bug: fix #372
+======Full Message======
+:bug: fix #372
+
+
+
+======Commit: 894522fe======
+======Short Message======
+:bug: fix LEC
+======Full Message======
+:bug: fix LEC
+
+
+
+======Commit: 5c973105======
+======Short Message======
+Merge pull request #516 from silabs-PaulZ/fix_todo__controller__flush_ex
+======Full Message======
+Merge pull request #516 from silabs-PaulZ/fix_todo__controller__flush_ex
+
+Fix Todo: remove comment flush ex
+
+
+======Commit: 30002b44======
+======Short Message======
+Merge pull request #504 from Silabs-ArjanB/ArjanB_hpmc
+======Full Message======
+Merge pull request #504 from Silabs-ArjanB/ArjanB_hpmc
+
+Fix for #429
+
+
+======Commit: 1f200f2d======
+======Short Message======
+Merge pull request #519 from silabs-PaulZ/fix_todo__id_stage__sign_ext_and_clip
+======Full Message======
+Merge pull request #519 from silabs-PaulZ/fix_todo__id_stage__sign_ext_and_clip
+
+Fix Todo: Remove Todo comments in id_stage.sv
+
+
+======Commit: 7ce38e77======
+======Short Message======
+Merge pull request #517 from silabs-PaulZ/fix_todo__cs_registers__user_mode_csr_save
+======Full Message======
+Merge pull request #517 from silabs-PaulZ/fix_todo__cs_registers__user_mode_csr_save
+
+Fix Todo: remove TODO comment regarding csr save action during USER mode
+
+
+======Commit: 78d6e2c7======
+======Short Message======
+Merge pull request #515 from silabs-PaulZ/fix_todo__dret_not_debug_mode
+======Full Message======
+Merge pull request #515 from silabs-PaulZ/fix_todo__dret_not_debug_mode
+
+Fix Todo : concern about illegal insn for dret call in non debug mode
+
+
+======Commit: a4201a73======
+======Short Message======
+Merge pull request #514 from silabs-PaulZ/fix_todo__exc_cause
+======Full Message======
+Merge pull request #514 from silabs-PaulZ/fix_todo__exc_cause
+
+Fix Todo: remove unused code attempting to set exc_cause
+
+
+======Commit: df944c26======
+======Short Message======
+Fix Todo: Remove Todo comments in id_stage.sv
+======Full Message======
+Fix Todo: Remove Todo comments in id_stage.sv
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: acdd0dd5======
+======Short Message======
+Fix Todo: remove comment flush ex
+======Full Message======
+Fix Todo: remove comment flush ex
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: a3129aea======
+======Short Message======
+remove todo concern about illegal insn for dret call while not in debug mode
+======Full Message======
+remove todo concern about illegal insn for dret call while not in debug mode
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: d5c526d9======
+======Short Message======
+Merge pull request #511 from Silabs-ArjanB/ArjanB_irq_0
+======Full Message======
+Merge pull request #511 from Silabs-ArjanB/ArjanB_irq_0
+
+Simplified interrupt controller, fix for #503, #470
+
+
+======Commit: 8ccbcdcb======
+======Short Message======
+Merge pull request #507 from dawidzim/duplicate_fp_compilation
+======Full Message======
+Merge pull request #507 from dawidzim/duplicate_fp_compilation
+
+fix for duplicate compilation fpnew
+
+
+======Commit: b30e1fa0======
+======Short Message======
+Merge pull request #512 from Silabs-ArjanB/ArjanB_default_params
+======Full Message======
+Merge pull request #512 from Silabs-ArjanB/ArjanB_default_params
+
+Changed default params as discussed in https://github.com/openhwgroup…
+
+
+======Commit: f9de0eb7======
+======Short Message======
+Changed default params as discussed in https://github.com/openhwgroup/core-v-docs/issues/189
+======Full Message======
+Changed default params as discussed in https://github.com/openhwgroup/core-v-docs/issues/189
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 422648e2======
+======Short Message======
+Reintroduced IRQ_FLUSH_ELW to fix timing violation
+======Full Message======
+Reintroduced IRQ_FLUSH_ELW to fix timing violation
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: dd1eeca0======
+======Short Message======
+Simplified interrupt controller, fix for #503, #470
+======Full Message======
+Simplified interrupt controller, fix for #503, #470
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 4e64ed1c======
+======Short Message======
+fix for duplicate compilation fpnew
+======Full Message======
+fix for duplicate compilation fpnew
+
+Signed-off-by: Dawid Zimonczyk <dawidz@aldec.com.pl>
+
+
+
+======Commit: 9529b94d======
+======Short Message======
+Merge pull request #506 from silabs-oysteink/silabs-oysteink_tracer-debug
+======Full Message======
+Merge pull request #506 from silabs-oysteink/silabs-oysteink_tracer-debug
+
+Fix for #489
+
+
+======Commit: 12bb437e======
+======Short Message======
+Fix for #489
+======Full Message======
+Fix for #489
+Added ebreak and c.ebreak to retire check to make RTL and Imperas
+model agree on execution. (Changes came from Lee Moore at Imperas)
+
+Signed-off-by: Oystein Knauserud <Oystein.Knauserud@silabs.com>
+
+
+
+======Commit: de2a9e0c======
+======Short Message======
+Fix for #429
+======Full Message======
+Fix for #429
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 5b917a6b======
+======Short Message======
+Merge pull request #501 from dawidzim/duplicate_comp
+======Full Message======
+Merge pull request #501 from dawidzim/duplicate_comp
+
+fix for #500, duplicate file in compilation
+
+
+======Commit: b127baf0======
+======Short Message======
+fix for #500, duplicate file in compilation
+======Full Message======
+fix for #500, duplicate file in compilation
+
+
+
+======Commit: 41c5f9b2======
+======Short Message======
+Merge pull request #499 from Silabs-ArjanB/ArjanB_assertion_fix
+======Full Message======
+Merge pull request #499 from Silabs-ArjanB/ArjanB_assertion_fix
+
+Prevent hwloop assertion from firing in PULP_XPULP=0 config
+
+
+======Commit: cf064286======
+======Short Message======
+Merge pull request #495 from silabs-PaulZ/fix_dpc_trigger
+======Full Message======
+Merge pull request #495 from silabs-PaulZ/fix_dpc_trigger
+
+fix dpc stored valued due to trigger. update controller fsm debug paths
+
+
+======Commit: 6c759785======
+======Short Message======
+fix dpc stored valued due to trigger. update controller fsm debug paths
+======Full Message======
+fix dpc stored valued due to trigger. update controller fsm debug paths
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: 4c27cf80======
+======Short Message======
+Merge pull request #491 from davideschiavone/fix_mepc_racecondition
+======Full Message======
+Merge pull request #491 from davideschiavone/fix_mepc_racecondition
+
+:bug: fix csr_status for MEPC
+
+
+======Commit: cf327713======
+======Short Message======
+:bug: fix csr_status for xCAUSE and PRIVLV
+======Full Message======
+:bug: fix csr_status for xCAUSE and PRIVLV
+
+
+
+======Commit: e9bef11f======
+======Short Message======
+Merge pull request #475 from davideschiavone/fix_debug_ss
+======Full Message======
+Merge pull request #475 from davideschiavone/fix_debug_ss
+
+:recycle: removed deprecated condition in DBG_TAKEN_ID
+
+
+======Commit: 7a0fe7af======
+======Short Message======
+Merge pull request #494 from silabs-PaulZ/fix_stepie
+======Full Message======
+Merge pull request #494 from silabs-PaulZ/fix_stepie
+
+fix dcsr.stepie
+
+
+======Commit: ecaa6076======
+======Short Message======
+fix dcsr.stepie
+======Full Message======
+fix dcsr.stepie
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: f501b332======
+======Short Message======
+:bug: fix csr_status for MEPC
+======Full Message======
+:bug: fix csr_status for MEPC
+
+
+
+======Commit: 3335dbcf======
+======Short Message======
+Merge pull request #483 from Silabs-ArjanB/ArjanB_dcsr
+======Full Message======
+Merge pull request #483 from Silabs-ArjanB/ArjanB_dcsr
+
+Fix for #481
+
+
+======Commit: 02bcd067======
+======Short Message======
+Merge pull request #488 from Silabs-ArjanB/cv32e40p.ArjanB_assertion_fix
+======Full Message======
+Merge pull request #488 from Silabs-ArjanB/cv32e40p.ArjanB_assertion_fix
+
+Assertion fix for #486
+
+
+======Commit: 9085b52e======
+======Short Message======
+Assertion fix for #486
+======Full Message======
+Assertion fix for #486
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: c7ab9adf======
+======Short Message======
+stepie and prv bitfield fixes
+======Full Message======
+stepie and prv bitfield fixes
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: fe66c92e======
+======Short Message======
+Fix for #481
+======Full Message======
+Fix for #481
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 6fbd88c6======
+======Short Message======
+Merge pull request #482 from Silabs-ArjanB/ArjanB_pr_421_finish
+======Full Message======
+Merge pull request #482 from Silabs-ArjanB/ArjanB_pr_421_finish
+
+Fixing errors introduced by PR 421
+
+
+======Commit: 5ae51ec2======
+======Short Message======
+Fixing errors introduced by PR 421
+======Full Message======
+Fixing errors introduced by PR 421
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: c0c6549a======
+======Short Message======
+Merge pull request #464 from Silabs-ArjanB/ArjanB_bge_div
+======Full Message======
+Merge pull request #464 from Silabs-ArjanB/ArjanB_bge_div
+
+Fix for issue 434
+
+
+======Commit: 429f485b======
+======Short Message======
+Merge pull request #479 from davideschiavone/fix407
+======Full Message======
+Merge pull request #479 from davideschiavone/fix407
+
+:bug: fix #407
+
+
+======Commit: 7437d1c7======
+======Short Message======
+:bug: fix #407
+======Full Message======
+:bug: fix #407
+
+
+
+======Commit: c2f9ff51======
+======Short Message======
+Merge pull request #419 from silabs-PaulZ/irq_debug_fsm_fix
+======Full Message======
+Merge pull request #419 from silabs-PaulZ/irq_debug_fsm_fix
+
+remove unique case where debug and irq can occur concurrently
+
+
+======Commit: 703f6cb4======
+======Short Message======
+Merge pull request #425 from Silabs-ArjanB/ArjanB_lint
+======Full Message======
+Merge pull request #425 from Silabs-ArjanB/ArjanB_lint
+
+Fixing various lint errors/warnings
+
+
+======Commit: 1448d2da======
+======Short Message======
+Merge pull request #473 from strichmo/strichmo/pr/tracer_compress
+======Full Message======
+Merge pull request #473 from strichmo/strichmo/pr/tracer_compress
+
+add compressed prefix to trace log and waves of instructions
+
+
+======Commit: 3d9cf27f======
+======Short Message======
+add compressed prefix to trace log and waves of instructions
+======Full Message======
+add compressed prefix to trace log and waves of instructions
+
+Signed-off-by: Steve Richmond <Steve.Richmond@silabs.com>
+
+
+
+======Commit: b37627c3======
+======Short Message======
+update hwloop code for simultaneous irq and debug assertion
+======Full Message======
+update hwloop code for simultaneous irq and debug assertion
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: a308855a======
+======Short Message======
+remove unique case where debug and irq can occur concurrently
+======Full Message======
+remove unique case where debug and irq can occur concurrently
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: 023558a9======
+======Short Message======
+Merge pull request #451 from Silabs-ArjanB/ArjanB_illegal_instr_exc
+======Full Message======
+Merge pull request #451 from Silabs-ArjanB/ArjanB_illegal_instr_exc
+
+Fix for issues #438, #439, #440, #441, #442, #449
+
+
+======Commit: a2e44ad3======
+======Short Message======
+Merge pull request #405 from Silabs-ArjanB/ArjanB_debug_req_i
+======Full Message======
+Merge pull request #405 from Silabs-ArjanB/ArjanB_debug_req_i
+
+Fix for #404
+
+
+======Commit: cc445cdb======
+======Short Message======
+Merge pull request #376 from Silabs-ArjanB/ArjanB_csr_address_fix
+======Full Message======
+Merge pull request #376 from Silabs-ArjanB/ArjanB_csr_address_fix
+
+Corrected CSR addresses for HWLOOP*, FPREC, UHARTID, PRIVLV. 
+
+
+======Commit: 0c3be8c0======
+======Short Message======
+Fix for issue 434
+======Full Message======
+Fix for issue 434
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: b89a22a9======
+======Short Message======
+Merge branch 'master' of https://github.com/openhwgroup/cv32e40p into ArjanB_csr_address_fix
+======Full Message======
+Merge branch 'master' of https://github.com/openhwgroup/cv32e40p into ArjanB_csr_address_fix
+
+
+
+======Commit: df4b88f1======
+======Short Message======
+Merge pull request #420 from silabs-PaulZ/single_step_assertion
+======Full Message======
+Merge pull request #420 from silabs-PaulZ/single_step_assertion
+
+add assertion to check proper debug single step behavior
+
+
+======Commit: a5ec2db5======
+======Short Message======
+Merge pull request #417 from Silabs-ArjanB/ArjanB_ifdef
+======Full Message======
+Merge pull request #417 from Silabs-ArjanB/ArjanB_ifdef
+
+ifdef fix
+
+
+======Commit: ab4b5b17======
+======Short Message======
+Merge pull request #446 from dawidzim/correct_makefile
+======Full Message======
+Merge pull request #446 from dawidzim/correct_makefile
+
+fix for issue #444, remove duplicate file in compilation
+
+
+======Commit: 9ab1bf5e======
+======Short Message======
+Fix for #438
+======Full Message======
+Fix for #438
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 0b4d9a7e======
+======Short Message======
+:bug: fix debug
+======Full Message======
+:bug: fix debug
+
+
+
+======Commit: 0274b484======
+======Short Message======
+Stretched instr_valid_irq_flush_q pulse so that it is not missed if the instruction after a IRQ_FLUSH to DECODE transition experiences stalls (fix for #449 and partial fix for 439-442
+======Full Message======
+Stretched instr_valid_irq_flush_q pulse so that it is not missed if the instruction after a IRQ_FLUSH to DECODE transition experiences stalls (fix for #449 and partial fix for 439-442
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: eac9ac5c======
+======Short Message======
+:bug: fix next pc during wfi in debug mode
+======Full Message======
+:bug: fix next pc during wfi in debug mode
+
+
+
+======Commit: 160540b5======
+======Short Message======
+fix for issue #444, remove duplicate file in compilation
+======Full Message======
+fix for issue #444, remove duplicate file in compilation
+
+
+
+======Commit: 4df86257======
+======Short Message======
+fix branch_address in aligner
+======Full Message======
+fix branch_address in aligner
+
+
+
+======Commit: 388f59e2======
+======Short Message======
+fix wfi
+======Full Message======
+fix wfi
+
+
+
+======Commit: ba9b4bcb======
+======Short Message======
+fix manifest file and removed fetch_fifo
+======Full Message======
+fix manifest file and removed fetch_fifo
+
+
+
+======Commit: daa9cddb======
+======Short Message======
+Fixing various lint errors/warnings
+======Full Message======
+Fixing various lint errors/warnings
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 669c7ba8======
+======Short Message======
+add assertion to check proper debug single step behaviour
+======Full Message======
+add assertion to check proper debug single step behaviour
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: 9b0409dc======
+======Short Message======
+ifdef fix
+======Full Message======
+ifdef fix
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 1607d8b6======
+======Short Message======
+Merge pull request #416 from Silabs-ArjanB/ArjanB_link
+======Full Message======
+Merge pull request #416 from Silabs-ArjanB/ArjanB_link
+
+Fixed first issue link
+
+
+======Commit: 8da6aab3======
+======Short Message======
+Fixed first issue link
+======Full Message======
+Fixed first issue link
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 3fcdeef9======
+======Short Message======
+Merge pull request #353 from silabs-PaulZ/debug_exception
+======Full Message======
+Merge pull request #353 from silabs-PaulZ/debug_exception
+
+Debug exception
+
+
+======Commit: 938ec315======
+======Short Message======
+Merge pull request #410 from mp-17/master
+======Full Message======
+Merge pull request #410 from mp-17/master
+
+:bug: fix naming conflict
+
+
+======Commit: 33fe574e======
+======Short Message======
+Handle exceptions during debug. Add dm_exception_addr_i port to riscv_core to specify debugger exception routine location
+======Full Message======
+Handle exceptions during debug. Add dm_exception_addr_i port to riscv_core to specify debugger exception routine location
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: 6f351917======
+======Short Message======
+:bug: fix naming conflict
+======Full Message======
+:bug: fix naming conflict
+
+
+
+======Commit: 6d18d9e5======
+======Short Message======
+Merge pull request #408 from davideschiavone/fix_tb_mtvec_addr_i
+======Full Message======
+Merge pull request #408 from davideschiavone/fix_tb_mtvec_addr_i
+
+added mtvec_addr_i in tb
+
+
+======Commit: d1e39c2a======
+======Short Message======
+Merge remote-tracking branch 'origin' into fix_tb_mtvec_addr_i
+======Full Message======
+Merge remote-tracking branch 'origin' into fix_tb_mtvec_addr_i
+
+
+
+======Commit: 525268bc======
+======Short Message======
+Merge from master plus misa fix
+======Full Message======
+Merge from master plus misa fix
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: cd659a13======
+======Short Message======
+Merge pull request #399 from silabs-PaulZ/trigger_access
+======Full Message======
+Merge pull request #399 from silabs-PaulZ/trigger_access
+
+change trigger access during non-debug mode. 
+
+
+======Commit: 6ddeb5a8======
+======Short Message======
+Fix for #404
+======Full Message======
+Fix for #404
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 46d85f57======
+======Short Message======
+cut path id_ready->branch and :bug: fix mstatus.mpie overwrite
+======Full Message======
+cut path id_ready->branch and :bug: fix mstatus.mpie overwrite
+
+
+
+======Commit: 6dd65c2e======
+======Short Message======
+:bug: fix corner case hwlp_jump at HWLP_END after mret from interrupt
+======Full Message======
+:bug: fix corner case hwlp_jump at HWLP_END after mret from interrupt
+
+
+
+======Commit: d7d8b4d9======
+======Short Message======
+:bug: interrupts must have higher priority than hwlp in prefetch ctrl
+======Full Message======
+:bug: interrupts must have higher priority than hwlp in prefetch ctrl
+
+
+
+======Commit: 27fd106c======
+======Short Message======
+:bug: force interrupt generator to assert at least 1 irq line
+======Full Message======
+:bug: force interrupt generator to assert at least 1 irq line
+
+
+
+======Commit: 814e062d======
+======Short Message======
+change trigger access during non-debug mode. #388
+======Full Message======
+change trigger access during non-debug mode. #388
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: a3830792======
+======Short Message======
+:bug: counter-fix: modify access restrictions for trigger CSR
+======Full Message======
+:bug: counter-fix: modify access restrictions for trigger CSR
+
+
+
+======Commit: ab3eb193======
+======Short Message======
+fix src_file
+======Full Message======
+fix src_file
+
+
+
+======Commit: 8a3345cd======
+======Short Message======
+Merge pull request #397 from davideschiavone/fix371
+======Full Message======
+Merge pull request #397 from davideschiavone/fix371
+
+:bug: fix #371
+
+
+======Commit: 3f3197d1======
+======Short Message======
+Merge pull request #391 from Silabs-ArjanB/ArjanB_sleep_pulp_cluster
+======Full Message======
+Merge pull request #391 from Silabs-ArjanB/ArjanB_sleep_pulp_cluster
+
+Added/corrected sleep interface; fixed #373, #362, #379
+
+
+======Commit: 4dfa9995======
+======Short Message======
+:bug: fix #371
+======Full Message======
+:bug: fix #371
+
+
+
+======Commit: e2c86c9f======
+======Short Message======
+Merge pull request #390 from Silabs-ArjanB/ArjanB_elw_auto_inc
+======Full Message======
+Merge pull request #390 from Silabs-ArjanB/ArjanB_elw_auto_inc
+
+Fix for #373
+
+
+======Commit: 529e49e0======
+======Short Message======
+Merge pull request #396 from davideschiavone/fix395
+======Full Message======
+Merge pull request #396 from davideschiavone/fix395
+
+:bug: fix 395
+
+
+======Commit: f38e5fd1======
+======Short Message======
+:bug: fix 395
+======Full Message======
+:bug: fix 395
+
+
+
+======Commit: a0597730======
+======Short Message======
+Merge pull request #394 from davideschiavone/fix393
+======Full Message======
+Merge pull request #394 from davideschiavone/fix393
+
+:bug: fix 393
+
+
+======Commit: ae68624b======
+======Short Message======
+:buf: fix 393
+======Full Message======
+:buf: fix 393
+
+
+
+======Commit: f38bd364======
+======Short Message======
+Merge pull request #383 from Silabs-ArjanB/ArjanB_mtvec_fix
+======Full Message======
+Merge pull request #383 from Silabs-ArjanB/ArjanB_mtvec_fix
+
+Fixed mtvec bug
+
+
+======Commit: d6673e12======
+======Short Message======
+Merge pull request #385 from accuminium/csr-tinfo
+======Full Message======
+Merge pull request #385 from accuminium/csr-tinfo
+
+Add `tinfo` debug CSR
+
+
+======Commit: b2381da1======
+======Short Message======
+:bug: support multiple outst. mem reqs in random stall interface
+======Full Message======
+:bug: support multiple outst. mem reqs in random stall interface
+
+
+
+======Commit: e624d160======
+======Short Message======
+fix - make hwlp_jump_o last only one cycle
+======Full Message======
+fix - make hwlp_jump_o last only one cycle
+
+
+
+======Commit: d6ad52f5======
+======Short Message======
+fix hwlp support
+======Full Message======
+fix hwlp support
+
+
+
+======Commit: 825249be======
+======Short Message======
+Comment fix
+======Full Message======
+Comment fix
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 9c9fb1e5======
+======Short Message======
+:bug: fix peripheral rdata answers during outst. trans. with mem stalls
+======Full Message======
+:bug: fix peripheral rdata answers during outst. trans. with mem stalls
+
+
+
+======Commit: ec5e7a32======
+======Short Message======
+Added/corrected sleep interface; fixed #373, #362, #379
+======Full Message======
+Added/corrected sleep interface; fixed #373, #362, #379
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 861c05ec======
+======Short Message======
+Merge pull request #380 from mp-17/master
+======Full Message======
+Merge pull request #380 from mp-17/master
+
+Fix "interrupt + random_mem_stalls" test for PULP_OBI == 0
+
+
+======Commit: d9f50a4e======
+======Short Message======
+Fix for #373
+======Full Message======
+Fix for #373
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: b80a7aef======
+======Short Message======
+Merge pull request #340 from silabs-PaulZ/debug_req_pulse_fix
+======Full Message======
+Merge pull request #340 from silabs-PaulZ/debug_req_pulse_fix
+
+extend internal debug request until debug_mode is enterred
+
+
+======Commit: 562d14fd======
+======Short Message======
+fix merge conflict
+======Full Message======
+fix merge conflict
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: e41f88fd======
+======Short Message======
+:bug: fix access restriction to trigger registers
+======Full Message======
+:bug: fix access restriction to trigger registers
+
+
+
+======Commit: 9be96bda======
+======Short Message======
+Fix for #384
+======Full Message======
+Fix for #384
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 2b0557b8======
+======Short Message======
+fixed debug single step
+======Full Message======
+fixed debug single step
+
+
+
+======Commit: 2085fb1b======
+======Short Message======
+:bug: fix -mret does not jump- bug
+======Full Message======
+:bug: fix -mret does not jump- bug
+
+
+
+======Commit: 023e700e======
+======Short Message======
+add wake_from_sleep signal. Optimize decoder to perform NOP from WFI when in single step, debug, trigger
+======Full Message======
+add wake_from_sleep signal. Optimize decoder to perform NOP from WFI when in single step, debug, trigger
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: c2116672======
+======Short Message======
+Add `tinfo` debug CSR
+======Full Message======
+Add `tinfo` debug CSR
+
+
+
+======Commit: ad013adf======
+======Short Message======
+:boom: merge master new file prefix names
+======Full Message======
+:boom: merge master new file prefix names
+
+
+
+======Commit: 075fddd5======
+======Short Message======
+:bug: fix spurious HWLP_begin I-MEM req when aborting the previous req
+======Full Message======
+:bug: fix spurious HWLP_begin I-MEM req when aborting the previous req
+
+
+
+======Commit: 52661138======
+======Short Message======
+Fixed mtvec bug
+======Full Message======
+Fixed mtvec bug
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: be327da9======
+======Short Message======
+:bug: fix peripheral rdata answers during outst. trans. with mem stalls
+======Full Message======
+:bug: fix peripheral rdata answers during outst. trans. with mem stalls
+
+
+
+======Commit: 8e22c994======
+======Short Message======
+Merge pull request #377 from davideschiavone/fix45
+======Full Message======
+Merge pull request #377 from davideschiavone/fix45
+
+fixed WAPUTYPE parameter to get rid of negative ranges
+
+
+======Commit: 61ef7f29======
+======Short Message======
+fixed WAPUTYPE parameter to get rid of negative ranges
+======Full Message======
+fixed WAPUTYPE parameter to get rid of negative ranges
+
+
+
+======Commit: 47df2f38======
+======Short Message======
+:bug: hold PC_ID in fencei for correct jump
+======Full Message======
+:bug: hold PC_ID in fencei for correct jump
+
+
+
+======Commit: 9c5fa368======
+======Short Message======
+:bug: prefetcher now correctly aborts hwlp jumps
+======Full Message======
+:bug: prefetcher now correctly aborts hwlp jumps
+
+
+
+======Commit: 768d33a4======
+======Short Message======
+:bug: hold PC_ID in ebreak/ill.instr for correct MEPC
+======Full Message======
+:bug: hold PC_ID in ebreak/ill.instr for correct MEPC
+
+
+
+======Commit: d4b38e58======
+======Short Message======
+:bug: hold PC_ID during ecall for correct MEPC
+======Full Message======
+:bug: hold PC_ID during ecall for correct MEPC
+
+
+
+======Commit: 3f229c58======
+======Short Message======
+fix previous merge
+======Full Message======
+fix previous merge
+
+
+
+======Commit: 51c8747f======
+======Short Message======
+fix missing connection
+======Full Message======
+fix missing connection
+
+
+
+======Commit: d4b2fca9======
+======Short Message======
+Merge pull request #360 from Silabs-ArjanB/ArjanB_prefix
+======Full Message======
+Merge pull request #360 from Silabs-ArjanB/ArjanB_prefix
+
+Renaming riscv_ prefix to cv32e40p_ prefix
+
+
+======Commit: d7ca271d======
+======Short Message======
+Merge branch 'master' of https://github.com/openhwgroup/cv32e40p into ArjanB_prefix
+======Full Message======
+Merge branch 'master' of https://github.com/openhwgroup/cv32e40p into ArjanB_prefix
+
+
+
+======Commit: 66e8c238======
+======Short Message======
+Merge pull request #361 from davideschiavone/fix325
+======Full Message======
+Merge pull request #361 from davideschiavone/fix325
+
+Fix for issue 325
+
+
+======Commit: 748abbf0======
+======Short Message======
+Merge pull request #322 from Silabs-ArjanB/ArjanB_obi_fix_base
+======Full Message======
+Merge pull request #322 from Silabs-ArjanB/ArjanB_obi_fix_base
+
+Arjan b obi fix base
+
+
+======Commit: b07b7146======
+======Short Message======
+:bug: fix jump to wrong hwlp for FIFO_DEPTH>2
+======Full Message======
+:bug: fix jump to wrong hwlp for FIFO_DEPTH>2
+
+
+
+======Commit: a8399260======
+======Short Message======
+fixed tracer for illegal instructions
+======Full Message======
+fixed tracer for illegal instructions
+
+
+
+======Commit: 162529d7======
+======Short Message======
+Merge remote-tracking branch 'origin' into fix325
+======Full Message======
+Merge remote-tracking branch 'origin' into fix325
+
+
+
+======Commit: 101f455d======
+======Short Message======
+Merge pull request #358 from Silabs-ArjanB/ArjanB_irq
+======Full Message======
+Merge pull request #358 from Silabs-ArjanB/ArjanB_irq
+
+IRQ related fixes (removed NMI, removed MTVECX, unified fast/fastx interrupts)
+
+
+======Commit: 994389fe======
+======Short Message======
+Merge branch 'master' of https://github.com/openhwgroup/cv32e40p into ArjanB_prefix
+======Full Message======
+Merge branch 'master' of https://github.com/openhwgroup/cv32e40p into ArjanB_prefix
+
+
+
+======Commit: 9ebb7dee======
+======Short Message======
+Renaming riscv_ prefix to cv32e40p_ prefix
+======Full Message======
+Renaming riscv_ prefix to cv32e40p_ prefix
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: cd4b4f99======
+======Short Message======
+Merge pull request #359 from Silabs-ArjanB/ArjanB_c_add_x0
+======Full Message======
+Merge pull request #359 from Silabs-ArjanB/ArjanB_c_add_x0
+
+Fixed decoding of various Hint instructions
+
+
+======Commit: bec6c9e7======
+======Short Message======
+Fixed decoding of various Hint instructions
+======Full Message======
+Fixed decoding of various Hint instructions
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 806065bc======
+======Short Message======
+IRQ related fixes as documented in https://github.com/openhwgroup/core-v-docs/issues/50. Removed NMI, unified fastx and fast interrupts, removed MTVECX. Fixes 243, 323, 336
+======Full Message======
+IRQ related fixes as documented in https://github.com/openhwgroup/core-v-docs/issues/50. Removed NMI, unified fastx and fast interrupts, removed MTVECX. Fixes 243, 323, 336
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 9b21083f======
+======Short Message======
+fix #335 : read only CSRs should return illegal instruction when written
+======Full Message======
+fix #335 : read only CSRs should return illegal instruction when written
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: 460a49f1======
+======Short Message======
+Merge conflict fix. Fixed double assign to irq_sec_i
+======Full Message======
+Merge conflict fix. Fixed double assign to irq_sec_i
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: bc746430======
+======Short Message======
+Using default case instead of default 0 assignments
+======Full Message======
+Using default case instead of default 0 assignments
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: c304b1dd======
+======Short Message======
+Merge pull request #339 from silabs-PaulZ/333_add_HPM
+======Full Message======
+Merge pull request #339 from silabs-PaulZ/333_add_HPM
+
+Fix for issue #333: Replace performance counters with HPM
+
+
+======Commit: bfcb6eca======
+======Short Message======
+fix merge master
+======Full Message======
+fix merge master
+
+
+
+======Commit: 4fe515fd======
+======Short Message======
+Merge remote-tracking branch 'origin' into fix325
+======Full Message======
+Merge remote-tracking branch 'origin' into fix325
+
+
+
+======Commit: 056c9ff0======
+======Short Message======
+fix merged conflict
+======Full Message======
+fix merged conflict
+
+
+======Commit: 3ca0cfcc======
+======Short Message======
+Merge pull request #337 from silabs-PaulZ/335_csr_access
+======Full Message======
+Merge pull request #337 from silabs-PaulZ/335_csr_access
+
+fix issue where some CSRs were incorrectly causing illegal instruction
+
+
+======Commit: edf4060f======
+======Short Message======
+:fix: fix prefetcher for D-MEM stalls
+======Full Message======
+:fix: fix prefetcher for D-MEM stalls
+
+
+
+======Commit: 0b5e6ef8======
+======Short Message======
+:fix: fix and clean prefetcher
+======Full Message======
+:fix: fix and clean prefetcher
+
+
+
+======Commit: d830c29a======
+======Short Message======
+Merge pull request #350 from wallento/fix-linter
+======Full Message======
+Merge pull request #350 from wallento/fix-linter
+
+Fix linter warnings
+
+
+======Commit: a6ba62b1======
+======Short Message======
+Fix linter warnings
+======Full Message======
+Fix linter warnings
+
+Fix some implicit variables and unconnected pins.
+
+Signed-off-by: Stefan Wallentowitz <stefan.wallentowitz@hm.edu>
+
+
+
+======Commit: cdff214a======
+======Short Message======
+Merge pull request #342 from silabs-PaulZ/dret_illegal_insn
+======Full Message======
+Merge pull request #342 from silabs-PaulZ/dret_illegal_insn
+
+fix issue #135: dret when not debug_mode should be illegal
+
+
+======Commit: 00074fcc======
+======Short Message======
+Address issue #277: clean up parameters
+======Full Message======
+Address issue #277: clean up parameters
+
+This pull request will fix the PULP_HWLP and make it off by default
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: d45ac180======
+======Short Message======
+fixes issue #334: debug_req pulse causes lockup
+======Full Message======
+fixes issue #334: debug_req pulse causes lockup
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: e96842fb======
+======Short Message======
+fix issue #135: calling dret when not in debug_mode should cause an illegal instruction
+======Full Message======
+fix issue #135: calling dret when not in debug_mode should cause an illegal instruction
+
+
+
+======Commit: 668a9c91======
+======Short Message======
+fix issue #47: read of performance counter does not increment cycle counter
+======Full Message======
+fix issue #47: read of performance counter does not increment cycle counter
+
+
+
+======Commit: c8b35386======
+======Short Message======
+Fix for issue #333: Replace performance counters with HPM
+======Full Message======
+Fix for issue #333: Replace performance counters with HPM
+
+
+
+======Commit: 2b4e6101======
+======Short Message======
+fixed and reorganized prefetcher
+======Full Message======
+fixed and reorganized prefetcher
+
+
+
+======Commit: cf0db8ec======
+======Short Message======
+fix controller condition to be inside a HWLP
+======Full Message======
+fix controller condition to be inside a HWLP
+
+
+
+======Commit: e91424d4======
+======Short Message======
+:bug: fix -jump lost if waiting for rvalid- bug
+======Full Message======
+:bug: fix -jump lost if waiting for rvalid- bug
+
+
+
+======Commit: 0db91db7======
+======Short Message======
+:bug: fix tracer for sys calls as now depends on id_ready
+======Full Message======
+:bug: fix tracer for sys calls as now depends on id_ready
+
+
+
+======Commit: 2e95ab2f======
+======Short Message======
+fix issue where some CSRs were incorrectly causing illegal instruction
+======Full Message======
+fix issue where some CSRs were incorrectly causing illegal instruction
+
+
+
+======Commit: dde01442======
+======Short Message======
+Merge pull request #331 from silabs-PaulZ/330_add_debug_trigger
+======Full Message======
+Merge pull request #331 from silabs-PaulZ/330_add_debug_trigger
+
+#330 add debug trigger
+
+
+======Commit: 9d338f32======
+======Short Message======
+change DEBUG_TRIGGER_EN from a module parameter to a localparam
+======Full Message======
+change DEBUG_TRIGGER_EN from a module parameter to a localparam
+
+
+
+======Commit: 5ec9edd6======
+======Short Message======
+add debug trigger logic
+======Full Message======
+add debug trigger logic
+
+
+
+======Commit: 2661d846======
+======Short Message======
+:bug: :fire: fix #325, changes controller
+======Full Message======
+:bug: :fire: fix #325, changes controller
+
+
+
+======Commit: 8c52a458======
+======Short Message======
+fix comment
+======Full Message======
+fix comment
+
+
+
+======Commit: 307aa9ec======
+======Short Message======
+Merge pull request #310 from OttG/master
+======Full Message======
+Merge pull request #310 from OttG/master
+
+Propagated is_decoding signal to the APU_DISPATCHER to mask read and write dependency
+
+
+======Commit: 4e15e0a7======
+======Short Message======
+Issue #130 : Generate illegal instruction when accessing CSR that is not implemented or blocked (e.g. debug CSR)
+======Full Message======
+Issue #130 : Generate illegal instruction when accessing CSR that is not implemented or blocked (e.g. debug CSR)
+
+
+
+======Commit: e01d093a======
+======Short Message======
+Fix width mismatch warning
+======Full Message======
+Fix width mismatch warning
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: 744e5079======
+======Short Message======
+Merge pull request #313 from davideschiavone/fix#302
+======Full Message======
+Merge pull request #313 from davideschiavone/fix#302
+
+Fix#302
+
+
+======Commit: f2fc5fc7======
+======Short Message======
+integrated back fix for 256
+======Full Message======
+integrated back fix for 256
+
+
+
+======Commit: 50ee965b======
+======Short Message======
+Merge pull request #315 from accuminium/fix-pc-csr-clearing
+======Full Message======
+Merge pull request #315 from accuminium/fix-pc-csr-clearing
+
+riscv_cs_register: Fix clearing of PC registers
+
+
+======Commit: 6d2801f1======
+======Short Message======
+riscv_cs_register: Fix clearing of PC registers
+======Full Message======
+riscv_cs_register: Fix clearing of PC registers
+
+According to the RISC-V specification (Section 9.1 of the Unprivileged
+ISA), the CSR Read and Clear instruction (CSRRC) treats the value in
+register `rs1` as a bit mask that specifies bit positions to be cleared
+in the CSR.  Any bit that is high in `rs1` will cause the corresponding
+bit to be cleared in the CSR.
+
+This commit changes the code for `PCCR`, `PCMR`, and `PCER` accordingly.
+
+
+
+======Commit: 5e663053======
+======Short Message======
+Merge pull request #261 from davideschiavone/fix255
+======Full Message======
+Merge pull request #261 from davideschiavone/fix255
+
+:bug: tracer for fence instructions #255
+
+
+======Commit: 8763f989======
+======Short Message======
+Masked dependency signals in the APU_DISPATCHER with is_decoding signal from the controller. This avoids false read dependency when a fetch_valid (if_stage) was 0.
+======Full Message======
+Masked dependency signals in the APU_DISPATCHER with is_decoding signal from the controller. This avoids false read dependency when a fetch_valid (if_stage) was 0.
+
+
+
+======Commit: 4afa53f4======
+======Short Message======
+:bug: Retire signal not correct for misaligned accesses
+======Full Message======
+:bug: Retire signal not correct for misaligned accesses
+
+
+
+======Commit: ea30ee2a======
+======Short Message======
+Merge pull request #287 from silabs-PaulZ/debug-documentation-update
+======Full Message======
+Merge pull request #287 from silabs-PaulZ/debug-documentation-update
+
+Updated Debug and Trigger documentation in user manual
+
+
+======Commit: 2dc620cb======
+======Short Message======
+OBI fix base (phase 0)
+======Full Message======
+OBI fix base (phase 0)
+
+Signed-off-by: Arjan Bink <Arjan.Bink@silabs.com>
+
+
+
+======Commit: feb53aef======
+======Short Message======
+Add non-vectorized IRQ mode
+======Full Message======
+Add non-vectorized IRQ mode
+
+This patch adds a non-vectorized IRQ mode. System software can
+program vector mode via MTVEC[0]. When it is set to 0, CPU fetches
+the same entry of MTVEC/MTVECX/UTVEC as the coresponding exceptions
+when the IRQs are indicated.
+
+This change allows us to try non-vectorized IRQ based software
+without the need to modify it.
+
+Passed core-v-verif hello-world-veri-run, also tested the new IRQ
+mode in a VCS simulation environment.
+
+Signed-off-by: Lv Zheng <zhenglv@hotmail.com>
+
+
+
+======Commit: 53d6ccc8======
+======Short Message======
+Merge pull request #304 from davideschiavone/fix#303
+======Full Message======
+Merge pull request #304 from davideschiavone/fix#303
+
+Fix#303
+
+
+======Commit: 3da5ff50======
+======Short Message======
+fix to hwloop body signals and jump conditions
+======Full Message======
+fix to hwloop body signals and jump conditions
+
+
+
+======Commit: 58d07847======
+======Short Message======
+fix in prefetcher when IDLE and fifo not empty
+======Full Message======
+fix in prefetcher when IDLE and fifo not empty
+
+
+
+======Commit: 62073bb3======
+======Short Message======
+Merge pull request #298 from davideschiavone/fix#294
+======Full Message======
+Merge pull request #298 from davideschiavone/fix#294
+
+:bug: Use of blocking assignments in always_ff block #294
+
+
+======Commit: 7c03b628======
+======Short Message======
+Merge pull request #297 from davideschiavone/fix#292
+======Full Message======
+Merge pull request #297 from davideschiavone/fix#292
+
+:bug: Duplicate Case Item in riscv_tracer.sv #292
+
+
+======Commit: d052aa89======
+======Short Message======
+:bug: Use of blocking assignments in always_ff block #294
+======Full Message======
+:bug: Use of blocking assignments in always_ff block #294
+
+
+
+======Commit: b0a1c99c======
+======Short Message======
+:bug: Duplicate Case Item in riscv_tracer.sv #292
+======Full Message======
+:bug: Duplicate Case Item in riscv_tracer.sv #292
+
+
+
+======Commit: f40659f1======
+======Short Message======
+Merge pull request #295 from openhwgroup/revert-262-fix256
+======Full Message======
+Merge pull request #295 from openhwgroup/revert-262-fix256
+
+Revert ":bug: fix tracer retire event for xret instructions #256"
+
+
+======Commit: b5fc7551======
+======Short Message======
+Revert ":bug: fix tracer retire event for xret instructions #256"
+======Full Message======
+Revert ":bug: fix tracer retire event for xret instructions #256"
+
+
+
+======Commit: 95fd8168======
+======Short Message======
+Merge pull request #262 from davideschiavone/fix256
+======Full Message======
+Merge pull request #262 from davideschiavone/fix256
+
+:bug: fix tracer retire event for xret instructions #256
+
+
+======Commit: acb2f099======
+======Short Message======
+:bug: fix memory stall activation routine
+======Full Message======
+:bug: fix memory stall activation routine
+
+
+
+======Commit: 5ad84f64======
+======Short Message======
+:bug: add special case for stalled JUMP in aligner
+======Full Message======
+:bug: add special case for stalled JUMP in aligner
+
+
+
+======Commit: 93924acf======
+======Short Message======
+Merge pull request #285 from davideschiavone/fix254
+======Full Message======
+Merge pull request #285 from davideschiavone/fix254
+
+:sparkles: mtvec and mtvex writable when PULP_SECURE=0  #254
+
+
+======Commit: 3bfbbadb======
+======Short Message======
+Merge pull request #286 from accuminium/fix-mem_fp-zfinx
+======Full Message======
+Merge pull request #286 from accuminium/fix-mem_fp-zfinx
+
+Disable inference of FP registers/latches when `Zfinx` is enabled
+
+
+======Commit: 77666cff======
+======Short Message======
+Updated Debug and Trigger documentation in user manual
+======Full Message======
+Updated Debug and Trigger documentation in user manual
+
+Signed-off-by: Paul Zavalney <paul.zavalney@silabs.com>
+
+
+
+======Commit: eeb6d109======
+======Short Message======
+fix NS in riscv_aligner
+======Full Message======
+fix NS in riscv_aligner
+
+
+
+======Commit: 65365073======
+======Short Message======
+:bug: fix wrong update of instruction when flushing
+======Full Message======
+:bug: fix wrong update of instruction when flushing
+
+
+
+======Commit: 6f90336b======
+======Short Message======
+merge master and reverted last broken fix for ecall
+======Full Message======
+merge master and reverted last broken fix for ecall
+
+
+
+======Commit: 928932c6======
+======Short Message======
+Merge pull request #272 from lucabertaccini/fix267
+======Full Message======
+Merge pull request #272 from lucabertaccini/fix267
+
+Fix267
+
+
+======Commit: 45d20382======
+======Short Message======
+fix267
+======Full Message======
+fix267
+
+
+
+======Commit: 0dccc0f6======
+======Short Message======
+:bug: fix tracer retire event for xret instructions #256
+======Full Message======
+:bug: fix tracer retire event for xret instructions #256
+
+
+
+======Commit: e0517f65======
+======Short Message======
+Merge pull request #263 from lucabertaccini/master
+======Full Message======
+Merge pull request #263 from lucabertaccini/master
+
+Change FP_DIVSQRT default value to 1
+
+
+======Commit: f3e64d3e======
+======Short Message======
+Change FP_DIVSQRT default value to 1
+======Full Message======
+Change FP_DIVSQRT default value to 1
+
+
+
+======Commit: f066bb16======
+======Short Message======
+:bug: tracer for fence instructions #255
+======Full Message======
+:bug: tracer for fence instructions #255
+
+
+
+======Commit: 63000db9======
+======Short Message======
+Merge pull request #250 from davideschiavone/fix#248
+======Full Message======
+Merge pull request #250 from davideschiavone/fix#248
+
+:art: Rename clock gating module #248
+
+
+======Commit: 1f013cae======
+======Short Message======
+Merge pull request #249 from davideschiavone/fix#246
+======Full Message======
+Merge pull request #249 from davideschiavone/fix#246
+
+:bug: fix Remove deprecated alu_basic file #246
+
+
+======Commit: bf6f708e======
+======Short Message======
+:bug: fix Remove deprecated alu_basic file #246
+======Full Message======
+:bug: fix Remove deprecated alu_basic file #246
+
+
+
+======Commit: 70b666a2======
+======Short Message======
+Merge pull request #232 from davideschiavone/fix208
+======Full Message======
+Merge pull request #232 from davideschiavone/fix208
+
+:bug: fix issue #208
+
+
+======Commit: 6a4e57b7======
+======Short Message======
+Merge pull request #231 from davideschiavone/master
+======Full Message======
+Merge pull request #231 from davideschiavone/master
+
+:fix: for issue #227
+
+
+======Commit: e29948d4======
+======Short Message======
+:bug: fix issue #208
+======Full Message======
+:bug: fix issue #208
+
+
+
+======Commit: 8dcd43be======
+======Short Message======
+:fix: for Reads of  CSR should not depend on corresponding fields in  #227
+======Full Message======
+:fix: for Reads of  CSR should not depend on corresponding fields in  #227
+
+
+
+======Commit: 4c067f51======
+======Short Message======
+fix link in README
+======Full Message======
+fix link in README
+
+
+======Commit: 450c5f47======
+======Short Message======
+:bug: fix verilator-model
+======Full Message======
+:bug: fix verilator-model
+
+
+
+======Commit: 5e5e86d2======
+======Short Message======
+:bug: fix dm tb core instantiation
+======Full Message======
+:bug: fix dm tb core instantiation
+
+
+
+======Commit: f52ce6bf======
+======Short Message======
+:bug: fix verilator tb
+======Full Message======
+:bug: fix verilator tb
+
+
+
+======Commit: 98677759======
+======Short Message======
+New HWLoop constraints and fix #209
+======Full Message======
+New HWLoop constraints and fix #209
+
+
+======Commit: 59178b92======
+======Short Message======
+BUGFIX, fixed aligner and controller handshake
+======Full Message======
+BUGFIX, fixed aligner and controller handshake
+
+
+
+======Commit: 04342240======
+======Short Message======
+updated rtl/riscv_prefetch_buffer.sv. Fixed issue on ABORT HWLOOP
+======Full Message======
+updated rtl/riscv_prefetch_buffer.sv. Fixed issue on ABORT HWLOOP
+
+
+
+======Commit: 19598457======
+======Short Message======
+Merge pull request #211 from OttG/fix_fp_pipe_bug
+======Full Message======
+Merge pull request #211 from OttG/fix_fp_pipe_bug
+
+Fix decoder FPU instruction latency
+
+
+======Commit: 08c1000a======
+======Short Message======
+Fix decoder FPU instruction latency
+======Full Message======
+Fix decoder FPU instruction latency
+
+Fix to set proper latency on NONCOMP and CONV type of floating point instruction.
+
+
+======Commit: 6fadc441======
+======Short Message======
+:police_car: updated rtl/riscv_prefetch_buffer.sv: fixed valid_o in WAIT_RVALID state, add FSM state WAIT_ABORT_HWLOOP
+======Full Message======
+:police_car: updated rtl/riscv_prefetch_buffer.sv: fixed valid_o in WAIT_RVALID state, add FSM state WAIT_ABORT_HWLOOP
+
+
+
+======Commit: bcfa13de======
+======Short Message======
+updated rtl/riscv_prefetch_buffer.sv: added default for fifo_flush
+======Full Message======
+updated rtl/riscv_prefetch_buffer.sv: added default for fifo_flush
+
+
+
+======Commit: e003339d======
+======Short Message======
+:bug: add flushing conditions in RVALID states during HWLoops
+======Full Message======
+:bug: add flushing conditions in RVALID states during HWLoops
+
+
+
+======Commit: d89347ee======
+======Short Message======
+fixed wait for grant when hwloop is used
+======Full Message======
+fixed wait for grant when hwloop is used
+
+
+
+======Commit: 89884e51======
+======Short Message======
+fixed WAIT RVALID on hwloop branches during stalls on iMem
+======Full Message======
+fixed WAIT RVALID on hwloop branches during stalls on iMem
+
+
+
+======Commit: fa811549======
+======Short Message======
+TB: Fix width mismatch warnings
+======Full Message======
+TB: Fix width mismatch warnings
+
+
+
+======Commit: c6f6e002======
+======Short Message======
+TB: Fix drive conflict on mem grant
+======Full Message======
+TB: Fix drive conflict on mem grant
+
+
+
+======Commit: 6cae3697======
+======Short Message======
+TB: Patch amo shim for RI5CY atomics
+======Full Message======
+TB: Patch amo shim for RI5CY atomics
+
+* RI5CY keeps write enable high during atomics
+
+
+
+======Commit: 2805eef0======
+======Short Message======
+TB: Indicate correct error code in verilator tb
+======Full Message======
+TB: Indicate correct error code in verilator tb
+
+
+
+======Commit: 729ad636======
+======Short Message======
+fix halt if and update waves
+======Full Message======
+fix halt if and update waves
+
+
+
+======Commit: d05cc6df======
+======Short Message======
+Merge pull request #203 from pulp-platform/fix-tb-ret
+======Full Message======
+Merge pull request #203 from pulp-platform/fix-tb-ret
+
+Fix verilator testbench
+
+
+======Commit: 5cb7738d======
+======Short Message======
+TB: Indicate correct error code in verilator tb
+======Full Message======
+TB: Indicate correct error code in verilator tb
+
+
+
+======Commit: b8dac1e9======
+======Short Message======
+Fix atop signal declaration width
+======Full Message======
+Fix atop signal declaration width
+
+
+
+======Commit: fae8a38c======
+======Short Message======
+Merge pull request #198 from pulp-platform/fix_elw_replay
+======Full Message======
+Merge pull request #198 from pulp-platform/fix_elw_replay
+
+:bug: Fixed ELW replay mechanism.
+
+
+======Commit: a2e0793c======
+======Short Message======
+:bug: Fixed ELW replay mechanism.
+======Full Message======
+:bug: Fixed ELW replay mechanism.
+To fix issue #160, the IRQ_FLUSH state when reached by the DECODE stage, was making the instruction valid for the next cycle.
+This state was reachable also by the ELW_EXE, that was using it to proceed with the next instruction once the event has completed (clock enabled).
+The DECODE state was considering the instruction valid due to #160, and so was reexecuting the ELW rather than the next instruction.
+Now a new state reachable only by the ELW_EXE state has been added to differentiate the meaning of the 2 situations.
+
+
+
+======Commit: ab9d13a4======
+======Short Message======
+Merge pull request #195 from pulp-platform/hwloop_we_gated_fix
+======Full Message======
+Merge pull request #195 from pulp-platform/hwloop_we_gated_fix
+
+Hwloop we gated fix
+
+
+======Commit: bfbe668b======
+======Short Message======
+Merge pull request #194 from pulp-platform/fix_CombLoop_190
+======Full Message======
+Merge pull request #194 from pulp-platform/fix_CombLoop_190
+
+:bug: fix Comb Loop #190
+
+
+======Commit: ba756cc5======
+======Short Message======
+TB: Fix boot address in dm tb
+======Full Message======
+TB: Fix boot address in dm tb
+
+
+
+======Commit: 4ed0ccf6======
+======Short Message======
+CI: Add openocd debug module tests
+======Full Message======
+CI: Add openocd debug module tests
+
+
+
+======Commit: 48f8e5b7======
+======Short Message======
+WIP: Add verilator support for debug module tb
+======Full Message======
+WIP: Add verilator support for debug module tb
+
+
+
+======Commit: eb07d277======
+======Short Message======
+fix Hw Loop initialization (another case) #191
+======Full Message======
+fix Hw Loop initialization (another case) #191
+
+
+
+======Commit: efba8a49======
+======Short Message======
+:bug: fix Comb Loop #190
+======Full Message======
+:bug: fix Comb Loop #190
+
+
+
+======Commit: ad00d1f4======
+======Short Message======
+Preventing hwloop instruction to write to hwloop registers when an interrupt is taken
+======Full Message======
+Preventing hwloop instruction to write to hwloop registers when an interrupt is taken
+and the hwloop istruction pc is stored to xEPC.
+This is not causing any seen bug, but the istruction would be executed twice.
+In addition, it is not consistent with the other instructions as even if
+it is interrupted, it still writes on registers changing the state of the core
+
+
+
+======Commit: 4344de8f======
+======Short Message======
+Merge pull request #180 from pulp-platform/fix_104
+======Full Message======
+Merge pull request #180 from pulp-platform/fix_104
+
+Fix 104
+
+
+======Commit: d71b9ce5======
+======Short Message======
+Merge pull request #166 from aignacio/fix_apu_int_mult
+======Full Message======
+Merge pull request #166 from aignacio/fix_apu_int_mult
+
+Added SHARED_INT_MULT parameter to riscv_decoder
+
+
+======Commit: 53da0833======
+======Short Message======
+yet another fix for clip
+======Full Message======
+yet another fix for clip
+
+
+
+======Commit: f19f0722======
+======Short Message======
+:bug:
+======Full Message======
+:bug:
+
+Unaligned MRET returns to the last instruction of an HWLoop which is misaligned.
+In addition, stalls on GRANT and/or VALID occurs.
+
+
+
+======Commit: 983b0432======
+======Short Message======
+Merge pull request #172 from pulp-platform/sw_debug
+======Full Message======
+Merge pull request #172 from pulp-platform/sw_debug
+
+Software debugging improvements
+
+
+======Commit: 7c402a06======
+======Short Message======
+Add wave script to help software debugging
+======Full Message======
+Add wave script to help software debugging
+
+* Show disassembly, pc and value at instruction decode stage
+* Show register file contents
+
+
+
+======Commit: e9aecdfd======
+======Short Message======
+Merge pull request #171 from pulp-platform/fix_#152
+======Full Message======
+Merge pull request #171 from pulp-platform/fix_#152
+
+:bug: fix Violation - Invalid instruction decoding #152
+
+
+======Commit: 8eec2b45======
+======Short Message======
+fix issue introduced to fix #104
+======Full Message======
+fix issue introduced to fix #104
+
+
+
+======Commit: 4071da18======
+======Short Message======
+:bug: fix Violation - Invalid instruction decoding #152
+======Full Message======
+:bug: fix Violation - Invalid instruction decoding #152
+
+
+
+======Commit: 1b2b29bc======
+======Short Message======
+Merge pull request #163 from pulp-platform/fix_mepc_alignment
+======Full Message======
+Merge pull request #163 from pulp-platform/fix_mepc_alignment
+
+Fix alignment of mepc
+
+
+======Commit: b6695dda======
+======Short Message======
+fix verilator compilation
+======Full Message======
+fix verilator compilation
+
+
+
+======Commit: 8d1dce02======
+======Short Message======
+Fix alignment of mepc
+======Full Message======
+Fix alignment of mepc
+
+riscv-privileged-v1.10, p. 34: The low bit of mepc (mepc[0]) is always
+zero.
+
+
+
+======Commit: 5b90debe======
+======Short Message======
+:bug: fixed Killed controller-interrupt requests do not assert decoded instructions #160
+======Full Message======
+:bug: fixed Killed controller-interrupt requests do not assert decoded instructions #160
+
+
+
+======Commit: 520ef0a4======
+======Short Message======
+:bug: issue with pv.dotup.sci.h instruction #105
+======Full Message======
+:bug: issue with pv.dotup.sci.h instruction #105
+
+
+
+======Commit: 489fc057======
+======Short Message======
+yet another fix in the dotp
+======Full Message======
+yet another fix in the dotp
+
+
+
+======Commit: 6d7d8d66======
+======Short Message======
+:bug: complex arithmetic logic causes wrong results for non-complex sdotp operations #149
+======Full Message======
+:bug: complex arithmetic logic causes wrong results for non-complex sdotp operations #149
+
+
+
+======Commit: d98fae04======
+======Short Message======
+Revert ":bug: fixed complex arithmetic logic causes wrong results for non-complex sdotp operations #149"
+======Full Message======
+Revert ":bug: fixed complex arithmetic logic causes wrong results for non-complex sdotp operations #149"
+
+This reverts commit bfad7c12e5771e41e6e8256da5079a503a51d411.
+
+
+
+======Commit: bfad7c12======
+======Short Message======
+:bug: fixed complex arithmetic logic causes wrong results for non-complex sdotp operations #149
+======Full Message======
+:bug: fixed complex arithmetic logic causes wrong results for non-complex sdotp operations #149
+
+
+
+======Commit: d3b56d1b======
+======Short Message======
+Merge pull request #155 from pulp-platform/fix_badge
+======Full Message======
+Merge pull request #155 from pulp-platform/fix_badge
+
+CI: Fix badge
+
+
+======Commit: ef36a607======
+======Short Message======
+CI: Fix badge
+======Full Message======
+CI: Fix badge
+
+
+
+======Commit: 7e821294======
+======Short Message======
+Fix linker relaxation in mixed code
+======Full Message======
+Fix linker relaxation in mixed code
+
+
+
+======Commit: 0d2f65c6======
+======Short Message======
+CI: Fix missing symlinks for verilator stuff
+======Full Message======
+CI: Fix missing symlinks for verilator stuff
+
+
+
+======Commit: 46ef152c======
+======Short Message======
+Merge pull request #146 from pulp-platform/fix-verilator
+======Full Message======
+Merge pull request #146 from pulp-platform/fix-verilator
+
+Fix various verilator related problems in the testbenches
+
+
+======Commit: 3a948273======
+======Short Message======
+Fix various verilator related problems in the testbenches
+======Full Message======
+Fix various verilator related problems in the testbenches
+
+* Move verilator-model to tb/ directory and adjust Makefile
+* Add -Wno-BLKANDNBLK to disable warning
+  This allow us to use the PULP_SECURE=1 code path
+* Add missing fpnew dependency to verilator-model makefile
+
+
+
+======Commit: 67570100======
+======Short Message======
+Merge pull request #145 from pulp-platform/fix_dpc_align2
+======Full Message======
+Merge pull request #145 from pulp-platform/fix_dpc_align2
+
+Fix dpc alignment for PULP_SECURE=0
+
+
+======Commit: e3eea51f======
+======Short Message======
+Fix dpc alignment for PULP_SECURE=0
+======Full Message======
+Fix dpc alignment for PULP_SECURE=0
+
+
+
+======Commit: b98aad84======
+======Short Message======
+Merge pull request #120 from pulp-platform/fix_dpc_align
+======Full Message======
+Merge pull request #120 from pulp-platform/fix_dpc_align
+
+Fix dpc alignment
+
+
+======Commit: 8fa0146c======
+======Short Message======
+Fix dpc alignment
+======Full Message======
+Fix dpc alignment
+
+Instructions can only be 16-bit or 32-bit aligned.
+
+
+
+======Commit: eae1cabc======
+======Short Message======
+Merge pull request #115 from pulp-platform/fix_rdata_width_32
+======Full Message======
+Merge pull request #115 from pulp-platform/fix_rdata_width_32
+
+Fix tb/core when INSTR_RDATA_WIDTH = 32
+
+
+======Commit: c54c31cd======
+======Short Message======
+Fix tb/core when INSTR_RDATA_WIDTH = 32
+======Full Message======
+Fix tb/core when INSTR_RDATA_WIDTH = 32
+
+We need the mm_ram to be only word addressable. Also assert that we use
+valid values for INSTR_RDATA_WIDTH.
+
+
+
+======Commit: 2ba82566======
+======Short Message======
+Merge pull request #114 from pulp-platform/fix_perf_count
+======Full Message======
+Merge pull request #114 from pulp-platform/fix_perf_count
+
+Enable performance counters for cycle and instr count in firmware
+
+
+======Commit: 5f726e32======
+======Short Message======
+Merge pull request #97 from pulp-platform/fix_newlib_versions
+======Full Message======
+Merge pull request #97 from pulp-platform/fix_newlib_versions
+
+Fix newlib versions
+
+
+======Commit: a777b94e======
+======Short Message======
+Align semantics of dret
+======Full Message======
+Align semantics of dret
+
+Before we had different semantics for dret when PULP_SECURE was 0 or 1.
+This was probably an oversight when adding the debug module.
+
+
+
+======Commit: 519987a0======
+======Short Message======
+Fix symbol names for older newlib versions
+======Full Message======
+Fix symbol names for older newlib versions
+
+* Turns out in newlib older than v2.5 they didn't use underscore prefixed
+names for the to-be-implemented functions which goes against newlibs
+recommendation. Unfortunately pulp-riscv-gcc uses such an old version
+and.
+
+* Add -lgcc in case we use some software emulation routines
+
+
+
+======Commit: 8d2bddaf======
+======Short Message======
+Merge pull request #93 from pulp-platform/fix_xcelium_compile
+======Full Message======
+Merge pull request #93 from pulp-platform/fix_xcelium_compile
+
+Add workaround for mailbox
+
+
+======Commit: b54d51a0======
+======Short Message======
+Add workaround for mailbox
+======Full Message======
+Add workaround for mailbox
+
+Xcelium errors out with MBXERR when trying to compile generic mailboxes.
+
+
+
+======Commit: 56c595ee======
+======Short Message======
+fixed tracer merge
+======Full Message======
+fixed tracer merge
+
+
+
+======Commit: 4dccc0cc======
+======Short Message======
+Merge pull request #84 from OttG/decoder_fp_to_int_fix
+======Full Message======
+Merge pull request #84 from OttG/decoder_fp_to_int_fix
+
+Fixed the decoder for casting fp to int
+
+
+======Commit: 46895051======
+======Short Message======
+Fixed the decoder for casting fp to int
+======Full Message======
+Fixed the decoder for casting fp to int
+
+
+
+======Commit: 080615c1======
+======Short Message======
+fixed fregfile_ena when Zfinx is enabled
+======Full Message======
+fixed fregfile_ena when Zfinx is enabled
+
+
+
+======Commit: b24b1029======
+======Short Message======
+fixed non unique condition in unique case
+======Full Message======
+fixed non unique condition in unique case
+
+
+
+======Commit: 1449ba6a======
+======Short Message======
+fix :bug: No Exception when code in User mode attempts to write in Machine mode register #81
+======Full Message======
+fix :bug: No Exception when code in User mode attempts to write in Machine mode register #81
+
+
+
+======Commit: 35692ce4======
+======Short Message======
+Merge pull request #76 from pulp-platform/fix_tb_readme
+======Full Message======
+Merge pull request #76 from pulp-platform/fix_tb_readme
+
+Fix tb run command in tb readme
+
+
+======Commit: d212b7fa======
+======Short Message======
+Fix tb run command in tb readme
+======Full Message======
+Fix tb run command in tb readme
+
+
+
+======Commit: edf229b9======
+======Short Message======
+Merge pull request #74 from pulp-platform/fix_ss_xret_ecall_ebrk
+======Full Message======
+Merge pull request #74 from pulp-platform/fix_ss_xret_ecall_ebrk
+
+
+
+======Commit: dcf79016======
+======Short Message======
+Merge pull request #73 from branch pulp-platform/fix-get-openocd
+======Full Message======
+Merge pull request #73 from branch pulp-platform/fix-get-openocd
+
+
+
+======Commit: 65ed57d8======
+======Short Message======
+Fix openocd checkout procedure
+======Full Message======
+Fix openocd checkout procedure
+
+
+
+======Commit: efc02fc7======
+======Short Message======
+Fix single stepping over ecall and xret
+======Full Message======
+Fix single stepping over ecall and xret
+
+We need to execute more of the regular controller for ecall and xrets to
+properly grab the target address to store into dpc. This is done
+similarily as for the illegal instruction: we go through FLUSH_WB as would
+be done when we weren't single stepping and fork there by checking for
+the single stepping condition.
+
+* Rewrite single step handling in DECODE state
+
+* Add single stepping over ebreak when ebreakm is low
+
+
+
+======Commit: 9bde93c9======
+======Short Message======
+fixed parameter in id stage
+======Full Message======
+fixed parameter in id stage
+
+
+
+======Commit: 2236b9dc======
+======Short Message======
+fix ex_stage with FP inst
+======Full Message======
+fix ex_stage with FP inst
+
+
+
+======Commit: eb446910======
+======Short Message======
+Remove references to old debug unit
+======Full Message======
+Remove references to old debug unit
+
+
+
+======Commit: 667cce62======
+======Short Message======
+Merge branch 'xret_fix' into dbg_dev
+======Full Message======
+Merge branch 'xret_fix' into dbg_dev
+
+rtl/riscv_controller:
+We changed the formulation of the state machine in FLUSH_WB to use a default state
+transition (ctrl_fsm_ns = DECODE) and reassign something else when we
+diverge.
+
+This merge fixes the issue that due to wrong (too early) privilege level
+transitions the xret instructions used the wrong return address e.g.
+uret used mret's address.
+
+
+
+======Commit: a67e5b95======
+======Short Message======
+Merge branch 'fix_ss_illegal' into dbg_dev
+======Full Message======
+Merge branch 'fix_ss_illegal' into dbg_dev
+
+
+
+======Commit: eea2274e======
+======Short Message======
+Fix openocd ci script to use coproc to block
+======Full Message======
+Fix openocd ci script to use coproc to block
+
+
+
+======Commit: 491acfe5======
+======Short Message======
+Fix single stepping over illegal instructions
+======Full Message======
+Fix single stepping over illegal instructions
+
+
+
+======Commit: ff9df77b======
+======Short Message======
+:bug: fix clk en when dbg_req is high --> wfi never woke up
+======Full Message======
+:bug: fix clk en when dbg_req is high --> wfi never woke up
+
+
+
+======Commit: 586b6aa4======
+======Short Message======
+Merge branch 'vega_dbg_dev_xret_fix' into vega_dbg_dev
+======Full Message======
+Merge branch 'vega_dbg_dev_xret_fix' into vega_dbg_dev
+
+
+
+======Commit: 649ffb65======
+======Short Message======
+:bug: fix clk en when dbg_req is high --> wfi never woke up
+======Full Message======
+:bug: fix clk en when dbg_req is high --> wfi never woke up
+
+
+
+======Commit: d6f8fe2e======
+======Short Message======
+merge xret_fix
+======Full Message======
+merge xret_fix
+
+
+
+======Commit: 2108fd4a======
+======Short Message======
+:bug: fix illegal vs xret race condition
+======Full Message======
+:bug: fix illegal vs xret race condition
+
+
+
+======Commit: 01822430======
+======Short Message======
+Merge remote-tracking branch 'origin/xret_fix' into vega_dbg_dev_xret_fix
+======Full Message======
+Merge remote-tracking branch 'origin/xret_fix' into vega_dbg_dev_xret_fix
+
+
+
+======Commit: fbe847ca======
+======Short Message======
+fix of xret instruction - race condition over priv status update
+======Full Message======
+fix of xret instruction - race condition over priv status update
+
+
+
+======Commit: c626c131======
+======Short Message======
+Disable -floatparameters to work around simulator bug
+======Full Message======
+Disable -floatparameters to work around simulator bug
+
+
+
+======Commit: 6c6adb4a======
+======Short Message======
+Fix missing bss initialization code
+======Full Message======
+Fix missing bss initialization code
+
+
+
+======Commit: 4a2a83ea======
+======Short Message======
+Fix vsim related regressions
+======Full Message======
+Fix vsim related regressions
+
+We don't use the custom debug unit anymore. Furthermore vlog tries to do some
+typechecking in riscv_core (related to fpnew, logic vector vs typdefd packed
+array) but we suppress that for now.
+
+
+
+======Commit: a1cf245d======
+======Short Message======
+Add fpnew dependency (fpnew_pkg) and remove obsolete debug signals
+======Full Message======
+Add fpnew dependency (fpnew_pkg) and remove obsolete debug signals
+
+
+
+======Commit: 53ccc43f======
+======Short Message======
+Fix bad newlines
+======Full Message======
+Fix bad newlines
+
+
+
+======Commit: 7cef1354======
+======Short Message======
+Add automatic testing with csmith and spike
+======Full Message======
+Add automatic testing with csmith and spike
+
+Enables automatic testing by generating a randomized C program with csmith,
+compiling it for x86_64 and RISC-V. The latter is run on SPIKE and RI5CY (with
+either verilator or vsim). The programs always compute a checksum which is used
+to judge whether there were any problems with executing them.
+
+Csmith needs to be on the PATH or set via $CSMITH and $CSMITH_INCLUDE needs to
+point to the header files provided by csmith.
+
+Csmith doesn't guarantee that generated programs halt, so a small
+$CSMITH_TIMEOUT_REF timeout value can be configured to filter those programs
+out. Sometimes the simulator gets stuck which is why we have
+$CSMITH_TIMEOUT_VSIM and $CSMITH_TIMEOUT_VERI for vsim and verilator
+respectively.
+
+The +vcd argument now also works for verilator (by hacking around verilators
+limitation with compile time macros). It's mainly useful to disable vcd's since
+they noticeably slow down simulation speed.
+
+tb/core/.clang-format:
+Update to align consecutive statements.
+
+tb/core/Makefile:
+New csmith targets. The command `make csmith-loop` generates and runs programs
+until encountering an error. The seed can be used to reconstruct the probelmatic
+executable. Also there is the now support for +vcd with verilator.
+
+tb/core/tb_top:
+Remove the small infinite loop program when providing no firmware. Can be
+annoying when trying to debug.
+
+tb/core/tb_top_verilator:
+Add ifdefs to handle vcd dumping
+
+tb/core/csmith/link:
+Default linkerscript with some changes: we put the entry point at 0x0, the
+vector table at 0x200 and the .text section at 0x10000. Runs both with spike and
+the ri5cy testbench equally well.
+
+tb/core/csmith/riscv-isa-sim:
+Patched spike to 1. abort if we execute too many instructions 2. exit if we hit
+ecall or ebreak 3. print to stdout when writing to 0x10000000. Csmith doesn't
+generate ecall/ebreak anyway so thats why we use it to signal the end of test.
+This could be done better.
+
+tb/core/csmith/syscalls:
+Minimalistic syscalls implementation.
+
+
+
+======Commit: ae68c73a======
+======Short Message======
+Add verilator support to tb/core
+======Full Message======
+Add verilator support to tb/core
+
+tb/core/README:
+Update with instructions on how to use verilator with this testbench
+
+tb/core/Makefile:
+Add targets to support verilator
+
+tb/core/dp_ram:
+Add functions/tasks to dump memory from verilator (since $writememh is not
+supported).
+
+tb/core/mm_ram:
+$fflush not supported (also not really needed, since writes to stdout appear
+immediately).
+
+tb/core/picorv_firmware/start.S:
+We need to run RI5CY with PULP_SECURE=0 (because verilator doesn't support
+blocking and non-blocking assignment to same signal (TODO)) that in turn implies
+that the exception entry point is at BOOT_ADDR << 8. We redirect the control
+flow for that case but also support the new mtvec based approach.
+
+tb/core/tb_top_verilator:
+The new verilator testbench (sv + cpp code). Straightforward testbench which
+just drives clk_i, rst_ni and asserts fetch_enable_i. We also provide
+dump_memory() for dumping and debugging the loaded memory contents. VCD dumps
+are always produced, but we can specify the firmware to be loaded with +firmware
+as in the regular testbench.
+
+
+
+======Commit: 15aef458======
+======Short Message======
+Port riscv_compliance tests to core testbench
+======Full Message======
+Port riscv_compliance tests to core testbench
+
+tb/core/Makefile:
+Compile new tests in the riscv_compliance_tests folder. Make sure to convert
+dashes to underscores to prevent symbol name issues. Enable debug symbols.
+
+tb/core/picorv_firmware/link
+Update linkerscript to properly group text and data sections. The *(*)
+expression caused issues before, since it put code too far apart causing
+implicitly generated jumps (which are there to cross sections) to fail during
+the relocation step.
+
+tb/core/picorv_firmware/start:
+Make global (test_results) to signal atleast one failed test. Continue as far as
+possible instead of aborting on first error (changed exception handler to
+return). Add the new tests
+
+tb/core/riscv_compliance_tests/*.S:
+The new tests from riscv-compliance. We tried not to change anything at all if
+possible, but we had to patch EBREAK, ECALL and others that set their own
+exception handler. RI5CY needs those exception handler to be aligned on 256 byte
+boundaries. Furthermore we need to disable I-FENCE.I-01.S since RI5CY crashes on
+that instruction and I-MISALIGN_JMP-01.S since we support misaligned jumps
+through the C-Extension.
+
+tb/core/riscv_compliance_tests/aw_test_macros:
+unused
+
+tb/core/riscv_compliance_tests/compliance_io:
+Ported to RI5CY by patching in our own print function (print_str). Also
+converted function calls to far calls.
+
+tb/core/riscv_compliance_tests/riscv_test.h:
+Nothing really changed except using far calls.
+
+tb/core/riscv_compliance_tests/test_macros.h:
+Used by the tests.
+
+
+
+======Commit: 92232c9b======
+======Short Message======
+Fix RAM behavioral model
+======Full Message======
+Fix RAM behavioral model
+
+tb/core/mm_ram:
+We need to have the debug printing and stdout peripheral in clocked processes.
+Otherwise we only react (print) on signal changes.
+
+
+
+======Commit: 57651b93======
+======Short Message======
+Add fixes for rebase onto pulpissimo-v2.0.0
+======Full Message======
+Add fixes for rebase onto pulpissimo-v2.0.0
+
+tb/core/picorv_firmware:
+Exception handling changed: now RI5CY jumps to mtvec on exceptions (which we
+leave at 0x0) where the mtvec + 0 is indicating ecall, illegal insn or data
+prohibited. We now check for the mcause register for the exact exception cause.
+
+tb/core/tb_top.sv:
+RI5CY now jumps to BOOT_ADDR directly instead of BOOT_ADDR+0x80.
+
+
+
+======Commit: 4b584465======
+======Short Message======
+Do proper verbose printing by always polling +verbose
+======Full Message======
+Do proper verbose printing by always polling +verbose
+
+One could also use -gDEBUG=1 to set a parameter to enable verbose printing but
+this is a simulator specific option. $test$plusargs is vendor independent and
+standardized.
+
+
+
+======Commit: 1183eff4======
+======Short Message======
+Fix wrong base format
+======Full Message======
+Fix wrong base format
+
+
+
+======Commit: d4c92aaf======
+======Short Message======
+Merge branch 'fix_loadstall' into dbg_dev
+======Full Message======
+Merge branch 'fix_loadstall' into dbg_dev
+
+
+
+======Commit: bf9d1010======
+======Short Message======
+:bug: fix stalling logic --> comb loop solved
+======Full Message======
+:bug: fix stalling logic --> comb loop solved
+
+
+
+======Commit: badee90e======
+======Short Message======
+:fix: fix again mtvec
+======Full Message======
+:fix: fix again mtvec
+
+
+
+======Commit: 65ad9465======
+======Short Message======
+:fix: address range of mtvec with no security
+======Full Message======
+:fix: address range of mtvec with no security
+
+
+
+======Commit: d710dc82======
+======Short Message======
+Merge remote-tracking branch 'origin/fix_loadstall' into dbg_dev
+======Full Message======
+Merge remote-tracking branch 'origin/fix_loadstall' into dbg_dev
+
+
+
+======Commit: 19037e55======
+======Short Message======
+fix port connection
+======Full Message======
+fix port connection
+
+
+
+======Commit: e6e3642c======
+======Short Message======
+fix performance bug on load stall
+======Full Message======
+fix performance bug on load stall
+
+
+
+======Commit: e5c46d78======
+======Short Message======
+Fix prog-run-gui target
+======Full Message======
+Fix prog-run-gui target
+
+
+
+======Commit: 2bad1016======
+======Short Message======
+:bug: fix Illegal compressed instruction (9042) causes a parallel case fail on the unique case decoding block #63
+======Full Message======
+:bug: fix Illegal compressed instruction (9042) causes a parallel case fail on the unique case decoding block #63
+
+
+
+======Commit: f841deba======
+======Short Message======
+:bug: fix mtvec when security is not used
+======Full Message======
+:bug: fix mtvec when security is not used
+
+
+
+======Commit: 0438eac9======
+======Short Message======
+Use correct branch for debug unit
+======Full Message======
+Use correct branch for debug unit
+
+
+
+======Commit: 7ddb6e29======
+======Short Message======
+Fix bad version hash for tech_cells_generic
+======Full Message======
+Fix bad version hash for tech_cells_generic
+
+Someone removed the commit.
+
+
+
+======Commit: feedd24f======
+======Short Message======
+Add additional rule for resolving depdency on debug unit pkg
+======Full Message======
+Add additional rule for resolving depdency on debug unit pkg
+
+
+
+======Commit: 41b925ee======
+======Short Message======
+Update to match refactored debug module
+======Full Message======
+Update to match refactored debug module
+
+
+
+======Commit: 56f61828======
+======Short Message======
+Allow booting from jtag or rom to firmware
+======Full Message======
+Allow booting from jtag or rom to firmware
+
+We introduce the new parameter JTAG_BOOT which when set to one makes the
+core go into an infinite loop allowing the debug unit enough time to
+grab control of it.
+
+Setting JTAG_BOOT to zero makes the core jump directly to 1c00_0080,
+that is the usual entry address on pulpissimo.
+
+tb/dm/boot_rom:
+Simple bootrom that redirect the control flow to the entry address.
+
+tb/dm/mm_ram:
+Connect boot rom and add mirroring behaviour (0 to SRAM_LEN maps to
+SRAM too) when addressing RAM.
+
+
+
+======Commit: 45379180======
+======Short Message======
+Fix various issues with test program
+======Full Message======
+Fix various issues with test program
+
+tb/dm/prog/link:
+Fix entry address, correct .boot_riscy section location. Add explicit
+stack section
+
+tb/dm/prog/start:
+Refer to stack section explicitely. Correct mtvec value making use of
+mirrored RAM address
+
+tb/dm/prog/syscalls:
+Correct address of stdout pseudo peripheral.
+
+
+
+======Commit: c947f7c5======
+======Short Message======
+Fix alignment of instruction addresses, needs word alignment
+======Full Message======
+Fix alignment of instruction addresses, needs word alignment
+
+
+
+======Commit: 111b0e8a======
+======Short Message======
+Add testbench for RI5CY and debug unit interaction
+======Full Message======
+Add testbench for RI5CY and debug unit interaction
+
+Call `prog-run` to run the testbench. Connect to the displayed port
+number with openocd and the provided scripts (`pulpissimo.cfg`).
+
+This testbench is supposed to run openocd's `riscv test_compliance` and
+later on riscv-tests/debug tests. Also a simple gdb test of loading and
+running the provided hello world will be done at some point. Currently
+only the first option is supported and working.
+
+tb/dm/prog/*:
+Hello world with linker script and some basic syscall support for
+newlib. This is used to test how gdb interacts with programs over
+openocd through the jtag dpi bridge.
+
+tb/dm/remote_bitbang/*:
+Remote bitbang server that translates openocd (running in bitbang mode)
+calls to JTAG dpi calls to the testbench. See openocd bitbang protocol
+for details how the translation process works.
+
+tb/dm/tb_top:
+Top-level testbench that does very little than providing a clock signal
+and some facilties to preload binaries to memory.
+
+tb/dm/tb_test_env:
+Actual meat of the testbench. Instantiates a memory model, one RI5CY
+core, the debug unit, jtag interface (dmi) and jtag dpi interface. Most
+of the code is just wiring except for the ndmreset handling and the
+dm_valid_handler. The latter is needed because the debug module does not
+provide all the signals of our tcdm protocol.
+
+tb/dm/tb_test_env:
+Memory map definitions. Follows PULPissimo's memory map to make testing
+a bit more useful.
+
+tb/dm/dp_ram:
+SRAM model, straightforward. Has an additional read port for the core to
+fetch instructions concurrently to other accesses.
+
+tb/dm/mm_ram:
+Handles all the memory mapping of all the data requests. We have to
+handle instruction (instr_*) and data request (data_*) from the core and
+data request through system bus access (sb_*) of the debug module. Data
+can be read from the debug module (dm_*) which is mapped to our address
+space, from the boot rom (which is just a while(1) loop) and the SRAM
+model (ram_data_*). Reads to the SRAM can happen from some source plus
+the instruction data request concurrently.
+
+Accesses to other memory locations are ordered by priority: systembus >
+core data > instr data.
+
+For debugging purposes it is possible to write to stdout by writing to
+STDOUT_BASE via the core.
+
+There is also a timer which can be configured to fire an interrupt for
+tests that can hang, not used as of now.
+
+tb/dm/tb_top_verilator:
+Not yet used skeleton code for a verilator testbench.
+
+tb/dm/vsim:
+tb/dm/waves:
+Helper scripts for simulation.
+
+
+
+======Commit: 2383608d======
+======Short Message======
+Fix ebreak in debug mode updating dcsr.cause
+======Full Message======
+Fix ebreak in debug mode updating dcsr.cause
+
+
+
+======Commit: e1fb55bb======
+======Short Message======
+merge fix error pmp
+======Full Message======
+merge fix error pmp
+
+
+
+======Commit: d9616de4======
+======Short Message======
+:fix: typo
+======Full Message======
+:fix: typo
+
+
+
+======Commit: feee35ff======
+======Short Message======
+:bug: fix complex mul
+======Full Message======
+:bug: fix complex mul
+
+
+
+======Commit: 144209cb======
+======Short Message======
+Set default debug cause
+======Full Message======
+Set default debug cause
+
+
+
+======Commit: 5e1e51d7======
+======Short Message======
+fixed complex conj
+======Full Message======
+fixed complex conj
+
+
+
+======Commit: 17597686======
+======Short Message======
+fix submrotj
+======Full Message======
+fix submrotj
+
+
+
+======Commit: 95de42fc======
+======Short Message======
+fix pmp errors
+======Full Message======
+fix pmp errors
+
+
+
+======Commit: c9b37223======
+======Short Message======
+:bug: fix epc signal
+======Full Message======
+:bug: fix epc signal
+
+
+
+======Commit: 08a2cc91======
+======Short Message======
+Fix ebreakm/ebreaku behaviour causing bad updates on dpc and cause
+======Full Message======
+Fix ebreakm/ebreaku behaviour causing bad updates on dpc and cause
+
+In DBG_TAKEN_ID we didn't check whether we are already in debug mode or about to
+enter (which is critical when trying to figure out whether to update the above
+mentioned CSRs or not) when ebreakm/ebreaku are set. Since we already assumed to
+be in debug mode when entering DBG_TAKEN_ID/DBG_TAKEN_IF we couldn't decide on
+whether to save the CSRs. Fix is to introduce debug_csr_save, decoupled from
+debug_mode, that is used to indicate if we do want to save into the CSRs. This
+also allows us to remove the rather hacky way of entering debug mode before
+DBG_TAKEN_ID/DBG_TAKEN_IF to distinguish some cases (this is the removal of all
+the debug_mode_n statements). Anyway we will now enter debug mode (setting
+debug_mode_n) only from the aforementioned states and leave it through dret. A
+small gotcha is that we now have remove the debug transition from ELW since that
+assumed a path from DBG_FLUSH to DECODE. This change needs some testing.
+
+rtl/riscv_controller:
+Cleanly enter debug mode from only two states and introduce debug_csr_save to do
+csr saves instead of implicitely relying on debug_mode_q. Remove transition from
+ELW.
+
+rtl/riscv_cs_registers:
+Save to debug csrs with new signal debug_csr_save_i.
+
+rtl/riscv_core:
+rtl/riscv_id_stage:
+Route new signal.
+
+
+
+======Commit: 8fe52f9c======
+======Short Message======
+Set dcsr_n.cause according to how debug mode is entered
+======Full Message======
+Set dcsr_n.cause according to how debug mode is entered
+
+This follows the description of debug-spec p. 43.
+
+
+
+======Commit: d67895e8======
+======Short Message======
+Fix debug_req_i during SLEEP does not enter debug mode
+======Full Message======
+Fix debug_req_i during SLEEP does not enter debug mode
+
+We enter debug_mode during FIRST_FETCH which does the debug_req_i &
+~debug_mode_q to check for it. The deleted statement would cause us to be
+already in debug mode during FIRST_FETCH, breaking the transition.
+
+
+
+======Commit: 3e70d3e5======
+======Short Message======
+Rename debug signals, fix spelling mistakes
+======Full Message======
+Rename debug signals, fix spelling mistakes
+
+
+
+======Commit: 0572ba6a======
+======Short Message======
+Wake up in single step mode, debug mode and during halt request
+======Full Message======
+Wake up in single step mode, debug mode and during halt request
+
+
+
+======Commit: c4a05338======
+======Short Message======
+Handle breakpoints according to debug spec
+======Full Message======
+Handle breakpoints according to debug spec
+
+In debug mode go back to park loop or when appropriate dcsr flags set go to
+debug mode. Otherwise just handle like a regular (breakpoint) exception
+according to privilege spec.
+
+
+
+======Commit: e6542f46======
+======Short Message======
+Fix pipeline stuck when FPU=0
+======Full Message======
+Fix pipeline stuck when FPU=0
+
+
+
+======Commit: 841b8b12======
+======Short Message======
+Add single stepping mode
+======Full Message======
+Add single stepping mode
+
+rtl/riscv_controller:
+We enter re-enter debug mode immediately again after executing one instruction
+when dsingle_step_i is one. This is currently done by checking said flag during
+the DECODE step. To prevent taking this if-branch when we are in the debug ROM
+we have to make sure we are not in debug_mode. Normally we enter DBG_FLUSH,
+DBG_TAKEN_IF (saves dpc) and go to the debug ROM aftwards.
+
+There are some complications with branches: When we have a branch instruction in
+the ID stage we can't provide a value to the dpc register yet (which needs to be
+the next to be executed instruction) instead we enter an immediate state called
+DBG_WAIT_BRANCH where we process the branch taken/not taken decision from the EX
+stage and then proceed to DBG_FLUSH and DBG_TAKEN_IF.
+
+rtl/riscv_cs_registers:
+Consider debug_mode_i before saving to mstatus and mepc. In debug mode we don't
+save regulary, instead we use a separate register (dcsr.prv) to save and restore
+the privilege mode. This makes sense since we only want to observe the hart not
+disturb it by making it go through the privilege change motions.
+
+rtl/riscv_core:
+rtl/riscv_id_stage:
+Route new signals.
+
+
+
+======Commit: b3ad452d======
+======Short Message======
+:fix: typo
+======Full Message======
+:fix: typo
+
+
+
+======Commit: badecc1e======
+======Short Message======
+fixed ebreak
+======Full Message======
+fixed ebreak
+
+
+
+======Commit: 1ed24e73======
+======Short Message======
+fixed dbg control logic and ebreak
+======Full Message======
+fixed dbg control logic and ebreak
+
+
+
+======Commit: 6a7b538b======
+======Short Message======
+fix master merge
+======Full Message======
+fix master merge
+
+
+
+======Commit: 94267d5a======
+======Short Message======
+clean and fixes
+======Full Message======
+clean and fixes
+
+
+
+======Commit: 73e776aa======
+======Short Message======
+Fix printf string
+======Full Message======
+Fix printf string
+
+
+======Commit: 55a38166======
+======Short Message======
+Add new debug program
+======Full Message======
+Add new debug program
+
+
+======Commit: 3e521da1======
+======Short Message======
+Add debug program. Test: Resume. Other: TODO
+======Full Message======
+Add debug program. Test: Resume. Other: TODO
+
+
+======Commit: afa2b0f1======
+======Short Message======
+remove old debug interface. Add new functions (read inste mem,read IF,ID,EX PC)
+======Full Message======
+remove old debug interface. Add new functions (read inste mem,read IF,ID,EX PC)
+
+
+
+======Commit: 1fb2d6b5======
+======Short Message======
+fix debug_req
+======Full Message======
+fix debug_req
+
+
+
+======Commit: c68152b1======
+======Short Message======
+read debug CSR: fix signal name
+======Full Message======
+read debug CSR: fix signal name
+
+
+
+======Commit: 32ba6549======
+======Short Message======
+debug states: add csr_save_cause_o
+======Full Message======
+debug states: add csr_save_cause_o
+
+
+
+======Commit: 7e8495f8======
+======Short Message======
+Merge branch 'master' into tmp_fix_issue#56
+======Full Message======
+Merge branch 'master' into tmp_fix_issue#56
+
+
+
+======Commit: 04b60f6c======
+======Short Message======
+Merge pull request #59 from pulp-platform/fix_verilator
+======Full Message======
+Merge pull request #59 from pulp-platform/fix_verilator
+
+Fix verilator model
+
+
+======Commit: 0e45d6d8======
+======Short Message======
+add debug states
+======Full Message======
+add debug states
+
+
+
+======Commit: 9d1acd71======
+======Short Message======
+add Debug Exception PC mux selector and Debug Module halt Address
+======Full Message======
+add Debug Exception PC mux selector and Debug Module halt Address
+
+
+
+======Commit: d38998b9======
+======Short Message======
+add Debug Exception PC mux selector and Debug Module halt Address
+======Full Message======
+add Debug Exception PC mux selector and Debug Module halt Address
+
+
+
+======Commit: 4c2a420f======
+======Short Message======
+propagate debug_req_i signal (core->id_stage->controller)
+======Full Message======
+propagate debug_req_i signal (core->id_stage->controller)
+
+
+
+======Commit: 300762ac======
+======Short Message======
+Fix verilator model
+======Full Message======
+Fix verilator model
+
+verilator-model/Makefile:
+Need to ignore aligned-new warnings to make compilation work on newer gcc
+without breaking older versions.
+Add riscv_pmp to be verilated too.
+
+verilator-model/top.sv
+Disable PULP_SECURE since in riscv_cs_registers there is a blocking and
+non-blocking assignment to pmp_req_q which verilator can't deal with.
+Remove data_err_i (doesn't exist anymore).
+Add fregfile_disable_i.
+
+
+
+======Commit: 9031c5df======
+======Short Message======
+add dret, new debug signal, new debug CSR
+======Full Message======
+add dret, new debug signal, new debug CSR
+
+
+
+======Commit: 7f10f5cd======
+======Short Message======
+:bug: fix issue #56
+======Full Message======
+:bug: fix issue #56
+
+
+
+======Commit: a4e49732======
+======Short Message======
+remove old debug unit
+======Full Message======
+remove old debug unit
+
+
+
+======Commit: 0a5bb35a======
+======Short Message======
+:bug: Move FP regfile disabling to ID stage
+======Full Message======
+:bug: Move FP regfile disabling to ID stage
+
+
+
+======Commit: d8d19890======
+======Short Message======
+:bug: Move FP regfile disabling to ID stage
+======Full Message======
+:bug: Move FP regfile disabling to ID stage
+
+
+
+======Commit: a4901b97======
+======Short Message======
+:bug: Disable FP regfile by default if no FPU present
+======Full Message======
+:bug: Disable FP regfile by default if no FPU present
+
+
+
+======Commit: 6ed1fc22======
+======Short Message======
+updated rtl/riscv_register_file_latch.sv, fixed bug when 32bit reg are used and fp_mem is remapped on the integer_mem
+======Full Message======
+updated rtl/riscv_register_file_latch.sv, fixed bug when 32bit reg are used and fp_mem is remapped on the integer_mem
+
+
+
+======Commit: 8e17b350======
+======Short Message======
+tmp fix of SW to the ITC followed by a CSRW to the IE. The interrupt request checking in the IRQ_FLUSH state of the controller should use the int_req from outiside, not the registered one.
+======Full Message======
+tmp fix of SW to the ITC followed by a CSRW to the IE. The interrupt request checking in the IRQ_FLUSH state of the controller should use the int_req from outiside, not the registered one.
+
+
+
+======Commit: 17cc76f3======
+======Short Message======
+fixed critical path LSU->PMP->CONTROLLER->IMEM
+======Full Message======
+fixed critical path LSU->PMP->CONTROLLER->IMEM
+
+
+
+======Commit: a7973e98======
+======Short Message======
+by default up to 256KB regions
+======Full Message======
+by default up to 256KB regions
+
+
+
+======Commit: d0f58f77======
+======Short Message======
+:bug: Fix APU interconnect from ID stage
+======Full Message======
+:bug: Fix APU interconnect from ID stage
+
+
+
+======Commit: 3d648aa5======
+======Short Message======
+fixed FPU LBU interaction, wrong data_sign_extension
+======Full Message======
+fixed FPU LBU interaction, wrong data_sign_extension
+
+
+
+======Commit: 1384ccd0======
+======Short Message======
+:pencil2: Fix syntax errors from merge
+======Full Message======
+:pencil2: Fix syntax errors from merge
+
+
+
+======Commit: 825bcd9a======
+======Short Message======
+Fix bender dependency
+======Full Message======
+Fix bender dependency
+
+
+
+======Commit: b6384e41======
+======Short Message======
+:hammer: fixing mcause value due to PMP fail accesses
+======Full Message======
+:hammer: fixing mcause value due to PMP fail accesses
+
+
+
+======Commit: d75b7766======
+======Short Message======
+updated core with exeptions for data errors from PMP
+======Full Message======
+updated core with exeptions for data errors from PMP
+
+
+
+======Commit: 319bfeb5======
+======Short Message======
+Merge pull request #44 from gmarkall/fix-verilator-model
+======Full Message======
+Merge pull request #44 from gmarkall/fix-verilator-model
+
+Fix Verilator model build
+
+
+======Commit: 7d1f97a0======
+======Short Message======
+Fix Verilator model build
+======Full Message======
+Fix Verilator model build
+
+../rtl/register_file_test_wrap.sv needs to be Verilated too.
+
+
+
+======Commit: c3405e8b======
+======Short Message======
+fixed merge with master
+======Full Message======
+fixed merge with master
+
+
+
+======Commit: 6a213fbe======
+======Short Message======
+fixed N_PERF_COUNTERS = 11 + N_EXT_CNT + N_APU_CNT
+======Full Message======
+fixed N_PERF_COUNTERS = 11 + N_EXT_CNT + N_APU_CNT
+
+
+
+======Commit: 3359d61d======
+======Short Message======
+:bug: fixed ID of APU perf counters
+======Full Message======
+:bug: fixed ID of APU perf counters
+
+
+======Commit: dd71d96b======
+======Short Message======
+:fire: wrong git-branch managment excluded this fix
+======Full Message======
+:fire: wrong git-branch managment excluded this fix
+
+
+
+======Commit: 1807d51e======
+======Short Message======
+Merge branch 'btaken_multicycl_perfbug_fix'
+======Full Message======
+Merge branch 'btaken_multicycl_perfbug_fix'
+
+
+
+======Commit: ba285006======
+======Short Message======
+:bug: :memo: Fixed Nested Exception Support #40
+======Full Message======
+:bug: :memo: Fixed Nested Exception Support #40
+
+
+======Commit: 67cb33d8======
+======Short Message======
+Merge remote-tracking branch 'origin' into btaken_multicycl_perfbug_fix
+======Full Message======
+Merge remote-tracking branch 'origin' into btaken_multicycl_perfbug_fix
+
+
+
+======Commit: ca2adcc9======
+======Short Message======
+fixed a bug in rtl/riscv_if_stage.sv, hwlp_branch
+======Full Message======
+fixed a bug in rtl/riscv_if_stage.sv, hwlp_branch
+
+
+
+======Commit: adb8f2ee======
+======Short Message======
+:bug: fixed lw-stall perfcounter during elw and improved elw performance lost counter
+======Full Message======
+:bug: fixed lw-stall perfcounter during elw and improved elw performance lost counter
+
+
+
+======Commit: 6a55c82e======
+======Short Message======
+:bug: Fix for performance and power.
+======Full Message======
+:bug: Fix for performance and power.
+Taken branches did not disabled alu/mult_en signals in the pipeline ID/EX
+EX stage is updated with the mult or alu instruction and can take many cycles (e.g. divisions)
+before being ready again.
+Functionally it was not a bug as the register file enable were put to 0.
+
+
+
+======Commit: a0ee3d4e======
+======Short Message======
+Merge pull request #41 from stmach/fix-iss33
+======Full Message======
+Merge pull request #41 from stmach/fix-iss33
+
+:art: Improve for loop format
+
+
+======Commit: 88365f90======
+======Short Message======
+:art: Improve for loop format
+======Full Message======
+:art: Improve for loop format
+
+Add begin/end keywords to for statement in apu signal tieoff to explicitly denote that only the next line of code is going through a generate loop.
+Fixes #33
+
+
+======Commit: 448d8cde======
+======Short Message======
+Fix from Igor: Streaming operator not supported in various EDA tools. #34
+======Full Message======
+Fix from Igor: Streaming operator not supported in various EDA tools. #34
+
+
+
+======Commit: 32fa44c4======
+======Short Message======
+Merge pull request #38 from wallento/patch-1
+======Full Message======
+Merge pull request #38 from wallento/patch-1
+
+Fix incomplete combinatorial (latch) for prefetch buffer
+
+
+======Commit: bc2960e7======
+======Short Message======
+Add files via upload
+======Full Message======
+Add files via upload
+
+Fix doc related to DBG_CAUSE
+
+
+======Commit: f2f0a9d2======
+======Short Message======
+fixed div followed by multicycle non-alu instruction
+======Full Message======
+fixed div followed by multicycle non-alu instruction
+
+
+
+======Commit: d7f35e5a======
+======Short Message======
+fixed div followed by multicycle non-alu instruction
+======Full Message======
+fixed div followed by multicycle non-alu instruction
+
+
+
+======Commit: d8f029d4======
+======Short Message======
+Fix incomplete combinatorial (latch) for prefetch buffer
+======Full Message======
+Fix incomplete combinatorial (latch) for prefetch buffer
+
+hwlp_masked is not defined in all paths of the combinatorial process, hence assign a default.
+
+
+======Commit: 3606a024======
+======Short Message======
+:fire: Revert "Fix LSU WB enabled during stalls"
+======Full Message======
+:fire: Revert "Fix LSU WB enabled during stalls"
+
+This reverts commit 1c0827c48e2325c8371807831e48a85697269ae9.
+
+
+
+======Commit: 697893c2======
+======Short Message======
+:fire: Revert "Fix LSU WB enabled during stalls"
+======Full Message======
+:fire: Revert "Fix LSU WB enabled during stalls"
+
+This reverts commit 1c0827c48e2325c8371807831e48a85697269ae9.
+
+
+
+======Commit: 7dad509c======
+======Short Message======
+Fixed [RISCY CORE] ALU and debug register write request conflict in debug mode #35
+======Full Message======
+Fixed [RISCY CORE] ALU and debug register write request conflict in debug mode #35
+
+
+
+======Commit: eba3e9a0======
+======Short Message======
+Fixed [RISCY CORE] Problem with executing ecall instruction when there's a halt request pending #31
+======Full Message======
+Fixed [RISCY CORE] Problem with executing ecall instruction when there's a halt request pending #31
+
+
+
+======Commit: 40a48c61======
+======Short Message======
+Fixed doc and moved it to this repo
+======Full Message======
+Fixed doc and moved it to this repo
+
+
+
+======Commit: f9354dc9======
+======Short Message======
+:bug: Stall pipeline in write-after-write loads
+======Full Message======
+:bug: Stall pipeline in write-after-write loads
+
+Fixes #8 by making sure that newer instructions cannot be overtaken by
+an in-flight stalled load.
+
+
+
+======Commit: c5f1a3a7======
+======Short Message======
+Fix LSU WB enabled during stalls
+======Full Message======
+Fix LSU WB enabled during stalls
+
+
+
+======Commit: b2b60e3d======
+======Short Message======
+Whitespace fixes
+======Full Message======
+Whitespace fixes
+
+
+
+======Commit: 5fb7e427======
+======Short Message======
+fix prefetcher
+======Full Message======
+fix prefetcher
+
+
+
+======Commit: 7078fa85======
+======Short Message======
+fixed prefetcher buffer
+======Full Message======
+fixed prefetcher buffer
+
+
+
+======Commit: ddad06a4======
+======Short Message======
+fix extract
+======Full Message======
+fix extract
+
+
+
+======Commit: 2d48fb36======
+======Short Message======
+This bug comes when an interrupt arrives in the middle of HWLoop
+======Full Message======
+This bug comes when an interrupt arrives in the middle of HWLoop
+and the mret restores the last instruction of the HWloop.
+If such instruction is misaligned, the first part of the instruction
+is correctly fetch but then the HWloop prevents the second part to
+be fetched and jumps to the first instruction of the loop body.
+
+
+
+======Commit: 7b07569d======
+======Short Message======
+fix mulh
+======Full Message======
+fix mulh
+
+
+
+======Commit: cbf7b36e======
+======Short Message======
+fixed clipr when overflow
+======Full Message======
+fixed clipr when overflow
+
+
+
+======Commit: 2a8e0bb9======
+======Short Message======
+[BUG FIX] Fixed -> load operation with stalls -> taken branch -> operation that needs a data from the load.
+======Full Message======
+[BUG FIX] Fixed -> load operation with stalls -> taken branch -> operation that needs a data from the load.
+This bug used to happen when a taken branch instruction follows a load operation that is waiting for the valid signal.
+The core jumps at cycle C but the valid hasn't arrived yet. In the ID stage there is an instruction that should be invalid.
+If such instruction depends on the load value, the clear signal that should invalid such instruction does not rise.
+Thus the instructuin is considered valid and the core executes it.
+Eg:
+
+Load x7, address
+Taken Branch
+--> Untaken instruction executed
+Taken instruction executed
+
+
+
+======Commit: 287f9d81======
+======Short Message======
+Fix float MIN/MAX not returning NaN on NaN inputs.
+======Full Message======
+Fix float MIN/MAX not returning NaN on NaN inputs.
+
+Running fmin/fmax on any float and a NaN (signalling or not) will now
+return the canonical NaN.
+
+
+
+======Commit: 5c462cc3======
+======Short Message======
+Fix ALU fmin/fmax to use float, not int comparison
+======Full Message======
+Fix ALU fmin/fmax to use float, not int comparison
+
+The fmin.s / fmax.s instructions gave wrong results, because
+they used the integer comparison flag, not the float comparison
+flag.
+
+
+
+======Commit: d243ab63======
+======Short Message======
+removed unreachable default cases
+======Full Message======
+removed unreachable default cases
+
+
+
+======Commit: 31be89f0======
+======Short Message======
+fix in tracer
+======Full Message======
+fix in tracer
+
+
+
+======Commit: ac9b548d======
+======Short Message======
+small fix in simchecker
+======Full Message======
+small fix in simchecker
+
+
+
+======Commit: 1d59c146======
+======Short Message======
+fixed fpu comparisons
+======Full Message======
+fixed fpu comparisons
+
+
+
+======Commit: 9bd8f962======
+======Short Message======
+fixed riscv_prefetch_L0_buffer.sv, crossword hwloop, when waitining r_valid from icache
+======Full Message======
+fixed riscv_prefetch_L0_buffer.sv, crossword hwloop, when waitining r_valid from icache
+
+
+
+======Commit: c2ec68ce======
+======Short Message======
+Integrated modif from Davide S.: Fixed elw issue with debug mode, core was in an inconsistent state after an halt during sleep mode
+======Full Message======
+Integrated modif from Davide S.: Fixed elw issue with debug mode, core was in an inconsistent state after an halt during sleep mode
+
+
+
+======Commit: 9c9e9eb7======
+======Short Message======
+fixed ror in the tracer
+======Full Message======
+fixed ror in the tracer
+
+
+
+======Commit: 52d60ba8======
+======Short Message======
+Fixed bug related to load_stall as it was not stalling if the wb stage was not ready
+======Full Message======
+Fixed bug related to load_stall as it was not stalling if the wb stage was not ready
+
+
+
+======Commit: a5cb939f======
+======Short Message======
+fixed some signal declarations
+======Full Message======
+fixed some signal declarations
+
+
+
+======Commit: 17c8d7c9======
+======Short Message======
+improved assertion errors in LSU
+======Full Message======
+improved assertion errors in LSU
+
+
+
+======Commit: d663c0fe======
+======Short Message======
+fix err in FP RF
+======Full Message======
+fix err in FP RF
+
+
+
+======Commit: 46406e77======
+======Short Message======
+fixed write logic of xcause
+======Full Message======
+fixed write logic of xcause
+
+
+
+======Commit: 4aa56bb0======
+======Short Message======
+fixed add/sub norm reg variant
+======Full Message======
+fixed add/sub norm reg variant
+
+
+
+======Commit: 37f0e6b5======
+======Short Message======
+fixed ff register file version for float integration
+======Full Message======
+fixed ff register file version for float integration
+
+
+
+======Commit: 70f58125======
+======Short Message======
+fixed alu_ff for uneven numbers. not used in alu. but still nicer like this
+======Full Message======
+fixed alu_ff for uneven numbers. not used in alu. but still nicer like this
+
+
+
+======Commit: 6ae2719a======
+======Short Message======
+fixed cs regs cont assignments
+======Full Message======
+fixed cs regs cont assignments
+
+
+
+======Commit: b9cce7f1======
+======Short Message======
+default assignements for the no fpu configuration
+======Full Message======
+default assignements for the no fpu configuration
+
+
+
+======Commit: f8346b86======
+======Short Message======
+beautified compressed insn decoder, fixed APU traces
+======Full Message======
+beautified compressed insn decoder, fixed APU traces
+
+
+
+======Commit: 3f7b9e01======
+======Short Message======
+fixed bug in compressed insn decoder with fp load/stores
+======Full Message======
+fixed bug in compressed insn decoder with fp load/stores
+
+
+
+======Commit: 6130461e======
+======Short Message======
+fixed debug
+======Full Message======
+fixed debug
+
+
+
+======Commit: 863d5221======
+======Short Message======
+fixed debug
+======Full Message======
+fixed debug
+
+
+
+======Commit: 76afe737======
+======Short Message======
+fixed tracer
+======Full Message======
+fixed tracer
+
+
+
+======Commit: ea4193c6======
+======Short Message======
+fixed ecall and broken irq sec path
+======Full Message======
+fixed ecall and broken irq sec path
+
+
+
+======Commit: 1e1272f8======
+======Short Message======
+start fixing elw with interrupts
+======Full Message======
+start fixing elw with interrupts
+
+
+
+======Commit: 3d957e5f======
+======Short Message======
+general architectural fixes
+======Full Message======
+general architectural fixes
+
+
+
+======Commit: 19ae9c4a======
+======Short Message======
+fix debug with new flushed interrupt
+======Full Message======
+fix debug with new flushed interrupt
+
+
+
+======Commit: 567593fe======
+======Short Message======
+fixed src file to new register file name
+======Full Message======
+fixed src file to new register file name
+
+
+
+======Commit: d41d4106======
+======Short Message======
+fixed signal without a driver, caused trouble in FPGA..
+======Full Message======
+fixed signal without a driver, caused trouble in FPGA..
+
+
+
+======Commit: 629ebf53======
+======Short Message======
+fixed bug with rounding mode flag for casts
+======Full Message======
+fixed bug with rounding mode flag for casts
+
+
+
+======Commit: 5d3b6b7c======
+======Short Message======
+fixed issue with performance counters when APU is not there
+======Full Message======
+fixed issue with performance counters when APU is not there
+
+
+
+======Commit: 53c9b142======
+======Short Message======
+small fix in cs regs
+======Full Message======
+small fix in cs regs
+
+
+
+======Commit: fe81dc35======
+======Short Message======
+fixes with parameter passing for apu
+======Full Message======
+fixes with parameter passing for apu
+
+
+
+======Commit: ab6235e1======
+======Short Message======
+added %m to some debug messages to identify the core which is complaining
+======Full Message======
+added %m to some debug messages to identify the core which is complaining
+
+
+
+======Commit: 106f287f======
+======Short Message======
+fixed missing parameter
+======Full Message======
+fixed missing parameter
+
+
+
+======Commit: 650336a1======
+======Short Message======
+fixed boot address and mtvec
+======Full Message======
+fixed boot address and mtvec
+
+
+
+======Commit: 7e85dfe7======
+======Short Message======
+fixed apu bus error..
+======Full Message======
+fixed apu bus error..
+
+
+
+======Commit: fe130e23======
+======Short Message======
+added xtvec and changed debug controller for boot
+======Full Message======
+added xtvec and changed debug controller for boot
+
+
+
+======Commit: 6f9a7228======
+======Short Message======
+fixed csr hazard with xRET or ECALL
+======Full Message======
+fixed csr hazard with xRET or ECALL
+
+
+
+======Commit: 00775e50======
+======Short Message======
+fixed issue in apu performance counter. type-conflicts were counted too often..
+======Full Message======
+fixed issue in apu performance counter. type-conflicts were counted too often..
+
+
+
+======Commit: 463892f8======
+======Short Message======
+fixed bug in debug unit when accessing gpr and fpr
+======Full Message======
+fixed bug in debug unit when accessing gpr and fpr
+
+
+
+======Commit: a3f3b431======
+======Short Message======
+fixed unassigned signals when fpu is not there
+======Full Message======
+fixed unassigned signals when fpu is not there
+
+
+
+======Commit: 7c5dff2c======
+======Short Message======
+Small fix in exc controller
+======Full Message======
+Small fix in exc controller
+
+
+
+======Commit: 7e9c3744======
+======Short Message======
+small fix in lsu but not tested yet because data_err is not connected to the system
+======Full Message======
+small fix in lsu but not tested yet because data_err is not connected to the system
+
+
+
+======Commit: 8e452c33======
+======Short Message======
+Fixed external interrupt request during invalid instruction
+======Full Message======
+Fixed external interrupt request during invalid instruction
+
+
+
+======Commit: d52c046e======
+======Short Message======
+fix apu flags width
+======Full Message======
+fix apu flags width
+
+
+
+======Commit: 03c67b9d======
+======Short Message======
+minor fix to ex stage writeback logic
+======Full Message======
+minor fix to ex stage writeback logic
+
+
+
+======Commit: 557f1815======
+======Short Message======
+Merge branch 'fix-typos' into 'master'
+======Full Message======
+Merge branch 'fix-typos' into 'master'
+
+Fix some typos
+
+/cc @pasquale.schiavone 
+
+See merge request !8
+
+
+======Commit: 63666b31======
+======Short Message======
+Fix some typos
+======Full Message======
+Fix some typos
+
+
+
+======Commit: d805b5ad======
+======Short Message======
+fix shuffle.sci.h
+======Full Message======
+fix shuffle.sci.h
+
+
+
+======Commit: 15a7ef00======
+======Short Message======
+Revert "fixes for new ipstools"
+======Full Message======
+Revert "fixes for new ipstools"
+
+This reverts commit d14327c1b863c175637099aa0058e5d7bbcec045.
+
+
+
+======Commit: 5a2407d8======
+======Short Message======
+Making ff based regfile default on verilator
+======Full Message======
+Making ff based regfile default on verilator
+
+
+
+======Commit: 55d66013======
+======Short Message======
+fixed issue with include file
+======Full Message======
+fixed issue with include file
+
+
+
+======Commit: 7f8389cb======
+======Short Message======
+Merge branch 'master' into 'sv-packages'
+======Full Message======
+Merge branch 'master' into 'sv-packages'
+
+Fixed misalignment memory access
+
+
+
+See merge request !2
+
+
+======Commit: d14327c1======
+======Short Message======
+fixes for new ipstools
+======Full Message======
+fixes for new ipstools
+
+
+
+======Commit: 3277a983======
+======Short Message======
+Fixed misalignment memory access
+======Full Message======
+Fixed misalignment memory access
+
+
+
+======Commit: 59708f44======
+======Short Message======
+fixed NCSIM simulation issue related to riscv_tracer
+======Full Message======
+fixed NCSIM simulation issue related to riscv_tracer
+
+
+
+======Commit: 4b70a0ff======
+======Short Message======
+Fixed vectorial comparison
+======Full Message======
+Fixed vectorial comparison
+
+
+
+======Commit: 25a77050======
+======Short Message======
+Fixed clip and clipu
+======Full Message======
+Fixed clip and clipu
+
+
+
+======Commit: ccdf02ec======
+======Short Message======
+Fixed pv.insert
+======Full Message======
+Fixed pv.insert
+
+
+
+======Commit: 5bf76abb======
+======Short Message======
+Fix new behaviour for clb
+======Full Message======
+Fix new behaviour for clb
+
+
+
+======Commit: b2591ce9======
+======Short Message======
+add an external resume signal for debug
+======Full Message======
+add an external resume signal for debug
+
+
+
+======Commit: d548ea57======
+======Short Message======
+Add sleeping bit to debug register
+======Full Message======
+Add sleeping bit to debug register
+
+
+
+======Commit: 7de2b84e======
+======Short Message======
+Possibility to enter debug when never started yet
+======Full Message======
+Possibility to enter debug when never started yet
+
+
+
+======Commit: 3f538883======
+======Short Message======
+Fix code style in debug_unit.sv
+======Full Message======
+Fix code style in debug_unit.sv
+
+
+
+======Commit: 1dca1ec7======
+======Short Message======
+Fix bug in the debug_unit
+======Full Message======
+Fix bug in the debug_unit
+
+
+
+======Commit: 3b766501======
+======Short Message======
+Merge branch_pc_ex and data_pc_ex, allow debugging during p.elw
+======Full Message======
+Merge branch_pc_ex and data_pc_ex, allow debugging during p.elw
+
+
+
+======Commit: a20c6e09======
+======Short Message======
+Allow debugging during sleep
+======Full Message======
+Allow debugging during sleep
+
+
+
+======Commit: cb972274======
+======Short Message======
+Fix wfi + sleep in debug mode
+======Full Message======
+Fix wfi + sleep in debug mode
+
+
+
+======Commit: df014ec3======
+======Short Message======
+Fix issue #1 on github, byte address should always be 0
+======Full Message======
+Fix issue #1 on github, byte address should always be 0
+
+
+
+======Commit: 1284e315======
+======Short Message======
+Some fixes to debug
+======Full Message======
+Some fixes to debug
+
+
+
+======Commit: 57b77ba3======
+======Short Message======
+Fix some smallish issues
+======Full Message======
+Fix some smallish issues
+
+
+
+======Commit: 5e304932======
+======Short Message======
+Started work on MMIO debug
+======Full Message======
+Started work on MMIO debug
+
+
+
+======Commit: cf5815a5======
+======Short Message======
+Fix a small bug in the short multiplier
+======Full Message======
+Fix a small bug in the short multiplier
+
+
+
+======Commit: 9278b0eb======
+======Short Message======
+Silence unique warnings by either adding defaults or removing unique
+======Full Message======
+Silence unique warnings by either adding defaults or removing unique
+where unnecessary
+
+
+
+======Commit: e899af43======
+======Short Message======
+Fix syntax error for RTL compiler
+======Full Message======
+Fix syntax error for RTL compiler
+
+
+
+======Commit: 8edb4224======
+======Short Message======
+Fix a compressed instruction decoding error
+======Full Message======
+Fix a compressed instruction decoding error
+
+If the register 0b01000 was selected for srai and srli for a compressed
+instruction, it was considered an illegal instruction which is wrong
+
+This is a legacy from the specification changes from >6 months ago
+
+
+
+======Commit: 6ee9f3fe======
+======Short Message======
+Fix wrong ordering of instructions in tracer in some cases
+======Full Message======
+Fix wrong ordering of instructions in tracer in some cases
+
+
+
+======Commit: d06042d7======
+======Short Message======
+Fix some synthesis warnings
+======Full Message======
+Fix some synthesis warnings
+
+
+
+======Commit: aa28fac1======
+======Short Message======
+Fix a nasty L0 buffer bug that happens with hardware loops
+======Full Message======
+Fix a nasty L0 buffer bug that happens with hardware loops
+
+
+
+======Commit: 1f2eef76======
+======Short Message======
+Disabled simchecker per default again
+======Full Message======
+Disabled simchecker per default again
+
+
+
+======Commit: 4401708f======
+======Short Message======
+Add preliminary version of shuffle/pack
+======Full Message======
+Add preliminary version of shuffle/pack
+
+There are still some bugs in it, but the data path is done
+
+
+
+======Commit: 4ff7d58f======
+======Short Message======
+Comment simchecker, should not be enabled per default
+======Full Message======
+Comment simchecker, should not be enabled per default
+
+
+
+======Commit: 09d6de8e======
+======Short Message======
+Fixed vector opcode and added vectorial shifts
+======Full Message======
+Fixed vector opcode and added vectorial shifts
+
+
+
+======Commit: f436596e======
+======Short Message======
+fixed src_files.yml
+======Full Message======
+fixed src_files.yml
+
+
+
+======Commit: f46dbaef======
+======Short Message======
+Fix two issues when the core is not getting the grant immediatly after
+======Full Message======
+Fix two issues when the core is not getting the grant immediatly after
+sending the request
+
+
+
+======Commit: d5a262cf======
+======Short Message======
+fixed src_files.yml
+======Full Message======
+fixed src_files.yml
+
+
+
+======Commit: 9858198e======
+======Short Message======
+Fix a bug in the LSU by making sure that branches can be finished
+======Full Message======
+Fix a bug in the LSU by making sure that branches can be finished
+correctly in the EX stage without impacting the WB stage
+
+Also align simchecker and tracer to this
+
+
+
+======Commit: 18f5ffcd======
+======Short Message======
+Fix wait_gnt signal for prefetcher if transaction was aborted
+======Full Message======
+Fix wait_gnt signal for prefetcher if transaction was aborted
+
+
+
+======Commit: 6b224413======
+======Short Message======
+Fix handling of packed/unpacked structs in the riscv tracer
+======Full Message======
+Fix handling of packed/unpacked structs in the riscv tracer
+
+
+
+======Commit: 3d768d27======
+======Short Message======
+Fix issues in instruction tracer and align with virtual platform
+======Full Message======
+Fix issues in instruction tracer and align with virtual platform
+
+
+
+======Commit: 53f0dbda======
+======Short Message======
+Fix net declaration
+======Full Message======
+Fix net declaration
+
+
+
+======Commit: dc8144a4======
+======Short Message======
+Added more information about debug to documentation
+======Full Message======
+Added more information about debug to documentation
+
+
+
+======Commit: 79cff74d======
+======Short Message======
+Fix a problem in the normal prefetch buffer, some instructions were performed twice
+======Full Message======
+Fix a problem in the normal prefetch buffer, some instructions were performed twice
+
+
+
+======Commit: ee89618b======
+======Short Message======
+Fix a couple of errors regarding hwloops
+======Full Message======
+Fix a couple of errors regarding hwloops
+
+
+
+======Commit: ac384a23======
+======Short Message======
+Fix write enable on cs registesr in hwlp
+======Full Message======
+Fix write enable on cs registesr in hwlp
+
+
+
+======Commit: af8343d3======
+======Short Message======
+Fix hardware loops, reimplement prefetch buffer for pulp
+======Full Message======
+Fix hardware loops, reimplement prefetch buffer for pulp
+Change encoding of hardware loop setup instructions, displacement by one
+bit and unsigned
+
+
+
+======Commit: 371a211b======
+======Short Message======
+Fix bugs introduced in the last two commits
+======Full Message======
+Fix bugs introduced in the last two commits
+
+
+
+======Commit: 45ceee59======
+======Short Message======
+Fixed issue that hardware loops with same endpoint did not work
+======Full Message======
+Fixed issue that hardware loops with same endpoint did not work
+
+
+
+======Commit: 116379e0======
+======Short Message======
+Fix instruction tracing, removed collision between custom* and our opcodes
+======Full Message======
+Fix instruction tracing, removed collision between custom* and our opcodes
+
+
+
+======Commit: 5da32ba5======
+======Short Message======
+This should fix most of the debug features
+======Full Message======
+This should fix most of the debug features
+
+Basic test passes now, next step is to try and test it with an
+interactive gdb
+
+
+
+======Commit: b0a9e37c======
+======Short Message======
+Fix hwloops, registers were stalled when they should have been active
+======Full Message======
+Fix hwloops, registers were stalled when they should have been active
+
+
+
+======Commit: f5d408d7======
+======Short Message======
+Add an instr_valid_id signal to completely decouple the pipeline stages,
+======Full Message======
+Add an instr_valid_id signal to completely decouple the pipeline stages,
+hopefully fixes the exception controller
+
+
+
+======Commit: 8a8b406a======
+======Short Message======
+Finally restyle the debug unit
+======Full Message======
+Finally restyle the debug unit
+
+
+
+======Commit: cb73d88e======
+======Short Message======
+Fix a bug in the PCER CSR registers, it was not possible to activate more than the basic performance counter
+======Full Message======
+Fix a bug in the PCER CSR registers, it was not possible to activate more than the basic performance counter
+
+
+
+======Commit: 98eb2cc0======
+======Short Message======
+Fix debug breakpoints and single-step with branches in ID
+======Full Message======
+Fix debug breakpoints and single-step with branches in ID
+
+
+
+======Commit: a770811a======
+======Short Message======
+Fix debug breakpoints (dbg_set_npc)
+======Full Message======
+Fix debug breakpoints (dbg_set_npc)
+
+
+
+======Commit: 82cf8ec2======
+======Short Message======
+Fix PPC/NPC tracking of debug unit
+======Full Message======
+Fix PPC/NPC tracking of debug unit
+
+
+
+======Commit: 9efbaeba======
+======Short Message======
+Add register for last branch PC
+======Full Message======
+Add register for last branch PC
+
+Needed in the debug unit, could be reused for precise exceptions.
+
+
+
+======Commit: 05b44f97======
+======Short Message======
+Fix CSR access for debug unit
+======Full Message======
+Fix CSR access for debug unit
+
+
+
+======Commit: 6773f4e3======
+======Short Message======
+Fix indentation in debug unit
+======Full Message======
+Fix indentation in debug unit
+
+
+
+======Commit: d574cac2======
+======Short Message======
+Fix problem with debug not working
+======Full Message======
+Fix problem with debug not working
+
+
+
+======Commit: 0b0b4c0c======
+======Short Message======
+Fix performance counter access
+======Full Message======
+Fix performance counter access
+
+
+
+======Commit: f8dbb7ed======
+======Short Message======
+Fix bug with hardware loops
+======Full Message======
+Fix bug with hardware loops
+
+
+
+======Commit: 9ee009a2======
+======Short Message======
+Fix exc controller ack not being sent
+======Full Message======
+Fix exc controller ack not being sent
+
+
+
+======Commit: d2c8159a======
+======Short Message======
+Fix bug in csrrc instruction
+======Full Message======
+Fix bug in csrrc instruction
+
+
+
+======Commit: 9f5beb52======
+======Short Message======
+Fix comparison bug in ALU
+======Full Message======
+Fix comparison bug in ALU
+
+
+
+======Commit: 459e34f7======
+======Short Message======
+Add error signals to LSU
+======Full Message======
+Add error signals to LSU
+
+
+
+======Commit: 906b5130======
+======Short Message======
+Fix irq_enable
+======Full Message======
+Fix irq_enable
+
+
+
+======Commit: 30318e69======
+======Short Message======
+Fix interrupt not executed early enough after sleep
+======Full Message======
+Fix interrupt not executed early enough after sleep
+
+
+
+======Commit: 8d4c069d======
+======Short Message======
+Fix exceptions during stalls
+======Full Message======
+Fix exceptions during stalls
+
+
+
+======Commit: c28ca444======
+======Short Message======
+Fix exc wiring (not working yet)
+======Full Message======
+Fix exc wiring (not working yet)
+
+
+
+======Commit: 26394abc======
+======Short Message======
+Fix/Update compressed decoder for newest RVC 1.8 draft
+======Full Message======
+Fix/Update compressed decoder for newest RVC 1.8 draft
+
+
+
+======Commit: 7936609c======
+======Short Message======
+Fix a bug in the load store unit which allowed to send requests when the
+======Full Message======
+Fix a bug in the load store unit which allowed to send requests when the
+last one was waiting for rvalid. This may increase critical path
+slightly, but otherwise it is simply not correct...
+
+Added assertions to catch those cases
+
+
+
+======Commit: 7d06e4ab======
+======Short Message======
+Fix c.addi16sp and RVC B immediates
+======Full Message======
+Fix c.addi16sp and RVC B immediates
+
+
+
+======Commit: bb09eeeb======
+======Short Message======
+Fix c.j & c.jal immediate encoding
+======Full Message======
+Fix c.j & c.jal immediate encoding
+
+
+
+======Commit: 7223cb5e======
+======Short Message======
+Fix wrongly used unique case
+======Full Message======
+Fix wrongly used unique case
+
+
+
+======Commit: 06cf9f1d======
+======Short Message======
+Prefix all modules with riscv_ to avoid future conflicts
+======Full Message======
+Prefix all modules with riscv_ to avoid future conflicts
+
+
+
+======Commit: 35f88d72======
+======Short Message======
+Fix indentation in riscv_core
+======Full Message======
+Fix indentation in riscv_core
+
+
+
+======Commit: fbd897a2======
+======Short Message======
+Fix forwarding of rs3
+======Full Message======
+Fix forwarding of rs3
+
+
+
+======Commit: efb607a7======
+======Short Message======
+Fix exception problem after stages are more independent
+======Full Message======
+Fix exception problem after stages are more independent
+
+
+
+======Commit: cc90e854======
+======Short Message======
+Fix RVC handling in prefetch_L0_buffer
+======Full Message======
+Fix RVC handling in prefetch_L0_buffer
+
+The code is not so nice and should be further cleaned up
+
+
+
+======Commit: d988f06f======
+======Short Message======
+Fixed synopsis syntax error
+======Full Message======
+Fixed synopsis syntax error
+
+
+
+======Commit: 88614ea1======
+======Short Message======
+Fix id_valid signal propagation to exception controller
+======Full Message======
+Fix id_valid signal propagation to exception controller
+
+
+
+======Commit: a3256c4d======
+======Short Message======
+Fix small error in prefetcher where GNT occur one cycle after we wanted
+======Full Message======
+Fix small error in prefetcher where GNT occur one cycle after we wanted
+to prefetch
+
+
+
+======Commit: 9ceeb15b======
+======Short Message======
+This fixes the instruction fetch miss performance counter
+======Full Message======
+This fixes the instruction fetch miss performance counter
+
+
+
+======Commit: d27a2a3f======
+======Short Message======
+Various debug related improvements
+======Full Message======
+Various debug related improvements
+
+Implemented c.ebreak instruction
+Debugging with rvc seems to work properly now
+
+
+
+======Commit: d2a549bf======
+======Short Message======
+Fix misaligned access, they did not correctly forward and used the wrong
+======Full Message======
+Fix misaligned access, they did not correctly forward and used the wrong
+increment...
+
+
+
+======Commit: 84ea2c90======
+======Short Message======
+Fix aborting on instr core interface
+======Full Message======
+Fix aborting on instr core interface
+
+
+
+======Commit: db82a7ab======
+======Short Message======
+Fix problem with unaligned compressed access
+======Full Message======
+Fix problem with unaligned compressed access
+
+
+
+======Commit: 21636236======
+======Short Message======
+Fix hwloop we
+======Full Message======
+Fix hwloop we
+
+
+
+======Commit: a6dc8271======
+======Short Message======
+Wire up hwloops correctly, other small fixes
+======Full Message======
+Wire up hwloops correctly, other small fixes
+
+
+
+======Commit: 2c2ad21c======
+======Short Message======
+Reroute hwloops signals, fix counter mux
+======Full Message======
+Reroute hwloops signals, fix counter mux
+
+
+
+======Commit: b81c7c6c======
+======Short Message======
+Fix indentation in riscv_core.sv, better defaults
+======Full Message======
+Fix indentation in riscv_core.sv, better defaults
+
+
+
+======Commit: 3a7d4044======
+======Short Message======
+Fix width of irq_enable signal
+======Full Message======
+Fix width of irq_enable signal
+
+
+
+======Commit: a617bc49======
+======Short Message======
+Fix compile errors from last commit, fix synthesis warnigns and remove
+======Full Message======
+Fix compile errors from last commit, fix synthesis warnigns and remove
+unused signals
+
+
+
+======Commit: 3a4ddb2a======
+======Short Message======
+New CSR implementation, fix irq_enable signal
+======Full Message======
+New CSR implementation, fix irq_enable signal
+
+Interrupts can now be switched on and off via CSR write, the current
+status can be queried by a CSR read.
+
+Pending interrupts still TBD.
+
+
+
+======Commit: bb693c8e======
+======Short Message======
+Add support to debug unit to set the Program Counter
+======Full Message======
+Add support to debug unit to set the Program Counter
+
+
+
+======Commit: bc51ae93======
+======Short Message======
+Add sensible default in compressed decoder for one case
+======Full Message======
+Add sensible default in compressed decoder for one case
+
+
+
+======Commit: 116b5f46======
+======Short Message======
+Debug support: Make single-stepping work again
+======Full Message======
+Debug support: Make single-stepping work again
+
+
+
+======Commit: 6cdfde93======
+======Short Message======
+Fix hwloop code indentation
+======Full Message======
+Fix hwloop code indentation
+
+
+
+======Commit: 387642f0======
+======Short Message======
+Fix WFI instruction
+======Full Message======
+Fix WFI instruction
+
+It repeated instructions after it multiple times when not going to sleep
+
+
+
+======Commit: b84dde00======
+======Short Message======
+Fix potential problem with core_busy_o, it is now also set when an
+======Full Message======
+Fix potential problem with core_busy_o, it is now also set when an
+instruction request is in flight and not only when we are decoding
+
+
+
+======Commit: 1cbbcfb9======
+======Short Message======
+Fix linting errors/warnings and remove dead signals
+======Full Message======
+Fix linting errors/warnings and remove dead signals
+Part #2
+
+
+
+======Commit: d0f4ac75======
+======Short Message======
+Fix linting warnings and errors
+======Full Message======
+Fix linting warnings and errors
+Remove lots of dead code
+Part #1
+
+
+
+======Commit: 6cf4b2f2======
+======Short Message======
+Fix PCMR for synthesis...
+======Full Message======
+Fix PCMR for synthesis...
+
+
+
+======Commit: f54b1647======
+======Short Message======
+Fix external performance counters
+======Full Message======
+Fix external performance counters
+
+Parameter was not propagated to csr
+
+
+
+======Commit: 8c4a99b5======
+======Short Message======
+Fix jalr stall and make jump more efficient
+======Full Message======
+Fix jalr stall and make jump more efficient
+
+Jumps now use only one cycle instead of two. This is the optimum we can
+achieve, we cannot get any better without a delay slot
+
+
+
+======Commit: 302747b9======
+======Short Message======
+Fix c.sllr and c.srlr decoding
+======Full Message======
+Fix c.sllr and c.srlr decoding
+
+
+
+======Commit: 5b3ba2d1======
+======Short Message======
+Works, but bug in compressed decoder for sll
+======Full Message======
+Works, but bug in compressed decoder for sll
+
+
+
+======Commit: 793d45f2======
+======Short Message======
+Fix illegal instruction exception throwed when not actually decoding an instruction
+======Full Message======
+Fix illegal instruction exception throwed when not actually decoding an instruction
+
+
+
+======Commit: 9efada0f======
+======Short Message======
+Fix last commit, small cleanup
+======Full Message======
+Fix last commit, small cleanup
+
+
+
+======Commit: 84bec09a======
+======Short Message======
+Fix illegal RVC instructions not causing exceptions
+======Full Message======
+Fix illegal RVC instructions not causing exceptions
+
+
+
+======Commit: 8bdb4579======
+======Short Message======
+Fix jump_in_id signal should only be set in DECODE in controller
+======Full Message======
+Fix jump_in_id signal should only be set in DECODE in controller
+
+
+
+======Commit: 96b5d194======
+======Short Message======
+Fix issue with cross line access and stalls, cleanup
+======Full Message======
+Fix issue with cross line access and stalls, cleanup
+
+
+
+======Commit: 08f23117======
+======Short Message======
+Fix ack latching for jumps/branches
+======Full Message======
+Fix ack latching for jumps/branches
+
+
+
+======Commit: 6f536747======
+======Short Message======
+Fix ack handling in IF
+======Full Message======
+Fix ack handling in IF
+
+
+
+======Commit: 67425b0f======
+======Short Message======
+Fix LUI/AUIPC output of tracer
+======Full Message======
+Fix LUI/AUIPC output of tracer
+
+
+
+======Commit: 0da283fb======
+======Short Message======
+Fix instruction corruption issue in IF
+======Full Message======
+Fix instruction corruption issue in IF
+
+
+
+======Commit: 0042daa8======
+======Short Message======
+Fix jump/branch problem in IF
+======Full Message======
+Fix jump/branch problem in IF
+
+
+
+======Commit: a08f5392======
+======Short Message======
+Fix basic incr PC flow, ID PC miscalculation
+======Full Message======
+Fix basic incr PC flow, ID PC miscalculation
+
+
+
+======Commit: 39daf538======
+======Short Message======
+Move debug from CS registers to debug unit as they do not need to be
+======Full Message======
+Move debug from CS registers to debug unit as they do not need to be
+accessible from the core anyway
+
+
+
+======Commit: 73dd948f======
+======Short Message======
+Working on debug support
+======Full Message======
+Working on debug support
+
+Most features have a preliminary support now, i.e. software breakpoints
+work in general, NPC and PPC SPR are integrated and fully working, so it
+is possible to set a new PC from the debugger
+
+There are probably still some bugs in corner cases, and I'm pretty sure
+jumps are not working nicely in single-stepping mode
+
+
+
+======Commit: 69b2473d======
+======Short Message======
+Fix instruction trace displaying immediates wrong
+======Full Message======
+Fix instruction trace displaying immediates wrong
+
+
+
+======Commit: 7c211e0d======
+======Short Message======
+Fix constant names
+======Full Message======
+Fix constant names
+
+
+
+======Commit: 10bc9838======
+======Short Message======
+More cleanup, fixed more warnings
+======Full Message======
+More cleanup, fixed more warnings
+
+
+
+======Commit: f908f34f======
+======Short Message======
+More warnings fixed
+======Full Message======
+More warnings fixed
+
+
+
+======Commit: da7c7408======
+======Short Message======
+Fixed Verilator width warnings where appropriate
+======Full Message======
+Fixed Verilator width warnings where appropriate
+
+
+
+======Commit: a1430b33======
+======Short Message======
+Fixed typo/error in ex stage from last commit
+======Full Message======
+Fixed typo/error in ex stage from last commit
+
+
+
+======Commit: 0d59ca91======
+======Short Message======
+More compressed instructions and fixes for existing ones
+======Full Message======
+More compressed instructions and fixes for existing ones
+
+
+
+======Commit: 5c93a289======
+======Short Message======
+Fixed warning in id_stage
+======Full Message======
+Fixed warning in id_stage
+
+
+
+======Commit: 27490109======
+======Short Message======
+Added default case to RISCV main controller, fixed indentation
+======Full Message======
+Added default case to RISCV main controller, fixed indentation
+
+
+
+======Commit: aa1821ba======
+======Short Message======
+Fixed inferred latches in RV
+======Full Message======
+Fixed inferred latches in RV
+
+
+
+======Commit: b9e0bd9c======
+======Short Message======
+Fixed missing signal declaration in id_stage
+======Full Message======
+Fixed missing signal declaration in id_stage
+
+
+
+======Commit: 29012978======
+======Short Message======
+Fixed bug in branch code, wrong vector size
+======Full Message======
+Fixed bug in branch code, wrong vector size
+
+
+
+======Commit: 10d9a75f======
+======Short Message======
+Fixed space/tab mixture and indentation in instr_core_interface
+======Full Message======
+Fixed space/tab mixture and indentation in instr_core_interface
+
+
+
+======Commit: af8b2080======
+======Short Message======
+Fixed Jumps and Branches (jump target now calculated in ID, up for debate) and some general code cleanups
+======Full Message======
+Fixed Jumps and Branches (jump target now calculated in ID, up for debate) and some general code cleanups
+
+
+
+======Commit: c974349b======
+======Short Message======
+Fixed indentation in riscv_core (partially), some changes for to fix jumps/branches
+======Full Message======
+Fixed indentation in riscv_core (partially), some changes for to fix jumps/branches
+
+
+
+======Commit: 5d96d3e7======
+======Short Message======
+Started implementing JAL/JALR target calculation in ALU, improved a few defaults
+======Full Message======
+Started implementing JAL/JALR target calculation in ALU, improved a few defaults
+
+
+
+======Commit: d7e8aba2======
+======Short Message======
+Fixed JAL/JALR instruction check, added pretty print function for invalid instructions
+======Full Message======
+Fixed JAL/JALR instruction check, added pretty print function for invalid instructions
+
+
+
+======Commit: a960d85c======
+======Short Message======
+Fixed indentation in controller (1 level = 2 spaces)
+======Full Message======
+Fixed indentation in controller (1 level = 2 spaces)
+
+
+

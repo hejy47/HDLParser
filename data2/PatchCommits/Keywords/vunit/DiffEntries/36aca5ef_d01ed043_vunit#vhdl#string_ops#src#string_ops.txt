@@ -1,0 +1,25 @@
+36aca5ef97592346ad9642fbf5d32b79d4b775f4
+Possible fix for #161
+diff --git a/vunit/vhdl/string_ops/src/string_ops.vhd b/vunit/vhdl/string_ops/src/string_ops.vhd
+index 7bcc0a9d..72cbf55d 100644
+--- a/vunit/vhdl/string_ops/src/string_ops.vhd
++++ b/vunit/vhdl/string_ops/src/string_ops.vhd
+@@ -306,15 +306,15 @@ package body string_ops is
+     constant cnt : in natural := natural'high)
+     return string is
+     constant n_occurences : natural := count(s, old_segment);
+-    function string_length_after_replace return natural is
+-      variable n_replacements : natural := n_occurences;
++    function string_length_after_replace (constant n_occurences_i : natural) return natural is
++      variable n_replacements : natural := n_occurences_i;
+     begin
+       if cnt < n_replacements  then
+         n_replacements := cnt;
+       end if;
+       return s'length + n_replacements * (new_segment'length - old_segment'length);
+     end;
+-    variable ret_val : string(1 to string_length_after_replace);
++    variable ret_val : string(1 to string_length_after_replace(n_occurences));
+     variable replaced_substrings : natural := 0;
+     variable i,j : natural := 1;
+     variable s_int : string(1 to s'length) := s;

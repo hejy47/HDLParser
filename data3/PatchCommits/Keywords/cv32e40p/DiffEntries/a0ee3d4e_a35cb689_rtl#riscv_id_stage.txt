@@ -1,0 +1,30 @@
+a0ee3d4ede21a291a476fa8416a7b98957bb98dc
+Merge pull request #41 from stmach/fix-iss33
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index 4b2def5..d832209 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -899,14 +899,15 @@ module riscv_id_stage
+      assign apu_write_regs_valid_o   = apu_write_regs_valid;
+   end
+      else begin
+-       for (genvar i=0;i<APU_NARGS_CPU;i++)
+-        assign apu_operands[i]         = '0;
+-        assign apu_waddr               = '0;
+-        assign apu_flags               = '0;
+-        assign apu_write_regs_o        = '0;
+-        assign apu_read_regs_o         = '0;
+-        assign apu_write_regs_valid_o  = '0;
+-        assign apu_read_regs_valid_o   = '0;
++       for (genvar i=0; i<APU_NARGS_CPU; i++) begin : apu_tie_off
++         assign apu_operands[i]       = '0;
++       end
++       assign apu_waddr               = '0;
++       assign apu_flags               = '0;
++       assign apu_write_regs_o        = '0;
++       assign apu_read_regs_o         = '0;
++       assign apu_write_regs_valid_o  = '0;
++       assign apu_read_regs_valid_o   = '0;
+      end
+   endgenerate
+ 

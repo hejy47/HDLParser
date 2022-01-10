@@ -1,0 +1,15 @@
+dea9b88249f9ad6946211ace129193677483d2f4
+Fix bug in PicoSoC spimemio
+diff --git a/picosoc/spimemio.v b/picosoc/spimemio.v
+index 976e5a2..311edcd 100644
+--- a/picosoc/spimemio.v
++++ b/picosoc/spimemio.v
+@@ -433,7 +433,7 @@ module spimemio_xfer (
+ 
+ 	assign din_ready = din_valid && resetn && next_fetch;
+ 
+-	assign dout_valid = xfer_ddr_q ? fetch && !last_fetch : next_fetch && !fetch;
++	assign dout_valid = (xfer_ddr_q ? fetch && !last_fetch : next_fetch && !fetch) && resetn;
+ 	assign dout_data = ibuffer;
+ 	assign dout_tag = xfer_tag_q;
+ 

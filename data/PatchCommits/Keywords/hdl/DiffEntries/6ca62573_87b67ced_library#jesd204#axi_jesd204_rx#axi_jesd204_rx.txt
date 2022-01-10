@@ -1,0 +1,15 @@
+6ca625734149058b3ac15daeb073ef148bc167a8
+jesd204_rx: Increment version to 1.04.a
+diff --git a/library/jesd204/axi_jesd204_rx/axi_jesd204_rx.v b/library/jesd204/axi_jesd204_rx/axi_jesd204_rx.v
+index d97da755..52c5ed05 100755
+--- a/library/jesd204/axi_jesd204_rx/axi_jesd204_rx.v
++++ b/library/jesd204/axi_jesd204_rx/axi_jesd204_rx.v
+@@ -114,7 +114,7 @@ module axi_jesd204_rx #(
+   input [8*NUM_LANES-1:0] core_status_lane_frame_align_err_cnt
+ );
+ 
+-localparam PCORE_VERSION = 32'h00010361; // 1.03.a
++localparam PCORE_VERSION = 32'h00010461; // 1.04.a
+ localparam PCORE_MAGIC = 32'h32303452; // 204R
+ 
+ localparam DATA_PATH_WIDTH = LINK_MODE == 2 ? 3 : 2;

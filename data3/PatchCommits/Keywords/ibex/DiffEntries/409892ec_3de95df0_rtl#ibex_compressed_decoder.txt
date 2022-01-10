@@ -1,0 +1,25 @@
+409892ec8c4bf47a03b3c2107b79e701b2628bb6
+Fix handling of C.MV and C.JR
+diff --git a/rtl/ibex_compressed_decoder.sv b/rtl/ibex_compressed_decoder.sv
+index 1a78da59..d0b31dd7 100644
+--- a/rtl/ibex_compressed_decoder.sv
++++ b/rtl/ibex_compressed_decoder.sv
+@@ -206,12 +206,14 @@ module ibex_compressed_decoder (
+ 
+           3'b100: begin
+             if (instr_i[12] == 1'b0) begin
+-              // c.mv -> add rd/rs1, x0, rs2
+-              instr_o = {7'b0, instr_i[6:2], 5'b0, 3'b0, instr_i[11:7], {OPCODE_OP}};
+-
+-              if (instr_i[6:2] == 5'b0) begin
++              if (instr_i[6:2] != 5'b0) begin
++                // c.mv -> add rd/rs1, x0, rs2
++                // (c.mv hints are translated into an add hint)
++                instr_o = {7'b0, instr_i[6:2], 5'b0, 3'b0, instr_i[11:7], {OPCODE_OP}};
++              end else begin
+                 // c.jr -> jalr x0, rd/rs1, 0
+                 instr_o = {12'b0, instr_i[11:7], 3'b0, 5'b0, {OPCODE_JALR}};
++                if (instr_i[11:7] == 5'b0)  illegal_instr_o = 1'b1;
+               end
+             end else begin
+               if (instr_i[6:2] != 5'b0) begin

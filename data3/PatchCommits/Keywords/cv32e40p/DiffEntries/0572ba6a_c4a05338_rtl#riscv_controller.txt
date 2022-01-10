@@ -1,0 +1,17 @@
+0572ba6a5f7b3519b8eea52f852216dabf974ac0
+Wake up in single step mode, debug mode and during halt request
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index c9570cf..de6c082 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -322,8 +322,8 @@ module riscv_controller
+ 
+ 
+         // normal execution flow
+-        if (irq_i || (debug_req_i & (~debug_mode_q)) )
+-        begin
++        // in debug mode or single step mode we leave immediately (wfi=nop)
++        if (irq_i || (debug_req_i || debug_mode_q || dsingle_step_i)) begin
+           ctrl_fsm_ns  = FIRST_FETCH;
+           debug_mode_n = 1'b1;
+         end

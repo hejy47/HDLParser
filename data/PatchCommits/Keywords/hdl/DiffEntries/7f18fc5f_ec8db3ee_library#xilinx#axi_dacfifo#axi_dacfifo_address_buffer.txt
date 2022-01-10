@@ -1,0 +1,14 @@
+7f18fc5f1cd8ce61b22cf755cb0eda82e13a469e
+axi_dacfifo: Add missing read-enable signal to ad_mem instance
+diff --git a/library/xilinx/axi_dacfifo/axi_dacfifo_address_buffer.v b/library/xilinx/axi_dacfifo/axi_dacfifo_address_buffer.v
+index c23716b3..c4fff0ff 100644
+--- a/library/xilinx/axi_dacfifo/axi_dacfifo_address_buffer.v
++++ b/library/xilinx/axi_dacfifo/axi_dacfifo_address_buffer.v
+@@ -71,6 +71,7 @@ module axi_dacfifo_address_buffer #(
+     .addra (waddr),
+     .dina (din),
+     .clkb (clk),
++    .reb (rea),
+     .addrb (raddr),
+     .doutb (dout));
+ 

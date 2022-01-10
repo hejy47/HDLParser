@@ -1,0 +1,76 @@
+2f68c546f183577d5fc50128625fb5fd76d72515
+Merge pull request #244 from analogdevicesinc/axi_i2s_adi_update
+diff --git a/library/common/ad_csc_RGB2CrYCb.v b/library/common/ad_csc_RGB2CrYCb.v
+index 4b7e90ee..6ec0b8f0 100644
+--- a/library/common/ad_csc_RGB2CrYCb.v
++++ b/library/common/ad_csc_RGB2CrYCb.v
+@@ -60,42 +60,48 @@ module ad_csc_RGB2CrYCb #(
+ 
+   // Cr (red-diff)
+ 
+-  ad_csc_1 #(.DELAY_DATA_WIDTH(DELAY_DATA_WIDTH)) i_csc_1_Cr (
++  ad_csc #(
++    .DELAY_DW(DELAY_DATA_WIDTH))
++  j_csc_1_Cr (
+     .clk (clk),
+     .sync (RGB_sync),
+     .data (RGB_data),
+-    .C1 (17'h00707),
+-    .C2 (17'h105e2),
+-    .C3 (17'h10124),
+-    .C4 (25'h0080000),
+-    .csc_sync_1 (CrYCb_sync),
+-    .csc_data_1 (CrYCb_data[23:16]));
++    .C1 ( 17'd28784),   //  112.439
++    .C2 (-17'd24103),   // -94.154
++    .C3 (-17'd4681),    // -18.285
++    .C4 ( 24'd8388608), //  128
++    .csc_sync (CrYCb_sync),
++    .csc_data (CrYCb_data[23:16]));
+ 
+   // Y (luma)
+ 
+-  ad_csc_1 #(.DELAY_DATA_WIDTH(1)) i_csc_1_Y (
++  ad_csc #(
++    .DELAY_DW(0))
++  j_csc_1_Y (
+     .clk (clk),
+     .sync (1'd0),
+     .data (RGB_data),
+-    .C1 (17'h0041b),
+-    .C2 (17'h00810),
+-    .C3 (17'h00191),
+-    .C4 (25'h0010000),
+-    .csc_sync_1 (),
+-    .csc_data_1 (CrYCb_data[15:8]));
++    .C1 (17'd16829),   // 65.739
++    .C2 (17'd33039),   // 129.057
++    .C3 (17'd6416),    // 25.064
++    .C4 (24'd1048576), // 16
++    .csc_sync (),
++    .csc_data (CrYCb_data[15:8]));
+ 
+   // Cb (blue-diff)
+ 
+-  ad_csc_1 #(.DELAY_DATA_WIDTH(1)) i_csc_1_Cb (
++  ad_csc #(
++    .DELAY_DW(0))
++  j_csc_1_Cb (
+     .clk (clk),
+     .sync (1'd0),
+     .data (RGB_data),
+-    .C1 (17'h1025f),
+-    .C2 (17'h104a7),
+-    .C3 (17'h00707),
+-    .C4 (25'h0080000),
+-    .csc_sync_1 (),
+-    .csc_data_1 (CrYCb_data[7:0]));
++    .C1 (-17'd9714),   // -37.945
++    .C2 (-17'd19070),  // -74.494
++    .C3 ( 17'd28784),  //  112.439
++    .C4 (24'd8388608), //  128
++    .csc_sync (),
++    .csc_data (CrYCb_data[7:0]));
+ 
+ endmodule
+ 

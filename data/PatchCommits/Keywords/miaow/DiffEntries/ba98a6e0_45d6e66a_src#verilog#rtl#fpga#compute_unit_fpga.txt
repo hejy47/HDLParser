@@ -1,0 +1,15 @@
+ba98a6e075529cd754275b47242ca5a5da1d0586
+A variety of data width fixes. Use more wildcards in sensitivity lists to shut up warnings in Vivado.
+diff --git a/src/verilog/rtl/fpga/compute_unit_fpga.v b/src/verilog/rtl/fpga/compute_unit_fpga.v
+index 197eabe..07a9871 100644
+--- a/src/verilog/rtl/fpga/compute_unit_fpga.v
++++ b/src/verilog/rtl/fpga/compute_unit_fpga.v
+@@ -636,7 +636,7 @@ always @( posedge S_AXI_ACLK ) begin
+           singleVectorWrData28 <= S_AXI_WDATA;
+           singleVectorWrDataMask <= singleVectorWrDataMask |   64'h0000000010000000;
+         end
+-        9'h511D: begin
++        9'h11D: begin
+           singleVectorWrData29 <= S_AXI_WDATA;
+           singleVectorWrDataMask <= singleVectorWrDataMask |   64'h0000000020000000;
+         end

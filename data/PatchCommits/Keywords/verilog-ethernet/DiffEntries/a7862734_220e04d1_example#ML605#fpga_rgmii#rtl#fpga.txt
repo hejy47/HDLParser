@@ -1,0 +1,17 @@
+a78627343d6da8c50c52f4a11aa624b5d84858de
+Change default target parameter
+diff --git a/example/ML605/fpga_rgmii/rtl/fpga.v b/example/ML605/fpga_rgmii/rtl/fpga.v
+index 82308bc..38640cc 100644
+--- a/example/ML605/fpga_rgmii/rtl/fpga.v
++++ b/example/ML605/fpga_rgmii/rtl/fpga.v
+@@ -236,7 +236,9 @@ assign led = led_int;
+ assign uart_rxd = uart_rxd_int;
+ assign uart_cts = uart_cts_int;
+ 
+-fpga_core
++fpga_core #(
++    .TARGET("XILINX")
++)
+ core_inst (
+     /*
+      * Clock: 125MHz

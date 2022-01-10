@@ -1,0 +1,17 @@
+c7c580ce359291b428d4d3971de8788ba9687477
+Move new_log_handler to public section and add default parameters (closes #566)
+diff --git a/vunit/vhdl/logging/src/log_handler_pkg-body.vhd b/vunit/vhdl/logging/src/log_handler_pkg-body.vhd
+index b98e8515..78eb1877 100644
+--- a/vunit/vhdl/logging/src/log_handler_pkg-body.vhd
++++ b/vunit/vhdl/logging/src/log_handler_pkg-body.vhd
+@@ -61,8 +61,8 @@ package body log_handler_pkg is
+   end;
+ 
+   impure function new_log_handler(file_name : string;
+-                                  format : log_format_t;
+-                                  use_color : boolean) return log_handler_t is
++                                  format : log_format_t := verbose;
++                                  use_color : boolean := false) return log_handler_t is
+     constant id : natural := get(next_log_handler_id, 0);
+   begin
+     set(next_log_handler_id, 0, id + 1);

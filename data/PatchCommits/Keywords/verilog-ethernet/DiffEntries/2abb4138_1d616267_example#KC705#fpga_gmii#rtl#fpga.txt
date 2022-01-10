@@ -1,0 +1,15 @@
+2abb41385468e91f52f5ea5916390660ce03c009
+Fix signal name
+diff --git a/example/KC705/fpga_gmii/rtl/fpga.v b/example/KC705/fpga_gmii/rtl/fpga.v
+index bf0dc4a..8db1ad5 100644
+--- a/example/KC705/fpga_gmii/rtl/fpga.v
++++ b/example/KC705/fpga_gmii/rtl/fpga.v
+@@ -80,7 +80,7 @@ wire clk_200mhz_bufg;
+ wire clk_200mhz_mmcm_out;
+ 
+ // Internal 125 MHz clock
+-wire clk_200mhz_int;
++wire clk_int;
+ wire rst_int;   
+ 
+ wire mmcm_rst = reset;

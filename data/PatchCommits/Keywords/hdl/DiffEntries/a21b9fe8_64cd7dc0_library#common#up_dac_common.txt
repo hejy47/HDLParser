@@ -1,0 +1,15 @@
+a21b9fe8ffce014942e363900f1c0d99d2f4b0c9
+up_drp: Fix up_drp_wr
+diff --git a/library/common/up_dac_common.v b/library/common/up_dac_common.v
+index 02900c7b..2966e14a 100644
+--- a/library/common/up_dac_common.v
++++ b/library/common/up_dac_common.v
+@@ -269,7 +269,7 @@ module up_dac_common (
+       end
+       if ((up_wreq_s == 1'b1) && (up_waddr[7:0] == 8'h1c)) begin
+         up_drp_sel <= 1'b1;
+-        up_drp_wr <= ~up_wdata[28];
++        up_drp_wr <= ~up_wdata[12];
+       end else begin
+         up_drp_sel <= 1'b0;
+         up_drp_wr <= 1'b0;

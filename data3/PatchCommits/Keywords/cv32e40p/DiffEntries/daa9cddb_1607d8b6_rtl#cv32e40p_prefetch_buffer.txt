@@ -1,0 +1,16 @@
+daa9cddb88ae068b40e04830a570c0ec277387ac
+Fixing various lint errors/warnings
+diff --git a/rtl/cv32e40p_prefetch_buffer.sv b/rtl/cv32e40p_prefetch_buffer.sv
+index 1193fa9..8d2b01c 100644
+--- a/rtl/cv32e40p_prefetch_buffer.sv
++++ b/rtl/cv32e40p_prefetch_buffer.sv
+@@ -60,9 +60,6 @@ module cv32e40p_prefetch_buffer
+   logic        trans_valid;
+   logic        trans_ready;
+   logic [31:0] trans_addr;
+-  logic        trans_we;
+-  logic  [3:0] trans_be;
+-  logic [31:0] trans_wdata;
+ 
+   // Transaction response interface (between cv32e40p_obi_interface and cv32e40p_fetch_fifo)
+   logic        resp_valid;

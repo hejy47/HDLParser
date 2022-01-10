@@ -1,0 +1,25 @@
+daa9cddb88ae068b40e04830a570c0ec277387ac
+Fixing various lint errors/warnings
+diff --git a/rtl/cv32e40p_load_store_unit.sv b/rtl/cv32e40p_load_store_unit.sv
+index d503096..f1c1d05 100644
+--- a/rtl/cv32e40p_load_store_unit.sv
++++ b/rtl/cv32e40p_load_store_unit.sv
+@@ -469,7 +469,7 @@ module cv32e40p_load_store_unit
+   assign count_down = resp_valid;                       // Decrement upon accepted transfer response
+ 
+   always_comb begin
+-    case ({count_up, count_down})
++    unique case ({count_up, count_down})
+       2'b00  : begin
+         next_cnt = cnt_q;
+       end
+@@ -482,9 +482,6 @@ module cv32e40p_load_store_unit
+       2'b11  : begin
+         next_cnt = cnt_q;
+       end
+-      default : begin
+-        next_cnt = cnt_q;
+-      end
+     endcase
+   end
+ 

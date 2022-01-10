@@ -1,0 +1,19 @@
+0aff08cb8cb00ecf641a8b4a057f260d962ca26b
+[NEOLED] fixed IRQ corner case if FIFO_DEPTH=1
+diff --git a/rtl/core/neorv32_neoled.vhd b/rtl/core/neorv32_neoled.vhd
+index b692777..3a40f3c 100644
+--- a/rtl/core/neorv32_neoled.vhd
++++ b/rtl/core/neorv32_neoled.vhd
+@@ -242,7 +242,11 @@ begin
+   irq_generator: process(clk_i)
+   begin
+     if rising_edge(clk_i) then
+-      irq_o <= ctrl.enable and (not tx_buffer.half); -- fire IRQ if FIFO is less than half-full
++      if (FIFO_DEPTH = 1) then
++        irq_o <= ctrl.enable and tx_buffer.free; -- fire IRQ if FIFO is empty
++      else
++        irq_o <= ctrl.enable and (not tx_buffer.half); -- fire IRQ if FIFO is less than half-full
++      end if;
+     end if;
+   end process irq_generator;
+ 

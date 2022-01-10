@@ -1,0 +1,17 @@
+de88e3a1673bdeb490b7620d0180d8805aa8a76c
+[reggen] Add devmode_i to register module
+diff --git a/hw/ip/flash_ctrl/rtl/flash_ctrl.sv b/hw/ip/flash_ctrl/rtl/flash_ctrl.sv
+index 53957f20a..bdfff598e 100644
+--- a/hw/ip/flash_ctrl/rtl/flash_ctrl.sv
++++ b/hw/ip/flash_ctrl/rtl/flash_ctrl.sv
+@@ -66,7 +66,9 @@ module flash_ctrl (
+     .tl_win_i (tl_fifo_d2h),
+ 
+     .reg2hw,
+-    .hw2reg
++    .hw2reg,
++
++    .devmode_i  (1'b1)
+   );
+ 
+   // FIFO Connections

@@ -1,0 +1,15 @@
+9e50f5afa84d13bc7827892435a5d1abe1aef33a
+jesd204: Handle sysref events in the register map
+diff --git a/library/jesd204/jesd204_tx/tx.v b/library/jesd204/jesd204_tx/tx.v
+index 1db770a5..4615fde0 100644
+--- a/library/jesd204/jesd204_tx/tx.v
++++ b/library/jesd204/jesd204_tx/tx.v
+@@ -127,8 +127,6 @@ jesd204_lmfc i_lmfc (
+ 
+   .sysref(sysref),
+ 
+-  .clear_sysref_captured(1'b0),
+-  .sysref_captured(),
+   .sysref_edge(event_sysref_edge),
+   .sysref_alignment_error(event_sysref_alignment_error),
+ 

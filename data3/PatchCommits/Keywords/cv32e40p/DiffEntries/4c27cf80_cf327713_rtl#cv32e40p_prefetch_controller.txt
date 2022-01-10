@@ -1,0 +1,15 @@
+4c27cf802013e7a8f457eec6bd56818bcc61d571
+Merge pull request #491 from davideschiavone/fix_mepc_racecondition
+diff --git a/rtl/cv32e40p_prefetch_controller.sv b/rtl/cv32e40p_prefetch_controller.sv
+index 5ed8f50..1dec8d9 100644
+--- a/rtl/cv32e40p_prefetch_controller.sv
++++ b/rtl/cv32e40p_prefetch_controller.sv
+@@ -165,7 +165,7 @@ module cv32e40p_prefetch_controller
+     next_state = state_q;
+     trans_addr_o = trans_addr_q;
+ 
+-    unique case(state_q)
++    case(state_q)
+       // Default state (pass on branch target address or transaction with incremented address)
+       IDLE:
+       begin

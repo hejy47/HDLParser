@@ -1,0 +1,15 @@
+806065bc10109cf5cfd2e901071fe652801d965e
+IRQ related fixes as documented in https://github.com/openhwgroup/core-v-docs/issues/50. Removed NMI, unified fastx and fast interrupts, removed MTVECX. Fixes 243, 323, 336
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index 1e89055..4266649 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -221,7 +221,7 @@ module riscv_id_stage
+     input  logic        m_irq_enable_i,
+     input  logic        u_irq_enable_i,
+     output logic        irq_ack_o,
+-    output logic [4:0]  irq_id_o,
++    output logic [5:0]  irq_id_o,
+     output logic [5:0]  exc_cause_o,
+ 
+     // Debug Signal

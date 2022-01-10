@@ -1,0 +1,15 @@
+3ca3414522f30bc7a12f0551aea85502f5e4d415
+fmcadc2: Fixed bus data width
+diff --git a/projects/fmcadc2/vc707/system_top.v b/projects/fmcadc2/vc707/system_top.v
+index e00f5dc6..1ce119e2 100644
+--- a/projects/fmcadc2/vc707/system_top.v
++++ b/projects/fmcadc2/vc707/system_top.v
+@@ -233,7 +233,7 @@ module system_top (
+     .spi_adc_sdio (spi_adc_sdio),
+     .spi_ext_sdio (spi_ext_sdio));
+ 
+-  ad_iobuf #(.DATA_WIDTH(3)) i_iobuf (
++  ad_iobuf #(.DATA_WIDTH(2)) i_iobuf (
+     .dio_t (gpio_t[33:32]),
+     .dio_i (gpio_o[33:32]),
+     .dio_o (gpio_i[33:32]),

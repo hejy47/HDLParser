@@ -1,0 +1,17 @@
+93b2254ff5946f432ab330cf2b7a1af21786be99
+axi_ad9361: Fix for 'Define a MIMO enabled parameter'
+diff --git a/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v b/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v
+index 914b1f14..d658b87a 100644
+--- a/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v
++++ b/library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v
+@@ -518,8 +518,8 @@ module axi_ad9361_lvds_if #(
+   end else begin /* CLK_DESKEW == 0 */
+ 
+     always @(posedge l_clk) begin
+-      enable_int_p <= enable_int_p;
+-      txnrx_int_p <= txnrx_int_p;
++      enable_int_p <= enable_int;
++      txnrx_int_p <= txnrx_int;
+     end
+ 
+   end

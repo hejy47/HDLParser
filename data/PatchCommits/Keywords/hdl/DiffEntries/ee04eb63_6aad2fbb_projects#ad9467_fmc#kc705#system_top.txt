@@ -1,0 +1,17 @@
+ee04eb637b2e74dd1ebe07fd12debf8883b56f77
+ad9467_kc705: Fix interrupts
+diff --git a/projects/ad9467_fmc/kc705/system_top.v b/projects/ad9467_fmc/kc705/system_top.v
+index 6a5b5841..fb600679 100644
+--- a/projects/ad9467_fmc/kc705/system_top.v
++++ b/projects/ad9467_fmc/kc705/system_top.v
+@@ -244,8 +244,8 @@ system_wrapper i_system_wrapper (
+     .mb_intr_29 (mb_intrs[29]),
+     .mb_intr_30 (mb_intrs[30]),
+     .mb_intr_31 (mb_intrs[31]),
+-    .ad9467_dma_irq (mb_intr_13),
+-    .ad9467_spi_irq (mb_intr_10),
++    .ad9467_dma_irq (mb_intr[10]),
++    .ad9467_spi_irq (mb_intr[13]),
+     .mdio_mdc (mdio_mdc),
+     .mdio_mdio_io (mdio_mdio_io),
+     .mii_col (mii_col),

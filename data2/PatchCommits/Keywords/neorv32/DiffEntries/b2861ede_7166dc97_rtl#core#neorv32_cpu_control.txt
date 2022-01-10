@@ -1,0 +1,14 @@
+b2861ede6764eaa778c2500f2e9108574e0e6006
+fixed commit error
+diff --git a/rtl/core/neorv32_cpu_control.vhd b/rtl/core/neorv32_cpu_control.vhd
+index d982225..c8d545c 100644
+--- a/rtl/core/neorv32_cpu_control.vhd
++++ b/rtl/core/neorv32_cpu_control.vhd
+@@ -614,6 +614,7 @@ begin
+ 
+       when LOADSTORE_0 => -- memory latency
+       -- ------------------------------------------------------------
++        ctrl_nxt(ctrl_bus_mdi_we_c) <= '1'; -- write input data to MDI (only relevant for LOAD)
+         state_nxt <= LOADSTORE_1;
+ 
+       when LOADSTORE_1 => -- wait for bus transaction to finish

@@ -1,0 +1,16 @@
+84109e778c3b562d1745ea30339a19cd24d1d9e1
+Default check logger is named check again
+diff --git a/vunit/vhdl/check/src/check_api.vhd b/vunit/vhdl/check/src/check_api.vhd
+index 235f42b9..26eb0c8a 100644
+--- a/vunit/vhdl/check/src/check_api.vhd
++++ b/vunit/vhdl/check/src/check_api.vhd
+@@ -17,7 +17,8 @@ use work.log_levels_pkg.all;
+ 
+ package check_pkg is
+ 
+-  constant default_checker    : checker_t := new_checker;
++  constant default_checker : checker_t := new_checker("check");
++  constant check_logger : logger_t := get_logger(default_checker);
+ 
+   signal check_enabled : std_logic := '1';
+ 

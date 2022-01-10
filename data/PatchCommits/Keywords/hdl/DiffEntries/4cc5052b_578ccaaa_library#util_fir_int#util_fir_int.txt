@@ -1,0 +1,15 @@
+4cc5052b3a5150c79fcafb35f50849f4b1662f65
+util_fir_int: Fix valid assignment
+diff --git a/library/util_fir_int/util_fir_int.v b/library/util_fir_int/util_fir_int.v
+index 15a0a45d..cfacb7fa 100644
+--- a/library/util_fir_int/util_fir_int.v
++++ b/library/util_fir_int/util_fir_int.v
+@@ -59,7 +59,7 @@ module util_fir_int (
+     if (ready_counter == 0) begin
+       s_axis_data_tvalid_r <= 1'b1;
+     end else begin
+-      s_axis_data_tvalid_r <= 1'b1;
++      s_axis_data_tvalid_r <= 1'b0;
+     end
+   end
+ 

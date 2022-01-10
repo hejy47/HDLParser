@@ -1,0 +1,14 @@
+d9616de45494240ebf579cbdfb4867ed3b7a8b3c
+:fix: typo
+diff --git a/rtl/riscv_cs_registers.sv b/rtl/riscv_cs_registers.sv
+index ac58a9a..8605f88 100644
+--- a/rtl/riscv_cs_registers.sv
++++ b/rtl/riscv_cs_registers.sv
+@@ -42,7 +42,6 @@ module riscv_cs_registers
+   parameter APU           = 0,
+   parameter FPU           = 0,
+   parameter PULP_SECURE   = 0,
+-  parameter PULP_SECURE   = 0,
+   parameter USE_PMP       = 0,
+   parameter N_PMP_ENTRIES = 16
+ )

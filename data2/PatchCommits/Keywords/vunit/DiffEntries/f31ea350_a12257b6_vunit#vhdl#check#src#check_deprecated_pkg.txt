@@ -1,0 +1,15 @@
+f31ea350f6c7ec4d5059549973c2b24d892a84fe
+Use constant instead of alias to work arround Sigasi bug
+diff --git a/vunit/vhdl/check/src/check_deprecated_pkg.vhd b/vunit/vhdl/check/src/check_deprecated_pkg.vhd
+index 728ba58b..ac93b9bb 100644
+--- a/vunit/vhdl/check/src/check_deprecated_pkg.vhd
++++ b/vunit/vhdl/check/src/check_deprecated_pkg.vhd
+@@ -77,7 +77,7 @@ package check_deprecated_pkg is
+     return boolean;
+ 
+   -- Deprecated constant with _c suffix. Use without suffix instead
+-  alias check_result_tag_c is check_result_tag;
++  constant check_result_tag_c : string := check_result_tag;
+ 
+ end package check_deprecated_pkg;
+ 

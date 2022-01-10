@@ -1,0 +1,50 @@
+f6537bb85d5ef051583d49253de4b01f859c3e51
+Update com.
+diff --git a/vunit/vhdl/com/src/com_string.vhd b/vunit/vhdl/com/src/com_string.vhd
+index b1db55bc..b3016dd4 100644
+--- a/vunit/vhdl/com/src/com_string.vhd
++++ b/vunit/vhdl/com/src/com_string.vhd
+@@ -22,6 +22,9 @@ use ieee.float_pkg.all;
+ use std.textio.all;
+ 
+ use work.com_debug_codec_builder_pkg.all;
++use work.queue_pkg.all;
++use work.integer_vector_ptr_pkg.all;
++use work.string_ptr_pkg.all;
+ 
+ package com_string_pkg is
+   function to_detailed_string (
+@@ -59,6 +62,12 @@ package com_string_pkg is
+   function to_string (
+     constant data : complex_polar)
+     return string;
++  function to_string (
++    constant data : integer_vector_ptr_t)
++    return string;
++  function to_string (
++    constant data : queue_t)
++    return string;
+   function to_detailed_string (
+     constant data : ieee.numeric_bit.unsigned)
+     return string;
+@@ -204,6 +213,20 @@ package body com_string_pkg is
+     return create_group(2, to_detailed_string(data.mag), to_detailed_string(data.arg));
+   end;
+ 
++  function to_string (
++    constant data : integer_vector_ptr_t)
++    return string is
++  begin
++    return create_group(1, to_string(data.index));
++  end;
++
++  function to_string (
++    constant data : queue_t)
++    return string is
++  begin
++    return create_group(2, to_string(data.p_meta), to_string(to_integer(data.data)));
++  end;
++
+   function to_detailed_string (
+     constant data : ieee.numeric_bit.unsigned)
+     return string is

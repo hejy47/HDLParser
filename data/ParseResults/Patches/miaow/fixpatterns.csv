@@ -1,0 +1,13 @@
+,update,move,insert,delete
+HdlOp-MemberAccessing-HdlStmAssign,4.0,,,
+HdlOp-TERNARY-HdlStmAssign,1.0,,,
+HdlOp-TERNARY-HdlOp-TERNARY,39.0,,,
+HdlOp-InfixExpression-HdlOp-TERNARY,1.0,,,
+HdlOp-MemberAccessing-HdlOp-InfixExpression,1.0,,,
+HdlOp-InfixExpression-HdlStmIf,2.0,3.0,1.0,
+HdlOp-InfixExpression-HdlOp-InfixExpression,4.0,,,1.0
+HdlOp-PrefixExpression-HdlOp-InfixExpression,1.0,,,2.0
+HdlDirection-HdlIdDef,1.0,,,
+HdlOp-DOWNTO-HdlOp-MemberAccessing,3.0,,,
+HdlOp-MemberAccessing-HdlStmCase,,1.0,,
+HdlOp-PARAMETRIZATION-HdlIdDef,,,,1.0

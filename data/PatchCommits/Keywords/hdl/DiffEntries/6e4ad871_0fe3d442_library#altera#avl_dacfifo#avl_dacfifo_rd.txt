@@ -1,0 +1,18 @@
+6e4ad871a442e23dbc408d34ff303de98468c79e
+avl_dacfifo: Fix 'blocking statement in always block' issue
+diff --git a/library/altera/avl_dacfifo/avl_dacfifo_rd.v b/library/altera/avl_dacfifo/avl_dacfifo_rd.v
+index 1dd5515d..4623bbda 100644
+--- a/library/altera/avl_dacfifo/avl_dacfifo_rd.v
++++ b/library/altera/avl_dacfifo/avl_dacfifo_rd.v
+@@ -479,9 +479,9 @@ module avl_dacfifo_rd #(
+         dac_mem_valid <= 1'b0;
+     end else begin
+       if (dac_mem_dunf_s == 1'b1) begin
+-        dac_mem_renable = 1'b0;
++        dac_mem_renable <= 1'b0;
+       end else if (dac_mem_addr_diff >= DAC_MEM_THRESHOLD) begin
+-        dac_mem_renable = 1'b1;
++        dac_mem_renable <= 1'b1;
+       end
+       dac_mem_valid <= (dac_mem_renable) ? dac_valid : 1'b0;
+     end

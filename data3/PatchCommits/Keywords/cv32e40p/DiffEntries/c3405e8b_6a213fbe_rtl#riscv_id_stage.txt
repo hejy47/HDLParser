@@ -1,0 +1,26 @@
+c3405e8b1b7bdcf5cb6ffd8518c086b419aaab1b
+fixed merge with master
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index faabf28..a3e2bf7 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -241,7 +241,8 @@ module riscv_id_stage
+     // Performance Counters
+     output logic        perf_jump_o,          // we are executing a jump instruction
+     output logic        perf_jr_stall_o,      // jump-register-hazard
+-    output logic        perf_ld_stall_o      // load-use-hazard
++    output logic        perf_ld_stall_o,      // load-use-hazard
++    output logic        perf_pipeline_stall_o //extra cycles from elw
+ );
+ 
+   logic [31:0] instr;
+@@ -1222,7 +1223,8 @@ module riscv_id_stage
+     // Performance Counters
+     .perf_jump_o                    ( perf_jump_o            ),
+     .perf_jr_stall_o                ( perf_jr_stall_o        ),
+-    .perf_ld_stall_o                ( perf_ld_stall_o        )
++    .perf_ld_stall_o                ( perf_ld_stall_o        ),
++    .perf_pipeline_stall_o          ( perf_pipeline_stall_o  )
+   );
+ 
+ 

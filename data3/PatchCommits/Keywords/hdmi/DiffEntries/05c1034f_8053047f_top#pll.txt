@@ -1,0 +1,14 @@
+05c1034f0a9b6e225dd40623ee4bff0eb1a25aaf
+top_tb: keep grey box approach & read tmds values directly, fixes #9
+diff --git a/top/pll.v b/top/pll.v
+index a5f9a0d..5d2f959 100644
+--- a/top/pll.v
++++ b/top/pll.v
+@@ -3,7 +3,6 @@
+ `timescale 1 ns / 100 ps
+ 
+ module pll (
+-	input wire inclk0,
+ 	output reg c0 = 0,
+ 	output reg c1 = 1,
+ 	output reg c2 = 0

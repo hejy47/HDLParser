@@ -1,0 +1,16 @@
+018224303044d31d8cebc512000d3aba9c88eb67
+Merge remote-tracking branch 'origin/xret_fix' into vega_dbg_dev_xret_fix
+diff --git a/verilator-model/top.sv b/verilator-model/top.sv
+index 1ad5beb..eb977ef 100644
+--- a/verilator-model/top.sv
++++ b/verilator-model/top.sv
+@@ -72,8 +72,8 @@ module top
+       .rst_ni                 ( rstn_i                ),
+ 
+       .clock_en_i             ( '1                    ),
+-      .test_en_i              ( '1                    ),
+       .fregfile_disable_i     ( '0                    ),
++      .test_en_i              ( '0                    ),
+ 
+       .boot_addr_i            ( BOOT_ADDR             ),
+       .core_id_i              ( 4'h0                  ),

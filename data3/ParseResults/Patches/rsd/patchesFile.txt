@@ -1,0 +1,1077 @@
+CommitId: e3f14cf4371933def57948d8d8eb68bf188ce115
+Merge branch 'fix-for-latest-sim' into add-setassociative-dcache-tree-lru
+--- a/Processor/Src/FetchUnit/Gshare.sv
++++ b/Processor/Src/FetchUnit/Gshare.sv
+@@ -115,7 +115,11 @@ module Gshare(
+         end
+ 
+         // Push Pht Queue
+-        if (pushPhtQueue) begin
++        if (port.rst) begin
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWA <= '0;
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWV <= PHT_ENTRY_MAX / 2 + 1;
++        end
++        else if (pushPhtQueue) begin
+             phtQueue[headPtr].phtWA <= phtWA[INT_ISSUE_WIDTH-1];
+             phtQueue[headPtr].phtWV <= phtWV[INT_ISSUE_WIDTH-1];
+         end
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlOp: DOT
+        list: ops
+            HdlValueId: port
+            HdlValueId: rst
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: regBrGlobalHistory
+    list: elifs
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueId: nextBrGlobalHistory
+                HdlValueId: regBrGlobalHistory
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlValueId: pushPhtQueue
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    list: elifs
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@DOT to 
+    HdlOp: DOT
+        list: ops
+            HdlValueId: port
+            HdlValueId: rst
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+            HdlStmAssign
+                HdlOp: ADD
+                    list: ops
+                        HdlOp: DIV
+                            list: ops
+                                HdlValueId: PHT_ENTRY_MAX
+                                HdlValueInt: 2
+                        HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+    INS tuple@@ to elifs
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD list@@body to elifs
+        MOV list@@body to SEQ
+        list: body
+            HdlStmIf
+                HdlOp: DOT
+                    list: ops
+                        HdlValueId: port
+                        HdlValueId: rst
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 0
+                            HdlValueId: regBrGlobalHistory
+                list: elifs
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueId: nextBrGlobalHistory
+                            HdlValueId: regBrGlobalHistory
+            HdlStmIf
+                HdlValueId: pushPhtQueue
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWA
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWV
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                list: elifs
+
+UPD HdlStmIf@@ to 
+    MOV HdlValueId@@pushPhtQueue to 
+    HdlValueId: pushPhtQueue
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    DEL list@@elifs from 
+
+
+CommitId: bd4b3e44088930d14a4b65be1e8ed4d9a6530d21
+fix: fix bugs where write queues for PHT/BTB are not reset correctly
+--- a/Processor/Src/FetchUnit/Bimodal.sv
++++ b/Processor/Src/FetchUnit/Bimodal.sv
+@@ -95,7 +95,11 @@ module Bimodal(
+ 
+     always_ff @(posedge port.clk) begin
+         // Push Pht Queue
+-        if (pushPhtQueue) begin
++        if (port.rst) begin
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWA <= '0;
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWV <= PHT_ENTRY_MAX / 2 + 1;
++        end
++        else if (pushPhtQueue) begin
+             phtQueue[headPtr].phtWA <= phtWA[INT_ISSUE_WIDTH-1];
+             phtQueue[headPtr].phtWV <= phtWV[INT_ISSUE_WIDTH-1];
+         end
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlValueId: pushPhtQueue
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    list: elifs
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@DOT to 
+    HdlOp: DOT
+        list: ops
+            HdlValueId: port
+            HdlValueId: rst
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+            HdlStmAssign
+                HdlOp: ADD
+                    list: ops
+                        HdlOp: DIV
+                            list: ops
+                                HdlValueId: PHT_ENTRY_MAX
+                                HdlValueInt: 2
+                        HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+    INS tuple@@ to elifs
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD list@@body to elifs
+        MOV list@@body to SEQ
+        list: body
+            HdlStmIf
+                HdlValueId: pushPhtQueue
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWA
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWV
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                list: elifs
+
+UPD HdlStmIf@@ to 
+    MOV HdlValueId@@pushPhtQueue to 
+    HdlValueId: pushPhtQueue
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    DEL list@@elifs from 
+
+
+CommitId: bd4b3e44088930d14a4b65be1e8ed4d9a6530d21
+fix: fix bugs where write queues for PHT/BTB are not reset correctly
+--- a/Processor/Src/FetchUnit/Gshare.sv
++++ b/Processor/Src/FetchUnit/Gshare.sv
+@@ -115,7 +115,11 @@ module Gshare(
+         end
+ 
+         // Push Pht Queue
+-        if (pushPhtQueue) begin
++        if (port.rst) begin
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWA <= '0;
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWV <= PHT_ENTRY_MAX / 2 + 1;
++        end
++        else if (pushPhtQueue) begin
+             phtQueue[headPtr].phtWA <= phtWA[INT_ISSUE_WIDTH-1];
+             phtQueue[headPtr].phtWV <= phtWV[INT_ISSUE_WIDTH-1];
+         end
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlOp: DOT
+        list: ops
+            HdlValueId: port
+            HdlValueId: rst
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: regBrGlobalHistory
+    list: elifs
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueId: nextBrGlobalHistory
+                HdlValueId: regBrGlobalHistory
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlValueId: pushPhtQueue
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    list: elifs
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@DOT to 
+    HdlOp: DOT
+        list: ops
+            HdlValueId: port
+            HdlValueId: rst
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+            HdlStmAssign
+                HdlOp: ADD
+                    list: ops
+                        HdlOp: DIV
+                            list: ops
+                                HdlValueId: PHT_ENTRY_MAX
+                                HdlValueInt: 2
+                        HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+    INS tuple@@ to elifs
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD list@@body to elifs
+        MOV list@@body to SEQ
+        list: body
+            HdlStmIf
+                HdlOp: DOT
+                    list: ops
+                        HdlValueId: port
+                        HdlValueId: rst
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 0
+                            HdlValueId: regBrGlobalHistory
+                list: elifs
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueId: nextBrGlobalHistory
+                            HdlValueId: regBrGlobalHistory
+            HdlStmIf
+                HdlValueId: pushPhtQueue
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWA
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWV
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                list: elifs
+
+UPD HdlStmIf@@ to 
+    MOV HdlValueId@@pushPhtQueue to 
+    HdlValueId: pushPhtQueue
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    DEL list@@elifs from 
+
+
+CommitId: 039276c315b5828aef0c7fc6910f1bb15a66e8fa
+Merge pull request #25 from rsd-devel/fix-for-latest-sim
+--- a/Processor/Src/FetchUnit/Gshare.sv
++++ b/Processor/Src/FetchUnit/Gshare.sv
+@@ -115,7 +115,11 @@ module Gshare(
+         end
+ 
+         // Push Pht Queue
+-        if (pushPhtQueue) begin
++        if (port.rst) begin
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWA <= '0;
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWV <= PHT_ENTRY_MAX / 2 + 1;
++        end
++        else if (pushPhtQueue) begin
+             phtQueue[headPtr].phtWA <= phtWA[INT_ISSUE_WIDTH-1];
+             phtQueue[headPtr].phtWV <= phtWV[INT_ISSUE_WIDTH-1];
+         end
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlOp: DOT
+        list: ops
+            HdlValueId: port
+            HdlValueId: rst
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: regBrGlobalHistory
+    list: elifs
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueId: nextBrGlobalHistory
+                HdlValueId: regBrGlobalHistory
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlValueId: pushPhtQueue
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    list: elifs
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@DOT to 
+    HdlOp: DOT
+        list: ops
+            HdlValueId: port
+            HdlValueId: rst
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+            HdlStmAssign
+                HdlOp: ADD
+                    list: ops
+                        HdlOp: DIV
+                            list: ops
+                                HdlValueId: PHT_ENTRY_MAX
+                                HdlValueInt: 2
+                        HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+    INS tuple@@ to elifs
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD list@@body to elifs
+        MOV list@@body to SEQ
+        list: body
+            HdlStmIf
+                HdlOp: DOT
+                    list: ops
+                        HdlValueId: port
+                        HdlValueId: rst
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 0
+                            HdlValueId: regBrGlobalHistory
+                list: elifs
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueId: nextBrGlobalHistory
+                            HdlValueId: regBrGlobalHistory
+            HdlStmIf
+                HdlValueId: pushPhtQueue
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWA
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWV
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                list: elifs
+
+UPD HdlStmIf@@ to 
+    MOV HdlValueId@@pushPhtQueue to 
+    HdlValueId: pushPhtQueue
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    DEL list@@elifs from 
+
+
+CommitId: e3f14cf4371933def57948d8d8eb68bf188ce115
+Merge branch 'fix-for-latest-sim' into add-setassociative-dcache-tree-lru
+--- a/Processor/Src/FetchUnit/Bimodal.sv
++++ b/Processor/Src/FetchUnit/Bimodal.sv
+@@ -95,7 +95,11 @@ module Bimodal(
+ 
+     always_ff @(posedge port.clk) begin
+         // Push Pht Queue
+-        if (pushPhtQueue) begin
++        if (port.rst) begin
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWA <= '0;
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWV <= PHT_ENTRY_MAX / 2 + 1;
++        end
++        else if (pushPhtQueue) begin
+             phtQueue[headPtr].phtWA <= phtWA[INT_ISSUE_WIDTH-1];
+             phtQueue[headPtr].phtWV <= phtWV[INT_ISSUE_WIDTH-1];
+         end
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlValueId: pushPhtQueue
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    list: elifs
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@DOT to 
+    HdlOp: DOT
+        list: ops
+            HdlValueId: port
+            HdlValueId: rst
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+            HdlStmAssign
+                HdlOp: ADD
+                    list: ops
+                        HdlOp: DIV
+                            list: ops
+                                HdlValueId: PHT_ENTRY_MAX
+                                HdlValueInt: 2
+                        HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+    INS tuple@@ to elifs
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD list@@body to elifs
+        MOV list@@body to SEQ
+        list: body
+            HdlStmIf
+                HdlValueId: pushPhtQueue
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWA
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWV
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                list: elifs
+
+UPD HdlStmIf@@ to 
+    MOV HdlValueId@@pushPhtQueue to 
+    HdlValueId: pushPhtQueue
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    DEL list@@elifs from 
+
+
+CommitId: 039276c315b5828aef0c7fc6910f1bb15a66e8fa
+Merge pull request #25 from rsd-devel/fix-for-latest-sim
+--- a/Processor/Src/FetchUnit/Bimodal.sv
++++ b/Processor/Src/FetchUnit/Bimodal.sv
+@@ -95,7 +95,11 @@ module Bimodal(
+ 
+     always_ff @(posedge port.clk) begin
+         // Push Pht Queue
+-        if (pushPhtQueue) begin
++        if (port.rst) begin
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWA <= '0;
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWV <= PHT_ENTRY_MAX / 2 + 1;
++        end
++        else if (pushPhtQueue) begin
+             phtQueue[headPtr].phtWA <= phtWA[INT_ISSUE_WIDTH-1];
+             phtQueue[headPtr].phtWV <= phtWV[INT_ISSUE_WIDTH-1];
+         end
+ParseResult:
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+MOV HdlStmIf@@ to body
+HdlStmIf
+    HdlValueId: pushPhtQueue
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    list: elifs
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@DOT to 
+    HdlOp: DOT
+        list: ops
+            HdlValueId: port
+            HdlValueId: rst
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+            HdlStmAssign
+                HdlOp: ADD
+                    list: ops
+                        HdlOp: DIV
+                            list: ops
+                                HdlValueId: PHT_ENTRY_MAX
+                                HdlValueInt: 2
+                        HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlOp: MOD
+                            list: ops
+                                HdlValueId: resetIndex
+                                HdlValueId: PHT_QUEUE_SIZE
+    INS tuple@@ to elifs
+
+UPD HdlStmProcess@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD list@@body to elifs
+        MOV list@@body to SEQ
+        list: body
+            HdlStmIf
+                HdlValueId: pushPhtQueue
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWA
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                        HdlStmAssign
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtWV
+                                    HdlOp: SUB
+                                        list: ops
+                                            HdlValueId: INT_ISSUE_WIDTH
+                                            HdlValueInt: 1
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: phtQueue
+                                    HdlValueId: headPtr
+                list: elifs
+
+UPD HdlStmIf@@ to 
+    MOV HdlValueId@@pushPhtQueue to 
+    HdlValueId: pushPhtQueue
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWA
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtWV
+                        HdlOp: SUB
+                            list: ops
+                                HdlValueId: INT_ISSUE_WIDTH
+                                HdlValueInt: 1
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: phtQueue
+                        HdlValueId: headPtr
+    DEL list@@elifs from 
+
+
+CommitId: 0070dd9264df74eca42a03ba5e9adc46b50126f8
+fix: fix a bug where a branch misprediction signal is incorrect
+--- a/Processor/Src/Pipeline/IntegerBackEnd/IntegerExecutionStage.sv
++++ b/Processor/Src/Pipeline/IntegerBackEnd/IntegerExecutionStage.sv
+@@ -234,7 +234,7 @@ module IntegerExecutionStage(
+                     
+             // 予測ミス判定
+             predMiss[i] =
+-                pipeReg[i].valid && isBranch[i] &&
++                brResult[i].valid &&
+                 (
+                      (bPred[i].predTaken != brTaken[i]) ||
+                      (brTaken[i] == TRUE &&
+ParseResult:
+UPD HdlStmFor@@ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD HdlOp@@ASSIGN to ASSIGN
+            UPD HdlOp@@AND_LOG to AND_LOG
+                UPD HdlOp@@AND_LOG to AND_LOG
+                    MOV HdlOp@@DOT to ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: pipeReg
+                                    HdlValueId: i
+                            HdlValueId: valid
+                    UPD HdlOp@@DOT to DOT
+                        UPD HdlOp@@INDEX to INDEX
+                            UPD HdlValueId@@pipeReg to brResult
+                    DEL HdlOp@@INDEX from ops
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: isBranch
+                            HdlValueId: i
+                    DEL list@@ops from AND_LOG
+                DEL HdlOp@@AND_LOG from ops
+
+

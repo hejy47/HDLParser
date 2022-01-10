@@ -1,0 +1,19 @@
+4c2a539a96bee54228dcc8c98df5e1892c7929e1
+axi_fan_control: Fixed ip version
+diff --git a/library/axi_fan_control/axi_fan_control.v b/library/axi_fan_control/axi_fan_control.v
+index cde784c9..c0ecc503 100644
+--- a/library/axi_fan_control/axi_fan_control.v
++++ b/library/axi_fan_control/axi_fan_control.v
+@@ -76,9 +76,9 @@ module axi_fan_control #(
+   input                   s_axi_rready);
+ 
+ //local parameters
+-localparam [31:0] CORE_VERSION            = {16'h0000,     /* MAJOR */
+-                                              8'h01,       /* MINOR */
+-                                              8'h00};      /* PATCH */ // 0.0.0
++localparam [31:0] CORE_VERSION            = {16'h0001,     /* MAJOR */
++                                              8'h00,       /* MINOR */
++                                              8'h61};      /* PATCH */ // 0.0.0
+ localparam [31:0] CORE_MAGIC              = 32'h46414E43;    // FANC
+ 
+ localparam        CLK_FREQUENCY           = 100000000;

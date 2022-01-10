@@ -1,0 +1,15 @@
+a9c04a465150ae5fc9cd8f32906213d9ba9afb06
+Fix frame FIFO drop
+diff --git a/rtl/axis_fifo.v b/rtl/axis_fifo.v
+index d3b19ad..93f4190 100644
+--- a/rtl/axis_fifo.v
++++ b/rtl/axis_fifo.v
+@@ -204,7 +204,7 @@ assign status_good_frame = good_frame_reg;
+ always @* begin
+     write = 1'b0;
+ 
+-    drop_frame_next = 1'b0;
++    drop_frame_next = drop_frame_reg;
+     overflow_next = 1'b0;
+     bad_frame_next = 1'b0;
+     good_frame_next = 1'b0;

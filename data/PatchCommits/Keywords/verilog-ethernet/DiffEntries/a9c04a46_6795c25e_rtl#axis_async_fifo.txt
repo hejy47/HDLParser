@@ -1,0 +1,15 @@
+a9c04a465150ae5fc9cd8f32906213d9ba9afb06
+Fix frame FIFO drop
+diff --git a/rtl/axis_async_fifo.v b/rtl/axis_async_fifo.v
+index 416cc09..39ac349 100644
+--- a/rtl/axis_async_fifo.v
++++ b/rtl/axis_async_fifo.v
+@@ -280,7 +280,7 @@ end
+ always @* begin
+     write = 1'b0;
+ 
+-    drop_frame_next = 1'b0;
++    drop_frame_next = drop_frame_reg;
+     overflow_next = 1'b0;
+     bad_frame_next = 1'b0;
+     good_frame_next = 1'b0;

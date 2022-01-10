@@ -1,0 +1,5 @@
+,HdlStmAssign,HdlIdDef,HdlStmNop,HdlStmIf,HdlStmBlock,HdlStmProcess,HdlStmCase,HdlModuleDef,HdlFunctionDef,HdlStmFor,HdlModuleDec,HdlStmWhile
+update,209,206,,353,593,271,278,43,5.0,8.0,4.0,4.0
+insert,142,254,2.0,39,120,18,1,1,,6.0,,
+delete,67,43,10.0,33,77,16,1,1,,,,
+move,14,49,,12,36,5,4,6,,,1.0,

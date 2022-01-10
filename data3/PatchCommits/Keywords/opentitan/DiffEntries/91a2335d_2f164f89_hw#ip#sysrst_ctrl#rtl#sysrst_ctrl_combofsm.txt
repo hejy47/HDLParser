@@ -1,0 +1,24 @@
+91a2335db7c362ea12962a6d0ccc6f589c1d01a3
+[sysrst_ctrl] cleaned up unused lint errors
+diff --git a/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_combofsm.sv b/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_combofsm.sv
+index ee3fe70b7..ce6008064 100644
+--- a/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_combofsm.sv
++++ b/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_combofsm.sv
+@@ -20,7 +20,7 @@ module sysrst_ctrl_combofsm #(
+ );
+ 
+   logic trigger_h_q, trigger_l_q;
+-  logic trigger_h2l, trigger_l2h, trigger_h2h, trigger_l2l;
++  logic trigger_h2l, trigger_l2h, trigger_l2l;
+ 
+   logic [TIMER1BIT-1:0] timer1_cnt_d, timer1_cnt_q;
+   logic timer1_cnt_clr, timer1_cnt_en;
+@@ -45,7 +45,7 @@ module sysrst_ctrl_combofsm #(
+ 
+   assign trigger_h2l = (trigger_h_q == 1'b1) && (trigger_l_i == 1'b1);
+   assign trigger_l2h = (trigger_l_q == 1'b1) && (trigger_h_i == 1'b1);
+-  assign trigger_h2h = (trigger_h_q == 1'b1) && (trigger_h_i == 1'b1);
++  //assign trigger_h2h = (trigger_h_q == 1'b1) && (trigger_h_i == 1'b1);
+   assign trigger_l2l = (trigger_l_q == 1'b1) && (trigger_l_i == 1'b1);
+ 
+   //Four-state FSM

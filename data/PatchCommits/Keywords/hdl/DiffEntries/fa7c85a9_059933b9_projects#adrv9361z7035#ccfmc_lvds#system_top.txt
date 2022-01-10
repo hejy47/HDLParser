@@ -1,0 +1,14 @@
+fa7c85a9ebfd7ad3dc8744ba688dd9625b0b5725
+all: Drive undriven input signals, complete interface
+diff --git a/projects/adrv9361z7035/ccfmc_lvds/system_top.v b/projects/adrv9361z7035/ccfmc_lvds/system_top.v
+index c12fabb3..b1d2ab64 100644
+--- a/projects/adrv9361z7035/ccfmc_lvds/system_top.v
++++ b/projects/adrv9361z7035/ccfmc_lvds/system_top.v
+@@ -335,6 +335,7 @@ module system_top (
+     .gpio_i (gpio_i),
+     .gpio_o (gpio_o),
+     .gpio_t (gpio_t),
++    .gps_pps (1'b0),
+     .gt_ref_clk_0 (gt_ref_clk_0),
+     .gt_ref_clk_1 (gt_ref_clk_1),
+     .gt_rx_n (gt_rx_n),

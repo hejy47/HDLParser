@@ -1,0 +1,784 @@
+======Commit: 6c234260======
+======Short Message======
+Fix assignment type
+======Full Message======
+Fix assignment type
+
+
+
+======Commit: a613cc8a======
+======Short Message======
+Fix alignment
+======Full Message======
+Fix alignment
+
+
+
+======Commit: 0b2066ab======
+======Short Message======
+Fix corner case with back-to-back single-cycle transfers
+======Full Message======
+Fix corner case with back-to-back single-cycle transfers
+
+
+
+======Commit: 81673727======
+======Short Message======
+Fix broadcast address check
+======Full Message======
+Fix broadcast address check
+
+
+
+======Commit: 56a3b8fe======
+======Short Message======
+Fix indexed part select error in degenerate case when M_COUNT = 1
+======Full Message======
+Fix indexed part select error in degenerate case when M_COUNT = 1
+
+
+
+======Commit: 8e5c4874======
+======Short Message======
+Fix switch wrapper parameters
+======Full Message======
+Fix switch wrapper parameters
+
+
+
+======Commit: 42950abf======
+======Short Message======
+Refactor PTP period output, implement error output
+======Full Message======
+Refactor PTP period output, implement error output
+
+
+
+======Commit: 77d22bfd======
+======Short Message======
+Rework sim_build output directory, fix default makefile target
+======Full Message======
+Rework sim_build output directory, fix default makefile target
+
+
+
+======Commit: d1fc821c======
+======Short Message======
+Fix simulation startup issue in rgmii_phy_if
+======Full Message======
+Fix simulation startup issue in rgmii_phy_if
+
+
+
+======Commit: a7862734======
+======Short Message======
+Change default target parameter
+======Full Message======
+Change default target parameter
+
+
+
+======Commit: 2a2d8ac9======
+======Short Message======
+Fix reg type in VCU108 and VCU118 example designs
+======Full Message======
+Fix reg type in VCU108 and VCU118 example designs
+
+
+
+======Commit: 9e4bd6e8======
+======Short Message======
+Fix flash programming commands for VCU108
+======Full Message======
+Fix flash programming commands for VCU108
+
+
+
+======Commit: 816e071a======
+======Short Message======
+Fix bitstream config for VCU1525
+======Full Message======
+Fix bitstream config for VCU1525
+
+
+
+======Commit: 3f52ed67======
+======Short Message======
+Fix flash settings
+======Full Message======
+Fix flash settings
+
+
+
+======Commit: 839ea23a======
+======Short Message======
+Fix arb mux header backpressure
+======Full Message======
+Fix arb mux header backpressure
+
+
+
+======Commit: 4754d947======
+======Short Message======
+Fix backpressure bug
+======Full Message======
+Fix backpressure bug
+
+
+
+======Commit: 8d909a08======
+======Short Message======
+Fix MAC FIFO parameters
+======Full Message======
+Fix MAC FIFO parameters
+
+
+
+======Commit: a9c04a46======
+======Short Message======
+Fix frame FIFO drop
+======Full Message======
+Fix frame FIFO drop
+
+
+
+======Commit: e9c1c5a4======
+======Short Message======
+Fix state register width
+======Full Message======
+Fix state register width
+
+
+
+======Commit: 6795c25e======
+======Short Message======
+Fix use before define
+======Full Message======
+Fix use before define
+
+
+
+======Commit: ce00df8d======
+======Short Message======
+Include instance names in error messages
+======Full Message======
+Include instance names in error messages
+
+
+
+======Commit: 0a85a4a2======
+======Short Message======
+Fix assert
+======Full Message======
+Fix assert
+
+
+
+======Commit: 592ae7e6======
+======Short Message======
+Change default switch addressing to use MSBs of tdest
+======Full Message======
+Change default switch addressing to use MSBs of tdest
+
+
+
+======Commit: 76c805e4======
+======Short Message======
+Fix more indexing bugs
+======Full Message======
+Fix more indexing bugs
+
+
+
+======Commit: 23b9490f======
+======Short Message======
+Fix switch bug
+======Full Message======
+Fix switch bug
+
+
+
+======Commit: 5f454d6c======
+======Short Message======
+Update axis_switch to support default routing configurations
+======Full Message======
+Update axis_switch to support default routing configurations
+
+
+
+======Commit: b4cebd83======
+======Short Message======
+Fix crosspoint wrapper generator
+======Full Message======
+Fix crosspoint wrapper generator
+
+
+
+======Commit: c759ff03======
+======Short Message======
+Fix default parameter
+======Full Message======
+Fix default parameter
+
+
+
+======Commit: ab77ac38======
+======Short Message======
+Fix width
+======Full Message======
+Fix width
+
+
+
+======Commit: adb9c4d1======
+======Short Message======
+Fix initial values
+======Full Message======
+Fix initial values
+
+
+
+======Commit: d62a5ad0======
+======Short Message======
+Fix quotes
+======Full Message======
+Fix quotes
+
+
+
+======Commit: af4f6758======
+======Short Message======
+Fix for dash
+======Full Message======
+Fix for dash
+
+
+
+======Commit: 0927f4c3======
+======Short Message======
+Fix readme
+======Full Message======
+Fix readme
+
+
+
+======Commit: 303dec81======
+======Short Message======
+Sum errors across data and header
+======Full Message======
+Sum errors across data and header
+
+
+
+======Commit: ccc15324======
+======Short Message======
+Fix bad frame mask
+======Full Message======
+Fix bad frame mask
+
+
+
+======Commit: 2794c315======
+======Short Message======
+Fix synthesizer complaints
+======Full Message======
+Fix synthesizer complaints
+
+
+
+======Commit: 2abb4138======
+======Short Message======
+Fix signal name
+======Full Message======
+Fix signal name
+
+
+
+======Commit: 978fdce9======
+======Short Message======
+Minor fixes
+======Full Message======
+Minor fixes
+
+
+
+======Commit: 1bec4857======
+======Short Message======
+Fix constants
+======Full Message======
+Fix constants
+
+
+
+======Commit: 932aa354======
+======Short Message======
+Fix AXI stream async frame FIFO write pointer synchronization
+======Full Message======
+Fix AXI stream async frame FIFO write pointer synchronization
+
+
+
+======Commit: 585ccefa======
+======Short Message======
+Add TX underflow error signal
+======Full Message======
+Add TX underflow error signal
+
+
+
+======Commit: 9891d75c======
+======Short Message======
+Fix STATE_WAIT_END
+======Full Message======
+Fix STATE_WAIT_END
+
+
+
+======Commit: 0efb135b======
+======Short Message======
+Fix STATE_WAIT_END
+======Full Message======
+Fix STATE_WAIT_END
+
+
+
+======Commit: fb4abb6b======
+======Short Message======
+Fix widths
+======Full Message======
+Fix widths
+
+
+
+======Commit: 4d2090a1======
+======Short Message======
+Fix off-by-one error in control character checks
+======Full Message======
+Fix off-by-one error in control character checks
+
+
+
+======Commit: 92df3778======
+======Short Message======
+Fix DIC implementation in testbench
+======Full Message======
+Fix DIC implementation in testbench
+
+
+
+======Commit: 6238ed57======
+======Short Message======
+Report error for invalid encoding
+======Full Message======
+Report error for invalid encoding
+
+
+
+======Commit: 2e29aea8======
+======Short Message======
+Fix input clock period settings
+======Full Message======
+Fix input clock period settings
+
+
+
+======Commit: b8b50468======
+======Short Message======
+Fix transceiver clocking
+======Full Message======
+Fix transceiver clocking
+
+
+
+======Commit: 3d90e80d======
+======Short Message======
+Fix frame FIFO full logic bug
+======Full Message======
+Fix frame FIFO full logic bug
+
+
+
+======Commit: a72d7bd2======
+======Short Message======
+Fix generate statement
+======Full Message======
+Fix generate statement
+
+
+
+======Commit: 6b85aed5======
+======Short Message======
+Any control characters in packet considered an error
+======Full Message======
+Any control characters in packet considered an error
+
+
+
+======Commit: b3f50ac2======
+======Short Message======
+Fix comments
+======Full Message======
+Fix comments
+
+
+
+======Commit: c0802627======
+======Short Message======
+Fix source pause logic
+======Full Message======
+Fix source pause logic
+
+
+
+======Commit: 029d1fa0======
+======Short Message======
+Fix loop count variable scoping issue
+======Full Message======
+Fix loop count variable scoping issue
+
+
+
+======Commit: 030fe90b======
+======Short Message======
+Fix example design testbench
+======Full Message======
+Fix example design testbench
+
+
+
+======Commit: 553547f6======
+======Short Message======
+Fix test naming
+======Full Message======
+Fix test naming
+
+
+
+======Commit: 8982b4f4======
+======Short Message======
+Fix modsell pin
+======Full Message======
+Fix modsell pin
+
+
+
+======Commit: 415f723e======
+======Short Message======
+Fix clock name
+======Full Message======
+Fix clock name
+
+
+
+======Commit: 3e28af15======
+======Short Message======
+Fix CI
+======Full Message======
+Fix CI
+
+
+
+======Commit: 4ec4c901======
+======Short Message======
+Whitespace fixes
+======Full Message======
+Whitespace fixes
+
+
+
+======Commit: ad0e3e1e======
+======Short Message======
+Whitespace fixes and testbench update for frame joiner
+======Full Message======
+Whitespace fixes and testbench update for frame joiner
+
+
+
+======Commit: a35d1a8e======
+======Short Message======
+Fix CI
+======Full Message======
+Fix CI
+
+
+
+======Commit: 77211926======
+======Short Message======
+Fix classifier logic
+======Full Message======
+Fix classifier logic
+
+
+
+======Commit: 0fc98604======
+======Short Message======
+Fix example design LED logic
+======Full Message======
+Fix example design LED logic
+
+
+
+======Commit: 3b47b422======
+======Short Message======
+Fix Vivado clock groups
+======Full Message======
+Fix Vivado clock groups
+
+
+
+======Commit: 0691c9d6======
+======Short Message======
+Fix output pipeline issue
+======Full Message======
+Fix output pipeline issue
+
+
+
+======Commit: 018b3b26======
+======Short Message======
+Fix signal width
+======Full Message======
+Fix signal width
+
+
+
+======Commit: 385c9cc9======
+======Short Message======
+Fix Vivado block RAM inference
+======Full Message======
+Fix Vivado block RAM inference
+
+
+
+======Commit: cab7d367======
+======Short Message======
+Fix default width
+======Full Message======
+Fix default width
+
+
+
+======Commit: a98dfce0======
+======Short Message======
+Update output registers, remove extraneous resets, fix constant widths
+======Full Message======
+Update output registers, remove extraneous resets, fix constant widths
+
+
+
+======Commit: 7a9fdb5f======
+======Short Message======
+Add default case statements to avoid inferring latches
+======Full Message======
+Add default case statements to avoid inferring latches
+
+
+
+======Commit: 0d22a35b======
+======Short Message======
+Update output registers, remove extraneous resets, fix constant widths
+======Full Message======
+Update output registers, remove extraneous resets, fix constant widths
+
+
+
+======Commit: abe0d926======
+======Short Message======
+Consider any control characters in packet body as errors
+======Full Message======
+Consider any control characters in packet body as errors
+
+
+
+======Commit: 0ecd354d======
+======Short Message======
+Fix instance name
+======Full Message======
+Fix instance name
+
+
+
+======Commit: 455ddf5d======
+======Short Message======
+Fix error detect in 10G MAC
+======Full Message======
+Fix error detect in 10G MAC
+
+
+
+======Commit: bfc97ac3======
+======Short Message======
+Fix error detect in 1G MAC
+======Full Message======
+Fix error detect in 1G MAC
+
+
+
+======Commit: 0352d550======
+======Short Message======
+Add default case
+======Full Message======
+Add default case
+
+
+
+======Commit: 8fea20ef======
+======Short Message======
+Fix frame_ptr_reg width
+======Full Message======
+Fix frame_ptr_reg width
+
+
+
+======Commit: 16fec34d======
+======Short Message======
+Default FIFO size at least 2 MTU (3000 bytes)
+======Full Message======
+Default FIFO size at least 2 MTU (3000 bytes)
+
+
+
+======Commit: f93310b8======
+======Short Message======
+Add GMIIFrame object and add tests and asserts for GMII error signal
+======Full Message======
+Add GMIIFrame object and add tests and asserts for GMII error signal
+
+
+
+======Commit: 3a180bd2======
+======Short Message======
+Improve error signal handling
+======Full Message======
+Improve error signal handling
+
+
+
+======Commit: 9cca78bc======
+======Short Message======
+Fix last cycle detect logic
+======Full Message======
+Fix last cycle detect logic
+
+
+
+======Commit: 966e47a8======
+======Short Message======
+Fix RAM and register widths
+======Full Message======
+Fix RAM and register widths
+
+
+
+======Commit: 31387958======
+======Short Message======
+Fix rate limiter testbenches
+======Full Message======
+Fix rate limiter testbenches
+
+
+
+======Commit: 51b53353======
+======Short Message======
+Remove z from default states for FSM inference
+======Full Message======
+Remove z from default states for FSM inference
+
+
+
+======Commit: d3e30d0a======
+======Short Message======
+Fix padding bug
+======Full Message======
+Fix padding bug
+
+
+
+======Commit: 27f319b9======
+======Short Message======
+Fix UDP EP parse_eth
+======Full Message======
+Fix UDP EP parse_eth
+
+
+
+======Commit: 218d3f1b======
+======Short Message======
+Add assert for error_bad_fcs signal
+======Full Message======
+Add assert for error_bad_fcs signal
+
+
+
+======Commit: b83dd341======
+======Short Message======
+Fix register names
+======Full Message======
+Fix register names
+
+
+
+======Commit: 789c7da6======
+======Short Message======
+Fix parameter
+======Full Message======
+Fix parameter
+
+
+
+======Commit: 851aeb93======
+======Short Message======
+Fix block parameter
+======Full Message======
+Fix block parameter
+
+
+
+======Commit: 3816eb3c======
+======Short Message======
+Fix parameters
+======Full Message======
+Fix parameters
+
+
+
+======Commit: ca504230======
+======Short Message======
+Change default data width
+======Full Message======
+Change default data width
+
+
+
+======Commit: 6ab2a86e======
+======Short Message======
+Change default data width
+======Full Message======
+Change default data width
+
+
+
+======Commit: ac57a220======
+======Short Message======
+Abort with early termination error on last assert on first header word
+======Full Message======
+Abort with early termination error on last assert on first header word
+
+
+
+======Commit: 4ad30294======
+======Short Message======
+Add defaults
+======Full Message======
+Add defaults
+
+
+
+======Commit: 85d11645======
+======Short Message======
+Rename frame_error to error_header_early_termination
+======Full Message======
+Rename frame_error to error_header_early_termination
+
+
+

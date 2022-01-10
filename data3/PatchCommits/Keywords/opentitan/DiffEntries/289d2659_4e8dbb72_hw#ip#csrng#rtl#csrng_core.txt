@@ -1,0 +1,19 @@
+289d2659175f85d8ea74a8d86800eba1bc6fb149
+[csrng/rtl] fix for dif test
+diff --git a/hw/ip/csrng/rtl/csrng_core.sv b/hw/ip/csrng/rtl/csrng_core.sv
+index b29907b96..1ab899b75 100644
+--- a/hw/ip/csrng/rtl/csrng_core.sv
++++ b/hw/ip/csrng/rtl/csrng_core.sv
+@@ -1005,10 +1005,12 @@ module csrng_core import csrng_pkg::*; #(
+ 
+   // Capture entropy from entropy_src
+   assign entropy_src_seed_d =
++         cmd_req_dly_q ? '0 :                  // reset after every cmd
+          (cmd_entropy_avail && flag0_q) ? '0 : // special case where zero is used
+          cmd_entropy_avail ? (entropy_src_hw_if_i.es_bits ^ seed_diversification) :
+          entropy_src_seed_q;
+   assign entropy_src_fips_d =
++         cmd_req_dly_q ? '0 :                  // reset after every cmd
+          (cmd_entropy_avail && flag0_q) ? '0 : // special case where zero is used
+          cmd_entropy_avail ? entropy_src_hw_if_i.es_fips :
+          entropy_src_fips_q;

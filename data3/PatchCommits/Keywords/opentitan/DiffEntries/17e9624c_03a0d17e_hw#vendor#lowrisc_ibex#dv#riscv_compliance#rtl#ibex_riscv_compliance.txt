@@ -1,0 +1,29 @@
+17e9624c452e05f71f4ad2b7c75bf6bbb071c324
+Update lowrisc_ibex to lowRISC/ibex@ee1098f
+diff --git a/hw/vendor/lowrisc_ibex/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv b/hw/vendor/lowrisc_ibex/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+index c55ec67b4..fc3facf18 100644
+--- a/hw/vendor/lowrisc_ibex/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
++++ b/hw/vendor/lowrisc_ibex/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+@@ -23,10 +23,11 @@ module ibex_riscv_compliance (
+   assign clk_sys = IO_CLK;
+   assign rst_sys_n = IO_RST_N;
+ 
++  // Bus hosts, ordered in decreasing priority
+   typedef enum {
+     TestUtilHost,
+-    CoreI,
+-    CoreD
++    CoreD,
++    CoreI
+   } bus_host_e;
+ 
+   typedef enum {
+@@ -99,7 +100,7 @@ module ibex_riscv_compliance (
+     .cfg_device_addr_mask
+   );
+ 
+-  ibex_core #(
++  ibex_core_tracing #(
+       .DmHaltAddr(32'h00000000),
+       .DmExceptionAddr(32'h00000000),
+       .RV32E(RV32E),

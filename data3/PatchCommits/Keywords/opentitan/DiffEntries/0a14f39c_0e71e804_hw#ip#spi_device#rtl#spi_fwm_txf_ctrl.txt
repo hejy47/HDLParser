@@ -1,0 +1,15 @@
+0a14f39c0ff66dc50f1a80de109559886645e3e4
+[spi_device] Fix assorted width mismatches
+diff --git a/hw/ip/spi_device/rtl/spi_fwm_txf_ctrl.sv b/hw/ip/spi_device/rtl/spi_fwm_txf_ctrl.sv
+index 5d5dbfd74..21fd8e9e8 100644
+--- a/hw/ip/spi_device/rtl/spi_fwm_txf_ctrl.sv
++++ b/hw/ip/spi_device/rtl/spi_fwm_txf_ctrl.sv
+@@ -228,7 +228,7 @@ module spi_fwm_txf_ctrl #(
+   always_comb begin
+     fifo_wdata = '0;
+     for (int i = 0 ; i < NumBytes ; i++) begin
+-      if (pos == i) fifo_wdata = fifo_wdata_d[8*i+:8];
++      if (pos == i[SDW-1:0]) fifo_wdata = fifo_wdata_d[8*i+:8];
+     end
+   end
+ 

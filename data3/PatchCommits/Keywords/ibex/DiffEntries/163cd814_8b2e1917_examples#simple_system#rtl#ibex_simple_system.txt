@@ -1,0 +1,15 @@
+163cd8142ad97ac218d22f8b1de69f0b108dcd4c
+[simple-system] always_comb should be always
+diff --git a/examples/simple_system/rtl/ibex_simple_system.sv b/examples/simple_system/rtl/ibex_simple_system.sv
+index 541d417f..1949a781 100644
+--- a/examples/simple_system/rtl/ibex_simple_system.sv
++++ b/examples/simple_system/rtl/ibex_simple_system.sv
+@@ -119,7 +119,7 @@ module ibex_simple_system (
+       #8
+       rst_sys_n = 1'b1;
+     end
+-    always_comb begin
++    always begin
+       #1 clk_sys = 1'b0;
+       #1 clk_sys = 1'b1;
+     end

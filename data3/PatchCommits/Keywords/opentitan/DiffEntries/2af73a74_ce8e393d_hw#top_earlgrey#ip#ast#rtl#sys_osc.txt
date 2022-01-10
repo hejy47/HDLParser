@@ -1,0 +1,33 @@
+2af73a7463ea51ad4e18f954d6b6135c88a5adaf
+[top] Fixes for optimized modules
+diff --git a/hw/top_earlgrey/ip/ast/rtl/sys_osc.sv b/hw/top_earlgrey/ip/ast/rtl/sys_osc.sv
+index 86fe30ba9..70e89524e 100644
+--- a/hw/top_earlgrey/ip/ast/rtl/sys_osc.sv
++++ b/hw/top_earlgrey/ip/ast/rtl/sys_osc.sv
+@@ -58,7 +58,6 @@ always begin
+   #((SysClkPeriod+jitter)/2000) clk = ~clk && en_osc;
+ end
+ 
+-assign sys_clk_o = clk;
+ `else  // of SYNTHESIS
+ localparam prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL;
+ 
+@@ -84,11 +83,16 @@ if (Impl == prim_pkg::ImplXilinx) begin : gen_xilinx
+   // FPGA Specific (place holder)
+   ///////////////////////////////////////
+   assign clk = (/*TODO*/ 1'b1) && en_osc;
+-  assign sys_clk_o = clk;
+ end else begin : gen_generic
+   assign clk = (/*TODO*/ 1'b1) && en_osc;
+-  assign sys_clk_o = clk;
++
+ end
+ `endif
+ 
++prim_buf u_buf (
++  .in_i(clk),
++  .out_o(sys_clk_o)
++);
++
++
+ endmodule : sys_osc

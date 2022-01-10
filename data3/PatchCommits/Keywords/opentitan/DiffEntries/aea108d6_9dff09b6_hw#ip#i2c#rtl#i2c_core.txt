@@ -1,0 +1,15 @@
+aea108d633538d0c6e47af87374b49d897ebc82f
+[i2c] Signal Name Fix
+diff --git a/hw/ip/i2c/rtl/i2c_core.sv b/hw/ip/i2c/rtl/i2c_core.sv
+index cccc5d582..48f307cda 100644
+--- a/hw/ip/i2c/rtl/i2c_core.sv
++++ b/hw/ip/i2c/rtl/i2c_core.sv
+@@ -189,7 +189,7 @@ module  i2c_core (
+   ) u_i2c_fmtfifo (
+     .clk_i,
+     .rst_ni(fmt_fifo_rst_n),
+-    .wvalid(fmt_fifo_wen),
++    .wvalid(fmt_fifo_wvalid),
+     .wready(fmt_fifo_wready),
+     .wdata(fmt_fifo_wdata),
+     .depth(fmt_fifo_depth),

@@ -1,0 +1,15 @@
+f31ea350f6c7ec4d5059549973c2b24d892a84fe
+Use constant instead of alias to work arround Sigasi bug
+diff --git a/vunit/vhdl/dictionary/src/dictionary.vhd b/vunit/vhdl/dictionary/src/dictionary.vhd
+index 77ebed44..b068642d 100644
+--- a/vunit/vhdl/dictionary/src/dictionary.vhd
++++ b/vunit/vhdl/dictionary/src/dictionary.vhd
+@@ -14,7 +14,7 @@ package dictionary is
+   subtype frozen_dictionary_t is string;
+   constant empty : frozen_dictionary_t := "";
+   -- Deprecated
+-  alias empty_c is empty;
++  constant empty_c : frozen_dictionary_t := empty;
+ 
+   function len (
+     constant d : frozen_dictionary_t)

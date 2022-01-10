@@ -1,0 +1,19 @@
+1b5fa9f1ebf0a9520ef6ea6faf1f1a2397a349c1
+[verible/style] This corrects several style linter warnings/errors
+diff --git a/hw/ip/hmac/rtl/hmac_core.sv b/hw/ip/hmac/rtl/hmac_core.sv
+index e1693f28c..7a2beb391 100644
+--- a/hw/ip/hmac/rtl/hmac_core.sv
++++ b/hw/ip/hmac/rtl/hmac_core.sv
+@@ -41,9 +41,9 @@ module hmac_core import hmac_pkg::*; (
+   output [63:0] sha_message_length
+ );
+ 
+-  localparam BlockSize = 512;
+-  localparam BlockSizeBits = $clog2(BlockSize);
+-  localparam HashWordBits = $clog2($bits(sha_word_t));
++  localparam int unsigned BlockSize = 512;
++  localparam int unsigned BlockSizeBits = $clog2(BlockSize);
++  localparam int unsigned HashWordBits = $clog2($bits(sha_word_t));
+ 
+   logic hash_start; // generated from internal state machine
+   logic hash_process; // generated from internal state machine to trigger hash

@@ -1,0 +1,17 @@
+ec4cee420f13d449581309db678143a768c08c46
+[prim_fifo_async] Style fixes
+diff --git a/hw/ip/prim/rtl/prim_fifo_async.sv b/hw/ip/prim/rtl/prim_fifo_async.sv
+index 056c3924d..e28dfa87f 100644
+--- a/hw/ip/prim/rtl/prim_fifo_async.sv
++++ b/hw/ip/prim/rtl/prim_fifo_async.sv
+@@ -165,8 +165,8 @@ module prim_fifo_async #(
+ 
+   end
+ 
+-  assign wready_o = !full_wclk;
+-  assign rvalid_o = !empty_rclk;
++  assign wready_o = ~full_wclk;
++  assign rvalid_o = ~empty_rclk;
+ 
+   /////////////
+   // Storage //

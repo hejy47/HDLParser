@@ -1,0 +1,16 @@
+53ef2ec43c1c1eb00b771e17fc157f5bb1103ed5
+Update lowrisc_ibex to lowRISC/ibex@d14312c
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey.sv b/hw/top_earlgrey/rtl/top_earlgrey.sv
+index a64c23f59..8128ba7b6 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey.sv
+@@ -128,8 +128,7 @@ module top_earlgrey (
+     .rst_ni               (ndmreset_n),
+     .test_en_i            (1'b0),
+     // static pinning
+-    .core_id_i            (4'b0000),
+-    .cluster_id_i         (6'b000000),
++    .hart_id_i            (32'b0),
+     .boot_addr_i          (ADDR_SPACE_ROM),
+     // TL-UL buses
+     .tl_i_o               (tl_corei_h_h2d),

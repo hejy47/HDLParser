@@ -1,0 +1,19 @@
+29112aa13e0821e353f315d2f82f0977e0fe1719
+Potential GHDL fix
+diff --git a/vunit/vhdl/logging/src/logger_pkg-body.vhd b/vunit/vhdl/logging/src/logger_pkg-body.vhd
+index 360798ca..90b66a08 100644
+--- a/vunit/vhdl/logging/src/logger_pkg-body.vhd
++++ b/vunit/vhdl/logging/src/logger_pkg-body.vhd
+@@ -1202,9 +1202,11 @@ package body logger_pkg is
+ 
+     impure function create_string return string is
+       variable lines : lines_t;
++      variable num_items : natural;
+     begin
+       lines := split(logger_name, ":");
+-      for idx in 0 to lines'length-1 loop
++      num_items := integer'(lines.all'length);
++      for idx in 0 to num_items - 1 loop
+         write(l, colorize(lines(idx).all, fg => white, style => bright));
+         deallocate(lines(idx));
+         if idx /= lines'length - 1 then

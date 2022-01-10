@@ -1,0 +1,14 @@
+947196bbc9844013c4fd9c2456a46a9ba23ce1f0
+Update lowrisc_ibex to lowRISC/ibex@5c60b094
+diff --git a/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv b/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
+index 68c7bf7fb..c8ed83f99 100644
+--- a/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
++++ b/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
+@@ -183,6 +183,7 @@ module ibex_simple_system (
+       .rst_ni                (rst_sys_n),
+ 
+       .test_en_i             ('b0),
++      .scan_rst_ni           (1'b1),
+       .ram_cfg_i             ('b0),
+ 
+       .hart_id_i             (32'b0),

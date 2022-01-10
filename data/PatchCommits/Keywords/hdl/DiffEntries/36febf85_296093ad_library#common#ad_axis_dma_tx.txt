@@ -1,0 +1,15 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/common/ad_axis_dma_tx.v b/library/common/ad_axis_dma_tx.v
+index e69a081d..d14f32c4 100644
+--- a/library/common/ad_axis_dma_tx.v
++++ b/library/common/ad_axis_dma_tx.v
+@@ -266,7 +266,7 @@ module ad_axis_dma_tx (
+ 
+   // memory
+ 
+-  ad_mem #(.DATA_WIDTH(DATA_WIDTH), .ADDR_WIDTH(6)) i_mem (
++  ad_mem #(.DATA_WIDTH(DATA_WIDTH), .ADDRESS_WIDTH(6)) i_mem (
+     .clka (dma_clk),
+     .wea (dma_wr),
+     .addra (dma_waddr),

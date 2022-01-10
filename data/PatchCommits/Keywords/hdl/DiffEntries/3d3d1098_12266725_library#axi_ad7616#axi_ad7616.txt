@@ -1,0 +1,15 @@
+3d3d1098b4ff5d4d52c8915bddc881d99caa3628
+axi_ad7616: Default DATA_WIDTH is 8 bits
+diff --git a/library/axi_ad7616/axi_ad7616.v b/library/axi_ad7616/axi_ad7616.v
+index efe33ec6..ec85161a 100644
+--- a/library/axi_ad7616/axi_ad7616.v
++++ b/library/axi_ad7616/axi_ad7616.v
+@@ -99,7 +99,7 @@ module axi_ad7616 (
+ 
+   // local parameters
+ 
+-  localparam      DATA_WIDTH = 16;
++  localparam      DATA_WIDTH = 8;
+   localparam      NUM_OF_SDI = 2;
+   localparam      SERIAL = 0;
+   localparam      PARALLEL = 1;

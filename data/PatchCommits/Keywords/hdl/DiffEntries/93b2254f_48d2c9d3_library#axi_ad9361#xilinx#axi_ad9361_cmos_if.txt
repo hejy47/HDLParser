@@ -1,0 +1,26 @@
+93b2254ff5946f432ab330cf2b7a1af21786be99
+axi_ad9361: Fix for 'Define a MIMO enabled parameter'
+diff --git a/library/axi_ad9361/xilinx/axi_ad9361_cmos_if.v b/library/axi_ad9361/xilinx/axi_ad9361_cmos_if.v
+index 8fc3745f..1e2ed9b5 100644
+--- a/library/axi_ad9361/xilinx/axi_ad9361_cmos_if.v
++++ b/library/axi_ad9361/xilinx/axi_ad9361_cmos_if.v
+@@ -150,8 +150,6 @@ module axi_ad9361_cmos_if #(
+   reg                 txnrx_up = 'd0;
+   reg                 enable_int = 'd0;
+   reg                 txnrx_int = 'd0;
+-  reg                 enable_int_n = 'd0;
+-  reg                 txnrx_int_n = 'd0;
+   reg                 enable_int_p = 'd0;
+   reg                 txnrx_int_p = 'd0;
+ 
+@@ -421,8 +419,8 @@ module axi_ad9361_cmos_if #(
+   end else begin /* CLK_DESKEW == 0 */
+ 
+     always @(posedge l_clk) begin
+-      enable_int_p <= enable_int_p;
+-      txnrx_int_p <= txnrx_int_p;
++      enable_int_p <= enable_int;
++      txnrx_int_p <= txnrx_int;
+     end
+ 
+   end

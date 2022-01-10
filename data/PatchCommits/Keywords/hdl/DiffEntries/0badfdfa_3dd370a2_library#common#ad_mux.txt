@@ -1,0 +1,16 @@
+0badfdfa31df9220826f0862231234f22d214216
+ad_mux: fix cases where channel number is not power of mux size
+diff --git a/library/common/ad_mux.v b/library/common/ad_mux.v
+index f6ece940..017bae16 100644
+--- a/library/common/ad_mux.v
++++ b/library/common/ad_mux.v
+@@ -57,7 +57,8 @@ module ad_mux #(
+ localparam MUX_SZ = CH_CNT < REQ_MUX_SZ ? CH_CNT : REQ_MUX_SZ;
+ localparam CLOG2_CH_CNT = $clog2(CH_CNT);
+ localparam CLOG2_MUX_SZ = $clog2(MUX_SZ);
+-localparam NUM_STAGES = $clog2(CH_CNT) / $clog2(MUX_SZ);
++localparam NUM_STAGES = ($clog2(CH_CNT) / $clog2(MUX_SZ)) + // divide and round up
++                       |($clog2(CH_CNT) % $clog2(MUX_SZ));
+ 
+ wire [NUM_STAGES*DW+CH_W-1:0] mux_in;
+ wire [NUM_STAGES*CLOG2_CH_CNT-1:0] ch_sel_pln;

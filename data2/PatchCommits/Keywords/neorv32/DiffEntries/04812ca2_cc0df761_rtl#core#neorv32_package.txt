@@ -1,0 +1,17 @@
+04812ca2bd22b8b94f7abe9f2281c8046cdf7161
+[rtl/cpu] fixed minor bug in 'is_power_of_two' helper function
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index 4a0f3a3..69f1882 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -1361,7 +1361,9 @@ package body neorv32_package is
+   -- -------------------------------------------------------------------------------------------
+   function is_power_of_two_f(input : natural) return boolean is
+   begin
+-    if ((input / 2) /= 0) and ((input mod 2) = 0) then
++    if (input = 1) then -- 2^0
++      return true;
++    elsif ((input / 2) /= 0) and ((input mod 2) = 0) then
+       return true;
+     else
+       return false;

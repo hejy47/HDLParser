@@ -1,0 +1,23 @@
+493fc1d48b8b34a944fad0ddfb240d7db084dede
+axi_*: Fix instantiation of up_[adc|dac]_[common|channel]
+diff --git a/library/axi_ad9379/axi_ad9379_tx.v b/library/axi_ad9379/axi_ad9379_tx.v
+index a14dcd5f..a6d7433e 100644
+--- a/library/axi_ad9379/axi_ad9379_tx.v
++++ b/library/axi_ad9379/axi_ad9379_tx.v
+@@ -241,7 +241,15 @@ module axi_ad9379_tx #(
+ 
+   // dac common processor interface
+ 
+-  up_dac_common #(.ID (ID)) i_up_dac_common (
++  up_dac_common #(
++    .ID (ID),
++    .CONFIG(0),
++    .CLK_EDGE_SEL(0),
++    .COMMON_ID(6'h10),
++    .DRP_DISABLE(1),
++    .USERPORTS_DISABLE(1),
++    .GPIO_DISABLE(1))
++  i_up_dac_common (
+     .mmcm_rst (),
+     .dac_clk (dac_clk),
+     .dac_rst (dac_rst),

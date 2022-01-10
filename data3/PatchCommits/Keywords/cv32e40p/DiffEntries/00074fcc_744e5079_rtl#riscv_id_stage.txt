@@ -1,0 +1,22 @@
+00074fcc5d06f649267ca347f45210bc0598f480
+Address issue #277: clean up parameters
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index ab5fce8..41db670 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -39,6 +39,7 @@ import apu_core_package::*;
+ 
+ module riscv_id_stage
+ #(
++  parameter PULP_HWLP         =  0,
+   parameter N_HWLP            =  2,
+   parameter N_HWLP_BITS       =  $clog2(N_HWLP),
+   parameter PULP_SECURE       =  0,
+@@ -1029,6 +1030,7 @@ module riscv_id_stage
+ 
+   riscv_decoder
+     #(
++      .PULP_HWLP           ( PULP_HWLP            ),
+       .A_EXTENSION         ( A_EXTENSION          ),
+       .FPU                 ( FPU                  ),
+       .FP_DIVSQRT          ( FP_DIVSQRT           ),

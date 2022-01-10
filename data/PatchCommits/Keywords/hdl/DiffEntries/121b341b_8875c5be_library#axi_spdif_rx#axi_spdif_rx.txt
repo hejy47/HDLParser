@@ -1,0 +1,23 @@
+121b341b45de4be281819be10e88916ea73facd6
+axi_spdif_rx: Fixed version register issue. Added sampled_data to sensitivity list
+diff --git a/library/axi_spdif_rx/axi_spdif_rx.vhd b/library/axi_spdif_rx/axi_spdif_rx.vhd
+index 5738ab59..88975beb 100644
+--- a/library/axi_spdif_rx/axi_spdif_rx.vhd
++++ b/library/axi_spdif_rx/axi_spdif_rx.vhd
+@@ -411,7 +411,6 @@ begin
+   begin
+     if rising_edge(S_AXI_ACLK) then
+       if S_AXI_ARESETN = '0' then
+-        version_reg <= (others => '0');
+         control_reg <= (others => '0');
+       else
+         if wr_stb = '1' then
+@@ -424,7 +423,7 @@ begin
+     end if;
+   end process;
+ 
+-  process (rd_addr, version_reg, control_reg, chstatus_reg)
++  process (rd_addr, version_reg, control_reg, chstatus_reg, sampled_data)
+   begin
+     case rd_addr is
+       when 0 => rd_data <= version_reg;

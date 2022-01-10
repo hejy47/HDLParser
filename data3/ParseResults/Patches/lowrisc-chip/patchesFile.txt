@@ -1,0 +1,757 @@
+CommitId: c7149b9806363d03820d67c1d82314ecdf1fc57e
+Merge branch 'debug' into debug-chisel
+--- a/src/main/verilog/debug_system.sv
++++ b/src/main/verilog/debug_system.sv
+@@ -36,6 +36,10 @@ module debug_system
+ 
+    output                       sys_rst, cpu_rst,
+ 
++   input  dii_flit [1:0]        ring_in,
++   output [1:0]                 ring_in_ready,
++   output dii_flit [1:0]        ring_out,
++   input [1:0]                  ring_out_ready,
+ 
+    output                       req_valid,
+    input                        req_ready,
+
+ParseResult:
+INS HdlIdDef@@ring_in to ports
+HdlIdDef: ring_in
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: dii_flit
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 1
+                    HdlValueInt: 0
+    HdlDirection: IN
+
+INS HdlIdDef@@ring_in_ready to ports
+HdlIdDef: ring_in_ready
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 1
+                    HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@ring_out to ports
+HdlIdDef: ring_out
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: dii_flit
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 1
+                    HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@ring_out_ready to ports
+HdlIdDef: ring_out_ready
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 1
+                    HdlValueInt: 0
+    HdlDirection: IN
+
+
+CommitId: 0cae45e44b5030490efc89f0efa52a300cdb693c
+pass verilator and now able to start debug
+--- a/vsrc/host_behav.sv
++++ b/vsrc/host_behav.sv
+@@ -7,8 +7,8 @@ module host_behav
+     input logic           req_valid, resp_ready,
+     output logic          req_ready,
+     output reg            resp_valid,
+-    input logic [IDW-1:0] req_id,
+-    output reg [IDW-1:0]  resp_id,
++    input logic [$clog2(nCores)-1:0] req_id,
++    output reg [$clog2(nCores)-1:0]  resp_id,
+     input logic [63:0]    req,
+     output reg [63:0]     resp
+     );
+ParseResult:
+UPD HdlIdDef@@req_id to req_id
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlOp@@SUB to SUB
+                INS HdlOp@@CALL to ops
+                UPD HdlOp@@CALL to CALL
+                    INS list@@ops to CALL
+                    INS HdlValueId@@nCores to ops
+
+UPD HdlIdDef@@resp_id to resp_id
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlOp@@SUB to SUB
+                INS HdlOp@@CALL to ops
+                UPD HdlOp@@CALL to CALL
+                    INS list@@ops to CALL
+                    INS HdlValueId@@nCores to ops
+
+UPD HdlIdDef@@req_id to req_id
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlOp@@SUB to SUB
+                UPD HdlValueId@@IDW to $clog2
+                MOV HdlValueId@@IDW to ops
+                HdlValueId: IDW
+
+UPD HdlIdDef@@resp_id to resp_id
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlOp@@SUB to SUB
+                UPD HdlValueId@@IDW to $clog2
+                MOV HdlValueId@@IDW to ops
+                HdlValueId: IDW
+
+
+CommitId: 6f07f0bbeac189e4c998a92e86573998420dd586
+bugfix: ddr3 simulation model we_n open. MIG initialize successfully in simulation
+--- a/vsrc/axi_bram_ctrl_top.sv
++++ b/vsrc/axi_bram_ctrl_top.sv
+@@ -21,14 +21,26 @@ module axi_bram_ctrl_top
+     input  [DATA_WIDTH-1:0] ram_rddata
+     );
+ 
++   // explicitly assigning wires due to compiler bugs in Vivado (simulation only)
++   logic [2:0]              aw_size, ar_size;
++   logic [7:0]              aw_len, ar_len;
++   logic                    w_last, r_last;
++
++   assign aw_size = aw.size;
++   assign ar_size = ar.size;
++   assign aw_len = aw.len;
++   assign ar_len = ar.len;
++   assign w_last = w.last;
++   assign r.last = r_last;
++
+    axi_bram_ctrl_0 BramCtl
+      (
+       .s_axi_aclk      ( clk        ),
+       .s_axi_aresetn   ( rstn       ),
+       .s_axi_awid      ( aw.id      ),
+       .s_axi_awaddr    ( aw.addr    ),
+-      .s_axi_awlen     ( aw.len     ),
+-      .s_axi_awsize    ( aw.size    ),
++      .s_axi_awlen     ( aw_len     ),   // .len     ),
++      .s_axi_awsize    ( aw_size    ),   // .size    ),
+       .s_axi_awburst   ( aw.burst   ),
+       .s_axi_awlock    ( aw.lock    ),
+       .s_axi_awcache   ( aw.cache   ),
+
+ParseResult:
+INS HdlIdDef@@aw_size to objs
+HdlIdDef: aw_size
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: logic
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 2
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@ar_size to objs
+HdlIdDef: ar_size
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: logic
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 2
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@aw_len to objs
+HdlIdDef: aw_len
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: logic
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@ar_len to objs
+HdlIdDef: ar_len
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: logic
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@w_last to objs
+HdlIdDef: w_last
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@r_last to objs
+HdlIdDef: r_last
+    HdlDirection: INTERNAL
+
+INS HdlStmAssign@@ to objs
+
+INS HdlStmAssign@@ to objs
+
+INS HdlStmAssign@@ to objs
+
+INS HdlStmAssign@@ to objs
+
+INS HdlStmAssign@@ to objs
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlValueId: r_last
+    HdlValueId: r
+
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@aw_size to 
+
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@ar_size to 
+
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@aw_len to 
+
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@ar_len to 
+
+UPD HdlStmAssign@@ to 
+    INS HdlValueId@@w_last to 
+
+
+CommitId: e7a900babbbef02a5ef50699df2ece1b536683b6
+Change debug system for multi-region MAM
+--- a/src/main/verilog/debug_system.sv
++++ b/src/main/verilog/debug_system.sv
+@@ -2,8 +2,9 @@ import dii_package::dii_flit;
+ 
+ module debug_system
+   #(parameter MAM_DATA_WIDTH = 512,
+-    parameter MAM_BASE_ADDR = 0,
+-    parameter MAM_MEM_SIZE = 1024*1024*1024,
++    parameter MAM_REGIONS    = 1,
++    parameter MAM_BASE_ADDR0 = 0,
++    parameter MAM_MEM_SIZE0  = 1024*1024*1024,
+     parameter MAM_ADDR_WIDTH = 64)
+   (
+    input                        clk, rstn,
+
+ParseResult:
+INS HdlIdDef@@MAM_REGIONS to params
+HdlIdDef: MAM_REGIONS
+    HdlValueInt: 1
+    HdlDirection: INTERNAL
+
+UPD HdlIdDef@@MAM_BASE_ADDR to MAM_BASE_ADDR0
+
+UPD HdlIdDef@@MAM_MEM_SIZE to MAM_MEM_SIZE0
+
+
+CommitId: d5c50f747cd4c1374c209f38bc9ae62da8ade52a
+Fix timing error in video cursor
+--- a/src/main/verilog/fstore2.v
++++ b/src/main/verilog/fstore2.v
+@@ -62,7 +62,7 @@ module fstore2(
+    reg [11:5]                    offvreg,scrollv;
+    reg [4:1]                     vrow;
+    reg [4:0]                     scroll;
+-   reg [6:0]                     xcursor, ycursor, cursorvreg;
++   reg [6:0]                     xcursor, ycursor, xcursor0, ycursor0, cursorvreg;
+    reg [11:0]                    hstartreg, hsynreg, hstopreg, vstartreg,
+                                  vstopreg, vblankstopreg, vblankstartreg, vpixstartreg,
+                                  vpixstopreg, hpixstartreg, hpixstopreg, hpixreg, vpixreg;
+
+ParseResult:
+INS HdlIdDef@@xcursor0 to objs
+HdlIdDef: xcursor0
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: reg
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 6
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@ycursor0 to objs
+HdlIdDef: ycursor0
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: reg
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 6
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+
+CommitId: d5c50f747cd4c1374c209f38bc9ae62da8ade52a
+Fix timing error in video cursor
+--- a/src/main/verilog/fstore2.v
++++ b/src/main/verilog/fstore2.v
+@@ -90,18 +90,18 @@ module fstore2(
+    if (irst)
+      begin
+         scrollv <= 0;
+-        cursorvreg <= 11;
+-        xcursor <= 0;
+-        ycursor <= 32;
++        cursorvreg <= 10;
++        xcursor0 <= 0;
++        ycursor0 <= 32;
+         hstartreg <= 2048;
+         hsynreg <= 2048+20;
+         hstopreg <= 2100-1;
+         vstartreg <= 768;
+         vstopreg <= 768+19;
+-        vblankstopreg <= 32;
+-        vblankstartreg <= 768+32;
+-        vpixstartreg <= 32;
+-        vpixstopreg <= 32+768;
++        vblankstopreg <= 16;
++        vblankstartreg <= 768+16;
++        vpixstartreg <= 16;
++        vpixstopreg <= 16+768;
+         hpixstartreg <= 128*3;
+         hpixstopreg <= 128*3+256*6;
+         hpixreg <= 5;
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlValueInt@@11 to 10
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@xcursor to xcursor0
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@ycursor to ycursor0
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueInt@@32 to 16
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueInt@@32 to 16
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@ADD to ADD
+        UPD HdlValueInt@@32 to 16
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@ADD to ADD
+        UPD HdlValueInt@@32 to 16
+
+
+CommitId: d5c50f747cd4c1374c209f38bc9ae62da8ade52a
+Fix timing error in video cursor
+--- a/src/main/verilog/fstore2.v
++++ b/src/main/verilog/fstore2.v
+@@ -112,22 +112,22 @@ module fstore2(
+         if (web && enb && addrb[11])
+           casez (addrb[4:0])
+             5'd0: scrollv <= dinb[6:0];
+-            5'd1: cursorvreg <= dinb[6:0];
+-            5'd2: xcursor <= dinb[6:0];
+-            5'd3: ycursor <= dinb[6:0];
+-            5'd4: hstartreg <= dinb[11:0];
+-            5'd5: hsynreg <= dinb[11:0];
+-            5'd6: hstopreg <= dinb[11:0];
+-            5'd7: vstartreg <= dinb[11:0];
+-            5'd8: vstopreg <= dinb[11:0];
+-            5'd9: vblankstopreg <= dinb[11:0];
+-            5'd10: vblankstartreg <= dinb[11:0];
+-            5'd11: vpixstartreg <= dinb[11:0];
+-            5'd12: vpixstopreg <= dinb[11:0];
+-            5'd13: hpixstartreg <= dinb[11:0];
+-            5'd14: hpixstopreg <= dinb[11:0];
+-            5'd15: hpixreg <= dinb[11:0];
+-            5'd16: vpixreg <= dinb[11:0];
++//            5'd1: cursorvreg <= dinb[6:0];
++            5'd2: xcursor0 <= dinb[6:0];
++            5'd3: ycursor0 <= dinb[6:0];
++//            5'd4: hstartreg <= dinb[11:0];
++//            5'd5: hsynreg <= dinb[11:0];
++//            5'd6: hstopreg <= dinb[11:0];
++//            5'd7: vstartreg <= dinb[11:0];
++//            5'd8: vstopreg <= dinb[11:0];
++//            5'd9: vblankstopreg <= dinb[11:0];
++//            5'd10: vblankstartreg <= dinb[11:0];
++//            5'd11: vpixstartreg <= dinb[11:0];
++//            5'd12: vpixstopreg <= dinb[11:0];
++//            5'd13: hpixstartreg <= dinb[11:0];
++//            5'd14: hpixstopreg <= dinb[11:0];
++//            5'd15: hpixreg <= dinb[11:0];
++//            5'd16: vpixreg <= dinb[11:0];
+           endcase
+      end
+ 
+
+ParseResult:
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['addrb',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '4'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['addrb',          {'__class__': 'HdlOp',           'fn': 'DOWNTO',           'ops': [{'__class__': 'HdlValueInt', 'base': 10, 'val': '4'},                   {'__class__': 'HdlValueInt', 'base': 10, 'val': '0'}]}]} 
+    MOV tuple@@ to cases
+    tuple
+        HdlValueInt: 2
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 6
+                            HdlValueInt: 0
+            HdlValueId: xcursor
+    UPD HdlValueInt@@3 to 2
+    UPD HdlValueInt@@2 to 3
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 1
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 6
+                            HdlValueInt: 0
+            HdlValueId: cursorvreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 4
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: hstartreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 5
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: hsynreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 6
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: hstopreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 7
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: vstartreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 8
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: vstopreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 9
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: vblankstopreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 10
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: vblankstartreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 11
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: vpixstartreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 12
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: vpixstopreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 13
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: hpixstartreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 14
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: hpixstopreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 15
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: hpixreg
+    DEL tuple@@ from cases
+    tuple
+        HdlValueInt: 16
+        HdlStmAssign
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: dinb
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 11
+                            HdlValueInt: 0
+            HdlValueId: vpixreg
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@ycursor to xcursor0
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@xcursor to ycursor0
+
+
+CommitId: 1fd2edc4a5ed4f4e2adbf637f9528b2b4e21cff0
+Add debug system to verilator simulation
+--- a/src/main/verilog/debug_system.sv
++++ b/src/main/verilog/debug_system.sv
+@@ -36,6 +36,13 @@ module debug_system
+ 
+    assign uart_irq = 0;
+    
++   glip_channel #(.WIDTH(16)) fifo_in (.*);
++   glip_channel #(.WIDTH(16)) fifo_out (.*);
++
++   logic  logic_rst, com_rst;
++   logic  sys_rst, cpu_rst;
++
++`ifdef FPGA 
+    logic [15:0]  fifo_out_data;
+    logic         fifo_out_valid;
+    logic         fifo_out_ready;
+
+ParseResult:
+DEL HdlIdDef@@fifo_out_data from objs
+HdlIdDef: fifo_out_data
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@fifo_out_valid from objs
+HdlIdDef: fifo_out_valid
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+DEL HdlIdDef@@fifo_out_ready from objs
+HdlIdDef: fifo_out_ready
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+
+CommitId: 1fd2edc4a5ed4f4e2adbf637f9528b2b4e21cff0
+Add debug system to verilator simulation
+--- a/src/main/verilog/debug_system.sv
++++ b/src/main/verilog/debug_system.sv
+@@ -43,8 +50,13 @@ module debug_system
+    logic         fifo_in_valid;
+    logic         fifo_in_ready;
+ 
+-   logic  logic_rst, com_rst;
+- 
++   assign fifo_in.data = fifo_in_data;
++   assign fifo_in.valid = fifo_in_valid;
++   assign fifo_in_ready = fifo_in.ready;
++   assign fifo_out_data = fifo_out.data;
++   assign fifo_out_valid = fifo_out.valid;
++   assign fifo_out.ready = fifo_out_ready;
++
+    glip_uart_toplevel
+      #(.WIDTH(16), .BAUD(1000000), .FREQ(25000000))
+    u_glip(.clk_io    (clk),
+
+ParseResult:
+MOV HdlIdDef@@fifo_in_ready to objs
+HdlIdDef: fifo_in_ready
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+MOV HdlIdDef@@fifo_in_valid to objs
+HdlIdDef: fifo_in_valid
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: logic
+    HdlDirection: INTERNAL
+
+UPD HdlIdDef@@fifo_in_ready to sys_rst
+
+UPD HdlIdDef@@fifo_in_valid to cpu_rst
+
+
+CommitId: 1fd2edc4a5ed4f4e2adbf637f9528b2b4e21cff0
+Add debug system to verilator simulation
+--- a/src/main/verilog/debug_system.sv
++++ b/src/main/verilog/debug_system.sv
+@@ -63,22 +75,24 @@ module debug_system
+           .uart_cts (0),
+           .uart_rts (),
+           .error ());
++`else // !`ifdef FPGA
++   
++   glip_tcp_toplevel
++     #(.WIDTH(16))
++   u_glip(.clk_io    (clk),
++          .clk_logic (clk),
++          .rst       (rst),
++          .logic_rst (logic_rst),
++          .com_rst   (com_rst),
++          .fifo_in   (fifo_in),
++          .fifo_out  (fifo_out));
++`endif
+ 
+       localparam N = 3;
+ 
+    dii_flit [N-1:0] dii_out; logic [N-1:0] dii_out_ready;
+    dii_flit [N-1:0] dii_in; logic [N-1:0] dii_in_ready;   
+    
+-   glip_channel #(.WIDTH(16)) fifo_in (.*); 
+-   glip_channel #(.WIDTH(16)) fifo_out (.*); 
+-   
+-   assign fifo_in.data = fifo_in_data;
+-   assign fifo_in.valid = fifo_in_valid;
+-   assign fifo_in_ready = fifo_in.ready;
+-   assign fifo_out_data = fifo_out.data;
+-   assign fifo_out_valid = fifo_out.valid;
+-   assign fifo_out.ready = fifo_out_ready;
+-   
+    osd_him
+      u_him(.*,
+            .glip_in  (fifo_in),
+
+ParseResult:
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlValueId: fifo_in_data
+    HdlValueId: fifo_in
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlValueId: fifo_in_valid
+    HdlValueId: fifo_in
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlOp: DOT
+        list: ops
+            HdlValueId: fifo_in
+            HdlValueId: ready
+    HdlValueId: fifo_in_ready
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlOp: DOT
+        list: ops
+            HdlValueId: fifo_out
+            HdlValueId: data
+    HdlValueId: fifo_out_data
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlOp: DOT
+        list: ops
+            HdlValueId: fifo_out
+            HdlValueId: valid
+    HdlValueId: fifo_out_valid
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlValueId: fifo_out_ready
+    HdlValueId: fifo_out
+
+

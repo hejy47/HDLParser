@@ -1,0 +1,27 @@
+b89a22a9ad7b16ad0bd282a4794ab8639bc8608f
+Merge branch 'master' of https://github.com/openhwgroup/cv32e40p into ArjanB_csr_address_fix
+diff --git a/rtl/cv32e40p_if_stage.sv b/rtl/cv32e40p_if_stage.sv
+index 9b2466a..58d7bf0 100644
+--- a/rtl/cv32e40p_if_stage.sv
++++ b/rtl/cv32e40p_if_stage.sv
+@@ -66,7 +66,6 @@ module cv32e40p_if_stage
+     output logic       [31:0] pc_if_o,
+     output logic       [31:0] pc_id_o,
+     output logic              is_fetch_failed_o,
+-    output logic       [31:0] branch_target_o,
+ 
+     // Forwarding ports - control signals
+     input  logic        clear_instr_valid_i,   // clear instruction valid bit in IF/ID pipe
+@@ -171,12 +170,9 @@ module cv32e40p_if_stage
+     endcase
+   end
+ 
+-  assign branch_target_o = branch_addr_n;
+-
+   // tell CS register file to initialize mtvec on boot
+   assign csr_mtvec_init_o = (pc_mux_i == PC_BOOT) & pc_set_i;
+ 
+-
+   assign fetch_failed    = 1'b0; // PMP is not supported in CV32E40P
+ 
+   // prefetch buffer, caches a fixed number of instructions

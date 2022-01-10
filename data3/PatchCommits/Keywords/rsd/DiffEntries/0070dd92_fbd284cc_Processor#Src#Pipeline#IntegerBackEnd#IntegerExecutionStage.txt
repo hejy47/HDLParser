@@ -1,0 +1,15 @@
+0070dd9264df74eca42a03ba5e9adc46b50126f8
+fix: fix a bug where a branch misprediction signal is incorrect
+diff --git a/Processor/Src/Pipeline/IntegerBackEnd/IntegerExecutionStage.sv b/Processor/Src/Pipeline/IntegerBackEnd/IntegerExecutionStage.sv
+index 7cdb947..171ca78 100644
+--- a/Processor/Src/Pipeline/IntegerBackEnd/IntegerExecutionStage.sv
++++ b/Processor/Src/Pipeline/IntegerBackEnd/IntegerExecutionStage.sv
+@@ -234,7 +234,7 @@ module IntegerExecutionStage(
+                     
+             // 予測ミス判定
+             predMiss[i] =
+-                pipeReg[i].valid && isBranch[i] &&
++                brResult[i].valid &&
+                 (
+                      (bPred[i].predTaken != brTaken[i]) ||
+                      (brTaken[i] == TRUE &&

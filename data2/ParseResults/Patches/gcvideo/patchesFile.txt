@@ -1,0 +1,2055 @@
+CommitId: 0fce34e4c3c943330aeb4e937461b5b44a50ae5b
+Fix YPbPr output range
+--- a/HDL/gcvideo_dvi/src/component_defs.vhd
++++ b/HDL/gcvideo_dvi/src/component_defs.vhd
+@@ -93,6 +93,24 @@ package component_defs is
+     );
+   end component;
+ 
++  component ycrange is
++    port (
++      Clock      : in  std_logic;
++      ClockEnable: in  boolean;
++
++      -- input video
++      PixelY     : in  unsigned(7 downto 0);
++      PixelCb    : in    signed(7 downto 0);
++      PixelCr    : in    signed(7 downto 0);
++
++      -- output video
++      OutY       : out unsigned(7 downto 0);
++      OutCb      : out unsigned(7 downto 0);
++      OutCr      : out unsigned(7 downto 0)
++    );
++  end component;
++
++
+   component colormatrix is
+     port (
+       PixelClock      : in  std_logic;
+ParseResult:
+INS HdlModuleDec@@ycrange to objs
+HdlModuleDec: ycrange
+    list: params
+    list: ports
+        HdlIdDef: Clock
+            HdlValueId: std_logic
+            HdlDirection: IN
+        HdlIdDef: ClockEnable
+            HdlValueId: boolean
+            HdlDirection: IN
+        HdlIdDef: PixelY
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 7
+            HdlDirection: IN
+        HdlIdDef: PixelCb
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: signed
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 7
+            HdlDirection: IN
+        HdlIdDef: PixelCr
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: signed
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 7
+            HdlDirection: IN
+        HdlIdDef: OutY
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 7
+            HdlDirection: OUT
+        HdlIdDef: OutCb
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 7
+            HdlDirection: OUT
+        HdlIdDef: OutCr
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 7
+            HdlDirection: OUT
+    list: objs
+
+
+CommitId: d1fd4ab40e045e46f27b31de982e79233acf459b
+Blanking_Regenerator_Fixed: Ensure nominal length of sync pulses
+--- a/HDL/gcvideo_dvi/src/Blanking_Regenerator_Fixed.vhd
++++ b/HDL/gcvideo_dvi/src/Blanking_Regenerator_Fixed.vhd
+@@ -59,6 +64,10 @@ architecture Behavioral of Blanking_Regenerator_Fixed is
+   signal vert_active_start: natural range  18 to  41 :=  18;
+   signal vert_active_end  : natural range 258 to 617 := 258;
+ 
++  -- sync regen
++  signal hsync_remain     : natural range 0 to 63;
++  signal vsync_remain     : natural range 0 to 864*6;
++
+ begin
+ 
+   -- generate a new blanking signal according to CEA timing
+
+ParseResult:
+INS HdlIdDef@@hsync_remain to objs
+HdlIdDef: hsync_remain
+    HdlOp: RANGE
+        list: ops
+            HdlValueId: natural
+            HdlOp: TO
+                list: ops
+                    HdlValueInt: 63
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@vsync_remain to objs
+HdlIdDef: vsync_remain
+    HdlOp: RANGE
+        list: ops
+            HdlValueId: natural
+            HdlOp: TO
+                list: ops
+                    HdlOp: MUL
+                        list: ops
+                            HdlValueInt: 864
+                            HdlValueInt: 6
+    HdlDirection: INTERNAL
+
+
+CommitId: d1fd4ab40e045e46f27b31de982e79233acf459b
+Blanking_Regenerator_Fixed: Ensure nominal length of sync pulses
+--- a/HDL/gcvideo_dvi/src/Blanking_Regenerator_Fixed.vhd
++++ b/HDL/gcvideo_dvi/src/Blanking_Regenerator_Fixed.vhd
+@@ -70,9 +79,7 @@ begin
+     variable at_vsync_end  : boolean := false;
+   begin
+     if rising_edge(PixelClock) and PixelClockEnable then
+-      -- copy everything except blanking and pixels
+-      VideoOut.HSync         <= VideoIn.HSync;
+-      VideoOut.VSync         <= VideoIn.VSync;
++      -- copy flags and CSync
+       VideoOut.CSync         <= VideoIn.CSync;
+       VideoOut.IsEvenField   <= VideoIn.IsEvenField;
+       VideoOut.IsProgressive <= VideoIn.IsProgressive;
+
+ParseResult:
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: DOT
+        list: ops
+            HdlValueId: VideoIn
+            HdlValueId: HSync
+    HdlOp: DOT
+        list: ops
+            HdlValueId: VideoOut
+            HdlValueId: HSync
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: DOT
+        list: ops
+            HdlValueId: VideoIn
+            HdlValueId: VSync
+    HdlOp: DOT
+        list: ops
+            HdlValueId: VideoOut
+            HdlValueId: VSync
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@DOT to DOT
+        UPD HdlValueId@@VideoIn to true
+        MOV HdlValueId@@VideoIn to ops
+        HdlValueId: VideoIn
+        DEL HdlValueId@@HSync from ops
+        DEL list@@ops from DOT
+    DEL HdlOp@@DOT from 
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@DOT to DOT
+        UPD HdlValueId@@VideoIn to true
+        MOV HdlValueId@@VideoIn to ops
+        HdlValueId: VideoIn
+        DEL HdlValueId@@VSync from ops
+        DEL list@@ops from DOT
+    DEL HdlOp@@DOT from 
+
+
+CommitId: c1aa921a24fdf7487b026b956f7d9984a1cb4ba5
+Fix delayline_bool/_unsigned low delay instances
+--- a/HDL/gcvideo_dvi/src/convert_422_to_444.vhd
++++ b/HDL/gcvideo_dvi/src/convert_422_to_444.vhd
+@@ -53,7 +53,7 @@ end convert_422_to_444;
+ architecture Behavioral of convert_422_to_444 is
+ 
+   -- delay in (enabled) clock cycles for untouched signals
+-  constant Delayticks: Natural := 3;
++  constant Delayticks: Natural := 4;
+ 
+   -- stored color signals
+   signal current_c1: unsigned(7 downto 0) := (others => '1');
+ParseResult:
+UPD HdlIdDef@@Delayticks to Delayticks
+    UPD HdlValueInt@@3 to 4
+
+
+CommitId: cfffafe7655e9340f1c2b4080fccd35eef43dc8e
+Blanking_Regenerator_Fixed: Modify position of active window
+--- a/HDL/gcvideo_dvi/src/Blanking_Regenerator_Fixed.vhd
++++ b/HDL/gcvideo_dvi/src/Blanking_Regenerator_Fixed.vhd
+@@ -54,8 +54,8 @@ architecture Behavioral of Blanking_Regenerator_Fixed is
+   type blank_state_t is (BS_OUTSIDE_WIN, BS_INSIDE_WIN);
+   signal vblank_state     : blank_state_t;
+   signal hblank_state     : blank_state_t;
+-  signal hor_active_start : natural range 121 to 131 := 121;
+-  signal hor_active_end   : natural range 841 to 851 := 841;
++  signal hor_active_start : natural range 117 to 132 := 117;
++  signal hor_active_end   : natural range 830 to 852 := 839;
+   signal vert_active_start: natural range  18 to  41 :=  18;
+   signal vert_active_end  : natural range 258 to 617 := 258;
+ 
+
+ParseResult:
+UPD HdlIdDef@@hor_active_start to hor_active_start
+    UPD HdlValueInt@@121 to 117
+    UPD HdlOp@@RANGE to RANGE
+        UPD HdlOp@@TO to TO
+            UPD HdlValueInt@@121 to 117
+            UPD HdlValueInt@@131 to 132
+
+UPD HdlIdDef@@hor_active_end to hor_active_end
+    UPD HdlValueInt@@841 to 839
+    UPD HdlOp@@RANGE to RANGE
+        UPD HdlOp@@TO to TO
+            UPD HdlValueInt@@841 to 830
+            UPD HdlValueInt@@851 to 852
+
+
+CommitId: cfffafe7655e9340f1c2b4080fccd35eef43dc8e
+Blanking_Regenerator_Fixed: Modify position of active window
+--- a/HDL/gcvideo_dvi/src/Blanking_Regenerator_Fixed.vhd
++++ b/HDL/gcvideo_dvi/src/Blanking_Regenerator_Fixed.vhd
+@@ -131,11 +131,19 @@ begin
+ 
+         -- update blanking ranges
+         if VideoIn.IsPAL then
+-          hor_active_start <= 131;
+-          hor_active_end   <= 851;
++          -- 576i/576p
++          hor_active_start <= 132 - 2;
++          hor_active_end   <= 852 - 2;
+         else
+-          hor_active_start <= 121;
+-          hor_active_end   <= 841;
++          if VideoIn.Is30kHz then
++            -- 480p
++            hor_active_start <= 122 - 2;
++            hor_active_end   <= 842 - 2;
++          else
++            -- 480i
++            hor_active_start <= 119 - 2;
++            hor_active_end   <= 839 - 2;
++          end if;
+         end if;
+ 
+         if VideoIn.Is30kHz then
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+INS HdlStmIf@@ to body
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@SUB to 
+    UPD HdlOp@@SUB to SUB
+        INS list@@ops to SUB
+        INS HdlValueInt@@2 to ops
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@SUB to 
+    UPD HdlOp@@SUB to SUB
+        INS list@@ops to SUB
+        INS HdlValueInt@@2 to ops
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@DOT to 
+    HdlOp: DOT
+        list: ops
+            HdlValueId: VideoIn
+            HdlValueId: Is30kHz
+    INS list@@elifs to 
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: SUB
+                    list: ops
+                        HdlValueInt: 119
+                        HdlValueInt: 2
+                HdlValueId: hor_active_start
+            HdlStmAssign
+                HdlOp: SUB
+                    list: ops
+                        HdlValueInt: 839
+                        HdlValueInt: 2
+                HdlValueId: hor_active_end
+
+UPD HdlStmIf@@ to 
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 121
+                HdlValueId: hor_active_start
+            HdlStmAssign
+                HdlValueInt: 841
+                HdlValueId: hor_active_end
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueInt@@131 to 132
+    MOV HdlValueInt@@131 to 
+    HdlValueInt: 131
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueInt@@851 to 852
+    MOV HdlValueInt@@851 to 
+    HdlValueInt: 851
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@SUB to 
+    UPD HdlOp@@SUB to SUB
+        INS list@@ops to SUB
+        INS HdlValueInt@@2 to ops
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueInt@@121 to 122
+    MOV HdlValueInt@@121 to 
+    HdlValueInt: 121
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueInt@@841 to 842
+    MOV HdlValueInt@@841 to 
+    HdlValueInt: 841
+
+
+CommitId: 021124fea6246e9f063fb0e5ab10ef3b7eae4ebc
+Add console mode detection for Wii
+--- a/HDL/gcvideo_dvi/src/video_defs.vhd
++++ b/HDL/gcvideo_dvi/src/video_defs.vhd
+@@ -34,6 +34,8 @@ use IEEE.NUMERIC_STD.ALL;
+ 
+ package video_defs is
+ 
++  type console_mode_t is (MODE_GC, MODE_WII);
++
+   type VideoY422 is record
+     PixelY       : unsigned(7 downto 0);
+     PixelCbCr    : unsigned(7 downto 0);
+ParseResult:
+INS HdlIdDef@@console_mode_t to objs
+HdlIdDef: console_mode_t
+    HdlEnumDef: value
+    HdlDirection: INTERNAL
+
+
+CommitId: 057dc2d65fbc4b6c26471217dcf150a2220a716e
+ZPUBusMux: Use '-' instead of '0' for default device data
+--- a/HDL/gcvideo_dvi/src/ZPUBusMux.vhd
++++ b/HDL/gcvideo_dvi/src/ZPUBusMux.vhd
+@@ -83,7 +83,7 @@ begin
+     elsif current_device = -1 then
+       -- default device
+       mem_busy_out <= '0';
+-      mem_read_out <= (others => '0');
++      mem_read_out <= (others => '-');  -- same
+     else
+       -- copy outputs of selected device
+       mem_busy_out <= DevOuts(current_device).mem_busy;
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@MAP_ASSOCIATION to MAP_ASSOCIATION
+        UPD HdlValueInt@@0 to -
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/datapipe.vhd
++++ b/HDL/gcvideo_dvi/src/datapipe.vhd
+@@ -112,7 +112,6 @@ architecture Behavioral of Datapipe is
+   signal video_ld       : VideoY422;
+   signal video_444      : VideoYCbCr;
+   signal video_444_rb   : VideoYCbCr; -- reblanked
+-  signal video_444_adj  : VideoYCbCr; -- adjusted
+   signal video_444_sl   : VideoYCbCr; -- scanlined
+   signal video_444_osd  : VideoYCbCr;
+   signal video_rgb      : VideoRGB;
+
+ParseResult:
+DEL HdlIdDef@@video_444_adj from objs
+HdlIdDef: video_444_adj
+    HdlValueId: VideoYCbCr
+    HdlDirection: INTERNAL
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/datapipe.vhd
++++ b/HDL/gcvideo_dvi/src/datapipe.vhd
+@@ -134,9 +133,6 @@ architecture Behavioral of Datapipe is
+   signal osd_ram_data   : std_logic_vector(8 downto 0);
+   signal osd_settings   : OSDSettings_t;
+ 
+-  -- contrast/brightness/saturation adjustments
+-  signal image_controls : ImageControls_t;
+-
+   -- audio
+   signal audio          : AudioData;
+ 
+
+ParseResult:
+DEL HdlIdDef@@image_controls from objs
+HdlIdDef: image_controls
+    HdlValueId: ImageControls_t
+    HdlDirection: INTERNAL
+
+
+CommitId: 021124fea6246e9f063fb0e5ab10ef3b7eae4ebc
+Add console mode detection for Wii
+--- a/HDL/gcvideo_dvi/src/toplevel_p2xh.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_p2xh.vhd
+@@ -127,6 +127,9 @@ architecture Behavioral of toplevel_p2xh is
+   -- audio
+   signal audio          : AudioData;
+ 
++  -- console mode detection
++  signal console_mode   : console_mode_t := MODE_GC;
++
+   -- misc
+   signal video_settings : VideoSettings_t;
+   signal clock_locked   : std_logic;
+
+ParseResult:
+INS HdlIdDef@@console_mode to objs
+HdlIdDef: console_mode
+    HdlValueId: console_mode_t
+    HdlValueId: MODE_GC
+    HdlDirection: INTERNAL
+
+
+CommitId: 021124fea6246e9f063fb0e5ab10ef3b7eae4ebc
+Add console mode detection for Wii
+--- a/HDL/gcvideo_dvi/src/toplevel_p2xh.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_p2xh.vhd
+@@ -143,8 +146,25 @@ architecture Behavioral of toplevel_p2xh is
+ 
+ begin
+ 
++  mode_detect: if TargetConsole = "WII" generate
++    Inst_CMD: ConsoleModeDetect port map (
++      Clock       => Clock54M,
++      I2S_LRClock => I2S_LRClock,
++      ConsoleMode => console_mode
++    );
++
++    -- (note: console_mode is initialized to MODE_GC)
++  end generate;
++
+   -- misc outputs
+-  LED1        <= heartbeat_led1; --clock_locked;
++  l1_gc: if TargetConsole = "GC" generate
++    LED1 <= heartbeat_led1;
++  end generate;
++
++  l1_wii: if TargetConsole = "WII" generate
++    LED1 <= '1' when console_mode = MODE_WII else '0';
++  end generate;
++
+   LED2        <= heartbeat_led2;
+   Flash_Hold  <= '1';
+   DDC_SCL     <= 'Z'; -- currently not used, but must be defined to avoid
+ParseResult:
+INS HdlStmIf@@ to objs
+HdlStmIf
+    HdlOp: EQ
+        list: ops
+            HdlValueId: TargetConsole
+            str
+    HdlCompInst: ConsoleModeDetect-Inst_CMD
+        list: param_map
+        list: port_map
+            HdlOp: ARROW
+                list: ops
+                    HdlValueId: Clock
+                    HdlValueId: Clock54M
+            HdlOp: ARROW
+                list: ops
+                    HdlValueId: I2S_LRClock
+                    HdlValueId: I2S_LRClock
+            HdlOp: ARROW
+                list: ops
+                    HdlValueId: ConsoleMode
+                    HdlValueId: console_mode
+    list: elifs
+
+INS HdlStmIf@@ to objs
+
+INS HdlStmIf@@ to objs
+HdlStmIf
+    HdlOp: EQ
+        list: ops
+            HdlValueId: TargetConsole
+            str
+    HdlStmAssign: if_true
+        HdlOp: TERNARY
+            list: ops
+                HdlOp: EQ
+                    list: ops
+                        HdlValueId: console_mode
+                        HdlValueId: MODE_WII
+                HdlValueInt: 1
+                HdlValueInt: 0
+        HdlValueId: LED1
+    list: elifs
+
+UPD HdlStmAssign@@ to if_true
+
+MOV HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlValueId: heartbeat_led1
+    HdlValueId: LED1
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/ZPUVideoInterface.vhd
++++ b/HDL/gcvideo_dvi/src/ZPUVideoInterface.vhd
+@@ -47,8 +47,7 @@ entity ZPUVideoInterface is
+     ZPUBusOut       : out ZPUDeviceOut;
+     IRQ             : out std_logic;
+     VSettings       : out VideoSettings_t;
+-    OSDSettings     : out OSDSettings_t;
+-    ImageControls   : out ImageControls_t
++    OSDSettings     : out OSDSettings_t
+   );
+ end ZPUVideoInterface;
+ 
+
+ParseResult:
+DEL HdlIdDef@@ImageControls from ports
+HdlIdDef: ImageControls
+    HdlValueId: ImageControls_t
+    HdlDirection: OUT
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/ZPUVideoInterface.vhd
++++ b/HDL/gcvideo_dvi/src/ZPUVideoInterface.vhd
+@@ -72,7 +71,7 @@ architecture Behavioral of ZPUVideoInterface is
+   signal volume_setting    : std_logic_vector( 7 downto 0) := x"ff";
+   signal vid_settings      : std_logic_vector(11 downto 0) := VidSettingsDefault;
+   signal osd_bgsettings    : std_logic_vector(24 downto 0) := OSDBGSettingsDefault;
+-  signal image_controls    : std_logic_vector(24 downto 0);
++  signal color_matrix      : ColorMatrix_t;
+ 
+   signal stored_flags      : std_logic_vector(2 downto 0);
+   signal console_mode      : std_logic;
+
+ParseResult:
+UPD HdlIdDef@@image_controls to color_matrix
+
+UPD HdlIdDef@@image_controls to image_controls
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlValueId@@std_logic_vector to ColorMatrix_t
+        MOV HdlValueId@@std_logic_vector to ops
+        HdlValueId: std_logic_vector
+        DEL HdlOp@@DOWNTO from ops
+        HdlOp: DOWNTO
+            list: ops
+                HdlValueInt: 24
+        DEL list@@ops from INDEX
+    DEL HdlOp@@INDEX from image_controls
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/ZPUVideoInterface.vhd
++++ b/HDL/gcvideo_dvi/src/ZPUVideoInterface.vhd
+@@ -96,19 +95,15 @@ begin
+   VSettings.SyncOnGreen        <= (vid_settings(10) = '1');
+   VSettings.SampleRateHack     <= (vid_settings(11) = '1');
+   VSettings.Volume             <= unsigned(volume_setting);
++  VSettings.Matrix             <= color_matrix;
+ 
+   -- putting this bit in an unrelated register simplifies the software side
+   VSettings.DisableOutput      <= (osd_bgsettings(24) = '1');
+ 
+   -- forward OSD settings to output
+-  OSDSettings.BGAlpha    <= unsigned(osd_bgsettings(23 downto 16));
+-  OSDSettings.BGTintCb   <=   signed(osd_bgsettings(15 downto  8));
+-  OSDSettings.BGTintCr   <=   signed(osd_bgsettings( 7 downto  0));
+-
+-  -- forward picture settings
+-  ImageControls.Saturation <= unsigned(image_controls(24 downto 16));
+-  ImageControls.Brightness <=   signed(image_controls(15 downto  8));
+-  ImageControls.Contrast   <= unsigned(image_controls( 7 downto  0));
++  OSDSettings.BGAlpha  <= unsigned(osd_bgsettings(23 downto 16));
++  OSDSettings.BGTintCb <=   signed(osd_bgsettings(15 downto  8));
++  OSDSettings.BGTintCr <=   signed(osd_bgsettings( 7 downto  0));
+ 
+   process(Clock)
+   begin
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlValueId: color_matrix
+    HdlOp: DOT
+        list: ops
+            HdlValueId: VSettings
+            HdlValueId: Matrix
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: unsigned
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: image_controls
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 24
+                            HdlValueInt: 16
+    HdlOp: DOT
+        list: ops
+            HdlValueId: ImageControls
+            HdlValueId: Saturation
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: signed
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: image_controls
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 15
+                            HdlValueInt: 8
+    HdlOp: DOT
+        list: ops
+            HdlValueId: ImageControls
+            HdlValueId: Brightness
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: unsigned
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: image_controls
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 7
+    HdlOp: DOT
+        list: ops
+            HdlValueId: ImageControls
+            HdlValueId: Contrast
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/ZPUVideoInterface.vhd
++++ b/HDL/gcvideo_dvi/src/ZPUVideoInterface.vhd
+@@ -142,11 +137,24 @@ begin
+ 
+       -- write path
+       if ZSelect = '1' and ZPUBusIn.mem_writeEnable = '1' then
+-        case ZPUBusIn.mem_addr(4 downto 2) is
+-          when "000"  => vid_settings   <= ZPUBusIn.mem_write(11 downto 0);
+-          when "001"  => osd_bgsettings <= ZPUBusIn.mem_write(24 downto 0);
+-          when "010"  => volume_setting <= ZPUBusIn.mem_write( 7 downto 0);
+-          when "011"  => image_controls <= ZPUBusIn.mem_write(24 downto 0);
++        case ZPUBusIn.mem_addr(5 downto 2) is
++          when "0000" => vid_settings   <= ZPUBusIn.mem_write(11 downto 0);
++          when "0001" => osd_bgsettings <= ZPUBusIn.mem_write(24 downto 0);
++          when "0010" => volume_setting <= ZPUBusIn.mem_write( 7 downto 0);
++
++          when "0011" =>
++            color_matrix.YBias     <= signed(ZPUBusIn.mem_write( 9 downto  0));
++            color_matrix.YRFactor  <= signed(ZPUBusIn.mem_write(31 downto 16));
++          when "0100" =>
++            color_matrix.YGFactor  <= signed(ZPUBusIn.mem_write(15 downto  0));
++            color_matrix.YBFactor  <= signed(ZPUBusIn.mem_write(31 downto 16));
++          when "0101" =>
++            color_matrix.CbGFactor <= signed(ZPUBusIn.mem_write(15 downto  0));
++            color_matrix.CbBFactor <= signed(ZPUBusIn.mem_write(31 downto 16));
++          when "0110" =>
++            color_matrix.CrRFactor <= signed(ZPUBusIn.mem_write(15 downto  0));
++            color_matrix.CrGFactor <= signed(ZPUBusIn.mem_write(31 downto 16));
++
+           when others => null;
+         end case;
+       end if;
+ParseResult:
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': [{'__class__': 'HdlOp', 'fn': 'DOT', 'ops': ['ZPUBusIn', 'mem_addr']},          {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [4, 2]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': [{'__class__': 'HdlOp', 'fn': 'DOT', 'ops': ['ZPUBusIn', 'mem_addr']},          {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [5, 2]}]} 
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': [{'__class__': 'HdlOp', 'fn': 'DOT', 'ops': ['ZPUBusIn', 'mem_addr']},          {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [5, 2]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': [{'__class__': 'HdlOp', 'fn': 'DOT', 'ops': ['ZPUBusIn', 'mem_addr']},          {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [5, 2]}]} 
+    INS tuple@@ to cases
+    tuple
+        str
+        HdlStmBlock: SEQ
+            list: body
+                HdlStmAssign
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: signed
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlOp: DOT
+                                        list: ops
+                                            HdlValueId: ZPUBusIn
+                                            HdlValueId: mem_write
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 15
+                    HdlOp: DOT
+                        list: ops
+                            HdlValueId: color_matrix
+                            HdlValueId: YGFactor
+                HdlStmAssign
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: signed
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlOp: DOT
+                                        list: ops
+                                            HdlValueId: ZPUBusIn
+                                            HdlValueId: mem_write
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 31
+                                            HdlValueInt: 16
+                    HdlOp: DOT
+                        list: ops
+                            HdlValueId: color_matrix
+                            HdlValueId: YBFactor
+    INS tuple@@ to cases
+    tuple
+        str
+        HdlStmBlock: SEQ
+            list: body
+                HdlStmAssign
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: signed
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlOp: DOT
+                                        list: ops
+                                            HdlValueId: ZPUBusIn
+                                            HdlValueId: mem_write
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 15
+                    HdlOp: DOT
+                        list: ops
+                            HdlValueId: color_matrix
+                            HdlValueId: CbGFactor
+                HdlStmAssign
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: signed
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlOp: DOT
+                                        list: ops
+                                            HdlValueId: ZPUBusIn
+                                            HdlValueId: mem_write
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 31
+                                            HdlValueInt: 16
+                    HdlOp: DOT
+                        list: ops
+                            HdlValueId: color_matrix
+                            HdlValueId: CbBFactor
+    INS tuple@@ to cases
+    tuple
+        str
+        HdlStmBlock: SEQ
+            list: body
+                HdlStmAssign
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: signed
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlOp: DOT
+                                        list: ops
+                                            HdlValueId: ZPUBusIn
+                                            HdlValueId: mem_write
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 15
+                    HdlOp: DOT
+                        list: ops
+                            HdlValueId: color_matrix
+                            HdlValueId: CrRFactor
+                HdlStmAssign
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: signed
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlOp: DOT
+                                        list: ops
+                                            HdlValueId: ZPUBusIn
+                                            HdlValueId: mem_write
+                                    HdlOp: DOWNTO
+                                        list: ops
+                                            HdlValueInt: 31
+                                            HdlValueInt: 16
+                    HdlOp: DOT
+                        list: ops
+                            HdlValueId: color_matrix
+                            HdlValueId: CrGFactor
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+UPD HdlStmCase@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': [{'__class__': 'HdlOp', 'fn': 'DOT', 'ops': ['ZPUBusIn', 'mem_addr']},          {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [4, 2]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': [{'__class__': 'HdlOp', 'fn': 'DOT', 'ops': ['ZPUBusIn', 'mem_addr']},          {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [4, 2]}]} 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@4 to 5
+    UPD HdlStmBlock@@SEQ to SEQ
+        UPD list@@body to ops
+        MOV list@@body to SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: DOT
+                            list: ops
+                                HdlValueId: ZPUBusIn
+                                HdlValueId: mem_write
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 24
+                HdlValueId: image_controls
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: signed
+            HdlOp: INDEX
+                list: ops
+                    HdlOp: DOT
+                        list: ops
+                            HdlValueId: ZPUBusIn
+                            HdlValueId: mem_write
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 9
+    HdlOp: DOT
+        list: ops
+            HdlValueId: color_matrix
+            HdlValueId: YBias
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlOp: DOT
+                list: ops
+                    HdlValueId: ZPUBusIn
+                    HdlValueId: mem_write
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 24
+    HdlValueId: image_controls
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@INDEX to 
+    INS HdlOp@@DOT to 
+    UPD HdlOp@@DOT to DOT
+        INS list@@ops to DOT
+        INS HdlValueId@@YRFactor to ops
+    UPD HdlOp@@INDEX to INDEX
+        INS HdlValueId@@signed to ops
+        UPD HdlOp@@INDEX to INDEX
+            UPD HdlOp@@DOWNTO to DOWNTO
+                INS HdlValueInt@@16 to ops
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlOp: DOT
+                list: ops
+                    HdlValueId: ZPUBusIn
+                    HdlValueId: mem_write
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 24
+    UPD HdlValueId@@image_controls to color_matrix
+    MOV HdlValueId@@image_controls to 
+    HdlValueId: image_controls
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@24 to 31
+
+
+CommitId: b532bda61703da4382b2c1434be59f2e2c4c1b97
+fix audio scaling
+--- a/HDL/gcvideo_dvi/src/audio_spdif.vhd
++++ b/HDL/gcvideo_dvi/src/audio_spdif.vhd
+@@ -114,7 +114,7 @@ architecture Behavioral of audio_spdif is
+     variable tmp: signed(25 downto 0);
+   begin
+     tmp := val * factor;
+-    return tmp(25 downto 10);
++    return tmp(23 downto 8);
+   end function;
+ 
+ begin
+ParseResult:
+UPD HdlStmReturn@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['tmp', {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [25, 10]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['tmp', {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [23, 8]}]} 
+
+UPD HdlStmReturn@@{'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['tmp', {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [25, 10]}]}  to {'__class__': 'HdlOp',  'fn': 'INDEX',  'ops': ['tmp', {'__class__': 'HdlOp', 'fn': 'DOWNTO', 'ops': [25, 10]}]} 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@25 to 23
+            UPD HdlValueInt@@10 to 8
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/CPUSubsystem.vhd
++++ b/HDL/gcvideo_dvi/src/CPUSubsystem.vhd
+@@ -59,8 +59,7 @@ entity CPUSubsystem is
+     OSDRamAddr       : in  std_logic_vector(10 downto 0);
+     OSDRamData       : out std_logic_vector(8 downto 0);
+     OSDSettings      : out OSDSettings_t;
+-    VSettings        : out VideoSettings_t;
+-    ImageControls    : out ImageControls_t
++    VSettings        : out VideoSettings_t
+   );
+ end CPUSubsystem;
+ 
+
+ParseResult:
+DEL HdlIdDef@@ImageControls from ports
+HdlIdDef: ImageControls
+    HdlValueId: ImageControls_t
+    HdlDirection: OUT
+
+
+CommitId: 0fce34e4c3c943330aeb4e937461b5b44a50ae5b
+Fix YPbPr output range
+--- a/HDL/gcvideo_dvi/src/datapipe.vhd
++++ b/HDL/gcvideo_dvi/src/datapipe.vhd
+@@ -122,6 +122,7 @@ architecture Behavioral of Datapipe is
+   signal video_osd_out      : VideoYCbCr;
+   signal video_cmatrix_in   : VideoYCbCr;
+   signal video_cmatrix_out  : VideoRGB;
++  signal video_ycrange_in   : VideoYCbCr;
+   signal video_dvienc_in    : VideoRGB;
+   signal video_dac_in       : VideoRGB;
+ 
+
+ParseResult:
+INS HdlIdDef@@video_ycrange_in to objs
+HdlIdDef: video_ycrange_in
+    HdlValueId: VideoYCbCr
+    HdlDirection: INTERNAL
+
+
+CommitId: 0fce34e4c3c943330aeb4e937461b5b44a50ae5b
+Fix YPbPr output range
+--- a/HDL/gcvideo_dvi/src/datapipe.vhd
++++ b/HDL/gcvideo_dvi/src/datapipe.vhd
+@@ -135,9 +136,13 @@ architecture Behavioral of Datapipe is
+   signal pixel_clk_en_scanliner: boolean := false;
+   signal pixel_clk_en_osd      : boolean := false;
+   signal pixel_clk_en_cmatrix  : boolean := false;
++  signal pixel_clk_en_ycrange  : boolean := false;
+   signal pixel_clk_en_dac      : boolean := false;
+ 
+   -- analog output
++  signal pixel_y_range  : unsigned(7 downto 0);
++  signal pixel_cb_range : unsigned(7 downto 0);
++  signal pixel_cr_range : unsigned(7 downto 0);
+   signal use_syncongreen: boolean;
+ 
+   -- encoded DVI signals
+
+ParseResult:
+INS HdlIdDef@@pixel_clk_en_ycrange to objs
+HdlIdDef: pixel_clk_en_ycrange
+    HdlValueId: boolean
+    HdlValueId: false
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@pixel_y_range to objs
+HdlIdDef: pixel_y_range
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: unsigned
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@pixel_cb_range to objs
+HdlIdDef: pixel_cb_range
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: unsigned
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@pixel_cr_range to objs
+HdlIdDef: pixel_cr_range
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: unsigned
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    HdlDirection: INTERNAL
+
+
+CommitId: 0fce34e4c3c943330aeb4e937461b5b44a50ae5b
+Fix YPbPr output range
+--- a/HDL/gcvideo_dvi/src/datapipe.vhd
++++ b/HDL/gcvideo_dvi/src/datapipe.vhd
+@@ -475,6 +493,7 @@ begin
+   video_scanliner_in <= video_reblanker_out;
+   video_osd_in       <= video_scanliner_out;
+   video_cmatrix_in   <= video_osd_out;
++  video_ycrange_in   <= video_osd_out;
+   video_dvienc_in    <= video_cmatrix_out;
+ 
+   pixel_clk_en_422conv   <= pixel_clk_en_ld_out;
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlValueId: video_osd_out
+    HdlValueId: video_ycrange_in
+
+
+CommitId: 0fce34e4c3c943330aeb4e937461b5b44a50ae5b
+Fix YPbPr output range
+--- a/HDL/gcvideo_dvi/src/datapipe.vhd
++++ b/HDL/gcvideo_dvi/src/datapipe.vhd
+@@ -482,6 +501,7 @@ begin
+   pixel_clk_en_scanliner <= pixel_clk_en_ld_out;
+   pixel_clk_en_osd       <= pixel_clk_en_ld_out;
+   pixel_clk_en_cmatrix   <= pixel_clk_en_ld_out;
++  pixel_clk_en_ycrange   <= pixel_clk_en_ld_out;
+   pixel_clk_en_dac       <= pixel_clk_en_ld_out;
+ 
+   process(Clock54M, pixel_clk_en_ld_out)
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlValueId: pixel_clk_en_ld_out
+    HdlValueId: pixel_clk_en_ycrange
+
+
+CommitId: 0fce34e4c3c943330aeb4e937461b5b44a50ae5b
+Fix YPbPr output range
+--- a/HDL/gcvideo_dvi/src/datapipe.vhd
++++ b/HDL/gcvideo_dvi/src/datapipe.vhd
+@@ -492,9 +512,9 @@ begin
+         DAC_RGBMode     <= false;
+         use_syncongreen <= true;
+ 
+-        video_dac_in.PixelR <= unsigned(video_osd_out.PixelCr + 128);
+-        video_dac_in.PixelG <= video_osd_out.PixelY;
+-        video_dac_in.PixelB <= unsigned(video_osd_out.PixelCb + 128);
++        video_dac_in.PixelR <= pixel_cr_range;
++        video_dac_in.PixelG <= pixel_y_range;
++        video_dac_in.PixelB <= pixel_cb_range;
+         video_dac_in.HSync  <= video_osd_out.HSync;
+         video_dac_in.VSync  <= video_osd_out.VSync;
+         video_dac_in.CSync  <= video_osd_out.CSync;
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@ADD to ADD
+            UPD HdlOp@@DOT to DOT
+                UPD HdlValueId@@PixelCr to pixel_cr_range
+                MOV HdlValueId@@PixelCr to ops
+                HdlValueId: PixelCr
+                DEL HdlValueId@@video_osd_out from ops
+                DEL list@@ops from DOT
+            DEL HdlOp@@DOT from ops
+            DEL HdlValueInt@@128 from ops
+            DEL list@@ops from ADD
+        DEL HdlValueId@@unsigned from ops
+        DEL HdlOp@@ADD from ops
+        DEL list@@ops from INDEX
+    DEL HdlOp@@INDEX from 
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@DOT to DOT
+        UPD HdlValueId@@PixelY to pixel_y_range
+        MOV HdlValueId@@PixelY to ops
+        HdlValueId: PixelY
+        DEL HdlValueId@@video_osd_out from ops
+        DEL list@@ops from DOT
+    DEL HdlOp@@DOT from 
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@ADD to ADD
+            UPD HdlOp@@DOT to DOT
+                UPD HdlValueId@@PixelCb to pixel_cb_range
+                MOV HdlValueId@@PixelCb to ops
+                HdlValueId: PixelCb
+                DEL HdlValueId@@video_osd_out from ops
+                DEL list@@ops from DOT
+            DEL HdlOp@@DOT from ops
+            DEL HdlValueInt@@128 from ops
+            DEL list@@ops from ADD
+        DEL HdlValueId@@unsigned from ops
+        DEL HdlOp@@ADD from ops
+        DEL list@@ops from INDEX
+    DEL HdlOp@@INDEX from 
+
+
+CommitId: 308ce5110a59390d5f81b6265e6ffaf6692317b6
+backport chroma mixing fix for Cr-first lines
+--- a/HDL/gcvideo_dvi/src/convert_422_to_444.vhd
++++ b/HDL/gcvideo_dvi/src/convert_422_to_444.vhd
+@@ -56,10 +56,13 @@ architecture Behavioral of convert_422_to_444 is
+   constant Delayticks: Natural := 3;
+ 
+   -- stored color signals
+-  signal current_cr: unsigned(7 downto 0) := (others => '1');
+-  signal current_cb: unsigned(7 downto 0) := (others => '1');
+-  signal prev_cr   : unsigned(7 downto 0) := (others => '1');
+-  signal prev_cb   : unsigned(7 downto 0) := (others => '1');
++  signal current_c1: unsigned(7 downto 0) := (others => '1');
++  signal current_c2: unsigned(7 downto 0) := (others => '1');
++  signal prev_c1   : unsigned(7 downto 0) := (others => '1');
++  signal prev_c2   : unsigned(7 downto 0) := (others => '1');
++
++  signal prev_blanking: boolean;
++  signal is_cbfirst   : boolean;
+ 
+   -- averaging function, also converts output to signed
+   function average(a: unsigned(7 downto 0); b: unsigned(7 downto 0))
+
+ParseResult:
+UPD HdlIdDef@@current_cr to current_c1
+
+UPD HdlIdDef@@current_cb to current_c2
+
+UPD HdlIdDef@@prev_cr to prev_c1
+
+UPD HdlIdDef@@prev_cb to prev_c2
+
+INS HdlIdDef@@prev_blanking to objs
+HdlIdDef: prev_blanking
+    HdlValueId: boolean
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@is_cbfirst to objs
+HdlIdDef: is_cbfirst
+    HdlValueId: boolean
+    HdlDirection: INTERNAL
+
+
+CommitId: 58c60f7f4c26daaf3c74e6c5f1dfc8a4ead4d748
+fix TMDS pair swapping for Wii-Dual
+--- a/HDL/gcvideo_dvi/src/toplevel_shuriken.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_shuriken.vhd
+@@ -41,6 +41,9 @@ use work.video_defs.all;
+ entity toplevel_shuriken is
+   generic (
+     TargetConsole: string; -- "GC" or "WII"
++    SwapRed      : string := "NO";
++    SwapGreen    : string := "NO";
++    SwapBlue     : string := "NO";
+     Firmware     : string;
+     Module       : string
+   );
+
+ParseResult:
+INS HdlIdDef@@SwapRed to params
+HdlIdDef: SwapRed
+    HdlValueId: string
+    HdlDirection: IN
+
+INS HdlIdDef@@SwapGreen to params
+HdlIdDef: SwapGreen
+    HdlValueId: string
+    HdlDirection: IN
+
+INS HdlIdDef@@SwapBlue to params
+HdlIdDef: SwapBlue
+    HdlValueId: string
+    HdlDirection: IN
+
+
+CommitId: 58c60f7f4c26daaf3c74e6c5f1dfc8a4ead4d748
+fix TMDS pair swapping for Wii-Dual
+--- a/HDL/gcvideo_dvi/src/toplevel_shuriken.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_shuriken.vhd
+@@ -83,8 +86,15 @@ entity toplevel_shuriken is
+ end toplevel_shuriken;
+ 
+ architecture Behavioral of toplevel_shuriken is
++  signal swap_red       : Pair_Swap_t;
++  signal swap_green     : Pair_Swap_t;
++  signal swap_blue      : Pair_Swap_t;
+ begin
+ 
++  swap_red   <= Pair_Regular when SwapRed   = "NO" else Pair_Swapped;
++  swap_green <= Pair_Regular when SwapGreen = "NO" else Pair_Swapped;
++  swap_blue  <= Pair_Regular when SwapBlue  = "NO" else Pair_Swapped;
++
+   -- data pipe
+   Inst_Datapipe: Datapipe generic map (
+     TargetConsole => TargetConsole,
+
+ParseResult:
+INS HdlIdDef@@swap_red to objs
+HdlIdDef: swap_red
+    HdlValueId: Pair_Swap_t
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@swap_green to objs
+HdlIdDef: swap_green
+    HdlValueId: Pair_Swap_t
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@swap_blue to objs
+HdlIdDef: swap_blue
+    HdlValueId: Pair_Swap_t
+    HdlDirection: INTERNAL
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: SwapRed
+                    str
+            HdlValueId: Pair_Regular
+            HdlValueId: Pair_Swapped
+    HdlValueId: swap_red
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: SwapGreen
+                    str
+            HdlValueId: Pair_Regular
+            HdlValueId: Pair_Swapped
+    HdlValueId: swap_green
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: SwapBlue
+                    str
+            HdlValueId: Pair_Regular
+            HdlValueId: Pair_Swapped
+    HdlValueId: swap_blue
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/ZPUDevices.vhd
++++ b/HDL/gcvideo_dvi/src/ZPUDevices.vhd
+@@ -136,8 +136,7 @@ package ZPUDevices is
+       ZPUBusOut       : out ZPUDeviceOut;
+       IRQ             : out std_logic;
+       VSettings       : out VideoSettings_t;
+-      OSDSettings     : out OSDSettings_t;
+-      ImageControls   : out ImageControls_t
++      OSDSettings     : out OSDSettings_t
+     );
+   end component;
+ 
+ParseResult:
+DEL HdlIdDef@@ImageControls from ports
+HdlIdDef: ImageControls
+    HdlValueId: ImageControls_t
+    HdlDirection: OUT
+
+
+CommitId: 58c60f7f4c26daaf3c74e6c5f1dfc8a4ead4d748
+fix TMDS pair swapping for Wii-Dual
+--- a/HDL/gcvideo_dvi/src/toplevel_dual.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_dual.vhd
+@@ -41,6 +41,9 @@ use work.video_defs.all;
+ entity toplevel_dual is
+   generic (
+     TargetConsole: string; -- "GC" or "WII"
++    SwapRed      : string := "NO";
++    SwapGreen    : string := "NO";
++    SwapBlue     : string := "NO";
+     Firmware     : string;
+     Module       : string
+   );
+
+ParseResult:
+INS HdlIdDef@@SwapRed to params
+HdlIdDef: SwapRed
+    HdlValueId: string
+    HdlDirection: IN
+
+INS HdlIdDef@@SwapGreen to params
+HdlIdDef: SwapGreen
+    HdlValueId: string
+    HdlDirection: IN
+
+INS HdlIdDef@@SwapBlue to params
+HdlIdDef: SwapBlue
+    HdlValueId: string
+    HdlDirection: IN
+
+
+CommitId: 58c60f7f4c26daaf3c74e6c5f1dfc8a4ead4d748
+fix TMDS pair swapping for Wii-Dual
+--- a/HDL/gcvideo_dvi/src/toplevel_dual.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_dual.vhd
+@@ -105,7 +108,9 @@ architecture Behavioral of toplevel_dual is
+   signal heartbeat_clock: std_logic;
+   signal heartbeat_vsync: std_logic;
+   signal cable_detect   : std_logic;
+-  signal swap_tmds      : Pair_Swap_t;
++  signal swap_red       : Pair_Swap_t;
++  signal swap_green     : Pair_Swap_t;
++  signal swap_blue      : Pair_Swap_t;
+   signal dac_rgbmode    : boolean;
+   signal out_red        : std_logic_vector(7 downto 0);
+   signal out_green      : std_logic_vector(7 downto 0);
+
+ParseResult:
+UPD HdlIdDef@@swap_tmds to swap_red
+
+INS HdlIdDef@@swap_green to objs
+HdlIdDef: swap_green
+    HdlValueId: Pair_Swap_t
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@swap_blue to objs
+HdlIdDef: swap_blue
+    HdlValueId: Pair_Swap_t
+    HdlDirection: INTERNAL
+
+
+CommitId: 58c60f7f4c26daaf3c74e6c5f1dfc8a4ead4d748
+fix TMDS pair swapping for Wii-Dual
+--- a/HDL/gcvideo_dvi/src/toplevel_dual.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_dual.vhd
+@@ -113,8 +118,9 @@ architecture Behavioral of toplevel_dual is
+ 
+ begin
+ 
+-  -- Dual-GC has swapped TMDS pairs, Dual-Wii has unswapped
+-  swap_tmds <= Pair_Swapped when TargetConsole = "GC" else Pair_Regular;
++  swap_red   <= Pair_Regular when SwapRed   = "NO" else Pair_Swapped;
++  swap_green <= Pair_Regular when SwapGreen = "NO" else Pair_Swapped;
++  swap_blue  <= Pair_Regular when SwapBlue  = "NO" else Pair_Swapped;
+ 
+   -- data pipe
+   Inst_Datapipe: Datapipe generic map (
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: SwapRed
+                    str
+            HdlValueId: Pair_Regular
+            HdlValueId: Pair_Swapped
+    HdlValueId: swap_red
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: SwapGreen
+                    str
+            HdlValueId: Pair_Regular
+            HdlValueId: Pair_Swapped
+    HdlValueId: swap_green
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@swap_tmds to swap_blue
+    UPD HdlOp@@TERNARY to TERNARY
+        UPD HdlValueId@@Pair_Swapped to Pair_Regular
+        UPD HdlValueId@@Pair_Regular to Pair_Swapped
+        UPD HdlOp@@EQ to EQ
+            UPD HdlValueId@@TargetConsole to SwapBlue
+
+
+CommitId: a50791bdee67c7383c64e21cbefeec325b78487a
+PadReader: Use separate timeouts for reply and end-of-message
+--- a/HDL/gcvideo_dvi/src/PadReader.vhd
++++ b/HDL/gcvideo_dvi/src/PadReader.vhd
+@@ -50,12 +50,15 @@ architecture Behavioral of PadReader is
+   -- Hama clone pad needs ~9.3us to respond, so this timeout must be larger
+   -- SD Media Loader sometimes retriggers controller poll after 13us, so this timeout must be smaller
+   -- TODO: Maybe increase again (was 2047) and stop after 90 bits instead?
+-  constant TimeoutLength: natural := 700;
++  -- GC+ has a large delay from query to response, so the timeout is now split
++  -- between one for the inital reply and one for the end of transmission.
++  constant TimeoutReply : natural := 2047;
++  constant TimeoutEnd   : natural := 700;
+   constant SamplePoint  : natural := 100; -- was 128, but that fails with one specific NES adapter
+ 
+   signal data_deglitched: std_logic;
+   signal prev_data      : std_logic;
+-  signal pulselength    : natural range 0 to TimeoutLength;
++  signal pulselength    : natural range 0 to TimeoutReply;
+   signal irq_internal   : std_logic := '0';
+ 
+   signal bitshifter     : std_logic_vector(95 downto 0);
+
+ParseResult:
+INS HdlIdDef@@TimeoutReply to objs
+HdlIdDef: TimeoutReply
+    HdlValueId: natural
+    HdlValueInt: 2047
+    HdlDirection: INTERNAL
+
+UPD HdlIdDef@@TimeoutLength to TimeoutEnd
+
+UPD HdlIdDef@@pulselength to pulselength
+    UPD HdlOp@@RANGE to RANGE
+        UPD HdlOp@@TO to TO
+            UPD HdlValueId@@TimeoutLength to TimeoutReply
+
+
+CommitId: a50791bdee67c7383c64e21cbefeec325b78487a
+PadReader: Use separate timeouts for reply and end-of-message
+--- a/HDL/gcvideo_dvi/src/PadReader.vhd
++++ b/HDL/gcvideo_dvi/src/PadReader.vhd
+@@ -99,7 +102,7 @@ begin
+         pulselength <= 0;
+       else
+         -- measure pulse length
+-        if pulselength < TimeoutLength then
++        if (bits > 24 and pulselength < TimeoutEnd) or (pulselength < TimeoutReply) then
+           pulselength <= pulselength + 1;
+ 
+           if pulselength = SamplePoint then
+ParseResult:
+UPD HdlStmIf@@ to 
+    MOV HdlOp@@LT to 
+    HdlOp: LT
+        list: ops
+            HdlValueId: pulselength
+            HdlValueId: TimeoutLength
+    UPD HdlOp@@LT to LT
+        UPD HdlValueId@@TimeoutLength to TimeoutEnd
+
+
+CommitId: eacc6091149e7eda145fc7b1fa96544dbaf783f1
+Fix chroma shift and bump version to 2.4b
+--- a/HDL/gcvideo_dvi/src/convert_yuv_to_rgb.vhd
++++ b/HDL/gcvideo_dvi/src/convert_yuv_to_rgb.vhd
+@@ -58,6 +58,7 @@ architecture Behavioral of convert_yuv_to_rgb is
+   signal rtemp : signed(18 downto 0) := (others => '0'); -- Cr for R
+   signal gtempr: signed(18 downto 0) := (others => '0'); -- Cr for G
+   signal gtempb: signed(18 downto 0) := (others => '0'); -- Cb for G
++  signal gtmpb2: signed(18 downto 0) := (others => '0'); -- Cb for G, delayed
+   signal btemp : signed(18 downto 0) := (others => '0'); -- Cb for B
+ 
+   signal rsum    : signed(18 downto 0) := (others => '0'); -- (Y + rtemp) / 256
+
+ParseResult:
+INS HdlIdDef@@gtmpb2 to objs
+HdlIdDef: gtmpb2
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: signed
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 18
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+
+CommitId: eacc6091149e7eda145fc7b1fa96544dbaf783f1
+Fix chroma shift and bump version to 2.4b
+--- a/HDL/gcvideo_dvi/src/convert_yuv_to_rgb.vhd
++++ b/HDL/gcvideo_dvi/src/convert_yuv_to_rgb.vhd
+@@ -127,11 +128,12 @@ begin
+       -- pipeline stage 2: add/subtract
+       rsum     <= (ystore + rtemp) / 256;
+       gsumtemp <= ystore - gtempr;
++      gtmpb2   <= gtempb;
+       bsum     <= (ystore + btemp) / 256;
+ 
+       -- pipeline stage 3: clipping r/b, subtract g
+       rout <= clip(rsum);
+-      gsum <= (gsumtemp - gtempb) / 256;
++      gsum <= (gsumtemp - gtmpb2) / 256;
+       bout <= clip(bsum);
+ 
+       -- pipeline stage 4: clip g, output
+ParseResult:
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueId: gtempb
+    HdlValueId: gtmpb2
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@DIV to DIV
+        UPD HdlOp@@SUB to SUB
+            UPD HdlValueId@@gtempb to gtmpb2
+
+
+CommitId: baaf366149a02f2844b59e03446bc309e9600f45
+Change ACR packet depending on the console mode
+--- a/HDL/gcvideo_dvi/src/dvid.vhd
++++ b/HDL/gcvideo_dvi/src/dvid.vhd
+@@ -33,6 +33,7 @@ entity dvid is
+            clk_n         : in  STD_LOGIC;
+            clk_pixel     : in  STD_LOGIC;
+            clk_pixel_en  : in  boolean;
++           ConsoleMode   : in  console_mode_t;
+            red_p         : in  STD_LOGIC_VECTOR (7 downto 0);
+            green_p       : in  STD_LOGIC_VECTOR (7 downto 0);
+            blue_p        : in  STD_LOGIC_VECTOR (7 downto 0);
+
+ParseResult:
+INS HdlIdDef@@ConsoleMode to ports
+HdlIdDef: ConsoleMode
+    HdlValueId: console_mode_t
+    HdlDirection: IN
+
+
+CommitId: baaf366149a02f2844b59e03446bc309e9600f45
+Change ACR packet depending on the console mode
+--- a/HDL/gcvideo_dvi/src/dvid.vhd
++++ b/HDL/gcvideo_dvi/src/dvid.vhd
+@@ -117,6 +118,7 @@ architecture Behavioral of dvid is
+   signal ifr_select    : unsigned(4 downto 0) := (others => '0'); -- group selection
+   signal ifr_data      : std_logic_vector(8 downto 0) := (others => '0');
+   signal ifr_send_acr  : boolean := false;
++  signal wii_acr       : std_logic := '0';
+ 
+   signal aux_ready        : boolean := false;
+   signal per_frame_packets: unsigned(1 downto 0) := (others => '0');
+
+ParseResult:
+INS HdlIdDef@@wii_acr to objs
+HdlIdDef: wii_acr
+    HdlValueId: std_logic
+    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+
+CommitId: baaf366149a02f2844b59e03446bc309e9600f45
+Change ACR packet depending on the console mode
+--- a/HDL/gcvideo_dvi/src/dvid.vhd
++++ b/HDL/gcvideo_dvi/src/dvid.vhd
+@@ -214,7 +216,8 @@ begin
+     Data        => ifr_data
+   );
+ 
+-  ifr_fulladdr <= "00000" & ifr_addr when ifr_send_acr
++  wii_acr <= '1' when ConsoleMode = MODE_WII else '0';
++  ifr_fulladdr <= wii_acr & "0000" & ifr_addr when ifr_send_acr
+                    else ifr_select & ifr_addr;
+ 
+   -- TMDS
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: ConsoleMode
+                    HdlValueId: MODE_WII
+            HdlValueInt: 1
+            HdlValueInt: 0
+    HdlValueId: wii_acr
+
+INS HdlStmAssign@@ to objs
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@TERNARY to TERNARY
+        MOV HdlOp@@CONCAT to ops
+        HdlOp: CONCAT
+            list: ops
+                HdlValueId: ifr_select
+                HdlValueId: ifr_addr
+        DEL HdlValueId@@ifr_send_acr from ops
+        DEL HdlOp@@CONCAT from ops
+        HdlOp: CONCAT
+            list: ops
+                str
+                HdlValueId: ifr_addr
+        DEL list@@ops from TERNARY
+    DEL HdlOp@@TERNARY from 
+    DEL HdlValueId@@ifr_fulladdr from 
+
+DEL HdlStmAssign@@ from objs
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/component_defs.vhd
++++ b/HDL/gcvideo_dvi/src/component_defs.vhd
+@@ -89,14 +89,16 @@ package component_defs is
+     );
+   end component;
+ 
+-  component convert_yuv_to_rgb is
++  component colormatrix is
+     port (
+       PixelClock      : in  std_logic;
+       PixelClockEnable: in  boolean;
+ 
++      -- control
++      Settings        : in  VideoSettings_t;
++
+       -- input video
+       VideoIn         : in  VideoYCbCr;
+-      Limited_Range   : in  boolean;
+ 
+       -- output video
+       VideoOut        : out VideoRGB
+
+ParseResult:
+UPD HdlModuleDec@@convert_yuv_to_rgb to colormatrix
+
+INS HdlIdDef@@Settings to ports
+HdlIdDef: Settings
+    HdlValueId: VideoSettings_t
+    HdlDirection: IN
+
+DEL HdlIdDef@@Limited_Range from ports
+HdlIdDef: Limited_Range
+    HdlValueId: boolean
+    HdlDirection: IN
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/component_defs.vhd
++++ b/HDL/gcvideo_dvi/src/component_defs.vhd
+@@ -281,8 +283,7 @@ package component_defs is
+       OSDRamAddr      : in  std_logic_vector(10 downto 0);
+       OSDRamData      : out std_logic_vector(8 downto 0);
+       OSDSettings     : out OSDSettings_t;
+-      VSettings       : out VideoSettings_t;
+-      ImageControls   : out ImageControls_t
++      VSettings       : out VideoSettings_t
+     );
+   end component;
+ 
+
+ParseResult:
+DEL HdlIdDef@@ImageControls from ports
+HdlIdDef: ImageControls
+    HdlValueId: ImageControls_t
+    HdlDirection: OUT
+
+
+CommitId: 9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+--- a/HDL/gcvideo_dvi/src/component_defs.vhd
++++ b/HDL/gcvideo_dvi/src/component_defs.vhd
+@@ -321,16 +322,6 @@ package component_defs is
+     );
+   end component;
+ 
+-  component ImageAdjuster is
+-    port (
+-      PixelClock      : in  std_logic;
+-      PixelClockEnable: in  boolean;
+-      VideoIn         : in  VideoYCbCr;
+-      VideoOut        : out VideoYCbCr;
+-      Settings        : in  ImageControls_t
+-    );
+-  end component;
+-
+   component LED_Heartbeat is
+     port (
+       Clock         : in  std_logic;
+ParseResult:
+DEL HdlModuleDec@@ImageAdjuster from objs
+HdlModuleDec: ImageAdjuster
+    list: params
+    list: ports
+        HdlIdDef: PixelClock
+            HdlValueId: std_logic
+            HdlDirection: IN
+        HdlIdDef: PixelClockEnable
+            HdlValueId: boolean
+            HdlDirection: IN
+        HdlIdDef: VideoIn
+            HdlValueId: VideoYCbCr
+            HdlDirection: IN
+        HdlIdDef: VideoOut
+            HdlValueId: VideoYCbCr
+            HdlDirection: OUT
+        HdlIdDef: Settings
+            HdlValueId: ImageControls_t
+            HdlDirection: IN
+    list: objs
+
+
+CommitId: 021124fea6246e9f063fb0e5ab10ef3b7eae4ebc
+Add console mode detection for Wii
+--- a/HDL/gcvideo_dvi/src/component_defs.vhd
++++ b/HDL/gcvideo_dvi/src/component_defs.vhd
+@@ -308,6 +308,14 @@ package component_defs is
+     );
+   end component;
+ 
++  component ConsoleModeDetect is
++    port (
++      Clock      : in  std_logic;
++      I2S_LRClock: in  std_logic;
++      ConsoleMode: out console_mode_t
++    );
++  end component;
++
+ end component_defs;
+ 
+ package body component_defs is
+ParseResult:
+INS HdlModuleDec@@ConsoleModeDetect to objs
+HdlModuleDec: ConsoleModeDetect
+    list: params
+    list: ports
+        HdlIdDef: Clock
+            HdlValueId: std_logic
+            HdlDirection: IN
+        HdlIdDef: I2S_LRClock
+            HdlValueId: std_logic
+            HdlDirection: IN
+        HdlIdDef: ConsoleMode
+            HdlValueId: console_mode_t
+            HdlDirection: OUT
+    list: objs
+
+
+CommitId: baaf366149a02f2844b59e03446bc309e9600f45
+Change ACR packet depending on the console mode
+--- a/HDL/gcvideo_dvi/src/component_defs.vhd
++++ b/HDL/gcvideo_dvi/src/component_defs.vhd
+@@ -157,6 +157,7 @@ package component_defs is
+       clk_n         : in  std_logic;
+       clk_pixel     : in  std_logic;
+       clk_pixel_en  : in  boolean;
++      ConsoleMode   : in  console_mode_t;
+       red_p         : in  std_logic_vector(7 downto 0);
+       green_p       : in  std_logic_vector(7 downto 0);
+       blue_p        : in  std_logic_vector(7 downto 0);
+ParseResult:
+INS HdlIdDef@@ConsoleMode to ports
+HdlIdDef: ConsoleMode
+    HdlValueId: console_mode_t
+    HdlDirection: IN
+
+
+CommitId: 58c60f7f4c26daaf3c74e6c5f1dfc8a4ead4d748
+fix TMDS pair swapping for Wii-Dual
+--- a/HDL/gcvideo_dvi/src/toplevel_p2xh.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_p2xh.vhd
+@@ -41,6 +41,9 @@ use work.video_defs.all;
+ entity toplevel_p2xh is
+   generic (
+     TargetConsole: string; -- "GC" or "WII"
++    SwapRed      : string := "NO";
++    SwapGreen    : string := "NO";
++    SwapBlue     : string := "NO";
+     Firmware     : string;
+     Module       : string
+   );
+
+ParseResult:
+INS HdlIdDef@@SwapRed to params
+HdlIdDef: SwapRed
+    HdlValueId: string
+    HdlDirection: IN
+
+INS HdlIdDef@@SwapGreen to params
+HdlIdDef: SwapGreen
+    HdlValueId: string
+    HdlDirection: IN
+
+INS HdlIdDef@@SwapBlue to params
+HdlIdDef: SwapBlue
+    HdlValueId: string
+    HdlDirection: IN
+
+
+CommitId: 58c60f7f4c26daaf3c74e6c5f1dfc8a4ead4d748
+fix TMDS pair swapping for Wii-Dual
+--- a/HDL/gcvideo_dvi/src/toplevel_p2xh.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_p2xh.vhd
+@@ -95,9 +98,16 @@ architecture Behavioral of toplevel_p2xh is
+   signal video_vsync    : std_logic;
+   signal heartbeat_clock: std_logic;
+   signal heartbeat_vsync: std_logic;
++  signal swap_red       : Pair_Swap_t;
++  signal swap_green     : Pair_Swap_t;
++  signal swap_blue      : Pair_Swap_t;
+ 
+ begin
+ 
++  swap_red   <= Pair_Regular when SwapRed   = "NO" else Pair_Swapped;
++  swap_green <= Pair_Regular when SwapGreen = "NO" else Pair_Swapped;
++  swap_blue  <= Pair_Regular when SwapBlue  = "NO" else Pair_Swapped;
++
+   -- data pipe
+   Inst_Datapipe: Datapipe generic map (
+     TargetConsole => TargetConsole,
+
+ParseResult:
+INS HdlIdDef@@swap_red to objs
+HdlIdDef: swap_red
+    HdlValueId: Pair_Swap_t
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@swap_green to objs
+HdlIdDef: swap_green
+    HdlValueId: Pair_Swap_t
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@swap_blue to objs
+HdlIdDef: swap_blue
+    HdlValueId: Pair_Swap_t
+    HdlDirection: INTERNAL
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: SwapRed
+                    str
+            HdlValueId: Pair_Regular
+            HdlValueId: Pair_Swapped
+    HdlValueId: swap_red
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: SwapGreen
+                    str
+            HdlValueId: Pair_Regular
+            HdlValueId: Pair_Swapped
+    HdlValueId: swap_green
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: SwapBlue
+                    str
+            HdlValueId: Pair_Regular
+            HdlValueId: Pair_Swapped
+    HdlValueId: swap_blue
+
+
+CommitId: 51bbc056bbc4058cdd9c633dd5f6dcd0a7f4bf3f
+gcvideo-DVI: Fix one-pixel-early Syncs in aux periods
+--- a/HDL/gcvideo_dvi_p2xh/src/dvid.vhd
++++ b/HDL/gcvideo_dvi_p2xh/src/dvid.vhd
+@@ -26,7 +26,8 @@ entity dvid is
+     Generic ( -- allow inversion of each differential pair to account for pin swaps
+       Invert_Red  : Boolean := false;
+       Invert_Green: Boolean := false;
+-      Invert_Blue : Boolean := false
++      Invert_Blue : Boolean := false;
++      Invert_Clock: Boolean := false
+     );
+     Port ( clk           : in  STD_LOGIC;
+            clk_n         : in  STD_LOGIC;
+
+ParseResult:
+INS HdlIdDef@@Invert_Clock to params
+HdlIdDef: Invert_Clock
+    HdlValueId: Boolean
+    HdlValueId: false
+    HdlDirection: IN
+
+
+CommitId: 51bbc056bbc4058cdd9c633dd5f6dcd0a7f4bf3f
+gcvideo-DVI: Fix one-pixel-early Syncs in aux periods
+--- a/HDL/gcvideo_dvi_p2xh/src/dvid.vhd
++++ b/HDL/gcvideo_dvi_p2xh/src/dvid.vhd
+@@ -88,7 +89,7 @@ architecture Behavioral of dvid is
+   signal latched_red, latched_green, latched_blue: std_logic_vector(9 downto 0) := (others => '0');
+   signal shift_red,   shift_green,   shift_blue  : std_logic_vector(9 downto 0) := (others => '0');
+ 
+-  signal out_red, out_green, out_blue: std_logic_vector(1 downto 0);
++  signal out_red, out_green, out_blue, out_clock: std_logic_vector(1 downto 0);
+   signal shift_clock: std_logic_vector(9 downto 0) := "0000011111";
+ 
+   -- input delays
+
+ParseResult:
+INS HdlIdDef@@out_clock to objs
+HdlIdDef: out_clock
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 1
+    HdlDirection: INTERNAL
+
+
+CommitId: 51bbc056bbc4058cdd9c633dd5f6dcd0a7f4bf3f
+gcvideo-DVI: Fix one-pixel-early Syncs in aux periods
+--- a/HDL/gcvideo_dvi_p2xh/src/dvid.vhd
++++ b/HDL/gcvideo_dvi_p2xh/src/dvid.vhd
+@@ -254,12 +255,13 @@ begin
+     port map (Q => blue_s,  D0 => out_blue(0),  D1 => out_blue(1),  C0 => clk, C1 => clk_n, CE => '1', R => '0', S => '0');
+ 
+   ODDR2_clock : ODDR2 generic map( DDR_ALIGNMENT => "C0", INIT => '0', SRTYPE => "ASYNC")
+-    port map (Q => clock_s, D0 => shift_clock(0), D1 => shift_clock(1), C0 => clk, C1 => clk_n, CE => '1', R => '0', S => '0');
++    port map (Q => clock_s, D0 => out_clock(0), D1 => out_clock(1), C0 => clk, C1 => clk_n, CE => '1', R => '0', S => '0');
+ 
+   -- add optional inversion of the output bits
+   out_red   <= not shift_red(1 downto 0)   when Invert_Red   else shift_red(1 downto 0);
+   out_green <= not shift_green(1 downto 0) when Invert_Green else shift_green(1 downto 0);
+   out_blue  <= not shift_blue(1 downto 0)  when Invert_Blue  else shift_blue(1 downto 0);
++  out_clock <= not shift_clock(1 downto 0) when Invert_Clock else shift_clock(1 downto 0);
+ 
+   -- select between the output of the various encoders
+   process(clk_pixel, clk_pixel_en)
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: TERNARY
+        list: ops
+            HdlValueId: Invert_Clock
+            HdlOp: NEG
+                list: ops
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: shift_clock
+                            HdlOp: DOWNTO
+                                list: ops
+                                    HdlValueInt: 1
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: shift_clock
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 1
+    HdlValueId: out_clock
+
+
+CommitId: 51bbc056bbc4058cdd9c633dd5f6dcd0a7f4bf3f
+gcvideo-DVI: Fix one-pixel-early Syncs in aux periods
+--- a/HDL/gcvideo_dvi_p2xh/src/dvid.vhd
++++ b/HDL/gcvideo_dvi_p2xh/src/dvid.vhd
+@@ -287,8 +289,7 @@ begin
+   end process;
+ 
+   -- always send vsync+hsync on blue channel if in aux mode
+-  -- (one pixel early to compensate for ECC delay)
+-  aux_blue(1 downto 0) <= (vsync_delay(0), hsync_delay(0));
++  aux_blue(1 downto 0) <= (vsync_d, hsync_d);
+   aux_blue(2) <= '1' when seq_bt4mux = BT4_Send_1 else header_eccbit;
+   aux_blue(3) <= '1' when seq_nfirstpkt           else '0';
+ 
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlValueId@@vsync_delay to vsync_d
+        MOV HdlValueId@@vsync_delay to ops
+        HdlValueId: vsync_delay
+        DEL list@@ops from INDEX
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlValueId@@hsync_delay to hsync_d
+        MOV HdlValueId@@hsync_delay to ops
+        HdlValueId: hsync_delay
+        DEL list@@ops from INDEX
+    DEL HdlOp@@INDEX from src
+    DEL HdlOp@@INDEX from src
+
+
+CommitId: fb4f8763ee12eae5f7bd3e9b5d142c740abd6797
+Fix wrong ZPUIRQController bit assignment
+--- a/HDL/gcvideo_dvi/src/ZPUIRQController.vhd
++++ b/HDL/gcvideo_dvi/src/ZPUIRQController.vhd
+@@ -91,8 +91,8 @@ begin
+ 
+               any_int := '0';
+               for i in 0 to Devices-1 loop
+-                ZPUBusOut.mem_read(i+1) <= DevIRQs(i) and enable_bits(i);
+-                any_int                 := any_int or (DevIRQs(i) and enable_bits(i));
++                ZPUBusOut.mem_read(i) <= DevIRQs(i) and enable_bits(i);
++                any_int               := any_int or (DevIRQs(i) and enable_bits(i));
+               end loop;
+ 
+               ZPUBusOut.mem_read(31) <= any_int;
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@ADD to ADD
+            MOV HdlValueId@@i to ops
+            HdlValueId: i
+            DEL HdlValueInt@@1 from ops
+            DEL list@@ops from ADD
+        DEL HdlOp@@ADD from ops
+
+

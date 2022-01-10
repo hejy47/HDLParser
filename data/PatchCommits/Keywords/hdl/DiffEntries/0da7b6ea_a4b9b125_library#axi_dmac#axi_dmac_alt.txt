@@ -1,0 +1,15 @@
+0da7b6eaa15b8ce9d60849e254f8f59c8ec26683
+axi_dmac: axi_dmac_alt.v: Set default transfer length width to 24
+diff --git a/library/axi_dmac/axi_dmac_alt.v b/library/axi_dmac/axi_dmac_alt.v
+index fd6f03d8..5b876a93 100644
+--- a/library/axi_dmac/axi_dmac_alt.v
++++ b/library/axi_dmac/axi_dmac_alt.v
+@@ -193,7 +193,7 @@ module axi_dmac_alt (
+   parameter PCORE_AXIM_ID_WIDTH = 3;
+   parameter C_DMA_DATA_WIDTH_SRC = 64;
+   parameter C_DMA_DATA_WIDTH_DEST = 64;
+-  parameter C_DMA_LENGTH_WIDTH = 14;
++  parameter C_DMA_LENGTH_WIDTH = 24;
+   parameter C_2D_TRANSFER = 1;
+   parameter C_CLKS_ASYNC_REQ_SRC = 1;
+   parameter C_CLKS_ASYNC_SRC_DEST = 1;

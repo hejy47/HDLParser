@@ -1,0 +1,48 @@
+9d6c93a5d860e45405e133558f55722aec3cfe04
+Fix warnings
+diff --git a/library/xilinx/util_adxcvr/util_adxcvr_xch.v b/library/xilinx/util_adxcvr/util_adxcvr_xch.v
+index 01624a72..08066de4 100644
+--- a/library/xilinx/util_adxcvr/util_adxcvr_xch.v
++++ b/library/xilinx/util_adxcvr/util_adxcvr_xch.v
+@@ -526,6 +526,41 @@ module util_adxcvr_xch #(
+     .TX_XCLK_SEL ("TXOUT"),
+     .UCODEER_CLR (1'b0))
+   i_gtxe2_channel (
++    .RXOUTCLKPCS (),
++    .RXPHSLIPMONITOR (),
++    .PHYSTATUS (),
++    .RXCDRLOCK (),
++    .RXCHANBONDSEQ (),
++    .RXCHANISALIGNED (),
++    .RXCHANREALIGN (),
++    .RXCOMINITDET (),
++    .RXCOMSASDET (),
++    .RXCOMWAKEDET (),
++    .RXDATAVALID (),
++    .RXDLYSRESETDONE (),
++    .RXELECIDLE (),
++    .RXHEADERVALID (),
++    .RXPHALIGNDONE (),
++    .RXQPISENN (),
++    .RXQPISENP (),
++    .RXRATEDONE (),
++    .RXSTARTOFSEQ (),
++    .RXVALID (),
++    .TXCOMFINISH (),
++    .TXDLYSRESETDONE (),
++    .TXGEARBOXREADY (),
++    .TXPHALIGNDONE (),
++    .TXPHINITDONE (),
++    .TXQPISENN (),
++    .TXQPISENP (),
++    .TXRATEDONE (),
++    .PCSRSVDOUT (),
++    .RXCLKCORCNT (),
++    .RXHEADER (),
++    .RXCHBONDO (),
++    .RXPHMONITOR (),
++    .TSTOUT (),
++    .GTREFCLKMONITOR (),
+     .CFGRESET (1'h0),
+     .CLKRSVD (4'h0),
+     .CPLLFBCLKLOST (),

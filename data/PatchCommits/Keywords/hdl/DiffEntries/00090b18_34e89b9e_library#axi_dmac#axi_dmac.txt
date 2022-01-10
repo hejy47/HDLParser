@@ -1,0 +1,14 @@
+00090b1899d633192f15023c31175b9bf6777476
+axi_dmac: burst_memory: Consider DMA_LENGTH_ALIGN
+diff --git a/library/axi_dmac/axi_dmac.v b/library/axi_dmac/axi_dmac.v
+index 30e3901c..99b639e6 100644
+--- a/library/axi_dmac/axi_dmac.v
++++ b/library/axi_dmac/axi_dmac.v
+@@ -448,6 +448,7 @@ axi_dmac_transfer #(
+   .DMA_DATA_WIDTH_SRC(DMA_DATA_WIDTH_SRC),
+   .DMA_DATA_WIDTH_DEST(DMA_DATA_WIDTH_DEST),
+   .DMA_LENGTH_WIDTH(DMA_LENGTH_WIDTH),
++  .DMA_LENGTH_ALIGN(DMA_LENGTH_ALIGN),
+   .BYTES_PER_BEAT_WIDTH_DEST(BYTES_PER_BEAT_WIDTH_DEST),
+   .BYTES_PER_BEAT_WIDTH_SRC(BYTES_PER_BEAT_WIDTH_SRC),
+   .BYTES_PER_BURST_WIDTH(BYTES_PER_BURST_WIDTH),

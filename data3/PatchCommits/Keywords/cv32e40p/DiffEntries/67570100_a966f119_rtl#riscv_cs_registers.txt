@@ -1,0 +1,29 @@
+6757010010d0b977c31814cf68c9d8e25edfbc97
+Merge pull request #145 from pulp-platform/fix_dpc_align2
+diff --git a/rtl/riscv_cs_registers.sv b/rtl/riscv_cs_registers.sv
+index 12ddf3b..cc4cb16 100644
+--- a/rtl/riscv_cs_registers.sv
++++ b/rtl/riscv_cs_registers.sv
+@@ -538,11 +538,13 @@ if(PULP_SECURE==1) begin
+                begin
+                     depc_n = csr_wdata_int & ~32'b1; // force 16-bit alignment
+                end
++
+       CSR_DSCRATCH0:
+                if (csr_we_int)
+                begin
+                     dscratch0_n = csr_wdata_int;
+                end
++
+       CSR_DSCRATCH1:
+                if (csr_we_int)
+                begin
+@@ -789,7 +791,7 @@ end else begin //PULP_SECURE == 0
+       CSR_DPC:
+                if (csr_we_int)
+                begin
+-                    depc_n = csr_wdata_int;
++                    depc_n = csr_wdata_int & ~32'b1; // force 16-bit alignment
+                end
+ 
+       CSR_DSCRATCH0:

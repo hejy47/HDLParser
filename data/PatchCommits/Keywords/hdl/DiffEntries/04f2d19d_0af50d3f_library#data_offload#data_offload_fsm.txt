@@ -1,0 +1,15 @@
+04f2d19d4b898e8a6617fb602e6d8ffae1c55123
+data_offload: Fix data_offload getting stuck on oscillating m_saxis_ready
+diff --git a/library/data_offload/data_offload_fsm.v b/library/data_offload/data_offload_fsm.v
+index 2da5422c..a9dcf444 100644
+--- a/library/data_offload/data_offload_fsm.v
++++ b/library/data_offload/data_offload_fsm.v
+@@ -365,7 +365,7 @@ module data_offload_fsm #(
+     if (rd_fsm_state != RD_READ_FROM_MEM) begin
+       rd_addr <= 'b0;
+     end else begin
+-      if (rd_ready && rd_valid) begin
++      if (rd_valid) begin
+         if (rd_oneshot)
+           rd_addr <= (rd_last_addr == rd_addr) ? rd_addr : rd_addr + 1'b1;
+         else

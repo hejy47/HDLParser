@@ -1,0 +1,14 @@
+1e31b9dd97b6534ff678cac9157bcf83748c640e
+arradio: Remove unused signals
+diff --git a/projects/arradio/c5soc/system_top.v b/projects/arradio/c5soc/system_top.v
+index 307f6783..c6758052 100644
+--- a/projects/arradio/c5soc/system_top.v
++++ b/projects/arradio/c5soc/system_top.v
+@@ -134,7 +134,6 @@ module system_top (
+ 
+   output  [  3:0]   gpio_ctl,
+   input   [  7:0]   gpio_status,
+-  input             ad9361_clk_out,
+   output            ad9361_resetb,
+   output            ad9361_en_agc,
+   output            ad9361_sync,

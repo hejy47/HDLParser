@@ -1,0 +1,25 @@
+548810e191222d071171a2db8499bc4dbf2ccea5
+[prim] Avoid an apparent combinatorial loop in prim_secded_*_dec.sv
+diff --git a/hw/ip/prim/rtl/prim_secded_28_22_dec.sv b/hw/ip/prim/rtl/prim_secded_28_22_dec.sv
+index adbc3c7da..0c06ff1c5 100644
+--- a/hw/ip/prim/rtl/prim_secded_28_22_dec.sv
++++ b/hw/ip/prim/rtl/prim_secded_28_22_dec.sv
+@@ -12,6 +12,7 @@ module prim_secded_28_22_dec (
+   output logic [1:0] err_o
+ );
+ 
++  logic single_error;
+ 
+   // Syndrome calculation
+   assign syndrome_o[0] = ^(in & 28'h07003FF);
+@@ -46,7 +47,8 @@ module prim_secded_28_22_dec (
+   assign d_o[21] = (syndrome_o == 6'h1f) ^ in[21];
+ 
+   // err_o calc. bit0: single error, bit1: double error
+-  assign err_o[0] = ^syndrome_o;
+-  assign err_o[1] = ~err_o[0] & (|syndrome_o);
++  assign single_error = ^syndrome_o;
++  assign err_o[0] = single_error;
++  assign err_o[1] = ~single_error & (|syndrome_o);
+ 
+ endmodule : prim_secded_28_22_dec

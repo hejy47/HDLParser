@@ -1,0 +1,14 @@
+d67895e8388ed5cfe66263a82a955fe17a140bd5
+Fix debug_req_i during SLEEP does not enter debug mode
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 5c10698..b159878 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -326,7 +326,6 @@ module riscv_controller
+         // in debug mode or single step mode we leave immediately (wfi=nop)
+         if (irq_i || (debug_req_i || debug_mode_q || debug_single_step_i)) begin
+           ctrl_fsm_ns  = FIRST_FETCH;
+-          debug_mode_n = 1'b1;
+         end
+ 
+       end

@@ -1,0 +1,15 @@
+7e9c374461e9a878f2f3eab5a6a5431c58973bdb
+small fix in lsu but not tested yet because data_err is not connected to the system
+diff --git a/load_store_unit.sv b/load_store_unit.sv
+index 9383ad8..835d3df 100644
+--- a/load_store_unit.sv
++++ b/load_store_unit.sv
+@@ -329,7 +329,7 @@ module riscv_load_store_unit
+ 
+   assign misaligned_st = data_misaligned_ex_i;
+ 
+-  assign load_err_o    = data_gnt_i && data_err_i && data_we_o;
++  assign load_err_o    = data_gnt_i && data_err_i && ~data_we_o;
+   assign store_err_o   = data_gnt_i && data_err_i && data_we_o;
+ 
+   // FSM

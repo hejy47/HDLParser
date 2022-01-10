@@ -1,0 +1,25 @@
+6faf4f1e71867f869e2086fe141ff1c64ba506f6
+[rstmgr / pwrmgr] connect reset requests
+diff --git a/hw/ip/nmi_gen/rtl/nmi_gen.sv b/hw/ip/nmi_gen/rtl/nmi_gen.sv
+index a983023a3..ec16a0807 100644
+--- a/hw/ip/nmi_gen/rtl/nmi_gen.sv
++++ b/hw/ip/nmi_gen/rtl/nmi_gen.sv
+@@ -21,6 +21,8 @@ module nmi_gen
+   output logic                    intr_esc0_o,
+   output logic                    intr_esc1_o,
+   output logic                    intr_esc2_o,
++  // Reset Requests
++  output logic                    nmi_rst_req_o,
+   // Escalation outputs
+   input  esc_tx_t [N_ESC_SEV-1:0] esc_tx_i,
+   output esc_rx_t [N_ESC_SEV-1:0] esc_rx_o
+@@ -63,6 +65,9 @@ module nmi_gen
+     .intr_o                 ( intr_esc0_o                )
+   );
+ 
++  assign nmi_rst_req_o = esc_en[0];
++
++
+   prim_intr_hw #(
+     .Width(1)
+   ) i_intr_esc1 (

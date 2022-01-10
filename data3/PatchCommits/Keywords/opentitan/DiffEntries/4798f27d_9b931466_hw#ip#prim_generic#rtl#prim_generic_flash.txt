@@ -1,0 +1,14 @@
+4798f27d213d0a6101866f328387c02c890b1aa0
+[flash] Improve flash ECC handling based on transasction attribute
+diff --git a/hw/ip/prim_generic/rtl/prim_generic_flash.sv b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+index 5cde25332..97c603221 100644
+--- a/hw/ip/prim_generic/rtl/prim_generic_flash.sv
++++ b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+@@ -148,6 +148,7 @@ module prim_generic_flash #(
+     .tl_o,
+     .en_ifetch_i(tlul_pkg::InstrDis),
+     .req_o(cfg_req),
++    .req_type_o(),
+     .gnt_i(1'b1),
+     .we_o(cfg_we),
+     .addr_o(cfg_addr),

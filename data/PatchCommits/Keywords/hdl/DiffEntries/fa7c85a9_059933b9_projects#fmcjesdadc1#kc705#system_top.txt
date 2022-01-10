@@ -1,0 +1,16 @@
+fa7c85a9ebfd7ad3dc8744ba688dd9625b0b5725
+all: Drive undriven input signals, complete interface
+diff --git a/projects/fmcjesdadc1/kc705/system_top.v b/projects/fmcjesdadc1/kc705/system_top.v
+index 6d417f94..15e18cc4 100644
+--- a/projects/fmcjesdadc1/kc705/system_top.v
++++ b/projects/fmcjesdadc1/kc705/system_top.v
+@@ -134,6 +134,9 @@ module system_top (
+     .dio_o (gpio_i[16:0]),
+     .dio_p (gpio_bd));
+ 
++  assign gpio_i[63:32] = gpio_o[63:32];
++  assign gpio_i[31:17] = gpio_o[31:17];
++
+   fmcjesdadc1_spi i_fmcjesdadc1_spi (
+     .spi_csn (spi_csn[0]),
+     .spi_clk (spi_clk),

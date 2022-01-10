@@ -1,0 +1,15 @@
+cd29807edc52f3fe88d60257c70831a9da1bb1f3
+Revert "altera/ad_serdes: Fix net alignment for rx_out at ad_serdes_in"
+diff --git a/library/altera/common/ad_serdes_in.v b/library/altera/common/ad_serdes_in.v
+index 4a99de8f..9b147d69 100644
+--- a/library/altera/common/ad_serdes_in.v
++++ b/library/altera/common/ad_serdes_in.v
+@@ -127,7 +127,7 @@ module __ad_serdes_in__ #(
+   generate
+   for (i = 0; i < SERDES_FACTOR; i = i + 1) begin: g_samples
+     for (n = 0; n < DATA_WIDTH; n = n + 1) begin: g_swap
+-      assign data_samples_s[i][n] = data_out_s[n][i];
++      assign data_samples_s[i][n] = data_out_s[n][((SERDES_FACTOR-1)-i)];
+     end
+   end
+   endgenerate

@@ -1,0 +1,15 @@
+f31ea350f6c7ec4d5059549973c2b24d892a84fe
+Use constant instead of alias to work arround Sigasi bug
+diff --git a/vunit/vhdl/run/src/runner_pkg.vhd b/vunit/vhdl/run/src/runner_pkg.vhd
+index b8f82b09..554e0dba 100644
+--- a/vunit/vhdl/run/src/runner_pkg.vhd
++++ b/vunit/vhdl/run/src/runner_pkg.vhd
+@@ -22,7 +22,7 @@ package runner_pkg is
+   constant unknown_num_of_test_cases : integer := integer'left;
+ 
+   -- Deprecated
+-  alias unknown_num_of_test_cases_c is unknown_num_of_test_cases;
++  constant unknown_num_of_test_cases_c : integer := unknown_num_of_test_cases;
+ 
+   impure function new_runner return runner_t;
+ 

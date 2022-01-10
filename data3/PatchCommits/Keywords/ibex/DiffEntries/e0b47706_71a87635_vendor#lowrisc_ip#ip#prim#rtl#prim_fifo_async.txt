@@ -1,0 +1,24 @@
+e0b477069e279e78f986177137660b470e4e098f
+Update lowrisc_ip to lowRISC/opentitan@7117c349d
+diff --git a/vendor/lowrisc_ip/ip/prim/rtl/prim_fifo_async.sv b/vendor/lowrisc_ip/ip/prim/rtl/prim_fifo_async.sv
+index e28dfa87..8da084fd 100644
+--- a/vendor/lowrisc_ip/ip/prim/rtl/prim_fifo_async.sv
++++ b/vendor/lowrisc_ip/ip/prim/rtl/prim_fifo_async.sv
+@@ -253,7 +253,7 @@ module prim_fifo_async #(
+     assign fifo_wptr_sync_combi = {fifo_wptr_gray_sync[PTR_WIDTH-1], ^fifo_rptr_gray_sync};
+ 
+     assign fifo_rptr_gray_d = {fifo_rptr_d[PTR_WIDTH-1], ^fifo_rptr_d};
+-    assign fifo_wptr_gray_d = {fifo_wptr_d[PTR_WIDTH-1], ^fifo_rptr_d};
++    assign fifo_wptr_gray_d = {fifo_wptr_d[PTR_WIDTH-1], ^fifo_wptr_d};
+ 
+   end else begin : g_no_gray_conversion
+ 
+@@ -261,7 +261,7 @@ module prim_fifo_async #(
+     assign fifo_wptr_sync_combi = fifo_wptr_gray_sync;
+ 
+     assign fifo_rptr_gray_d = fifo_rptr_d;
+-    assign fifo_wptr_gray_d = fifo_rptr_d;
++    assign fifo_wptr_gray_d = fifo_wptr_d;
+ 
+   end
+ 

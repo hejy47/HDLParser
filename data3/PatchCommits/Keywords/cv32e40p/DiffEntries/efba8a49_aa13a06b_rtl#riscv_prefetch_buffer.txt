@@ -1,0 +1,32 @@
+efba8a497f662cde835bf9bcd65ebbeb3a29d4e7
+:bug: fix Comb Loop #190
+diff --git a/rtl/riscv_prefetch_buffer.sv b/rtl/riscv_prefetch_buffer.sv
+index 4626dbd..0f8193b 100644
+--- a/rtl/riscv_prefetch_buffer.sv
++++ b/rtl/riscv_prefetch_buffer.sv
+@@ -169,14 +169,15 @@ module riscv_prefetch_buffer
+       end
+ 
+       HWLP_UNALIGNED: begin
++        hwlp_masked  = 1'b1;
+         if(valid_o) begin
+           hwlp_NS      = HWLP_FETCHING;
+-          hwlp_masked = 1'b1;
+           if (ready_i)
+             fifo_clear = 1'b1;
+         end
+       end
+ 
++
+       HWLP_UNALIGNED_COMPRESSED: begin
+         hwlp_branch  = 1'b1;
+         hwlp_NS      = HWLP_FETCHING;
+@@ -333,7 +334,7 @@ module riscv_prefetch_buffer
+         else if (hwlp_masked)
+           instr_addr_o  = hwloop_target_i;
+ 
+-        if (req_i & (fifo_ready | branch_i | hwlp_branch |hwlp_masked)) begin
++        if (req_i & (fifo_ready | branch_i | hwlp_branch | hwlp_masked)) begin
+           // prepare for next request
+ 
+           if (instr_rvalid_i) begin

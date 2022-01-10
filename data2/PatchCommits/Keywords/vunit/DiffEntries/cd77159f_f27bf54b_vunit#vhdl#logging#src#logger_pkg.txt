@@ -1,0 +1,53 @@
+cd77159f1309049f371018c17c21ec6216959f49
+Removed warning_, error_ and failure_unless.
+diff --git a/vunit/vhdl/logging/src/logger_pkg.vhd b/vunit/vhdl/logging/src/logger_pkg.vhd
+index 71f88ace..005d0584 100644
+--- a/vunit/vhdl/logging/src/logger_pkg.vhd
++++ b/vunit/vhdl/logging/src/logger_pkg.vhd
+@@ -78,24 +78,6 @@ package logger_pkg is
+                        line_num : natural := 0;
+                        file_name : string := "");
+ 
+-  procedure warning_unless(logger : logger_t;
+-                           condition : boolean;
+-                           msg : string;
+-                           line_num : natural := 0;
+-                           file_name : string := "");
+-
+-  procedure error_unless(logger : logger_t;
+-                         condition : boolean;
+-                         msg : string;
+-                         line_num : natural := 0;
+-                         file_name : string := "");
+-
+-  procedure failure_unless(logger : logger_t;
+-                           condition : boolean;
+-                           msg : string;
+-                           line_num : natural := 0;
+-                           file_name : string := "");
+-
+   ------------------------------------------------
+   -- Log procedure short hands for default logger
+   ------------------------------------------------
+@@ -146,21 +128,6 @@ package logger_pkg is
+                        line_num : natural := 0;
+                        file_name : string := "");
+ 
+-  procedure warning_unless(condition : boolean;
+-                           msg : string;
+-                           line_num : natural := 0;
+-                           file_name : string := "");
+-
+-  procedure error_unless(condition : boolean;
+-                         msg : string;
+-                         line_num : natural := 0;
+-                         file_name : string := "");
+-
+-  procedure failure_unless(condition : boolean;
+-                           msg : string;
+-                           line_num : natural := 0;
+-                           file_name : string := "");
+-
+   -- Log procedure with level as argument
+   procedure log(logger : logger_t;
+                 msg : string;

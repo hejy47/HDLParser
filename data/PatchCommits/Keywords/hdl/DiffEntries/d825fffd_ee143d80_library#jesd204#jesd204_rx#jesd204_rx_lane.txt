@@ -1,0 +1,24 @@
+d825fffd6272f0a02dfc20442f933f8301efd91f
+jesd204/jesd204_rx: Reset error counter once all lanes synced
+diff --git a/library/jesd204/jesd204_rx/jesd204_rx_lane.v b/library/jesd204/jesd204_rx/jesd204_rx_lane.v
+index a4c35c6f..679283e9 100755
+--- a/library/jesd204/jesd204_rx/jesd204_rx_lane.v
++++ b/library/jesd204/jesd204_rx/jesd204_rx_lane.v
+@@ -78,7 +78,7 @@ module jesd204_rx_lane #(
+   output [1:0] ilas_config_addr,
+   output [DATA_PATH_WIDTH*8-1:0] ilas_config_data,
+ 
+-  input ctrl_err_statistics_reset,
++  input err_statistics_reset,
+   input [2:0]ctrl_err_statistics_mask,
+   output reg [31:0] status_err_statistics_cnt,
+ 
+@@ -175,7 +175,7 @@ end
+ endfunction
+ 
+ always @(posedge clk) begin
+-  if (reset == 1'b1 || ctrl_err_statistics_reset == 1'b1) begin
++  if (reset == 1'b1 || err_statistics_reset == 1'b1) begin
+     status_err_statistics_cnt <= 32'h0;
+   end else if (status_err_statistics_cnt[31:5] != 27'h7ffffff) begin
+     status_err_statistics_cnt <= status_err_statistics_cnt + num_set_bits(phy_char_err);

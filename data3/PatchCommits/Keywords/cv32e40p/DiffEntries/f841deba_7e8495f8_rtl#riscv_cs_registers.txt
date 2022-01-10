@@ -1,0 +1,15 @@
+f841deba8964364a75493ba47fbb2b662f5c9176
+:bug: fix mtvec when security is not used
+diff --git a/rtl/riscv_cs_registers.sv b/rtl/riscv_cs_registers.sv
+index f92acad..0a055e2 100644
+--- a/rtl/riscv_cs_registers.sv
++++ b/rtl/riscv_cs_registers.sv
+@@ -762,7 +762,7 @@ end //PULP_SECURE
+ 
+         assign uepc_q       = '0;
+         assign ucause_q     = '0;
+-        assign mtvec_q      = {boot_addr_i, 1'b0};
++        assign mtvec_q      = {boot_addr_i[31:8], 6'h0, MTVEC_MODE};
+         assign utvec_q      = '0;
+         assign priv_lvl_q   = PRIV_LVL_M;
+ 

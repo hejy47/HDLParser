@@ -1,0 +1,17 @@
+d717e2385ed2d61290cb52148a79bef433880209
+Update lowrisc_ip to lowRISC/opentitan@7aa5c2b89
+diff --git a/vendor/lowrisc_ip/ip/prim/rtl/prim_edn_req.sv b/vendor/lowrisc_ip/ip/prim/rtl/prim_edn_req.sv
+index 75cae9d0..e76fefd5 100644
+--- a/vendor/lowrisc_ip/ip/prim/rtl/prim_edn_req.sv
++++ b/vendor/lowrisc_ip/ip/prim/rtl/prim_edn_req.sv
+@@ -38,8 +38,9 @@ module prim_edn_req
+ 
+   logic [edn_pkg::ENDPOINT_BUS_WIDTH-1:0] word_data;
+   logic word_fips;
++  localparam int SyncWidth = $bits({edn_i.edn_fips, edn_i.edn_bus});
+   prim_sync_reqack_data #(
+-    .Width(edn_pkg::ENDPOINT_BUS_WIDTH),
++    .Width(SyncWidth),
+     .DataSrc2Dst(1'b0),
+     .DataReg(1'b0)
+   ) u_prim_sync_reqack_data (

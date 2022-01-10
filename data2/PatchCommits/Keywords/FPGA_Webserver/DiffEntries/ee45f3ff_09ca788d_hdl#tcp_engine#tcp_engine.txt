@@ -1,0 +1,18 @@
+ee45f3ff3e740731c6e535638020246bf6c920ea
+Fixing bug in checksum of data packets.
+diff --git a/hdl/tcp_engine/tcp_engine.vhd b/hdl/tcp_engine/tcp_engine.vhd
+index 6e13bc8..281a543 100644
+--- a/hdl/tcp_engine/tcp_engine.vhd
++++ b/hdl/tcp_engine/tcp_engine.vhd
+@@ -529,6 +529,11 @@ process(clk)
+ send_packets: process(clk)
+     begin
+         if rising_edge(clk) then
++            -------------------------------------------------------------
++            -- Update the sequence number if a packet was sent last cycle
++            -------------------------------------------------------------
++            tosend_seq_num <= tosend_seq_num_next;
++
+             -------------------------------------------------
+             -- This block is to set up the initial sequence  
+             -- numbers during the initial three-way handshake

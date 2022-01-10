@@ -1,0 +1,15 @@
+51b5335318c83e2662a0edb768b05ac7cbcd6603
+Remove z from default states for FSM inference
+diff --git a/rtl/eth_axis_rx_64.v b/rtl/eth_axis_rx_64.v
+index 3fb2d3b..230bd2b 100644
+--- a/rtl/eth_axis_rx_64.v
++++ b/rtl/eth_axis_rx_64.v
+@@ -162,7 +162,7 @@ always @* begin
+ end
+ 
+ always @* begin
+-    state_next = 2'bz;
++    state_next = STATE_IDLE;
+ 
+     input_axis_tready_next = 0;
+ 

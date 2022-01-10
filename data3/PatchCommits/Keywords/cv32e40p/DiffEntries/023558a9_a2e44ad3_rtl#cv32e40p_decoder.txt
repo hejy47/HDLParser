@@ -1,0 +1,16 @@
+023558a9179c958f4a8d7503ab4c43f3ccfc9aa2
+Merge pull request #451 from Silabs-ArjanB/ArjanB_illegal_instr_exc
+diff --git a/rtl/cv32e40p_decoder.sv b/rtl/cv32e40p_decoder.sv
+index a15680c..26db32b 100644
+--- a/rtl/cv32e40p_decoder.sv
++++ b/rtl/cv32e40p_decoder.sv
+@@ -2571,7 +2571,8 @@ module cv32e40p_decoder import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*;
+ 
+               12'h002:  // uret
+               begin
+-                uret_insn_o   = (PULP_SECURE) ? 1'b1 : 1'b0;
++                illegal_insn_o = (PULP_SECURE) ? 1'b0 : 1'b1;
++                uret_insn_o    = ~illegal_insn_o;
+                 uret_dec_o     = 1'b1;
+               end
+ 

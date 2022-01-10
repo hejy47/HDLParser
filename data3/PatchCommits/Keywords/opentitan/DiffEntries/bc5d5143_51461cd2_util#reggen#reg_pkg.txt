@@ -1,0 +1,21 @@
+bc5d5143c03c1d3858f3f2346b3bfe0d34341ddc
+[reggen] Fix the last comma (oops!)
+diff --git a/util/reggen/reg_pkg.tpl.sv b/util/reggen/reg_pkg.tpl.sv
+index b2f2223c6..3a0cb6a00 100644
+--- a/util/reggen/reg_pkg.tpl.sv
++++ b/util/reggen/reg_pkg.tpl.sv
+@@ -151,11 +151,11 @@ packbit = 0
+ % for i,r in enumerate(block.regs):
+ <% index_str = "{}".format(i).rjust(max_regs_char) %>\
+   % if r.width > 16:
+-    4'b 1111${" " if i == max_regs else ","} // index[${index_str}] ${block.name.upper()}_${r.name.upper()}
++    4'b 1111${" " if i == num_regs-1 else ","} // index[${index_str}] ${block.name.upper()}_${r.name.upper()}
+   % elif r.width > 8:
+-    4'b 0011${" " if i == max_regs else ","} // index[${index_str}] ${block.name.upper()}_${r.name.upper()}
++    4'b 0011${" " if i == num_regs-1 else ","} // index[${index_str}] ${block.name.upper()}_${r.name.upper()}
+   % else:
+-    4'b 0001${" " if i == max_regs else ","} // index[${index_str}] ${block.name.upper()}_${r.name.upper()}
++    4'b 0001${" " if i == num_regs-1 else ","} // index[${index_str}] ${block.name.upper()}_${r.name.upper()}
+   % endif
+ % endfor
+   };

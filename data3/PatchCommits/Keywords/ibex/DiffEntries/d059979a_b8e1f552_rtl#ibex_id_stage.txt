@@ -1,0 +1,24 @@
+d059979af65601363ca92160f53c1ba157c2bbbd
+RVFI based on core state (#151, fix #147)
+diff --git a/rtl/ibex_id_stage.sv b/rtl/ibex_id_stage.sv
+index b448323f..668a56a4 100644
+--- a/rtl/ibex_id_stage.sv
++++ b/rtl/ibex_id_stage.sv
+@@ -70,8 +70,6 @@ module ibex_id_stage #(
+     // Stalls
+     input  logic                      ex_valid_i,     // EX stage has valid output
+     input  logic                      lsu_valid_i,    // LSU has valid output, or is done
+-    output logic                      id_out_valid_o, // ID stage is done
+-
+     // ALU
+     output ibex_defines::alu_op_e     alu_operator_ex_o,
+     output logic [31:0]               alu_operand_a_ex_o,
+@@ -480,8 +478,6 @@ module ibex_id_stage #(
+       .stall_jump_i                   ( stall_jump             ),
+       .stall_branch_i                 ( stall_branch           ),
+ 
+-      .id_out_valid_o                 ( id_out_valid_o         ),
+-
+       // Performance Counters
+       .perf_jump_o                    ( perf_jump_o            ),
+       .perf_tbranch_o                 ( perf_tbranch_o         )

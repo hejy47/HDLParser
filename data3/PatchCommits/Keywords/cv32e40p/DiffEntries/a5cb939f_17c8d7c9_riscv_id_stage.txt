@@ -1,0 +1,14 @@
+a5cb939f8411c0a3d2883c79802e2afd3741b91e
+fixed some signal declarations
+diff --git a/riscv_id_stage.sv b/riscv_id_stage.sv
+index cfed36b..7cff2ce 100644
+--- a/riscv_id_stage.sv
++++ b/riscv_id_stage.sv
+@@ -261,6 +261,7 @@ module riscv_id_stage
+   logic        misaligned_stall;
+   logic        jr_stall;
+   logic        load_stall;
++  logic        csr_apu_stall;
+ 
+   logic        halt_id;
+ 

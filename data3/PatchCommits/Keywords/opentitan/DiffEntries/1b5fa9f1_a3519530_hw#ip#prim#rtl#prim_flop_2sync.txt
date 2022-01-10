@@ -1,0 +1,15 @@
+1b5fa9f1ebf0a9520ef6ea6faf1f1a2397a349c1
+[verible/style] This corrects several style linter warnings/errors
+diff --git a/hw/ip/prim/rtl/prim_flop_2sync.sv b/hw/ip/prim/rtl/prim_flop_2sync.sv
+index a86aa8f68..519ce6bfa 100644
+--- a/hw/ip/prim/rtl/prim_flop_2sync.sv
++++ b/hw/ip/prim/rtl/prim_flop_2sync.sv
+@@ -5,7 +5,7 @@
+ // Generic double-synchronizer flop
+ 
+ module prim_flop_2sync #(
+-  parameter Width = 16,
++  parameter int Width      = 16,
+   parameter bit ResetValue = 0
+ ) (
+   input                    clk_i,    // receive clock

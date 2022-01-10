@@ -1,0 +1,14 @@
+1fb8cf07c2dc93562ec0f067d13d6a541bfd5e99
+Integrated AXI protocol checker into other AXI VCs. Some lint fixing.
+diff --git a/vunit/vhdl/verification_components/src/axi_write_slave.vhd b/vunit/vhdl/verification_components/src/axi_write_slave.vhd
+index 538eac1b..8f15724d 100644
+--- a/vunit/vhdl/verification_components/src/axi_write_slave.vhd
++++ b/vunit/vhdl/verification_components/src/axi_write_slave.vhd
+@@ -125,7 +125,6 @@ begin
+ 
+     variable resp_burst, input_burst, burst : axi_burst_t;
+     variable address, aligned_address : integer;
+-    variable idx : integer;
+     variable beats : natural := 0;
+     variable input_data : burst_data_t;
+     constant input_data_queue : queue_t := new_queue;

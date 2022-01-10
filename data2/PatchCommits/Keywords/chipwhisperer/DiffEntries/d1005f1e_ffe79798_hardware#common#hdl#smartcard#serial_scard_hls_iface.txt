@@ -1,0 +1,13 @@
+d1005f1ec039504d55c4ccdcfd0a2dfd373dd1b2
+Fix problems with smartcard, ATR works
+diff --git a/hardware/common/hdl/smartcard/serial_scard_hls_iface.v b/hardware/common/hdl/smartcard/serial_scard_hls_iface.v
+index ad58a61e..c067b522 100644
+--- a/hardware/common/hdl/smartcard/serial_scard_hls_iface.v
++++ b/hardware/common/hdl/smartcard/serial_scard_hls_iface.v
+@@ -1,5 +1,5 @@
+ `timescale 1ns / 1ps
+-`define CHIPSCOPE
++//`define CHIPSCOPE
+ /***********************************************************************
+ This file is part of the OpenADC Project. See www.newae.com for more details,
+ or the codebase at http://www.assembla.com/spaces/openadc .

@@ -1,0 +1,18 @@
+62073bb3c8c5073203b16a24df9f6cef8958cba6
+Merge pull request #298 from davideschiavone/fix#294
+diff --git a/rtl/riscv_tracer.sv b/rtl/riscv_tracer.sv
+index 0ec8815..05de222 100644
+--- a/rtl/riscv_tracer.sv
++++ b/rtl/riscv_tracer.sv
+@@ -750,9 +750,9 @@ module riscv_tracer (
+   always_ff @(posedge clk, negedge rst_n)
+   begin
+     if (rst_n == 1'b0)
+-      cycles = 0;
++      cycles <= 0;
+     else
+-      cycles = cycles + 1;
++      cycles <= cycles + 1;
+   end
+ 
+   // open/close output file for writing

@@ -1,0 +1,3 @@
+description = 'GumTree tree generator for HDL. Requires hdlparser.'
+
+ext.isNative = true

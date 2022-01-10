@@ -1,0 +1,17 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/common/up_axi.v b/library/common/up_axi.v
+index 6804b3ce..91e1e7c1 100644
+--- a/library/common/up_axi.v
++++ b/library/common/up_axi.v
+@@ -79,8 +79,8 @@ module up_axi (
+ 
+   // parameters
+ 
+-  parameter   PCORE_ADDR_WIDTH = 14;
+-  localparam  AW = PCORE_ADDR_WIDTH - 1;
++  parameter   ADDRESS_WIDTH = 14;
++  localparam  AW = ADDRESS_WIDTH - 1;
+ 
+   // reset and clocks
+ 

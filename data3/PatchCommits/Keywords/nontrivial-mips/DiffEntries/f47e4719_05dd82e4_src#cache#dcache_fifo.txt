@@ -1,0 +1,24 @@
+f47e4719349c15fdb3a2d514f7e87de8f26edafc
+Fixing some warnings
+diff --git a/src/cache/dcache_fifo.sv b/src/cache/dcache_fifo.sv
+index 4898cb3..87c73b4 100644
+--- a/src/cache/dcache_fifo.sv
++++ b/src/cache/dcache_fifo.sv
+@@ -121,7 +121,7 @@ always_comb begin
+     end
+ end
+ 
+-always_ff @(posedge clk or posedge rst) begin
++always_ff @(posedge clk) begin
+     if(rst) begin
+         head <= '0;
+         tail <= '0;
+@@ -135,7 +135,7 @@ always_ff @(posedge clk or posedge rst) begin
+     end
+ end
+ 
+-always_ff @(posedge clk or posedge rst) begin
++always_ff @(posedge clk) begin
+     if(rst) begin
+         mem <= '0;
+     end else if(written || pushed) begin

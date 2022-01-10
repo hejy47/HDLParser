@@ -1,0 +1,15 @@
+c759ff03b7236f4d08cbccd0b6556126a3e1af06
+Fix default parameter
+diff --git a/rtl/axis_switch.v b/rtl/axis_switch.v
+index f8433b5..be9c104 100644
+--- a/rtl/axis_switch.v
++++ b/rtl/axis_switch.v
+@@ -38,7 +38,7 @@ module axis_switch #
+     parameter KEEP_WIDTH = (DATA_WIDTH/8),
+     parameter ID_ENABLE = 0,
+     parameter ID_WIDTH = 8,
+-    parameter DEST_WIDTH = $clog2(S_COUNT),
++    parameter DEST_WIDTH = $clog2(M_COUNT),
+     parameter USER_ENABLE = 1,
+     parameter USER_WIDTH = 1,
+     parameter M_BASE = {2'd3, 2'd2, 2'd1, 2'd0},

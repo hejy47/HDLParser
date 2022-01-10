@@ -1,0 +1,21 @@
+eb40b42c889fcaf0ce4ea52fc299b1c11cb69f76
+axi_dmac: preparation work for reporting length of partial transfers
+diff --git a/library/axi_dmac/axi_dmac_resize_src.v b/library/axi_dmac/axi_dmac_resize_src.v
+index 22351ec5..408acb64 100644
+--- a/library/axi_dmac/axi_dmac_resize_src.v
++++ b/library/axi_dmac/axi_dmac_resize_src.v
+@@ -72,8 +72,12 @@ end else begin
+       valid <= 1'b0;
+       mask <= 'h1;
+     end else if (src_data_valid == 1'b1) begin
+-      valid <= mask[RATIO-1];
+-      mask <= {mask[RATIO-2:0],mask[RATIO-1]};
++      valid <= mask[RATIO-1] || src_data_last;
++      if (src_data_last) begin
++        mask <= 'h1;
++      end else begin
++        mask <= {mask[RATIO-2:0],mask[RATIO-1]};
++      end
+     end else begin
+       valid <= 1'b0;
+     end

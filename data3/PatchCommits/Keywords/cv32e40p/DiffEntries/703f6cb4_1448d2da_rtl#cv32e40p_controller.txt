@@ -1,0 +1,14 @@
+703f6cb4e95fe02268dc87962a87e81a942d4d28
+Merge pull request #425 from Silabs-ArjanB/ArjanB_lint
+diff --git a/rtl/cv32e40p_controller.sv b/rtl/cv32e40p_controller.sv
+index 9e8a3be..3328432 100644
+--- a/rtl/cv32e40p_controller.sv
++++ b/rtl/cv32e40p_controller.sv
+@@ -61,7 +61,6 @@ module cv32e40p_controller import cv32e40p_pkg::*;
+   input  logic        ebrk_insn_i,                // decoder encountered an ebreak instruction
+   input  logic        fencei_insn_i,              // decoder encountered an fence.i instruction
+   input  logic        csr_status_i,               // decoder encountered an csr status instruction
+-  input  logic        instr_multicycle_i,         // true when multiple cycles are decoded
+ 
+   output logic        hwlp_mask_o,                // prevent writes on the hwloop instructions in case interrupt are taken
+ 

@@ -1,0 +1,5 @@
+,HdlStmAssign,HdlStmProcess,HdlStmIf,HdlIdDef,HdlStmWait,HdlStmNop,HdlStmCase
+update,97,19,103,17,,,2.0
+insert,34,25,26,29,,1.0,1.0
+move,20,6,3,5,1.0,,
+delete,23,11,10,15,,,1.0

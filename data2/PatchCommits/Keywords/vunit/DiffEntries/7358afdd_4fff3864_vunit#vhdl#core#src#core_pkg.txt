@@ -1,0 +1,15 @@
+7358afdd6176d8aa24162d56b15db55a428dcf77
+Fixed core_pkg corruption
+diff --git a/vunit/vhdl/core/src/core_pkg.vhd b/vunit/vhdl/core/src/core_pkg.vhd
+index d7d78070..7cb109d7 100644
+--- a/vunit/vhdl/core/src/core_pkg.vhd
++++ b/vunit/vhdl/core/src/core_pkg.vhd
+@@ -62,7 +62,7 @@ package body core_pkg is
+     return state;
+   end;
+ 
+-  constant core_failure_mock_state : integer_vector_ptr_t := new_integer_vector_ptr(core_failure_mock_state_length, value => 0);
++  constant core_failure_mock_state : integer_vector_ptr_t := new_core_failure_mock_state;
+ 
+   procedure mock_core_failure is
+   begin

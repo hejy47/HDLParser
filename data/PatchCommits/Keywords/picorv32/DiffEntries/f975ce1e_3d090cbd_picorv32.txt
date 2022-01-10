@@ -1,0 +1,15 @@
+f975ce1e454077c58ecb750da3abb77dcdf74df7
+Fix picorv32_axi STACKADDR default value
+diff --git a/picorv32.v b/picorv32.v
+index ce3813a..ea7699e 100644
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -2312,7 +2312,7 @@ module picorv32_axi #(
+ 	parameter [31:0] LATCHED_IRQ = 32'h ffff_ffff,
+ 	parameter [31:0] PROGADDR_RESET = 32'h 0000_0000,
+ 	parameter [31:0] PROGADDR_IRQ = 32'h 0000_0010,
+-	parameter [31:0] STACKADDR = 32'h 0000_0fff
++	parameter [31:0] STACKADDR = 32'h ffff_ffff
+ ) (
+ 	input clk, resetn,
+ 	output trap,

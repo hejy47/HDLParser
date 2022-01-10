@@ -1,0 +1,18 @@
+d663c0fe9503779d44e750a2829a2f50ac3f3dc1
+fix err in FP RF
+diff --git a/riscv_register_file.sv b/riscv_register_file.sv
+index 70187b4..f3df0d7 100644
+--- a/riscv_register_file.sv
++++ b/riscv_register_file.sv
+@@ -155,9 +155,9 @@ module riscv_register_file
+                 if (rst_n==1'b0)
+                   mem_fp[l] <= '0;
+                 else if(we_b_dec[l+NUM_WORDS] == 1'b1)
+-                  mem_fp[l] = wdata_b_i;
++                  mem_fp[l] <= wdata_b_i;
+                 else if(we_a_dec[l+NUM_WORDS] == 1'b1)
+-                  mem_fp[l] = wdata_a_i;
++                  mem_fp[l] <= wdata_a_i;
+              end
+         end
+      end

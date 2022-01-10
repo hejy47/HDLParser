@@ -1,0 +1,23 @@
+114d48d4e1e56c0eb0b2ba005500bed0ef084eb3
+axi_dmac: Fix a bug occuring on transfers < one beat
+diff --git a/library/axi_dmac/address_generator.v b/library/axi_dmac/address_generator.v
+index b420fb0e..9fcce1ba 100644
+--- a/library/axi_dmac/address_generator.v
++++ b/library/axi_dmac/address_generator.v
+@@ -103,7 +103,7 @@ end
+ always @(posedge clk) begin
+   if (addr_valid == 1'b0) begin
+     if (eot == 1'b1)
+-      length <= req_last_burst_length;
++      length <= last_burst_len;
+     else
+       length <= MAX_BEATS_PER_BURST - 1;
+   end
+@@ -130,6 +130,7 @@ always @(posedge clk) begin
+ 			if (req_valid && enable) begin
+ 				address <= req_address;
+ 				req_ready <= 1'b0;
++				last_burst_len <= req_last_burst_length;
+ 			end
+ 		end else begin
+ 			if (addr_valid && addr_ready) begin

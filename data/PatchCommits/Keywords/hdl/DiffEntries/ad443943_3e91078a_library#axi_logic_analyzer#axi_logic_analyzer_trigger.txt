@@ -1,0 +1,16 @@
+ad4439433d4ad203ba8b51009c1fd047a06228a0
+axi_logic_analyzer: Add trigger disable condition
+diff --git a/library/axi_logic_analyzer/axi_logic_analyzer_trigger.v b/library/axi_logic_analyzer/axi_logic_analyzer_trigger.v
+index 8368edff..aa488070 100644
+--- a/library/axi_logic_analyzer/axi_logic_analyzer_trigger.v
++++ b/library/axi_logic_analyzer/axi_logic_analyzer_trigger.v
+@@ -121,7 +121,8 @@ module axi_logic_analyzer_trigger (
+       3'd2: trigger_active_mux = trigger_active & trigger_in;
+       3'd3: trigger_active_mux = trigger_active | trigger_in;
+       3'd4: trigger_active_mux = trigger_active ^ trigger_in;
+-      default: trigger_active_mux = 1'b1;
++      3'd7: trigger_active_mux = 1'b0; // trigger disable
++      default: trigger_active_mux = 1'b0;
+     endcase
+   end
+ 

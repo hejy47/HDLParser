@@ -1,0 +1,87 @@
+80da5e72bf1c5ebcae99667df537d6d8f6fe7ae5
+Changed check_equal error messages to include both vector and integer representations of the left and right operands when at least one operand is a vector. Made
+diff --git a/vhdl/check/src/check.vhd b/vhdl/check/src/check.vhd
+index 38ac9461..c9b7a0d4 100644
+--- a/vhdl/check/src/check.vhd
++++ b/vhdl/check/src/check.vhd
+@@ -1478,7 +1478,7 @@ package body check_pkg is
+   begin
+     -- pragma translate_off
+     check(checker, pass, got = expected,
+-          equality_error_msg(to_string(got), to_string(expected), msg),
++          equality_error_msg(to_nibble_string(got) & " (" & to_integer_string(got) & ")", to_nibble_string(expected) & " (" & to_integer_string(expected) & ")", msg),
+           level, line_num, file_name);
+     -- pragma translate_on
+   end;
+@@ -1554,7 +1554,7 @@ package body check_pkg is
+   begin
+     -- pragma translate_off
+     check(checker, pass, got = expected,
+-          equality_error_msg(to_string(got), to_string(expected), msg),
++          equality_error_msg(to_nibble_string(got) & " (" & to_integer_string(got) & ")", to_string(expected) & " (" & to_nibble_string(to_unsigned(expected, got'length)) & ")", msg),
+           level, line_num, file_name);
+     -- pragma translate_on
+   end;
+@@ -1630,7 +1630,7 @@ package body check_pkg is
+   begin
+     -- pragma translate_off
+     check(checker, pass, got = expected,
+-          equality_error_msg(to_string(got), to_string(expected), msg),
++          equality_error_msg(to_string(got) & " (" & to_nibble_string(to_unsigned(got, expected'length)) & ")", to_nibble_string(expected) & " (" & to_integer_string(expected) & ")", msg),
+           level, line_num, file_name);
+     -- pragma translate_on
+   end;
+@@ -1706,7 +1706,7 @@ package body check_pkg is
+   begin
+     -- pragma translate_off
+     check(checker, pass, got = expected,
+-          equality_error_msg(to_string(got), to_string(expected), msg),
++          equality_error_msg(to_nibble_string(got) & " (" & to_integer_string(got) & ")", to_nibble_string(expected) & " (" & to_integer_string(expected) & ")", msg),
+           level, line_num, file_name);
+     -- pragma translate_on
+   end;
+@@ -1782,7 +1782,7 @@ package body check_pkg is
+   begin
+     -- pragma translate_off
+     check(checker, pass, got = expected,
+-          equality_error_msg(to_string(got), to_string(expected), msg),
++          equality_error_msg(to_nibble_string(got) & " (" & to_integer_string(got) & ")", to_nibble_string(expected) & " (" & to_integer_string(expected) & ")", msg),
+           level, line_num, file_name);
+     -- pragma translate_on
+   end;
+@@ -1858,7 +1858,7 @@ package body check_pkg is
+   begin
+     -- pragma translate_off
+     check(checker, pass, got = expected,
+-          equality_error_msg(to_string(got), to_string(expected), msg),
++          equality_error_msg(to_nibble_string(got) & " (" & to_integer_string(got) & ")", to_nibble_string(expected) & " (" & to_integer_string(expected) & ")", msg),
+           level, line_num, file_name);
+     -- pragma translate_on
+   end;
+@@ -1934,7 +1934,7 @@ package body check_pkg is
+   begin
+     -- pragma translate_off
+     check(checker, pass, got = expected,
+-          equality_error_msg(to_string(got), to_string(expected), msg),
++          equality_error_msg(to_nibble_string(got) & " (" & to_integer_string(got) & ")", to_nibble_string(expected) & " (" & to_integer_string(expected) & ")", msg),
+           level, line_num, file_name);
+     -- pragma translate_on
+   end;
+@@ -2010,7 +2010,7 @@ package body check_pkg is
+   begin
+     -- pragma translate_off
+     check(checker, pass, got = expected,
+-          equality_error_msg(to_string(got), to_string(expected), msg),
++          equality_error_msg(to_nibble_string(got) & " (" & to_integer_string(got) & ")", to_string(expected) & " (" & to_nibble_string(to_signed(expected, got'length)) & ")", msg),
+           level, line_num, file_name);
+     -- pragma translate_on
+   end;
+@@ -2086,7 +2086,7 @@ package body check_pkg is
+   begin
+     -- pragma translate_off
+     check(checker, pass, got = expected,
+-          equality_error_msg(to_string(got), to_string(expected), msg),
++          equality_error_msg(to_string(got) & " (" & to_nibble_string(to_signed(got, expected'length)) & ")", to_nibble_string(expected) & " (" & to_integer_string(expected) & ")", msg),
+           level, line_num, file_name);
+     -- pragma translate_on
+   end;

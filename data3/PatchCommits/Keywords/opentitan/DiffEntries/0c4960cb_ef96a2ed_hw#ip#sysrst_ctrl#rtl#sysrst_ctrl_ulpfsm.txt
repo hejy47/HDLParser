@@ -1,0 +1,15 @@
+0c4960cb89ce1e31f1e142bf6de4b7a7fbf37a47
+[sysrst_ctrl] Give an explicit size to the EDGE_TYPE param
+diff --git a/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_ulpfsm.sv b/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_ulpfsm.sv
+index b1461ce78..d09fdc581 100644
+--- a/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_ulpfsm.sv
++++ b/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_ulpfsm.sv
+@@ -5,7 +5,7 @@
+ // Description sysrst_ctrl ULP FSM module
+ 
+ module sysrst_ctrl_ulpfsm #(
+-  parameter EDGE_TYPE = "H", // can be LH, HL and H
++  parameter bit [15:0] EDGE_TYPE = "H", // can be LH, HL and H
+   parameter int unsigned TIMERBIT = 16
+   ) (
+   input                clk_aon_i,

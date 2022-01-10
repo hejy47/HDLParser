@@ -1,0 +1,15 @@
+6de356e8fc1f522a67979bc67f61ba59b138995c
+ad7616_sdz: Fix the data width at i_iobuf_adc_cntrl
+diff --git a/projects/ad7616_sdz/zed/system_top_pi.v b/projects/ad7616_sdz/zed/system_top_pi.v
+index 916f68b5..f085ca86 100644
+--- a/projects/ad7616_sdz/zed/system_top_pi.v
++++ b/projects/ad7616_sdz/zed/system_top_pi.v
+@@ -178,7 +178,7 @@ module system_top (
+ 
+   // instantiations
+ 
+-  ad_iobuf #(.DATA_WIDTH(12)) i_iobuf_adc_cntrl (
++  ad_iobuf #(.DATA_WIDTH(7)) i_iobuf_adc_cntrl (
+     .dio_t ({gpio_t[43:41], gpio_t[37], gpio_t[35:33]}),
+     .dio_i ({gpio_o[43:41], gpio_o[37], gpio_o[35:33]}),
+     .dio_o ({gpio_i[43:41], gpio_i[37], gpio_i[35:33]}),

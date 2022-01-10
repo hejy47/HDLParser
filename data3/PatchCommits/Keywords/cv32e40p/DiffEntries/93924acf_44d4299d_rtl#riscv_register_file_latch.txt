@@ -1,0 +1,15 @@
+93924acf0bc4f522a7d92fd4406b67bcc7a59772
+Merge pull request #285 from davideschiavone/fix254
+diff --git a/rtl/riscv_register_file_latch.sv b/rtl/riscv_register_file_latch.sv
+index a2f6667..e37aaa1 100644
+--- a/rtl/riscv_register_file_latch.sv
++++ b/rtl/riscv_register_file_latch.sv
+@@ -209,7 +209,7 @@ module riscv_register_file
+           end
+      end
+ 
+-   if (FPU == 1) begin
++   if (FPU == 1 && Zfinx == 0) begin
+    // Floating point registers
+    always_latch
+       begin : latch_wdata_fp

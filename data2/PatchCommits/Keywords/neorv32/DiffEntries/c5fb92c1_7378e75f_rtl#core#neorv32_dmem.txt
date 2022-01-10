@@ -1,0 +1,17 @@
+c5fb92c155d56debe730ea7f7c85f5f5fbdd1255
+[rtl] clean-up of generic defaults
+diff --git a/rtl/core/neorv32_dmem.vhd b/rtl/core/neorv32_dmem.vhd
+index 8944307..80b77a2 100644
+--- a/rtl/core/neorv32_dmem.vhd
++++ b/rtl/core/neorv32_dmem.vhd
+@@ -41,8 +41,8 @@ use neorv32.neorv32_package.all;
+ 
+ entity neorv32_dmem is
+   generic (
+-    DMEM_BASE : std_ulogic_vector(31 downto 0) := x"80000000"; -- memory base address
+-    DMEM_SIZE : natural := 4*1024  -- processor-internal instruction memory size in bytes
++    DMEM_BASE : std_ulogic_vector(31 downto 0); -- memory base address
++    DMEM_SIZE : natural -- processor-internal instruction memory size in bytes
+   );
+   port (
+     clk_i  : in  std_ulogic; -- global clock line

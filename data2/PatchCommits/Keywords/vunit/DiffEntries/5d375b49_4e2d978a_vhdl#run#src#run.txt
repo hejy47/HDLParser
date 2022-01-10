@@ -1,0 +1,16 @@
+5d375b49571f7acd747622e08fc12fa59cfad11b
+Not writing error.csv to current working directory per default, rather using the output path
+diff --git a/vhdl/run/src/run.vhd b/vhdl/run/src/run.vhd
+index 48a1197c..d100fffa 100644
+--- a/vhdl/run/src/run.vhd
++++ b/vhdl/run/src/run.vhd
+@@ -49,7 +49,8 @@ package body run_pkg is
+                      checker_cfg.logger_cfg.log_separator,
+                      true);
+       else
+-        checker_init(stop_level => error);
++        checker_init(stop_level => error,
++                     file_name => get(runner_cfg, "output path") & "error.csv");
+       end if;
+     end if;
+ 

@@ -1,0 +1,33 @@
+525268bc0520bf6ff726ee56f375f8381c93e052
+Merge from master plus misa fix
+diff --git a/rtl/cv32e40p_mult.sv b/rtl/cv32e40p_mult.sv
+index e98591f..042999b 100644
+--- a/rtl/cv32e40p_mult.sv
++++ b/rtl/cv32e40p_mult.sv
+@@ -25,8 +25,6 @@
+ //                                                                            //
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-import cv32e40p_defines::*;
+-
+ module cv32e40p_mult
+ #(
+   parameter SHARED_DSP_MULT = 1
+@@ -65,6 +63,8 @@ module cv32e40p_mult
+   input  logic        ex_ready_i
+ );
+ 
++  import cv32e40p_pkg::*;
++
+   ///////////////////////////////////////////////////////////////
+   //  ___ _  _ _____ ___ ___ ___ ___   __  __ _   _ _  _____   //
+   // |_ _| \| |_   _| __/ __| __| _ \ |  \/  | | | | ||_   _|  //
+@@ -344,7 +344,7 @@ module cv32e40p_mult
+   //----------------------------------------------------------------------------
+ 
+   // check multiplication result for mulh
+-  `ifndef VERILATOR
++  `ifdef CV32E40P_ASSERT_ON
+   assert property (
+     @(posedge clk) ((mulh_CS == FINISH) && (operator_i == MUL_H) && (short_signed_i == 2'b11))
+     |->

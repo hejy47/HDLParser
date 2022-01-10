@@ -1,0 +1,17 @@
+6f66db2051d9f0644c634b3e82042cdb85961cef
+Remove default file_handler
+diff --git a/vunit/vhdl/logging/src/log_handler_pkg.vhd b/vunit/vhdl/logging/src/log_handler_pkg.vhd
+index 5ff8dfec..befb6924 100644
+--- a/vunit/vhdl/logging/src/log_handler_pkg.vhd
++++ b/vunit/vhdl/logging/src/log_handler_pkg.vhd
+@@ -37,10 +37,6 @@ package log_handler_pkg is
+   -- Display handler; Write to stdout
+   impure function display_handler return log_handler_t;
+ 
+-  -- File handler; Write to file
+-  -- Is configured to output_path/log.csv by test_runner_setup
+-  impure function file_handler return log_handler_t;
+-
+   -- Get the name of the file used by the handler
+   impure function get_file_name (log_handler : log_handler_t) return string;
+ 

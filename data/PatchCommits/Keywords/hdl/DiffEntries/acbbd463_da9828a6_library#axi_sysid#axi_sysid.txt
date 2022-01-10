@@ -1,0 +1,15 @@
+acbbd4636a459030d3d9ace1e20b485abfa13d65
+sysid: Upgrade framework, header/ip are now at 2/1.1.a
+diff --git a/library/axi_sysid/axi_sysid.v b/library/axi_sysid/axi_sysid.v
+index 222705cc..13dcf650 100755
+--- a/library/axi_sysid/axi_sysid.v
++++ b/library/axi_sysid/axi_sysid.v
+@@ -33,7 +33,7 @@ module axi_sysid #(
+ 
+ localparam          AXI_ADDRESS_WIDTH    = 12;
+ localparam  [31:0]  CORE_VERSION         = {16'h0001,     /* MAJOR */
+-                                              8'h00,      /* MINOR */
++                                              8'h01,      /* MINOR */
+                                               8'h61};     /* PATCH */
+ localparam  [31:0]  CORE_MAGIC           = 32'h53594944;  // SYID
+ 

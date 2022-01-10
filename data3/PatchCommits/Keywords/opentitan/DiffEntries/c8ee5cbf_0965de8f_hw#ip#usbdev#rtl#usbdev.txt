@@ -1,0 +1,14 @@
+c8ee5cbfb99ee4aadd774e425d63dfc57e026608
+[prim_ram] Rearrange parity bit packing and fix wrong wmask settings
+diff --git a/hw/ip/usbdev/rtl/usbdev.sv b/hw/ip/usbdev/rtl/usbdev.sv
+index cf9f66e3a..9c5c641c9 100644
+--- a/hw/ip/usbdev/rtl/usbdev.sv
++++ b/hw/ip/usbdev/rtl/usbdev.sv
+@@ -675,6 +675,7 @@ module usbdev (
+   prim_ram_2p_async_adv #(
+     .Depth (SramDepth),
+     .Width (SramDw),    // 32 x 512 --> 2kB
++    .DataBitsPerMask(SramDw),
+     .CfgW  (8),
+ 
+     .EnableECC           (0), // No Protection

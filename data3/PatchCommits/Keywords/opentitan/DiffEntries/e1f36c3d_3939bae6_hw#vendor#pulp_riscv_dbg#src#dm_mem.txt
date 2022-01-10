@@ -1,0 +1,15 @@
+e1f36c3d2433c9003cf0405877e7fe23f4ee04a3
+Update pulp_riscv_dbg to pulp-platform/riscv-dbg@811b2d7
+diff --git a/hw/vendor/pulp_riscv_dbg/src/dm_mem.sv b/hw/vendor/pulp_riscv_dbg/src/dm_mem.sv
+index 5c361fc02..49daa3825 100644
+--- a/hw/vendor/pulp_riscv_dbg/src/dm_mem.sv
++++ b/hw/vendor/pulp_riscv_dbg/src/dm_mem.sv
+@@ -140,7 +140,7 @@ module dm_mem #(
+     case (state_q)
+       Idle: begin
+         cmdbusy_o = 1'b0;
+-        if (cmd_valid_i && halted_q_aligned[hartsel]) begin
++        if (cmd_valid_i && halted_q_aligned[hartsel] && !unsupported_command) begin
+           // give the go signal
+           state_d = Go;
+         end else if (cmd_valid_i) begin

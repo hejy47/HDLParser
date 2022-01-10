@@ -1,0 +1,19 @@
+9a92bea9818e7fd609f29ee7f0378bcf92089519
+[reggen] Fix template error in degenerate case (empty hw2reg/reg2hw)
+diff --git a/util/reggen/reg_top.tpl.sv b/util/reggen/reg_top.tpl.sv
+index 7531b5157..e5414bb51 100644
+--- a/util/reggen/reg_top.tpl.sv
++++ b/util/reggen/reg_top.tpl.sv
+@@ -26,8 +26,12 @@ module ${block.name}_reg_top ${print_param(params)}(
+ 
+ % endif
+   // To HW
++% if block.get_n_bits(["q","qe","re"]):
+   output ${block.name}_reg_pkg::${block.name}_reg2hw_t reg2hw, // Write
++% endif
++% if block.get_n_bits(["d","de"]):
+   input  ${block.name}_reg_pkg::${block.name}_hw2reg_t hw2reg, // Read
++% endif
+ 
+   // Config
+   input devmode_i // If 1, explicit error return for unmapped register access

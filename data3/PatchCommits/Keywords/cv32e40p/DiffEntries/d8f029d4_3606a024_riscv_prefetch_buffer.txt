@@ -1,0 +1,14 @@
+d8f029d44d0dad6402b74825904a66b2fcdc9f22
+Fix incomplete combinatorial (latch) for prefetch buffer
+diff --git a/riscv_prefetch_buffer.sv b/riscv_prefetch_buffer.sv
+index ec9e3ce..d0ebb74 100644
+--- a/riscv_prefetch_buffer.sv
++++ b/riscv_prefetch_buffer.sv
+@@ -123,6 +123,7 @@ module riscv_prefetch_buffer
+     fifo_clear         = 1'b0;
+     hwlp_branch        = 1'b0;
+     hwloop_speculative = 1'b0;
++    hwlp_masked        = 1'b0;
+ 
+     unique case (hwlp_CS)
+       HWLP_NONE: begin

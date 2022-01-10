@@ -1,0 +1,15 @@
+573146aa9614e677702d7e5ac446bc0f4181a47f
+axi_ad7616: Fix the data width of the AXI stream interface
+diff --git a/library/axi_ad7616/axi_ad7616.v b/library/axi_ad7616/axi_ad7616.v
+index ec85161a..e18708ea 100644
+--- a/library/axi_ad7616/axi_ad7616.v
++++ b/library/axi_ad7616/axi_ad7616.v
+@@ -143,7 +143,7 @@ module axi_ad7616 (
+   output  [31:0]  s_axi_rdata;
+   input           s_axi_rready;
+ 
+-  output  [31:0]  m_axis_tdata;
++  output  [(NUM_OF_SDI * DATA_WIDTH-1):0]  m_axis_tdata;
+   input           m_axis_tready;
+   output          m_axis_tvalid;
+   input           m_axis_xfer_req;

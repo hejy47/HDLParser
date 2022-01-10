@@ -1,0 +1,21 @@
+8d909a082f9b2713201225c5aedfbed9e9b4aa0a
+Fix MAC FIFO parameters
+diff --git a/rtl/eth_mac_1g_gmii_fifo.v b/rtl/eth_mac_1g_gmii_fifo.v
+index 845aad5..f627bee 100644
+--- a/rtl/eth_mac_1g_gmii_fifo.v
++++ b/rtl/eth_mac_1g_gmii_fifo.v
+@@ -303,11 +303,11 @@ axis_async_fifo_adapter #(
+     .DEST_ENABLE(0),
+     .USER_ENABLE(1),
+     .USER_WIDTH(1),
+-    .FRAME_FIFO(TX_FRAME_FIFO),
++    .FRAME_FIFO(RX_FRAME_FIFO),
+     .USER_BAD_FRAME_VALUE(1'b1),
+     .USER_BAD_FRAME_MASK(1'b1),
+-    .DROP_BAD_FRAME(TX_DROP_BAD_FRAME),
+-    .DROP_WHEN_FULL(TX_DROP_WHEN_FULL)
++    .DROP_BAD_FRAME(RX_DROP_BAD_FRAME),
++    .DROP_WHEN_FULL(RX_DROP_WHEN_FULL)
+ )
+ rx_fifo (
+     // AXI input

@@ -1,0 +1,15 @@
+a47cc59c67fe7632d0e117d6c88bffcc79719ad3
+common/up_tdd_cntrl: Fix read data when read is idle
+diff --git a/library/common/up_tdd_cntrl.v b/library/common/up_tdd_cntrl.v
+index 1fc31ee1..d9bf09ae 100644
+--- a/library/common/up_tdd_cntrl.v
++++ b/library/common/up_tdd_cntrl.v
+@@ -340,6 +340,8 @@ module up_tdd_cntrl #(
+           8'h3b: up_rdata <= { 8'h0, up_tdd_tx_dp_off_2};
+           default: up_rdata <= 32'h0;
+         endcase
++      end else begin
++        up_rdata <= 32'h0;
+       end
+     end
+   end

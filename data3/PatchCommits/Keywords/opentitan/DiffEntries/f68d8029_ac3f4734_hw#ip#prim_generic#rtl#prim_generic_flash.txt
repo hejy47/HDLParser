@@ -1,0 +1,15 @@
+f68d8029f2e54222120a38c2c136e5953c0f9e16
+[prim] fix flash sram adapter use for configuration space
+diff --git a/hw/ip/prim_generic/rtl/prim_generic_flash.sv b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+index 6315e0074..0529b100e 100644
+--- a/hw/ip/prim_generic/rtl/prim_generic_flash.sv
++++ b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+@@ -138,7 +138,7 @@ module prim_generic_flash #(
+     .SramAw(CfgAddrWidth),
+     .SramDw(32),
+     .Outstanding(2),
+-    .ErrOnWrite(1)
++    .ErrOnWrite(0)
+   ) u_cfg (
+     .clk_i,
+     .rst_ni,

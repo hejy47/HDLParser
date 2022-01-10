@@ -1,0 +1,17 @@
+2e697121b29d4ce954207906dfeff1739c6d6e71
+Specify width of literals cast to enums to avoid linting errors
+diff --git a/rtl/ibex_cs_registers.sv b/rtl/ibex_cs_registers.sv
+index 51e41b1b..848162d9 100644
+--- a/rtl/ibex_cs_registers.sv
++++ b/rtl/ibex_cs_registers.sv
+@@ -371,8 +371,8 @@ module ibex_cs_registers #(
+ 
+       depc_q      <= '0;
+       dcsr_q     <= '{
+-        xdebugver: x_debug_ver_e'('0),
+-        cause:     dbg_cause_e'('0),
++        xdebugver: x_debug_ver_e'({$bits(x_debug_ver_e){1'b0}}),
++        cause:     dbg_cause_e'({$bits(dbg_cause_e){1'b0}}),
+         prv:       PRIV_LVL_M,
+         default:   '0
+       };

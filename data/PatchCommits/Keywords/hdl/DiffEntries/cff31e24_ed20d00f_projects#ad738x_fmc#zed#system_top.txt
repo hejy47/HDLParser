@@ -1,0 +1,15 @@
+cff31e242a0236acd586b99ff7aaf4d13b5efd38
+ad738x_fmc: Configuration update/fix
+diff --git a/projects/ad738x_fmc/zed/system_top.v b/projects/ad738x_fmc/zed/system_top.v
+index 02460ae2..d62668d8 100644
+--- a/projects/ad738x_fmc/zed/system_top.v
++++ b/projects/ad738x_fmc/zed/system_top.v
+@@ -187,8 +187,6 @@ module system_top (
+     .spi_sdo_t (),
+     .spi_sdi (spi_sdia),
+     .spi_sdi_1 (spi_sdib),
+-    .spi_sdi_2 (1'b0),
+-    .spi_sdi_3 (1'b0),
+     .spi_cs (spi_cs),
+     .spi_sclk (spi_sclk),
+     .otg_vbusoc (otg_vbusoc),

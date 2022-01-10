@@ -1,0 +1,31 @@
+ab5eee42e4a303bf5f4b7a56d5d1ecab1c9d0233
+axi_spdif: Set unused signals to 0
+diff --git a/library/axi_spdif_tx/axi_spdif_tx.vhd b/library/axi_spdif_tx/axi_spdif_tx.vhd
+index 8c225659..89f71230 100644
+--- a/library/axi_spdif_tx/axi_spdif_tx.vhd
++++ b/library/axi_spdif_tx/axi_spdif_tx.vhd
+@@ -158,6 +158,10 @@ begin
+ 			);
+ 	end generate;
+ 
++	no_streaming_dma_gen: if C_DMA_TYPE /= 0 generate
++		S_AXIS_TREADY <= '0';
++	end generate;
++
+ 	pl330_dma_gen: if C_DMA_TYPE = 1 generate
+ 		tx_fifo_stb <= '1' when wr_addr = 3 and wr_stb = '1' else '0';
+ 
+@@ -191,6 +195,13 @@ begin
+ 			);
+ 	end generate;
+ 
++	no_pl330_dma_gen: if C_DMA_TYPE /= 1 generate
++		DMA_REQ_DAREADY <= '0';
++		DMA_REQ_DRVALID <= '0';
++		DMA_REQ_DRTYPE <= (others => '0');
++		DMA_REQ_DRLAST <= '0';
++	end generate;
++
+ 	sample_data_mux: process (fifo_data_out, channel) is
+ 	begin
+ 		if channel = '0' then

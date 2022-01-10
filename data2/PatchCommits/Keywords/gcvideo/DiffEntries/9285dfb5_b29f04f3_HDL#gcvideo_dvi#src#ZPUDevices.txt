@@ -1,0 +1,16 @@
+9285dfb546a87254b18db7c31d0d2159a3913e34
+Replace fixed color conversion with a software-controlled matrix
+diff --git a/HDL/gcvideo_dvi/src/ZPUDevices.vhd b/HDL/gcvideo_dvi/src/ZPUDevices.vhd
+index a79cc87..ee54b53 100644
+--- a/HDL/gcvideo_dvi/src/ZPUDevices.vhd
++++ b/HDL/gcvideo_dvi/src/ZPUDevices.vhd
+@@ -136,8 +136,7 @@ package ZPUDevices is
+       ZPUBusOut       : out ZPUDeviceOut;
+       IRQ             : out std_logic;
+       VSettings       : out VideoSettings_t;
+-      OSDSettings     : out OSDSettings_t;
+-      ImageControls   : out ImageControls_t
++      OSDSettings     : out OSDSettings_t
+     );
+   end component;
+ 

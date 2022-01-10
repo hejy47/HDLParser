@@ -1,0 +1,15 @@
+d5b7e9e1756aa5afa1d7dd4eb2e069a7600f64e9
+Minor bugfix/cleanup (mostly for formal verification)
+diff --git a/picorv32.v b/picorv32.v
+index 88443b2..9cda866 100644
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -1197,7 +1197,7 @@ module picorv32 #(
+ 	end
+ 
+ 	always @(posedge clk) begin
+-		if (cpuregs_write)
++		if (resetn && cpuregs_write)
+ 			cpuregs[latched_rd] <= cpuregs_wrdata;
+ 	end
+ 

@@ -1,0 +1,15 @@
+0a8fbf901db9264c14a95daea9d1f46bd06d5c80
+Reduce default flash read to 1 cycle
+diff --git a/hw/ip/prim_generic/rtl/prim_generic_flash.sv b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+index d8f4d1f9f..d194e614f 100644
+--- a/hw/ip/prim_generic/rtl/prim_generic_flash.sv
++++ b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+@@ -37,7 +37,7 @@ module prim_generic_flash #(
+ );
+ 
+   // Emulated flash macro values
+-  localparam int ReadCycles = 2;
++  localparam int ReadCycles = 1;
+   localparam int ProgCycles = 50;
+   localparam int PgEraseCycles = 200;
+   localparam int BkEraseCycles = 2000;

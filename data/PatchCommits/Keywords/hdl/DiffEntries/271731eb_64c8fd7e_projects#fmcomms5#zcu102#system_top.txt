@@ -1,0 +1,17 @@
+271731ebc8f30143efefe45824492662b6dd9802
+fmcomms5: Remove wires that are redeclarations of ports
+diff --git a/projects/fmcomms5/zcu102/system_top.v b/projects/fmcomms5/zcu102/system_top.v
+index 16cbda01..75f4019e 100644
+--- a/projects/fmcomms5/zcu102/system_top.v
++++ b/projects/fmcomms5/zcu102/system_top.v
+@@ -121,10 +121,6 @@ module system_top (
+   wire            spi1_clk;
+   wire            spi1_mosi;
+   wire            spi1_miso;
+-  wire            txnrx_0;
+-  wire            enable_0;
+-  wire            txnrx_1;
+-  wire            enable_1;
+ 
+   // multi-chip synchronization
+ 

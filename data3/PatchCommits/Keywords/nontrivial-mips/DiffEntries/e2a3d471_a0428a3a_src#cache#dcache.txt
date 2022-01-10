@@ -1,0 +1,17 @@
+e2a3d4718d60f8610d5b0d6a96cd34a758af2a9c
+Fix offset type.
+diff --git a/src/cache/dcache.sv b/src/cache/dcache.sv
+index 32efcf0..5b1369c 100644
+--- a/src/cache/dcache.sv
++++ b/src/cache/dcache.sv
+@@ -85,8 +85,8 @@ function logic [TAG_WIDTH-1:0] get_tag( input logic [31:0] addr );
+     return addr[31 : LINE_BYTE_OFFSET + INDEX_WIDTH];
+ endfunction
+ 
+-function logic [TAG_WIDTH-1:0] get_offset( input logic [31:0] addr );
+-    return addr[LINE_BYTE_OFFSET - 1 : DATA_BYTE_OFFSET];
++function offset_t get_offset( input logic [31:0] addr );
++	return addr[LINE_BYTE_OFFSET - 1 : DATA_BYTE_OFFSET];
+ endfunction
+ 
+ function logic [TAG_WIDTH-1:0] get_fifo_tag( input logic [31:0] addr );

@@ -1,0 +1,29 @@
+be0d967e83ae9b21420c891c9b9216fde793f1b8
+Fixing timeout issue when sending to multiple receivers
+diff --git a/vunit/vhdl/com/src/com.vhd b/vunit/vhdl/com/src/com.vhd
+index becc9239..dd6de9a6 100644
+--- a/vunit/vhdl/com/src/com.vhd
++++ b/vunit/vhdl/com/src/com.vhd
+@@ -516,18 +516,20 @@ package body com_pkg is
+     variable msg       : inout msg_t;
+     constant timeout   : in    time := max_timeout_c) is
+     variable msg_to_send : msg_t;
++    variable t_start : time;
+   begin
+     if receivers'length = 0 then
+       delete(msg);
+       return;
+     end if;
+ 
++    t_start := now;
+     for i in receivers'range loop
+       if i = receivers'right then
+-        send(net, receivers(i), msg);
++        send(net, receivers(i), msg, timeout - (now - t_start));
+       else
+         msg_to_send := copy(msg);
+-        send(net, receivers(i), msg_to_send);
++        send(net, receivers(i), msg_to_send, timeout - (now - t_start));
+       end if;
+     end loop;
+   end;

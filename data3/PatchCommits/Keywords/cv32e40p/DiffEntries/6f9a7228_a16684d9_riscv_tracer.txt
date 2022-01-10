@@ -1,0 +1,16 @@
+6f9a7228d7e8c26bebcfb3ce781fd99a4d594a61
+fixed csr hazard with xRET or ECALL
+diff --git a/riscv_tracer.sv b/riscv_tracer.sv
+index cad10d2..a1f7977 100644
+--- a/riscv_tracer.sv
++++ b/riscv_tracer.sv
+@@ -803,7 +803,8 @@ module riscv_tracer
+         // SYSTEM (others)
+         INSTR_ECALL:      trace.printMnemonic("ecall");
+         INSTR_EBREAK:     trace.printMnemonic("ebreak");
+-        INSTR_ERET:       trace.printMnemonic("eret");
++        INSTR_URET:       trace.printMnemonic("uret");
++        INSTR_MRET:       trace.printMnemonic("mret");
+         INSTR_WFI:        trace.printMnemonic("wfi");
+         // PULP MULTIPLIER
+         INSTR_PMUL:       trace.printRInstr("p.mul");

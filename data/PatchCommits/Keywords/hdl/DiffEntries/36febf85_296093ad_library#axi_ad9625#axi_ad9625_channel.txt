@@ -1,0 +1,15 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/axi_ad9625/axi_ad9625_channel.v b/library/axi_ad9625/axi_ad9625_channel.v
+index 472f8b23..1b9c3896 100644
+--- a/library/axi_ad9625/axi_ad9625_channel.v
++++ b/library/axi_ad9625/axi_ad9625_channel.v
+@@ -131,7 +131,7 @@ module axi_ad9625_channel (
+   end
+   endgenerate
+ 
+-  up_adc_channel #(.PCORE_ADC_CHID(0)) i_up_adc_channel (
++  up_adc_channel #(.ADC_CHANNEL_ID(0)) i_up_adc_channel (
+     .adc_clk (adc_clk),
+     .adc_rst (adc_rst),
+     .adc_enable (adc_enable),

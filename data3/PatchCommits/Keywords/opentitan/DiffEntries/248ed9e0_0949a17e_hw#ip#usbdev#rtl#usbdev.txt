@@ -1,0 +1,16 @@
+248ed9e04c287d406bd0a65e7b89181ed89ce7e9
+[usb] Fix lint errors and warnings
+diff --git a/hw/ip/usbdev/rtl/usbdev.sv b/hw/ip/usbdev/rtl/usbdev.sv
+index 8e17389c7..3ae67e48b 100644
+--- a/hw/ip/usbdev/rtl/usbdev.sv
++++ b/hw/ip/usbdev/rtl/usbdev.sv
+@@ -87,9 +87,6 @@ module usbdev (
+   localparam int RXFifoWidth = NBufWidth + (1+SizeWidth)         +  4  + 1;
+   localparam int RXFifoDepth = 4;
+ 
+-  // Number of endpoints
+-  localparam int NEndpoints = usbdev_reg_pkg::NEndpoints;
+-
+   usbdev_reg2hw_t reg2hw;
+   usbdev_hw2reg_t hw2reg;
+ 

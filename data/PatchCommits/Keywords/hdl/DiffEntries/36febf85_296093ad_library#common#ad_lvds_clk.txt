@@ -1,0 +1,24 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/common/ad_lvds_clk.v b/library/common/ad_lvds_clk.v
+index 04e4b73c..e65ea434 100644
+--- a/library/common/ad_lvds_clk.v
++++ b/library/common/ad_lvds_clk.v
+@@ -45,7 +45,7 @@ module ad_lvds_clk (
+   clk_in_n,
+   clk);
+ 
+-  parameter   BUFTYPE       = 0;
++  parameter   DEVICE_TYPE       = 0;
+   localparam  SERIES7       = 0;
+   localparam  VIRTEX6       = 1;
+ 
+@@ -65,7 +65,7 @@ module ad_lvds_clk (
+     .O (clk_ibuf_s));
+ 
+   generate
+-  if (BUFTYPE == VIRTEX6) begin
++  if (DEVICE_TYPE == VIRTEX6) begin
+   BUFR #(.BUFR_DIVIDE("BYPASS")) i_clk_rbuf (
+     .CLR (1'b0),
+     .CE (1'b1),

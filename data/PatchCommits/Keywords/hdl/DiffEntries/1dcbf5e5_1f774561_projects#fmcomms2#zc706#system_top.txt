@@ -1,0 +1,21 @@
+1dcbf5e5a2415ddf291cc0801fbf8c92bcc3060e
+fmcomms2/zc706: Fix GPIO connections
+diff --git a/projects/fmcomms2/zc706/system_top.v b/projects/fmcomms2/zc706/system_top.v
+index f91de87f..0eec795e 100644
+--- a/projects/fmcomms2/zc706/system_top.v
++++ b/projects/fmcomms2/zc706/system_top.v
+@@ -219,10 +219,10 @@ module system_top (
+ 
+   // instantiations
+ 
+-  ad_iobuf #(.DATA_WIDTH(17)) i_iobuf (
+-    .dio_t (gpio_t[49:32]),
+-    .dio_i (gpio_o[49:32]),
+-    .dio_o (gpio_i[49:32]),
++  ad_iobuf #(.DATA_WIDTH(19)) i_iobuf (
++    .dio_t (gpio_t[50:32]),
++    .dio_i (gpio_o[50:32]),
++    .dio_o (gpio_i[50:32]),
+     .dio_p ({ gpio_muxout_tx,
+               gpio_muxout_rx,
+               gpio_txnrx,

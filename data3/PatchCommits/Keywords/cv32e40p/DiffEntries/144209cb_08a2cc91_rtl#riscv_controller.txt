@@ -1,0 +1,14 @@
+144209cbdf4161b4abe64aa883570dbc49f60b0e
+Set default debug cause
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 8b5e1e3..debb171 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -265,6 +265,7 @@ module riscv_controller
+     ebrk_force_debug_mode  = (debug_ebreakm_i && current_priv_lvl_i == PRIV_LVL_M) ||
+                              (debug_ebreaku_i && current_priv_lvl_i == PRIV_LVL_U);
+     debug_csr_save_o       = 1'b0;
++    debug_cause_o          = DBG_CAUSE_EBREAK;
+     debug_mode_n           = debug_mode_q;
+ 
+     // a trap towards the debug unit is generated when one of the

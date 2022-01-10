@@ -1,0 +1,15 @@
+c3983d779cc08d30a2a8a872625fa282d6361482
+ad_ip_jesd204_tpl_adc: Fix PN check for twos complement data format
+diff --git a/library/jesd204/ad_ip_jesd204_tpl_adc/ad_ip_jesd204_tpl_adc_pnmon.v b/library/jesd204/ad_ip_jesd204_tpl_adc/ad_ip_jesd204_tpl_adc_pnmon.v
+index c77b7a82..16b6cbe7 100644
+--- a/library/jesd204/ad_ip_jesd204_tpl_adc/ad_ip_jesd204_tpl_adc_pnmon.v
++++ b/library/jesd204/ad_ip_jesd204_tpl_adc/ad_ip_jesd204_tpl_adc_pnmon.v
+@@ -83,7 +83,7 @@ module ad_ip_jesd204_tpl_adc_pnmon #(
+     localparam dst_lsb = (DATA_PATH_WIDTH - i - 1) * CONVERTER_RESOLUTION;
+     localparam dst_msb = dst_lsb + CONVERTER_RESOLUTION - 1;
+ 
+-    assign pn_data_in_s[dst_msb] = tc ^ data[src_msb];
++    assign pn_data_in_s[dst_msb] = (~tc) ^ data[src_msb];
+     assign pn_data_in_s[dst_msb-1:dst_lsb] = data[src_msb-1:src_lsb];
+   end
+   endgenerate

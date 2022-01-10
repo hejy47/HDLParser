@@ -1,0 +1,17 @@
+42ff5d4f80746c317daa1a3b4936af6c356dc776
+axi_streaming_dma_tx_fifo: Fix drain logic
+diff --git a/library/common/axi_streaming_dma_tx_fifo.vhd b/library/common/axi_streaming_dma_tx_fifo.vhd
+index 79c13c7b..e473a25a 100644
+--- a/library/common/axi_streaming_dma_tx_fifo.vhd
++++ b/library/common/axi_streaming_dma_tx_fifo.vhd
+@@ -97,7 +97,9 @@ begin
+ 			else
+ 				if s_axis_tlast = '1' then
+ 					drain_dma <= False;
+-				elsif enable_d1 and enable then
++				elsif not enable_d1 and enable then
++					drain_dma <= False;
++				elsif enable_d1 and not enable then
+ 					drain_dma <= True;
+ 				end if;
+ 				enable_d1 := enable;

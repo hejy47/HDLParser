@@ -1,0 +1,5 @@
+,HdlStmIf,HdlStmProcess,HdlStmBlock,HdlStmAssign,HdlStmCase
+update,1.0,1.0,2.0,1.0,1.0
+move,1.0,,,,
+delete,,,1.0,,
+insert,,,,4.0,

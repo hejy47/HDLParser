@@ -1,0 +1,26 @@
+76cd32e9369e7d5f38af917062b5dc52c332e95e
+Add capability to detect and react on load/store errors
+diff --git a/rtl/ibex_core.sv b/rtl/ibex_core.sv
+index ecccbfea..844f6f50 100644
+--- a/rtl/ibex_core.sv
++++ b/rtl/ibex_core.sv
+@@ -352,6 +352,9 @@ module ibex_core #(
+       .data_misaligned_i            ( data_misaligned      ),
+       .misaligned_addr_i            ( misaligned_addr      ),
+ 
++      .lsu_load_err_i               ( lsu_load_err         ),
++      .lsu_store_err_i              ( lsu_store_err        ),
++
+       // Interrupt Signals
+       .irq_i                        ( irq_i                ), // incoming interrupts
+       .irq_id_i                     ( irq_id_i             ),
+@@ -359,9 +362,6 @@ module ibex_core #(
+       .irq_ack_o                    ( irq_ack_o            ),
+       .irq_id_o                     ( irq_id_o             ),
+ 
+-      .lsu_load_err_i               ( lsu_load_err         ),
+-      .lsu_store_err_i              ( lsu_store_err        ),
+-
+       // Debug Signal
+       .debug_cause_o                ( debug_cause          ),
+       .debug_csr_save_o             ( debug_csr_save       ),

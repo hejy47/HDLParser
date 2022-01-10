@@ -1,0 +1,30 @@
+966df62208479e46c1decd0c79a3490c8960bea1
+[dv/pwrmgr] Generate dv environment
+diff --git a/hw/ip/pwrmgr/dv/sva/pwrmgr_bind.sv b/hw/ip/pwrmgr/dv/sva/pwrmgr_bind.sv
+index df7dfa106..82e701659 100644
+--- a/hw/ip/pwrmgr/dv/sva/pwrmgr_bind.sv
++++ b/hw/ip/pwrmgr/dv/sva/pwrmgr_bind.sv
+@@ -6,21 +6,18 @@ module pwrmgr_bind;
+ 
+   bind pwrmgr tlul_assert #(
+     .EndpointType("Device")
+-  )  tlul_assert_device (
++  ) tlul_assert_device (
+     .clk_i,
+     .rst_ni,
+     .h2d  (tl_i),
+     .d2h  (tl_o)
+   );
+ 
+-  import pwrmgr_reg_pkg::*;
+   bind pwrmgr pwrmgr_csr_assert_fpv pwrmgr_csr_assert (
+     .clk_i,
+     .rst_ni,
+     .h2d    (tl_i),
+-    .d2h    (tl_o),
+-    .reg2hw (reg2hw),
+-    .hw2reg (hw2reg)
++    .d2h    (tl_o)
+   );
+ 
+ endmodule

@@ -1,0 +1,14 @@
+e35a18787c5002568e03642ef3d347860deaf4fe
+Fixed lint issues in dictionary package.
+diff --git a/vunit/vhdl/dictionary/src/dictionary.vhd b/vunit/vhdl/dictionary/src/dictionary.vhd
+index 19b9c4d4..e985eda3 100644
+--- a/vunit/vhdl/dictionary/src/dictionary.vhd
++++ b/vunit/vhdl/dictionary/src/dictionary.vhd
+@@ -34,7 +34,6 @@ package body dictionary is
+   function len (
+     constant d : frozen_dictionary_t)
+     return natural is
+-    variable key_value_pairs : lines_t;
+   begin
+     return count(replace(d, "::", "__escaped_colon__"), ":");
+   end;

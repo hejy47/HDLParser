@@ -1,0 +1,14 @@
+12a27bc5c21ecccbbac6b376504eee56b3bde0fa
+[csrng/rtl] bug fix for uninstantiate cmd with adata
+diff --git a/hw/ip/csrng/rtl/csrng_core.sv b/hw/ip/csrng/rtl/csrng_core.sv
+index c2ccb6314..0dac1dd2e 100644
+--- a/hw/ip/csrng/rtl/csrng_core.sv
++++ b/hw/ip/csrng/rtl/csrng_core.sv
+@@ -905,6 +905,7 @@ module csrng_core import csrng_pkg::*; #(
+          ((instant_req && flag0_q) ||
+           reseed_req ||
+           update_req ||
++          uninstant_req ||
+           (generate_req && flag0_q));
+ 
+   //-------------------------------------

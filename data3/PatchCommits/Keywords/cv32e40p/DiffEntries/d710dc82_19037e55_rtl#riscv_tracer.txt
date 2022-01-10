@@ -1,0 +1,51 @@
+d710dc821b9e7beef0725052c99d152817934514
+Merge remote-tracking branch 'origin/fix_loadstall' into dbg_dev
+diff --git a/rtl/riscv_tracer.sv b/rtl/riscv_tracer.sv
+index 885d221..4095121 100644
+--- a/rtl/riscv_tracer.sv
++++ b/rtl/riscv_tracer.sv
+@@ -52,6 +52,7 @@ module riscv_tracer
+   input  logic        pipe_flush,
+   input  logic        mret,
+   input  logic        uret,
++  input  logic        dret,
+   input  logic        ecall,
+   input  logic        ebreak,
+ 
+@@ -654,9 +655,8 @@ module riscv_tracer
+   initial
+   begin
+     wait(rst_n == 1'b1);
+-    wait(fetch_enable == 1'b1);
+     $sformat(fn, "trace_core_%h_%h.log", cluster_id, core_id);
+-    $display("[TRACER] Output filename is: %s", fn);
++    // $display("[TRACER] Output filename is: %s", fn);
+     f = $fopen(fn, "w");
+     $fwrite(f, "                Time          Cycles PC       Instr    Mnemonic\n");
+ 
+@@ -737,7 +737,7 @@ module riscv_tracer
+     instr_trace_t trace;
+ 
+     // special case for WFI because we don't wait for unstalling there
+-    if ( (id_valid || pipe_flush || mret || uret || ecall || ebreak) && is_decoding)
++    if ( (id_valid || pipe_flush || mret || uret || ecall || ebreak || dret) && is_decoding)
+     begin
+       trace = new ();
+ 
+@@ -856,6 +856,9 @@ module riscv_tracer
+         INSTR_URET:       trace.printMnemonic("uret");
+         INSTR_MRET:       trace.printMnemonic("mret");
+         INSTR_WFI:        trace.printMnemonic("wfi");
++
++        INSTR_DRET:       trace.printMnemonic("dret");
++
+         // RV32M
+         INSTR_PMUL:       trace.printRInstr("mul");
+         INSTR_PMUH:       trace.printRInstr("mulh");
+@@ -929,4 +932,4 @@ module riscv_tracer
+   end // always @ (posedge clk)
+ 
+ endmodule
+-`endif
+\ No newline at end of file
++`endif

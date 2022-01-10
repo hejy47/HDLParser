@@ -1,0 +1,14 @@
+8535b440e16f5552b1c11f61b25655f72517b6ab
+Fixed bug in AXI stream protocol checker rule 4.
+diff --git a/vunit/vhdl/verification_components/src/axi_stream_protocol_checker.vhd b/vunit/vhdl/verification_components/src/axi_stream_protocol_checker.vhd
+index d8a9f99b..f6c022ab 100644
+--- a/vunit/vhdl/verification_components/src/axi_stream_protocol_checker.vhd
++++ b/vunit/vhdl/verification_components/src/axi_stream_protocol_checker.vhd
+@@ -107,6 +107,7 @@ begin
+           result("for performance - tready active " & to_string(n_clock_cycles) &
+           " clock cycles after tvalid. Expected <= " & to_string(protocol_checker.p_max_waits) & " clock cycles."),
+           level => warning);
++    n_clock_cycles := 0;
+   end process;
+ 
+   -- AXI4STREAM_ERRM_TDATA_X A value of X on TDATA is not permitted when TVALID

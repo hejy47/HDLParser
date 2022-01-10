@@ -1,0 +1,20 @@
+46e01b59c3d4ad7a59d594bdacf18e04fed52014
+[prim_arbiter_ppc] Fix lint error
+diff --git a/hw/ip/prim/rtl/prim_arbiter_ppc.sv b/hw/ip/prim/rtl/prim_arbiter_ppc.sv
+index 9ec473f85..152015eba 100644
+--- a/hw/ip/prim/rtl/prim_arbiter_ppc.sv
++++ b/hw/ip/prim/rtl/prim_arbiter_ppc.sv
+@@ -118,7 +118,7 @@ module prim_arbiter_ppc #(
+ 
+     always_comb begin
+       idx_o = '0;
+-      for (int i = 0 ; i < N ; i++) begin
++      for (int unsigned i = 0 ; i < N ; i++) begin
+         if (winner[i]) begin
+           idx_o = i[IdxW-1:0];
+         end
+@@ -222,4 +222,3 @@ end
+ `endif
+ 
+ endmodule : prim_arbiter_ppc
+-

@@ -1,0 +1,15 @@
+ba4a915af032bfd9a1b951c1bd8d6813a06c70b2
+ad40xx/zed: fixed system_bd
+diff --git a/library/spi_engine/spi_engine_execution/spi_engine_execution.v b/library/spi_engine/spi_engine_execution/spi_engine_execution.v
+index 76665d1f..9a2ebd3f 100644
+--- a/library/spi_engine/spi_engine_execution/spi_engine_execution.v
++++ b/library/spi_engine/spi_engine_execution/spi_engine_execution.v
+@@ -365,7 +365,7 @@ end
+ // Load the SDO parallel data into the SDO shift register. In case of a custom
+ // data width, additional bit shifting must done at load.
+ always @(posedge clk) begin
+-  if ((inst_d1 != CMD_TRANSFER) && (!sdo_enabled)) begin
++  if ((inst_d1 == CMD_TRANSFER) && (!sdo_enabled)) begin
+     data_sdo_shift <= {DATA_WIDTH{SDO_DEFAULT}};
+   end else if (transfer_active == 1'b1 && trigger_tx == 1'b1) begin
+     if (first_bit == 1'b1)

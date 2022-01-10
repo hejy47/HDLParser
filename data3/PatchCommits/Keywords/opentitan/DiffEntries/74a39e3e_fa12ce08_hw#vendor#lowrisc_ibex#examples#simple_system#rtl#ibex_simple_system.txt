@@ -1,0 +1,41 @@
+74a39e3e147145596fbcc25b0720662c2f417e54
+Update lowrisc_ibex to lowRISC/ibex@7e22830
+diff --git a/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv b/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
+index 80dafc5ca..79651a9f0 100644
+--- a/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
++++ b/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
+@@ -21,10 +21,7 @@ module ibex_simple_system (
+   parameter bit RV32E = 0;
+   parameter bit RV32M = 1;
+ 
+-  logic clk_sys, rst_sys_n;
+-
+-  assign clk_sys = IO_CLK;
+-  assign rst_sys_n = IO_RST_N;
++  logic clk_sys = 1'b0, rst_sys_n;
+ 
+   typedef enum {
+     CoreD,
+@@ -69,6 +66,22 @@ module ibex_simple_system (
+   assign cfg_device_addr_mask[SimCtrl] = ~32'h3FF; // 1 kB
+ 
+ 
++  `ifdef VERILATOR
++    assign clk_sys = IO_CLK;
++    assign rst_sys_n = IO_RST_N;
++  `else
++    initial begin
++      rst_sys_n = 1'b0;
++      device_err = '{default:1'b0};
++      #8
++      rst_sys_n = 1'b1;
++    end
++    always begin
++      #1 clk_sys = 1'b0;
++      #1 clk_sys = 1'b1;
++    end
++  `endif
++
+   bus #(
+     .NrDevices   (NrDevices),
+     .NrHosts     (NrHosts  ),

@@ -1,0 +1,1014 @@
+======Commit: 409d0dfd======
+======Short Message======
+Merge pull request #145 from Novakov/patch-1
+======Full Message======
+Merge pull request #145 from Novakov/patch-1
+
+spimemio documentation: read latency reset value
+
+
+======Commit: fe1ee2c7======
+======Short Message======
+Merge pull request #152 from RolinBert/master
+======Full Message======
+Merge pull request #152 from RolinBert/master
+
+Fix #151 (missing irqs)
+
+
+======Commit: 65e72ea4======
+======Short Message======
+Merge pull request #156 from dehann/patch-1
+======Full Message======
+Merge pull request #156 from dehann/patch-1
+
+fix readme icebreaker links
+
+
+======Commit: 824a5c80======
+======Short Message======
+Merge pull request #158 from rxrbln/uart
+======Full Message======
+Merge pull request #158 from rxrbln/uart
+
+added default clk divider parameter to simpleuart
+
+
+======Commit: a7ff70df======
+======Short Message======
+added default clk divider parameter to simpleuart
+======Full Message======
+added default clk divider parameter to simpleuart
+
+
+
+======Commit: b428e843======
+======Short Message======
+fix icebreaker links
+======Full Message======
+fix icebreaker links
+
+
+======Commit: fac01cee======
+======Short Message======
+- fix missing brackets
+======Full Message======
+- fix missing brackets
+
+
+
+======Commit: 258d63d4======
+======Short Message======
+- fix missed timer interrupts,
+======Full Message======
+- fix missed timer interrupts,
+  when another interrupt activates shortly before
+
+
+
+======Commit: e308982e======
+======Short Message======
+Merge pull request #141 from rxrbln/master
+======Full Message======
+Merge pull request #141 from rxrbln/master
+
+added CROSS prefix and CFLAGS to the picsoc/Makefile
+
+
+======Commit: 1e24e999======
+======Short Message======
+added CROSS prefix and CFLAGS to the picsoc/Makefile
+======Full Message======
+added CROSS prefix and CFLAGS to the picsoc/Makefile
+so one can run it with other toolchains, e.g.
+CROSS=riscv64-t2-linux-gnu- CFLAGS=-mabi=ilp32, too
+
+
+
+======Commit: 46aa89c1======
+======Short Message======
+Merge pull request #138 from pcotret/patch-1
+======Full Message======
+Merge pull request #138 from pcotret/patch-1
+
+Short modification in the error string
+
+
+======Commit: 41538276======
+======Short Message======
+Short modification in the error string
+======Full Message======
+Short modification in the error string
+
+
+======Commit: 3f9b5048======
+======Short Message======
+Fix initialization of "irq" in verilog testbench
+======Full Message======
+Fix initialization of "irq" in verilog testbench
+
+Signed-off-by: Clifford Wolf <clifford@clifford.at>
+
+
+
+======Commit: 881f928e======
+======Short Message======
+Improve showtrace.py (and fix for new binutils)
+======Full Message======
+Improve showtrace.py (and fix for new binutils)
+
+Signed-off-by: Clifford Wolf <clifford@clifford.at>
+
+
+
+======Commit: e6779ba5======
+======Short Message======
+Disable verilator warnings, fixes #128
+======Full Message======
+Disable verilator warnings, fixes #128
+
+Signed-off-by: Clifford Wolf <clifford@clifford.at>
+
+
+
+======Commit: d046cbfa======
+======Short Message======
+Add PICORV32_TESTBUG_nnn ifdefs for testing purposes
+======Full Message======
+Add PICORV32_TESTBUG_nnn ifdefs for testing purposes
+
+Signed-off-by: Clifford Wolf <clifford@clifford.at>
+
+
+
+======Commit: d60ffd8e======
+======Short Message======
+fix firmware/sections.lds section size alignment on 4 bytes
+======Full Message======
+fix firmware/sections.lds section size alignment on 4 bytes
+
+
+
+======Commit: d711ce52======
+======Short Message======
+scripts/icestorm: add 'timing' target
+======Full Message======
+scripts/icestorm: add 'timing' target
+
+This dumps a simple IceTime report for the bitstream; we fix the device
+package to CT256, corresponding to the HX8K.
+
+Signed-off-by: Austin Seipp <aseipp@pobox.com>
+
+
+
+======Commit: 9b709211======
+======Short Message======
+Merge pull request #102 from emilio93/patch-2
+======Full Message======
+Merge pull request #102 from emilio93/patch-2
+
+Update vivado scripts
+
+
+======Commit: de479b09======
+======Short Message======
+Merge pull request #101 from mmicko/master
+======Full Message======
+Merge pull request #101 from mmicko/master
+
+Alignment fix for global symbols fixes #97
+
+
+======Commit: 2f16c469======
+======Short Message======
+Alignment fix for global symbols fixes #97
+======Full Message======
+Alignment fix for global symbols fixes #97
+
+
+
+======Commit: cf613d20======
+======Short Message======
+Merge pull request #90 from bobbl/master
+======Full Message======
+Merge pull request #90 from bobbl/master
+
+Fix PicoSoC firmware filename for simulation
+
+
+======Commit: cb766a37======
+======Short Message======
+Fix PicoSoC firmware filename for simulation
+======Full Message======
+Fix PicoSoC firmware filename for simulation
+
+
+
+======Commit: 0d573311======
+======Short Message======
+Merge pull request #89 from emilio93/patch-1
+======Full Message======
+Merge pull request #89 from emilio93/patch-1
+
+Update Risc-V website link for tools
+
+
+======Commit: e507c540======
+======Short Message======
+Update Risc-V website link for tools
+======Full Message======
+Update Risc-V website link for tools
+
+Current link ends up in 404 error
+
+
+======Commit: e3ce4ef8======
+======Short Message======
+Merge pull request #82 from mattvenn/master
+======Full Message======
+Merge pull request #82 from mattvenn/master
+
+fixes for hx8k board demo
+
+
+======Commit: fabb3eaf======
+======Short Message======
+fix firmware recipes
+======Full Message======
+fix firmware recipes
+
+
+
+======Commit: fe186781======
+======Short Message======
+fix ifdef to include flash functions for hx8k
+======Full Message======
+fix ifdef to include flash functions for hx8k
+
+
+
+======Commit: e9c58310======
+======Short Message======
+Fix chown call in Makefile (for building tools)
+======Full Message======
+Fix chown call in Makefile (for building tools)
+
+Signed-off-by: Clifford Wolf <clifford@clifford.at>
+
+
+
+======Commit: 28d6f97b======
+======Short Message======
+Fix picosoc quad spi mode (flashio_worker must be multiple of 4 bytes)
+======Full Message======
+Fix picosoc quad spi mode (flashio_worker must be multiple of 4 bytes)
+
+Signed-off-by: Clifford Wolf <clifford@clifford.at>
+
+
+
+======Commit: b3f292a9======
+======Short Message======
+Improve picosoc demo firmware, picosoc firmware build fixes
+======Full Message======
+Improve picosoc demo firmware, picosoc firmware build fixes
+
+Signed-off-by: Clifford Wolf <clifford@clifford.at>
+
+
+
+======Commit: 262da644======
+======Short Message======
+Add FuseSoC .core file for SPI Flash model
+======Full Message======
+Add FuseSoC .core file for SPI Flash model
+
+This allows other cores to depend on spiflash. Can also be used to
+run the spiflash testbench with
+
+fusesoc run --tool=<tool> spiflash --firmware=path/to/firmware.hex
+
+This has been tested with icarus, modelsim and xsim. Fails with isim
+If --tool is left out, icarus will be used as default
+
+
+
+======Commit: 4fed27fc======
+======Short Message======
+Fix showtrace.py for changed objdump output format
+======Full Message======
+Fix showtrace.py for changed objdump output format
+
+Signed-off-by: Clifford Wolf <clifford@clifford.at>
+
+
+
+======Commit: 1cc9784d======
+======Short Message======
+Fix "make testbench_verilator" bug
+======Full Message======
+Fix "make testbench_verilator" bug
+
+Signed-off-by: Clifford Wolf <clifford@clifford.at>
+
+
+
+======Commit: ad95e88e======
+======Short Message======
+Merge pull request #63 from olofk/fix-spiflash_tb
+======Full Message======
+Merge pull request #63 from olofk/fix-spiflash_tb
+
+Fix spiflash_tb
+
+
+======Commit: d26e5052======
+======Short Message======
+Fix spiflash_tb
+======Full Message======
+Fix spiflash_tb
+
+Update expected two first Flash words to reflect changes in start.s
+
+Add dummy SPI cycles to account for latency
+
+
+
+======Commit: 8b32bc5b======
+======Short Message======
+Fix miscellaneous typos in documentation
+======Full Message======
+Fix miscellaneous typos in documentation
+
+
+
+======Commit: 2ba76e03======
+======Short Message======
+Merge pull request #54 from thoughtpolice/misc-fixes
+======Full Message======
+Merge pull request #54 from thoughtpolice/misc-fixes
+
+Small fixes to the IceStorm scripts
+
+
+======Commit: 77a6b2dd======
+======Short Message======
+scripts/icestorm: use 'yosys-config' to find data directory
+======Full Message======
+scripts/icestorm: use 'yosys-config' to find data directory
+
+This fixes the icestorm script to query yosys-config itself for the
+right data directory. Not only does this fix installs where yosys was
+not installed into /usr/local, it also ensures Icarus picks up a data
+directory consistent with the version of yosys that you're using.
+
+Signed-off-by: Austin Seipp <aseipp@pobox.com>
+
+
+
+======Commit: a9e0ea54======
+======Short Message======
+Merge pull request #52 from olofk/testbench_wb_fixes
+======Full Message======
+Merge pull request #52 from olofk/testbench_wb_fixes
+
+Testbench wb fixes
+
+
+======Commit: 65f32c38======
+======Short Message======
+Fix picosoc hx8kdemo_tb
+======Full Message======
+Fix picosoc hx8kdemo_tb
+
+
+
+======Commit: 7b6aa21f======
+======Short Message======
+Fix bug in picorv32_pcpi_div, Add RISCV_FORMAL_ALTOPS support
+======Full Message======
+Fix bug in picorv32_pcpi_div, Add RISCV_FORMAL_ALTOPS support
+
+
+
+======Commit: dea9b882======
+======Short Message======
+Fix bug in PicoSoC spimemio
+======Full Message======
+Fix bug in PicoSoC spimemio
+
+
+
+======Commit: 13f93b70======
+======Short Message======
+Revert "Fix RISCV_FORMAL_BLACKBOX_REGS (broke liveness on branch ops)"
+======Full Message======
+Revert "Fix RISCV_FORMAL_BLACKBOX_REGS (broke liveness on branch ops)"
+
+This reverts commit 624bc05f989e3fdb3ca499d71a1705d0aac569c5.
+
+
+
+======Commit: 624bc05f======
+======Short Message======
+Fix RISCV_FORMAL_BLACKBOX_REGS (broke liveness on branch ops)
+======Full Message======
+Fix RISCV_FORMAL_BLACKBOX_REGS (broke liveness on branch ops)
+
+
+
+======Commit: 89ad9fc8======
+======Short Message======
+Fix bug in picosoc spimemio and some cleanups in hx8kdemo
+======Full Message======
+Fix bug in picosoc spimemio and some cleanups in hx8kdemo
+
+
+
+======Commit: 2bc93eb8======
+======Short Message======
+Fix scripts/torture gcc calls
+======Full Message======
+Fix scripts/torture gcc calls
+
+
+
+======Commit: bb9ebeb9======
+======Short Message======
+Fixed jalr, c_jalr, and c_jr insns (bug discovered by riscv-formal)
+======Full Message======
+Fixed jalr, c_jalr, and c_jr insns (bug discovered by riscv-formal)
+
+
+
+======Commit: 436544cc======
+======Short Message======
+Fix decoding of C.ADDI instruction
+======Full Message======
+Fix decoding of C.ADDI instruction
+
+See https://groups.google.com/a/groups.riscv.org/forum/#!topic/isa-dev/mr3H6S6IIts
+for discussion. There was a bug in the ISA manual.
+
+
+
+======Commit: bf968702======
+======Short Message======
+Fix decoding of illegal/reserved opcodes as other valid opcodes
+======Full Message======
+Fix decoding of illegal/reserved opcodes as other valid opcodes
+
+
+
+======Commit: 1fbe25c9======
+======Short Message======
+testbench.v: fix whitespaces
+======Full Message======
+testbench.v: fix whitespaces
+
+Signed-off-by: Antony Pavlov <antonynpavlov@gmail.com>
+
+
+
+======Commit: 0967a39c======
+======Short Message======
+testbench_wb.v: fix output stuff
+======Full Message======
+testbench_wb.v: fix output stuff
+
+This patch fixes wishbone testbench output issue:
+'DNNE' instead of 'DONE', i.e.
+
+    Cycle counter ......... 546536
+    Instruction counter .... 69770
+    CPI: 7.83
+    DNNE
+
+    ------------------------------------------------------------
+    EBREAK instruction at 0x000006C4
+
+Signed-off-by: Antony Pavlov <antonynpavlov@gmail.com>
+
+
+
+======Commit: 34956048======
+======Short Message======
+Fix indenting in wishbone code
+======Full Message======
+Fix indenting in wishbone code
+
+
+
+======Commit: f33ddd36======
+======Short Message======
+Fix in rvfi_mem_ handling (when compressed isa is enabled)
+======Full Message======
+Fix in rvfi_mem_ handling (when compressed isa is enabled)
+
+
+
+======Commit: aaa9e257======
+======Short Message======
+Add DEBUGNETS debug flag
+======Full Message======
+Add DEBUGNETS debug flag
+
+
+
+======Commit: c7cc32ed======
+======Short Message======
+Fix verilog code for modelsim
+======Full Message======
+Fix verilog code for modelsim
+
+
+
+======Commit: e4312b0f======
+======Short Message======
+Fix "mem_xfer is used before its declaration" warning
+======Full Message======
+Fix "mem_xfer is used before its declaration" warning
+
+
+
+======Commit: e9b6bcf9======
+======Short Message======
+Fix README toolchain build instructions
+======Full Message======
+Fix README toolchain build instructions
+
+
+
+======Commit: f975ce1e======
+======Short Message======
+Fix picorv32_axi STACKADDR default value
+======Full Message======
+Fix picorv32_axi STACKADDR default value
+
+
+
+======Commit: 55da6c7c======
+======Short Message======
+Some build fixes for new riscv-gnu-toolchain
+======Full Message======
+Some build fixes for new riscv-gnu-toolchain
+
+
+
+======Commit: ef86b30b======
+======Short Message======
+Fixed some linter warnings in picorv32.v
+======Full Message======
+Fixed some linter warnings in picorv32.v
+
+
+
+======Commit: ca5702c7======
+======Short Message======
+Fixed "make test_synth"
+======Full Message======
+Fixed "make test_synth"
+
+
+
+======Commit: 9d873cac======
+======Short Message======
+Minor changes and build fixes for new riscv-gnu-toolchain
+======Full Message======
+Minor changes and build fixes for new riscv-gnu-toolchain
+
+
+
+======Commit: b8af7145======
+======Short Message======
+Added RISCV_GNU_TOOLCHAIN_INSTALL_PREFIX Makefile variable
+======Full Message======
+Added RISCV_GNU_TOOLCHAIN_INSTALL_PREFIX Makefile variable
+
+
+
+======Commit: 54a8e4b3======
+======Short Message======
+Fixed catching jumps to misaligned insn
+======Full Message======
+Fixed catching jumps to misaligned insn
+
+
+
+======Commit: 7fc2cbd7======
+======Short Message======
+More RVFI bugfixes
+======Full Message======
+More RVFI bugfixes
+
+
+
+======Commit: fd38f876======
+======Short Message======
+Minor RVFI bugfix
+======Full Message======
+Minor RVFI bugfix
+
+
+
+======Commit: f82af975======
+======Short Message======
+Another bugfix regarding compressed ISA and unaligned insns
+======Full Message======
+Another bugfix regarding compressed ISA and unaligned insns
+
+
+
+======Commit: 4101cfe8======
+======Short Message======
+Fixed the nontrivial compressed ISA bug found by tracecmp2
+======Full Message======
+Fixed the nontrivial compressed ISA bug found by tracecmp2
+
+
+
+======Commit: 197b6ffe======
+======Short Message======
+Just COMPRESSED_ISA is enough to trigger the bug
+======Full Message======
+Just COMPRESSED_ISA is enough to trigger the bug
+
+
+
+======Commit: c209c016======
+======Short Message======
+More fixes related to assertpmux checks
+======Full Message======
+More fixes related to assertpmux checks
+
+
+
+======Commit: 702ce0eb======
+======Short Message======
+tracecmp2 found a bug in this config
+======Full Message======
+tracecmp2 found a bug in this config
+
+
+
+======Commit: 38a760da======
+======Short Message======
+Fix tabs
+======Full Message======
+Fix tabs
+
+
+
+======Commit: da374981======
+======Short Message======
+Two minor bugfixes
+======Full Message======
+Two minor bugfixes
+
+
+
+======Commit: 029b72fe======
+======Short Message======
+Fix tabs
+======Full Message======
+Fix tabs
+
+
+
+======Commit: d5b7e9e1======
+======Short Message======
+Minor bugfix/cleanup (mostly for formal verification)
+======Full Message======
+Minor bugfix/cleanup (mostly for formal verification)
+
+
+
+======Commit: 29e90e4d======
+======Short Message======
+Add QUARTUS_BIN prefix
+======Full Message======
+Add QUARTUS_BIN prefix
+
+
+
+======Commit: dc9b1008======
+======Short Message======
+Dhrystone: Add toolchain prefix to objcopy
+======Full Message======
+Dhrystone: Add toolchain prefix to objcopy
+
+
+
+======Commit: bfba9b3e======
+======Short Message======
+Bugfix in picorv32_pcpi_fast_mul
+======Full Message======
+Bugfix in picorv32_pcpi_fast_mul
+
+
+
+======Commit: cefe09b8======
+======Short Message======
+Minor fixes/cleanups in mul reset logic
+======Full Message======
+Minor fixes/cleanups in mul reset logic
+
+
+
+======Commit: 517f5ab2======
+======Short Message======
+Fixed bug in test firmware IRQ handling
+======Full Message======
+Fixed bug in test firmware IRQ handling
+
+
+
+======Commit: bec8d6a6======
+======Short Message======
+Fixed "make check" for new yosys-smtbmc cmdline
+======Full Message======
+Fixed "make check" for new yosys-smtbmc cmdline
+
+
+
+======Commit: f9da3f2c======
+======Short Message======
+Minor fixes in scripts/icestorm/
+======Full Message======
+Minor fixes in scripts/icestorm/
+
+
+
+======Commit: 288a043a======
+======Short Message======
+Fixed use-before-declaration problem with VCS
+======Full Message======
+Fixed use-before-declaration problem with VCS
+
+
+
+======Commit: 38d51a33======
+======Short Message======
+Deassert pcpi_valid upon asserting sbreak IRQ
+======Full Message======
+Deassert pcpi_valid upon asserting sbreak IRQ
+
+This fixes #8
+
+
+
+======Commit: d72b2599======
+======Short Message======
+Fixed irq.c instr decoder for compressed isa
+======Full Message======
+Fixed irq.c instr decoder for compressed isa
+
+
+
+======Commit: 8e91b174======
+======Short Message======
+Fixed typo in testbench.v, closes #6
+======Full Message======
+Fixed typo in testbench.v, closes #6
+
+
+
+======Commit: 133befd2======
+======Short Message======
+Fixed SP init in scripts/{csmith,cxxdemo}/
+======Full Message======
+Fixed SP init in scripts/{csmith,cxxdemo}/
+
+
+
+======Commit: 323d77ba======
+======Short Message======
+Fixed "make timing" in dhrystone/
+======Full Message======
+Fixed "make timing" in dhrystone/
+
+
+
+======Commit: fb3178c4======
+======Short Message======
+Fixed dbg_ signals: no latches (formal verification doesn't like latches)
+======Full Message======
+Fixed dbg_ signals: no latches (formal verification doesn't like latches)
+
+
+
+======Commit: 8d0c9d5b======
+======Short Message======
+Fixed speed stats copy&paste error
+======Full Message======
+Fixed speed stats copy&paste error
+
+
+
+======Commit: 436f1629======
+======Short Message======
+Minor change in DEBUGASM output
+======Full Message======
+Minor change in DEBUGASM output
+
+
+
+======Commit: 5ccd0bb5======
+======Short Message======
+Fixed scripts/vivado/table.sh output formatting
+======Full Message======
+Fixed scripts/vivado/table.sh output formatting
+
+
+
+======Commit: 262a9085======
+======Short Message======
+Streamlined debug signals
+======Full Message======
+Streamlined debug signals
+
+
+
+======Commit: 2c76f7d6======
+======Short Message======
+Added (by default disabled) register file access wires for debugging
+======Full Message======
+Added (by default disabled) register file access wires for debugging
+
+
+
+======Commit: 789a411e======
+======Short Message======
+Bugfix for CATCH_ILLINSN <-> WITH_PCPI interaction
+======Full Message======
+Bugfix for CATCH_ILLINSN <-> WITH_PCPI interaction
+
+
+
+======Commit: 2cab9818======
+======Short Message======
+Fixed signed division by zero handling
+======Full Message======
+Fixed signed division by zero handling
+
+
+
+======Commit: fce96566======
+======Short Message======
+Bugfix in memory interface (related to compressed ISA)
+======Full Message======
+Bugfix in memory interface (related to compressed ISA)
+
+
+
+======Commit: bc85a4c1======
+======Short Message======
+Updated riscv-gnu-toolchain (c.addi16sp bugfix)
+======Full Message======
+Updated riscv-gnu-toolchain (c.addi16sp bugfix)
+
+
+
+======Commit: aa17d587======
+======Short Message======
+Bugfix in C.SRAI implementation
+======Full Message======
+Bugfix in C.SRAI implementation
+
+
+
+======Commit: ef8014ee======
+======Short Message======
+Bugfix in C.ADDI4SPN implementation
+======Full Message======
+Bugfix in C.ADDI4SPN implementation
+
+
+
+======Commit: 649faca2======
+======Short Message======
+Work-around for c.addi16sp zero-imm gas bug (for torture test)
+======Full Message======
+Work-around for c.addi16sp zero-imm gas bug (for torture test)
+
+
+
+======Commit: 014b2c6f======
+======Short Message======
+Bugfix in hex8tohex32.py
+======Full Message======
+Bugfix in hex8tohex32.py
+
+
+
+======Commit: b5b18161======
+======Short Message======
+Better "steps" default in smt2-bmc/sync.py
+======Full Message======
+Better "steps" default in smt2-bmc/sync.py
+
+
+
+======Commit: f8c96d6d======
+======Short Message======
+Fixed README typo
+======Full Message======
+Fixed README typo
+
+
+
+======Commit: 16f97a86======
+======Short Message======
+Reset bugfix (bug found via scripts/smt2-bmc/mem_equiv.*)
+======Full Message======
+Reset bugfix (bug found via scripts/smt2-bmc/mem_equiv.*)
+
+
+
+======Commit: 4601fa23======
+======Short Message======
+Added -Werror
+======Full Message======
+Added -Werror
+
+
+
+======Commit: 91f75bdf======
+======Short Message======
+Turned gcc warnings up to eleven
+======Full Message======
+Turned gcc warnings up to eleven
+
+Patch by Larry Doolittle
+
+
+
+======Commit: 2df7aadc======
+======Short Message======
+Fixed typo in Makefile
+======Full Message======
+Fixed typo in Makefile
+
+
+
+======Commit: 9c028fc9======
+======Short Message======
+Added missing LD_RS1 debug statements
+======Full Message======
+Added missing LD_RS1 debug statements
+
+
+
+======Commit: 853ce913======
+======Short Message======
+Added `debug macro
+======Full Message======
+Added `debug macro
+
+
+
+======Commit: 084056f7======
+======Short Message======
+Unsigned arguments for print_dec()
+======Full Message======
+Unsigned arguments for print_dec()
+
+Patch by Larry Doolittle
+
+
+
+======Commit: a7f9b7fb======
+======Short Message======
+Some testbench-related improvements
+======Full Message======
+Some testbench-related improvements
+
+Patch by Larry Doolittle
+
+
+
+======Commit: c22ea8fe======
+======Short Message======
+Spelling fixes by Larry Doolittle
+======Full Message======
+Spelling fixes by Larry Doolittle
+
+
+
+======Commit: e34dcf77======
+======Short Message======
+Fixed typo in firmware/start.S
+======Full Message======
+Fixed typo in firmware/start.S
+
+
+
+======Commit: b076d728======
+======Short Message======
+Fixed PCPI instr prefetching
+======Full Message======
+Fixed PCPI instr prefetching
+
+
+

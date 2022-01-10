@@ -1,0 +1,15 @@
+9d75b80410f2801600353336a06354719171b6e7
+[uart] Minor lint fix
+diff --git a/hw/ip/uart/rtl/uart_core.sv b/hw/ip/uart/rtl/uart_core.sv
+index 11235ad29..467fa3a08 100644
+--- a/hw/ip/uart/rtl/uart_core.sv
++++ b/hw/ip/uart/rtl/uart_core.sv
+@@ -489,4 +489,8 @@ module uart_core (
+     .intr_o                 (intr_rx_parity_err_o)
+   );
+ 
++  // unused registers
++  logic unused_reg;
++  assign unused_reg = ^reg2hw.alert_test;
++
+ endmodule

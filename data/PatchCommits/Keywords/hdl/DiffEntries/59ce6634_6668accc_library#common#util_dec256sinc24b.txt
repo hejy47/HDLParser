@@ -1,0 +1,24 @@
+59ce6634795fdb6c702440fb4c5b9db4cf5a3e3f
+util_dec256sinc24b: Fix resets
+diff --git a/library/common/util_dec256sinc24b.v b/library/common/util_dec256sinc24b.v
+index 245b90fc..99ac2511 100644
+--- a/library/common/util_dec256sinc24b.v
++++ b/library/common/util_dec256sinc24b.v
+@@ -74,7 +74,7 @@ module util_dec256sinc24b (
+    * bit rate */
+ 
+   always @(negedge clk) begin
+-    if (reset == 1'b0) begin
++    if (reset == 1'b1) begin
+       /* initialize acc registers on reset */
+       acc1 <= 37'd0;
+       acc2 <= 37'd0;
+@@ -100,7 +100,7 @@ module util_dec256sinc24b (
+   end
+ 
+   always @(posedge clk) begin
+-    if (reset == 1'b0) begin
++    if (reset == 1'b1) begin
+       word_clk <= 1'b0;
+     end else begin
+       if (word_count == (dec_rate/2 - 1))

@@ -1,0 +1,14 @@
+fa7c85a9ebfd7ad3dc8744ba688dd9625b0b5725
+all: Drive undriven input signals, complete interface
+diff --git a/projects/fmcomms2/zcu102/system_top.v b/projects/fmcomms2/zcu102/system_top.v
+index 649fefd0..8ca9ce70 100644
+--- a/projects/fmcomms2/zcu102/system_top.v
++++ b/projects/fmcomms2/zcu102/system_top.v
+@@ -94,6 +94,7 @@ module system_top (
+     .enable (enable),
+     .gpio_i (gpio_i),
+     .gpio_o (gpio_o),
++    .gpio_t (),
+     .rx_clk_in_n (rx_clk_in_n),
+     .rx_clk_in_p (rx_clk_in_p),
+     .rx_data_in_n (rx_data_in_n),

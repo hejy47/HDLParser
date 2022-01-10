@@ -1,0 +1,16 @@
+9218949e99117d720ae3ee3d7f27d63b47077a5d
+[lint] Fix minor lint warnings
+diff --git a/hw/ip/tlul/rtl/tlul_fifo_sync.sv b/hw/ip/tlul/rtl/tlul_fifo_sync.sv
+index 34aced71e..2851e5f04 100644
+--- a/hw/ip/tlul/rtl/tlul_fifo_sync.sv
++++ b/hw/ip/tlul/rtl/tlul_fifo_sync.sv
+@@ -72,7 +72,8 @@ module tlul_fifo_sync #(
+                      tl_d_i.d_size  ,
+                      tl_d_i.d_source,
+                      tl_d_i.d_sink  ,
+-                     (tl_d_i.d_opcode == tlul_pkg::AccessAckData) ? tl_d_i.d_data : '0 ,
++                     (tl_d_i.d_opcode == tlul_pkg::AccessAckData) ? tl_d_i.d_data :
++                                                                    {top_pkg::TL_DW{1'b0}} ,
+                      tl_d_i.d_user  ,
+                      tl_d_i.d_error ,
+                      spare_rsp_i}),

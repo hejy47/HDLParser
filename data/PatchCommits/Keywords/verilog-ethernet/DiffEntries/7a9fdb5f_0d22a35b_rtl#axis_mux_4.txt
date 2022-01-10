@@ -1,0 +1,28 @@
+7a9fdb5fc34ca0fa33a20e338c8f0a84cd4f8f96
+Add default case statements to avoid inferring latches
+diff --git a/rtl/axis_mux_4.v b/rtl/axis_mux_4.v
+index 319acfd..b52c17e 100644
+--- a/rtl/axis_mux_4.v
++++ b/rtl/axis_mux_4.v
+@@ -109,6 +109,7 @@ always @* begin
+         2'd1: selected_input_tvalid = input_1_axis_tvalid;
+         2'd2: selected_input_tvalid = input_2_axis_tvalid;
+         2'd3: selected_input_tvalid = input_3_axis_tvalid;
++        default: selected_input_tvalid = 1'b0;
+     endcase
+ end
+ 
+@@ -148,6 +149,13 @@ always @* begin
+             current_input_tlast = input_3_axis_tlast;
+             current_input_tuser = input_3_axis_tuser;
+         end
++        default: begin
++            current_input_tdata = {DATA_WIDTH{1'b0}};
++            current_input_tvalid = 1'b0;
++            current_input_tready = 1'b0;
++            current_input_tlast = 1'b0;
++            current_input_tuser = 1'b0;
++        end
+     endcase
+ end
+ 

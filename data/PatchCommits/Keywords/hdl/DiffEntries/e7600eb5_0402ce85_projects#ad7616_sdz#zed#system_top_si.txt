@@ -1,0 +1,26 @@
+e7600eb55201d252688e746cf364ff1dec020f7d
+ad7616_sdz: Fix the project, after SDI ports were merged
+diff --git a/projects/ad7616_sdz/zed/system_top_si.v b/projects/ad7616_sdz/zed/system_top_si.v
+index f2487993..2f020ec5 100644
+--- a/projects/ad7616_sdz/zed/system_top_si.v
++++ b/projects/ad7616_sdz/zed/system_top_si.v
+@@ -85,8 +85,7 @@ module system_top (
+ 
+   output                  spi_sclk,
+   output                  spi_sdo,
+-  input                   spi_sdi_0,
+-  input                   spi_sdi_1,
++  input       [ 1:0]      spi_sdi,
+   output                  spi_cs_n,
+ 
+   output                  adc_reset_n,
+@@ -199,8 +198,7 @@ module system_top (
+     .rx_cnvst (adc_convst),
+     .rx_sclk (spi_sclk),
+     .rx_sdo (spi_sdo),
+-    .rx_sdi_0 (spi_sdi_0),
+-    .rx_sdi_1 (spi_sdi_1),
++    .rx_sdi (spi_sdi),
+     .rx_cs_n (spi_cs_n),
+     .rx_busy (adc_busy)
+   );

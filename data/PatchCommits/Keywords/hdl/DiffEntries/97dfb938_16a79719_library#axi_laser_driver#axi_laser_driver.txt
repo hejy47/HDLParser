@@ -1,0 +1,15 @@
+97dfb938b67cf317559f9505a821e98e9b558ec0
+axi_laser_driver: Fix the up_axi instance
+diff --git a/library/axi_laser_driver/axi_laser_driver.v b/library/axi_laser_driver/axi_laser_driver.v
+index 5f5e512e..1d9d1d15 100644
+--- a/library/axi_laser_driver/axi_laser_driver.v
++++ b/library/axi_laser_driver/axi_laser_driver.v
+@@ -268,7 +268,7 @@ module axi_laser_driver #(
+   // AXI Memory Mapped Wrapper
+ 
+   up_axi #(
+-    .ADDRESS_WIDTH(14))
++    .AXI_ADDRESS_WIDTH(16))
+   i_up_axi (
+     .up_rstn (up_rstn),
+     .up_clk (up_clk),

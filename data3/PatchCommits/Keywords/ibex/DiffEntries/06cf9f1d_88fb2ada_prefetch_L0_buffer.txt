@@ -1,0 +1,15 @@
+06cf9f1dfe0e39348fd6888416e85d552a10a41f
+Prefix all modules with riscv_ to avoid future conflicts
+diff --git a/prefetch_L0_buffer.sv b/prefetch_L0_buffer.sv
+index 301d987a..9fffc2d7 100644
+--- a/prefetch_L0_buffer.sv
++++ b/prefetch_L0_buffer.sv
+@@ -23,7 +23,7 @@
+ //                                                                            //
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-module prefetch_L0_buffer
++module riscv_prefetch_L0_buffer
+ #(
+   parameter                                   RDATA_IN_WIDTH = 128
+ )

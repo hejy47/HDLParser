@@ -1,0 +1,18 @@
+a1bcf345c62e2e1fec92d8ff3994e453ea783099
+ad9671: fix spi connections
+diff --git a/projects/ad9671_fmc/zc706/system_top.v b/projects/ad9671_fmc/zc706/system_top.v
+index 2e767508..d795d1a0 100755
+--- a/projects/ad9671_fmc/zc706/system_top.v
++++ b/projects/ad9671_fmc/zc706/system_top.v
+@@ -194,9 +194,9 @@ module system_top (
+   assign spi_ad9553_clk = spi_clk;
+ 
+   ad9671_fmc_spi i_spi (
+-    .spi_ad9671_csn (spi_csn[2]),
++    .spi_ad9671_csn (spi_csn[0]),
+     .spi_ad9516_csn (spi_csn[1]),
+-    .spi_ad9553_csn (spi_csn[0]),
++    .spi_ad9553_csn (spi_csn[2]),
+     .spi_clk (spi_clk),
+     .spi_mosi (spi_mosi),
+     .spi_miso (spi_miso),

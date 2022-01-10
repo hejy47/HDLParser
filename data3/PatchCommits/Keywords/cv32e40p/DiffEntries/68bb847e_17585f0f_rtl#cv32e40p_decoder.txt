@@ -1,0 +1,24 @@
+68bb847e8ab0b47af07943987f8e106412bf702c
+Merge pull request #558 from davideschiavone/fix537
+diff --git a/rtl/cv32e40p_decoder.sv b/rtl/cv32e40p_decoder.sv
+index f7b61c8..cef1881 100644
+--- a/rtl/cv32e40p_decoder.sv
++++ b/rtl/cv32e40p_decoder.sv
+@@ -2311,6 +2311,7 @@ module cv32e40p_decoder import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*;
+ 
+               12'h105:  // wfi
+               begin
++                wfi_o = 1'b1;
+                 if (debug_wfi_no_sleep_i) begin
+                   // Treat as NOP (do not cause sleep mode entry)
+                   // Using decoding similar to ADDI, but without register reads/writes, i.e.
+@@ -2318,9 +2319,6 @@ module cv32e40p_decoder import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*;
+                   alu_op_b_mux_sel_o = OP_B_IMM;
+                   imm_b_mux_sel_o = IMMB_I;
+                   alu_operator_o = ALU_ADD;
+-                end else begin
+-                  // Flush pipeline (resulting in sleep mode entry)
+-                  wfi_o = 1'b1;
+                 end
+               end
+ 

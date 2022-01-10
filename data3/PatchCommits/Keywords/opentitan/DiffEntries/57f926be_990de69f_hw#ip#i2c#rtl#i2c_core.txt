@@ -1,0 +1,15 @@
+57f926bed17ce0c265e4b23535613238160c8afe
+[i2c, rtl] Various FSM fixes and improvements
+diff --git a/hw/ip/i2c/rtl/i2c_core.sv b/hw/ip/i2c/rtl/i2c_core.sv
+index 8c28e476c..0bb8aa99c 100644
+--- a/hw/ip/i2c/rtl/i2c_core.sv
++++ b/hw/ip/i2c/rtl/i2c_core.sv
+@@ -264,6 +264,8 @@ module  i2c_core (
+     .host_enable_i           (host_enable),
+ 
+     .fmt_fifo_rvalid_i       (fmt_fifo_rvalid),
++    .fmt_fifo_wvalid_i       (fmt_fifo_wvalid),
++    .fmt_fifo_depth_i        (fmt_fifo_depth),
+     .fmt_fifo_rready_o       (fmt_fifo_rready),
+ 
+     .fmt_byte_i              (fmt_byte),

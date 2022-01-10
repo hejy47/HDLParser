@@ -1,0 +1,6 @@
+,update,insert
+HdlOp-PARAMETRIZATION-HdlIdDef,4,
+HdlOp-DOWNTO-HdlOp-PARAMETRIZATION,4,
+HdlOp-InfixExpression-HdlOp-DOWNTO,4,
+HdlOp-FunctionCall-HdlOp-InfixExpression,2,2.0
+HdlOp-InfixExpression-HdlStmAssign,2,

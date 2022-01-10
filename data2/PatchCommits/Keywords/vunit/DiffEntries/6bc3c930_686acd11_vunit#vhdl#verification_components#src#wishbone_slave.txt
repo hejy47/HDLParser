@@ -1,0 +1,28 @@
+6bc3c930fc9df5dc8c560a203914e530515f51a1
+Fix copyright and code clean
+diff --git a/vunit/vhdl/verification_components/src/wishbone_slave.vhd b/vunit/vhdl/verification_components/src/wishbone_slave.vhd
+index fa52b9fa..1af491e5 100644
+--- a/vunit/vhdl/verification_components/src/wishbone_slave.vhd
++++ b/vunit/vhdl/verification_components/src/wishbone_slave.vhd
+@@ -2,7 +2,8 @@
+ -- License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ -- You can obtain one at http://mozilla.org/MPL/2.0/.
+ --
+--- Slawomir Siluk slaweksiluk@gazeta.pl 2018
++-- Copyright (c) 2017-2018, Lars Asplund lars.anders.asplund@gmail.com
++-- Author Slawomir Siluk slaweksiluk@gazeta.pl
+ -- Wishbone slave wrapper for Vunit memory VC
+ -- TODO:
+ -- * wb sel
+@@ -17,10 +18,8 @@ library ieee;
+ use ieee.std_logic_1164.all;
+ use ieee.numeric_std.all;
+ 
+-library vunit_lib;
+-context vunit_lib.vunit_context;
++context work.vunit_context;
+ context work.com_context;
+-
+ use work.memory_pkg.all;
+ 
+ library osvvm;

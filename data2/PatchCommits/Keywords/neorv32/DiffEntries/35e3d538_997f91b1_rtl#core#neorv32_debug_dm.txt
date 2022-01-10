@@ -1,0 +1,16 @@
+35e3d5381bc5da0be4b522aed5a436705bf63b7a
+:bug: fixed bug in debugger park loop
+diff --git a/rtl/core/neorv32_debug_dm.vhd b/rtl/core/neorv32_debug_dm.vhd
+index cb7e2db..f4ddad2 100644
+--- a/rtl/core/neorv32_debug_dm.vhd
++++ b/rtl/core/neorv32_debug_dm.vhd
+@@ -214,7 +214,8 @@ architecture neorv32_debug_dm_rtl of neorv32_debug_dm is
+     00000020 => x"01000413",
+     00000021 => x"98802023",
+     00000022 => x"7b202473",
+-    00000023 => x"88000067",
++    00000023 => x"0000100f",
++    00000024 => x"88000067",
+     others   => x"00100073"  -- ebreak
+   );
+ 

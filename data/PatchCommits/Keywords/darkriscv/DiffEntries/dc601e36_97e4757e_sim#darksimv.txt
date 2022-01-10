@@ -1,0 +1,15 @@
+dc601e36d547468fcc81f6ff37f2352805fb9e93
+small fixes in the linker and soc in order to better support the harvard architecture w/ separated rom/ram!
+diff --git a/sim/darksimv.v b/sim/darksimv.v
+index d31ff88..7ca82bd 100644
+--- a/sim/darksimv.v
++++ b/sim/darksimv.v
+@@ -40,7 +40,7 @@ module darksimv;
+ 
+     initial while(1) #(500e3/40e3) CLK = !CLK; // clock speed of 80MHz
+ 
+-    initial #(12e6) $finish;
++    initial #(250e6) $finish;
+ 
+     always@(posedge CLK) RES <= RES ? RES-1 : 0;
+ 

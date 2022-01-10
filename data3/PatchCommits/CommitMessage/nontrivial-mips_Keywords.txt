@@ -1,0 +1,1124 @@
+======Commit: 0c2cac92======
+======Short Message======
+Fix slight typo in README [ci skip]
+======Full Message======
+Fix slight typo in README [ci skip]
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: b5601239======
+======Short Message======
+Remove debug signals.
+======Full Message======
+Remove debug signals.
+
+
+
+======Commit: d605901e======
+======Short Message======
+Remove debug signals.
+======Full Message======
+Remove debug signals.
+
+
+
+======Commit: 30629f52======
+======Short Message======
+Fix testcase.
+======Full Message======
+Fix testcase.
+
+
+
+======Commit: 128a3b71======
+======Short Message======
+Fix MMU translation.
+======Full Message======
+Fix MMU translation.
+
+
+
+======Commit: 02d2e673======
+======Short Message======
+Fix extra logic keyword in last commit
+======Full Message======
+Fix extra logic keyword in last commit
+
+
+
+======Commit: e50a4dea======
+======Short Message======
+Fix fifo tag type.
+======Full Message======
+Fix fifo tag type.
+
+
+
+======Commit: 954c5751======
+======Short Message======
+Fix exception in delayslot.
+======Full Message======
+Fix exception in delayslot.
+
+
+
+======Commit: 898d1383======
+======Short Message======
+Fix branch confliction again.
+======Full Message======
+Fix branch confliction again.
+
+
+
+======Commit: 8e42aa28======
+======Short Message======
+Fix branch confliction.
+======Full Message======
+Fix branch confliction.
+
+
+
+======Commit: 3b5c45cf======
+======Short Message======
+Update default parameters [func bitstream] [perf bitstream]
+======Full Message======
+Update default parameters [func bitstream] [perf bitstream]
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 690d0fa2======
+======Short Message======
+Update default compiling config [ci skip]
+======Full Message======
+Update default compiling config [ci skip]
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 908b724a======
+======Short Message======
+Fix syntax error in asic module, add missing files from block design, remove redundant system ILA
+======Full Message======
+Fix syntax error in asic module, add missing files from block design, remove redundant system ILA
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 302b50e1======
+======Short Message======
+Fix MTC2.
+======Full Message======
+Fix MTC2.
+
+
+
+======Commit: f5908f7b======
+======Short Message======
+Fix CP2: address -> chip [func bitstream]
+======Full Message======
+Fix CP2: address -> chip [func bitstream]
+
+
+
+======Commit: 160c371c======
+======Short Message======
+Fix uncached TLB.
+======Full Message======
+Fix uncached TLB.
+
+
+
+======Commit: 4b268056======
+======Short Message======
+Fix testcase.
+======Full Message======
+Fix testcase.
+
+
+
+======Commit: 493411dc======
+======Short Message======
+Fix branch resolver.
+======Full Message======
+Fix branch resolver.
+
+
+
+======Commit: fee24eb0======
+======Short Message======
+Fix branch predictor.
+======Full Message======
+Fix branch predictor.
+
+
+
+======Commit: 537acbb3======
+======Short Message======
+Update block design, fix SPI flash error [ci skip]
+======Full Message======
+Update block design, fix SPI flash error [ci skip]
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 1aa3910d======
+======Short Message======
+Fix UTMI IOBUF macro
+======Full Message======
+Fix UTMI IOBUF macro
+
+
+
+======Commit: 882518ab======
+======Short Message======
+Fix branch table size.
+======Full Message======
+Fix branch table size.
+
+
+
+======Commit: 5d953301======
+======Short Message======
+Remove debug signals.
+======Full Message======
+Remove debug signals.
+
+
+
+======Commit: 282ff82b======
+======Short Message======
+Fix HILO.
+======Full Message======
+Fix HILO.
+
+
+
+======Commit: d9ece39d======
+======Short Message======
+Fix branch resolver.
+======Full Message======
+Fix branch resolver.
+
+
+
+======Commit: 9ed8b4ad======
+======Short Message======
+Fix perf test. [perf test]
+======Full Message======
+Fix perf test. [perf test]
+
+
+
+======Commit: 314be693======
+======Short Message======
+Add reset synchronizer in block design, fix module syntax error
+======Full Message======
+Add reset synchronizer in block design, fix module syntax error
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: cf69630b======
+======Short Message======
+Fix ERET.
+======Full Message======
+Fix ERET.
+
+
+
+======Commit: e6bda6e7======
+======Short Message======
+Fix multi-driven ports.
+======Full Message======
+Fix multi-driven ports.
+
+
+
+======Commit: 9afa9ade======
+======Short Message======
+Fix delayed branch.
+======Full Message======
+Fix delayed branch.
+
+
+
+======Commit: 5169cf43======
+======Short Message======
+Fix MOD exception.
+======Full Message======
+Fix MOD exception.
+
+
+
+======Commit: 5b1d79d6======
+======Short Message======
+Fix TLB.
+======Full Message======
+Fix TLB.
+
+
+
+======Commit: 4e98dcc5======
+======Short Message======
+Fix testcases.
+======Full Message======
+Fix testcases.
+
+
+
+======Commit: cab53d1d======
+======Short Message======
+Fix TLB.
+======Full Message======
+Fix TLB.
+
+
+
+======Commit: 7ca4c226======
+======Short Message======
+Fix ICache flushing.
+======Full Message======
+Fix ICache flushing.
+
+
+
+======Commit: c382c02e======
+======Short Message======
+Fix exception offset.
+======Full Message======
+Fix exception offset.
+
+
+
+======Commit: 1b5033e1======
+======Short Message======
+Fixed indent, generate perf matrix from 108M [ci skip]
+======Full Message======
+Fixed indent, generate perf matrix from 108M [ci skip]
+
+
+
+======Commit: 6bef3368======
+======Short Message======
+(Trying) to fix perf test stat [perf test][func test]
+======Full Message======
+(Trying) to fix perf test stat [perf test][func test]
+
+
+
+======Commit: 038c020a======
+======Short Message======
+Fix interrupt.
+======Full Message======
+Fix interrupt.
+
+
+
+======Commit: 0187e93d======
+======Short Message======
+Debug signal
+======Full Message======
+Debug signal
+
+
+
+======Commit: d3847c70======
+======Short Message======
+Debug signal.
+======Full Message======
+Debug signal.
+
+
+
+======Commit: 259cb85a======
+======Short Message======
+One more debug signal.
+======Full Message======
+One more debug signal.
+
+
+
+======Commit: 4e166b4d======
+======Short Message======
+Add debug signals.
+======Full Message======
+Add debug signals.
+
+
+
+======Commit: 93850cca======
+======Short Message======
+Update default options.
+======Full Message======
+Update default options.
+
+
+
+======Commit: ca558ab5======
+======Short Message======
+Merge remote-tracking branch 'origin/perf-dcache-fix' into try-timing-cache
+======Full Message======
+Merge remote-tracking branch 'origin/perf-dcache-fix' into try-timing-cache
+
+
+
+======Commit: 90b3d197======
+======Short Message======
+Fixed some errors in matrix script
+======Full Message======
+Fixed some errors in matrix script
+
+
+
+======Commit: 94109866======
+======Short Message======
+Disable CPU performance flag by default
+======Full Message======
+Disable CPU performance flag by default
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 8520c18b======
+======Short Message======
+Fix ebase CPU id [ci skip]
+======Full Message======
+Fix ebase CPU id [ci skip]
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: a89494c0======
+======Short Message======
+Fix deocder.
+======Full Message======
+Fix deocder.
+
+
+
+======Commit: c8418f76======
+======Short Message======
+Revert IP to unpatched version, update block design and project
+======Full Message======
+Revert IP to unpatched version, update block design and project
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: bec486c1======
+======Short Message======
+More debug signals.
+======Full Message======
+More debug signals.
+
+
+
+======Commit: 62c25ee4======
+======Short Message======
+Add debug signal.
+======Full Message======
+Add debug signal.
+
+
+
+======Commit: 2d8bae84======
+======Short Message======
+Fix exception and flushing. [perf test]
+======Full Message======
+Fix exception and flushing. [perf test]
+
+
+
+======Commit: 337e6552======
+======Short Message======
+Fixed writing sequence for successive writes to the same line. Added dbus trans. [func test][perf test]
+======Full Message======
+Fixed writing sequence for successive writes to the same line. Added dbus trans. [func test][perf test]
+
+
+
+======Commit: f47e4719======
+======Short Message======
+Fixing some warnings
+======Full Message======
+Fixing some warnings
+
+
+
+======Commit: af79f76e======
+======Short Message======
+Fixed typo. Added options to control dcache FIFO depth
+======Full Message======
+Fixed typo. Added options to control dcache FIFO depth
+
+
+
+======Commit: 0810d1d7======
+======Short Message======
+Trying to fix D$ (Take 3) [func test][perf test]
+======Full Message======
+Trying to fix D$ (Take 3) [func test][perf test]
+
+
+
+======Commit: 09881e09======
+======Short Message======
+Trying to Fix D$ BE [func test] [perf test]
+======Full Message======
+Trying to Fix D$ BE [func test] [perf test]
+
+
+
+======Commit: dfe362b9======
+======Short Message======
+Trying to fix D$ timing (WIP)
+======Full Message======
+Trying to fix D$ timing (WIP)
+
+
+
+======Commit: e2a3d471======
+======Short Message======
+Fix offset type.
+======Full Message======
+Fix offset type.
+
+
+
+======Commit: 71c16555======
+======Short Message======
+Fix I$ typo. [func test]
+======Full Message======
+Fix I$ typo. [func test]
+
+
+
+======Commit: 038b82c9======
+======Short Message======
+Fix CACHE instruction. [func test]
+======Full Message======
+Fix CACHE instruction. [func test]
+
+
+
+======Commit: d343661a======
+======Short Message======
+(Trying to) fix dbus invalidate signal. Revert "Revert "Trying to remove one redundant state in dcache"" [func test]
+======Full Message======
+(Trying to) fix dbus invalidate signal. Revert "Revert "Trying to remove one redundant state in dcache"" [func test]
+
+This reverts commit 8021140b0d2b828f38ee66ecaa16ac4c57e84204.
+
+
+
+======Commit: 30c88f74======
+======Short Message======
+Added invalidating to D$, and fixed numerous bugs
+======Full Message======
+Added invalidating to D$, and fixed numerous bugs
+
+
+
+======Commit: 9675e0df======
+======Short Message======
+Fix CPU testcase.
+======Full Message======
+Fix CPU testcase.
+
+
+
+======Commit: f0123f62======
+======Short Message======
+Fix testbench.
+======Full Message======
+Fix testbench.
+
+
+
+======Commit: ae04d4fc======
+======Short Message======
+Fix delayslot load-related. [func test][perf test][bitstream]
+======Full Message======
+Fix delayslot load-related. [func test][perf test][bitstream]
+
+
+
+======Commit: f50b00cb======
+======Short Message======
+Trying to fix D$ on stringsearch. [func test][perf test]
+======Full Message======
+Trying to fix D$ on stringsearch. [func test][perf test]
+
+
+
+======Commit: c21249d6======
+======Short Message======
+Fix stall signals.
+======Full Message======
+Fix stall signals.
+
+
+
+======Commit: f26922d6======
+======Short Message======
+Fix BPU
+======Full Message======
+Fix BPU
+
+
+
+======Commit: 3537a6b6======
+======Short Message======
+Fix I$ invalidate.
+======Full Message======
+Fix I$ invalidate.
+
+
+
+======Commit: cfe884e5======
+======Short Message======
+Fix I$ flushing.
+======Full Message======
+Fix I$ flushing.
+
+
+
+======Commit: ecc1e784======
+======Short Message======
+Fix Flash controller in block design [ci skip]
+======Full Message======
+Fix Flash controller in block design [ci skip]
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 16f471e2======
+======Short Message======
+Fix flash address in bootrom
+======Full Message======
+Fix flash address in bootrom
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 3edd4ccb======
+======Short Message======
+Fix addressing problem in bootrom, TrivialBootloader now BOOTS!
+======Full Message======
+Fix addressing problem in bootrom, TrivialBootloader now BOOTS!
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 14a60034======
+======Short Message======
+Update bootrom, fix switch reading (again) [ci skip]
+======Full Message======
+Update bootrom, fix switch reading (again) [ci skip]
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: ccd95680======
+======Short Message======
+Add debug marks to CPU AXI interface and internal bus
+======Full Message======
+Add debug marks to CPU AXI interface and internal bus
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 4f6e7bda======
+======Short Message======
+Fix delayslot in fetching. [perf test][func test]
+======Full Message======
+Fix delayslot in fetching. [perf test][func test]
+
+
+
+======Commit: 5ed06fcb======
+======Short Message======
+Fix branch resolver. [func test][perf test]
+======Full Message======
+Fix branch resolver. [func test][perf test]
+
+
+
+======Commit: 47986b33======
+======Short Message======
+Fix some bugs.
+======Full Message======
+Fix some bugs.
+
+
+
+======Commit: 15835526======
+======Short Message======
+Fix preresolved branch.
+======Full Message======
+Fix preresolved branch.
+
+
+
+======Commit: 75e99c33======
+======Short Message======
+Fix PC.
+======Full Message======
+Fix PC.
+
+
+
+======Commit: f59dd152======
+======Short Message======
+Fix stall signal.
+======Full Message======
+Fix stall signal.
+
+
+
+======Commit: 42479037======
+======Short Message======
+Again, persumably fixes d$
+======Full Message======
+Again, persumably fixes d$
+
+
+
+======Commit: ce316c3b======
+======Short Message======
+Fix some errors in timing
+======Full Message======
+Fix some errors in timing
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: c5bf89d2======
+======Short Message======
+Add debug info. [perf test]
+======Full Message======
+Add debug info. [perf test]
+
+
+
+======Commit: 6cc6a53f======
+======Short Message======
+(Persumably) fixes D$ write-back
+======Full Message======
+(Persumably) fixes D$ write-back
+
+
+
+======Commit: 4da6dabc======
+======Short Message======
+Fix issue controller. [func test]
+======Full Message======
+Fix issue controller. [func test]
+
+
+
+======Commit: 783ee9d1======
+======Short Message======
+Fix branch prediction. [func test]
+======Full Message======
+Fix branch prediction. [func test]
+
+
+
+======Commit: a8819ee9======
+======Short Message======
+Fix load-related on delayslot when mispredicting branch.
+======Full Message======
+Fix load-related on delayslot when mispredicting branch.
+
+
+
+======Commit: 8ca7f9c8======
+======Short Message======
+Fix script name used in CI
+======Full Message======
+Fix script name used in CI
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: f07ae858======
+======Short Message======
+Fix success flag of func test, run it only when needed [func test]
+======Full Message======
+Fix success flag of func test, run it only when needed [func test]
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 212de235======
+======Short Message======
+Fix ICache address.
+======Full Message======
+Fix ICache address.
+
+
+
+======Commit: 2fb80f50======
+======Short Message======
+Fix mispredict on memory stall.
+======Full Message======
+Fix mispredict on memory stall.
+
+
+
+======Commit: 3d44f5cd======
+======Short Message======
+Enable MMU by default, add cpu testbenches to project file
+======Full Message======
+Enable MMU by default, add cpu testbenches to project file
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: e7ea4037======
+======Short Message======
+Fix some naming problems
+======Full Message======
+Fix some naming problems
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: d67c543a======
+======Short Message======
+Fix undrived signals.
+======Full Message======
+Fix undrived signals.
+
+
+
+======Commit: 2ea3d8c9======
+======Short Message======
+Fix delayslot.
+======Full Message======
+Fix delayslot.
+
+
+
+======Commit: 856b557b======
+======Short Message======
+Fix interrupt number.
+======Full Message======
+Fix interrupt number.
+
+
+
+======Commit: fd8b2d52======
+======Short Message======
+Fix stall signal for exception in pipa-a.
+======Full Message======
+Fix stall signal for exception in pipa-a.
+
+
+
+======Commit: 21fba080======
+======Short Message======
+Fix exception in pipe-a.
+======Full Message======
+Fix exception in pipe-a.
+
+
+
+======Commit: 83dae7aa======
+======Short Message======
+Fix aligned address and multi-cycle in delayslot.
+======Full Message======
+Fix aligned address and multi-cycle in delayslot.
+
+
+
+======Commit: 85a6dab8======
+======Short Message======
+Fix address exception.
+======Full Message======
+Fix address exception.
+
+
+
+======Commit: e568ec7d======
+======Short Message======
+Fix control signals.
+======Full Message======
+Fix control signals.
+
+
+
+======Commit: 22a1745b======
+======Short Message======
+Fix ICache status.
+======Full Message======
+Fix ICache status.
+
+
+
+======Commit: f9cc6e16======
+======Short Message======
+Fix dcache_pass.sv
+======Full Message======
+Fix dcache_pass.sv
+
+
+
+======Commit: 0b74b6b2======
+======Short Message======
+Fix FIFO
+======Full Message======
+Fix FIFO
+
+
+
+======Commit: d820c7e8======
+======Short Message======
+Regenerate crossbar to fix address routing
+======Full Message======
+Regenerate crossbar to fix address routing
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 065b29c5======
+======Short Message======
+Fix some errors to run functional test
+======Full Message======
+Fix some errors to run functional test
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 6db11793======
+======Short Message======
+Fix errors in CPU top, update project file
+======Full Message======
+Fix errors in CPU top, update project file
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 9984f205======
+======Short Message======
+Fix port connection in soc_top
+======Full Message======
+Fix port connection in soc_top
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 59dfc26f======
+======Short Message======
+Fix a strange simulation bug.
+======Full Message======
+Fix a strange simulation bug.
+
+
+
+======Commit: ee652d39======
+======Short Message======
+Fix syntax errors, update project
+======Full Message======
+Fix syntax errors, update project
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 43e3df0d======
+======Short Message======
+Fix a typo.
+======Full Message======
+Fix a typo.
+
+
+
+======Commit: b25763b9======
+======Short Message======
+Fix AXI arsize.
+======Full Message======
+Fix AXI arsize.
+
+
+
+======Commit: fbbbde34======
+======Short Message======
+Fix constraints and update project file
+======Full Message======
+Fix constraints and update project file
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 2aea2fa3======
+======Short Message======
+Fix some connection errors and IOBUF directions
+======Full Message======
+Fix some connection errors and IOBUF directions
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: cd7f771b======
+======Short Message======
+Fix stall signal in fake_ibus.sv.
+======Full Message======
+Fix stall signal in fake_ibus.sv.
+
+
+
+======Commit: ca84b599======
+======Short Message======
+Fix some errors in block design (not all), add auto-generated IPs
+======Full Message======
+Fix some errors in block design (not all), add auto-generated IPs
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: c204f3f8======
+======Short Message======
+Implement llsc and fix TLB.
+======Full Message======
+Implement llsc and fix TLB.
+
+
+
+======Commit: cffecf7f======
+======Short Message======
+Fix memory access, add testcases.
+======Full Message======
+Fix memory access, add testcases.
+
+
+
+======Commit: 4d784c20======
+======Short Message======
+Fix resolved_branch.
+======Full Message======
+Fix resolved_branch.
+
+
+
+======Commit: 679b88b4======
+======Short Message======
+Fix errors in constraint and update project
+======Full Message======
+Fix errors in constraint and update project
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 05a1c4bd======
+======Short Message======
+Fix forward error.
+======Full Message======
+Fix forward error.
+
+
+
+======Commit: 651c4f1f======
+======Short Message======
+Fix many typos.
+======Full Message======
+Fix many typos.
+
+
+
+======Commit: d50c2dbc======
+======Short Message======
+Fix stall signals for branch prediction.
+======Full Message======
+Fix stall signals for branch prediction.
+
+
+
+======Commit: 2b073838======
+======Short Message======
+Fix a typo.
+======Full Message======
+Fix a typo.
+
+
+
+======Commit: 73ebd8f3======
+======Short Message======
+Fix misprediction.
+======Full Message======
+Fix misprediction.
+
+
+
+======Commit: 21c876f2======
+======Short Message======
+Fix some typos.
+======Full Message======
+Fix some typos.
+
+
+
+======Commit: e9c9c71c======
+======Short Message======
+Fix a syntax error.
+======Full Message======
+Fix a syntax error.
+
+
+
+======Commit: 5fbabe46======
+======Short Message======
+Fix the direction of AXI signals
+======Full Message======
+Fix the direction of AXI signals
+
+Signed-off-by: Harry Chen <i@harrychen.xyz>
+
+
+
+======Commit: 4db6fbff======
+======Short Message======
+Fix multi-channel queue.
+======Full Message======
+Fix multi-channel queue.
+
+
+
+======Commit: 1c49c059======
+======Short Message======
+Fix filename.
+======Full Message======
+Fix filename.
+
+
+

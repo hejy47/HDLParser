@@ -1,0 +1,15 @@
+57e1f0e334bede1ccd26e8d3388742a003389207
+gt_channel/gt_common: simulation parameter warning fix
+diff --git a/library/common/ad_gt_channel_1.v b/library/common/ad_gt_channel_1.v
+index 6a7f6590..02d231ab 100644
+--- a/library/common/ad_gt_channel_1.v
++++ b/library/common/ad_gt_channel_1.v
+@@ -1078,7 +1078,7 @@ module ad_gt_channel_1 (
+     .SIM_RECEIVER_DETECT_PASS ("TRUE"),
+     .SIM_RESET_SPEEDUP ("TRUE"),
+     .SIM_TX_EIDLE_DRIVE_LEVEL (1'b0),
+-    .SIM_VERSION ("Ver_1"),
++    .SIM_VERSION (2),
+     .TAPDLY_SET_TX (2'b00),
+     .TEMPERATUR_PAR (4'b0010),
+     .TERM_RCAL_CFG (15'b100001000010000),

@@ -1,0 +1,26 @@
+151991161cdb9063b5a79d908d33520ec912f14f
+[ast] Add Fix AscentLint Errors
+diff --git a/hw/top_earlgrey/ip/ast/rtl/usb_clk.sv b/hw/top_earlgrey/ip/ast/rtl/usb_clk.sv
+index 811bff635..d5be299aa 100644
+--- a/hw/top_earlgrey/ip/ast/rtl/usb_clk.sv
++++ b/hw/top_earlgrey/ip/ast/rtl/usb_clk.sv
+@@ -21,6 +21,7 @@ module usb_clk (
+   output logic clk_src_usb_val_o           // USB Source Clock Valid
+ );
+ 
++
+ logic clk, osc_en, usb_clk_en, rst_n;
+ 
+ assign rst_n = rst_usb_clk_ni;  // Scan enabled
+@@ -58,4 +59,11 @@ prim_flop_2sync #(
+   .q_o ( clk_src_usb_val_o )
+ );
+ 
++
++/////////////////////////
++// Unused Signals
++/////////////////////////
++logic unused_sigs;
++assign unused_sigs = ^{ usb_ref_pulse_i };  // Used in ASIC implementation
++
+ endmodule : usb_clk

@@ -1,0 +1,14 @@
+db0cd63ed31b18b2d05f589d4048be91634579d2
+axi_ad9361: Fix Warning[Synth 8-2611]
+diff --git a/library/axi_ad9361/axi_ad9361_tdd.v b/library/axi_ad9361/axi_ad9361_tdd.v
+index e55347a6..49bf2d84 100644
+--- a/library/axi_ad9361/axi_ad9361_tdd.v
++++ b/library/axi_ad9361/axi_ad9361_tdd.v
+@@ -83,7 +83,6 @@ module axi_ad9361_tdd (
+ 
+   // internal signals
+ 
+-  wire              rst;
+   wire              tdd_enable_s;
+   wire              tdd_secondary_s;
+   wire    [ 7:0]    tdd_burst_count_s;

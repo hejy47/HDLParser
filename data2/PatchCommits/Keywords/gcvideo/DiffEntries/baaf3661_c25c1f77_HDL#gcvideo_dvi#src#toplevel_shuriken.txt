@@ -1,0 +1,14 @@
+baaf366149a02f2844b59e03446bc309e9600f45
+Change ACR packet depending on the console mode
+diff --git a/HDL/gcvideo_dvi/src/toplevel_shuriken.vhd b/HDL/gcvideo_dvi/src/toplevel_shuriken.vhd
+index b2e63c4..81aec5e 100644
+--- a/HDL/gcvideo_dvi/src/toplevel_shuriken.vhd
++++ b/HDL/gcvideo_dvi/src/toplevel_shuriken.vhd
+@@ -159,6 +159,7 @@ begin
+     clk_n         => DVIClockN,
+     clk_pixel     => Clock54M,
+     clk_pixel_en  => pixel_clk_en_27,
++    ConsoleMode   => MODE_GC,
+     red_p         => VGA_Red,
+     green_p       => VGA_Green,
+     blue_p        => VGA_Blue,

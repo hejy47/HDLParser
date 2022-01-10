@@ -1,0 +1,17 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/common/ad_mul_u16.v b/library/common/ad_mul_u16.v
+index 265467e1..eb4978df 100644
+--- a/library/common/ad_mul_u16.v
++++ b/library/common/ad_mul_u16.v
+@@ -94,8 +94,8 @@ module ad_mul_u16 (
+ 
+   MULT_MACRO #(
+     .LATENCY (3),
+-    .WIDTH_A (17),
+-    .WIDTH_B (17))
++    .A_DATA_WIDTH (17),
++    .B_DATA_WIDTH (17))
+   i_mult_macro (
+     .CE (1'b1),
+     .RST (1'b0),

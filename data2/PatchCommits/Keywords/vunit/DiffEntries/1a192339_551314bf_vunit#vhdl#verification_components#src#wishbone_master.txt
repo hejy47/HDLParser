@@ -1,0 +1,23 @@
+1a1923390afef703c5f3ac580836021fc8a8e3ec
+Merge pull request #434 from bradleyharden/test_modelsim_fixup
+diff --git a/vunit/vhdl/verification_components/src/wishbone_master.vhd b/vunit/vhdl/verification_components/src/wishbone_master.vhd
+index f93970c7..8e485cd0 100644
+--- a/vunit/vhdl/verification_components/src/wishbone_master.vhd
++++ b/vunit/vhdl/verification_components/src/wishbone_master.vhd
+@@ -74,7 +74,6 @@ begin
+           wait until rising_edge(clk);
+         end if;
+ 
+-        push(acknowledge_queue, request_msg);
+         start_cycle <= not start_cycle;
+         cycle_type := msg_type;
+ 
+@@ -95,7 +94,7 @@ begin
+         wait until rising_edge(clk) and stall = '0';
+         stb <= '0';
+ 
+-        request_msg := null_msg;
++        push(acknowledge_queue, request_msg);
+ 
+       elsif msg_type = wait_until_idle_msg then
+         if cycle then

@@ -1,0 +1,25 @@
+d825fffd6272f0a02dfc20442f933f8301efd91f
+jesd204/jesd204_rx: Reset error counter once all lanes synced
+diff --git a/library/jesd204/jesd204_rx/jesd204_rx_ctrl.v b/library/jesd204/jesd204_rx/jesd204_rx_ctrl.v
+index 9ad73ea5..97294536 100644
+--- a/library/jesd204/jesd204_rx/jesd204_rx_ctrl.v
++++ b/library/jesd204/jesd204_rx/jesd204_rx_ctrl.v
+@@ -68,7 +68,8 @@ module jesd204_rx_ctrl #(
+   output [NUM_LINKS-1:0] sync,
+   output reg latency_monitor_reset,
+ 
+-  output [1:0] status_state
++  output [1:0] status_state,
++  output event_data_phase
+ );
+ 
+ localparam STATE_RESET = 0;
+@@ -172,4 +173,8 @@ always @(posedge clk) begin
+   end
+ end
+ 
++assign event_data_phase = state == STATE_CGS &&
++                          next_state == STATE_SYNCHRONIZED &&
++                          good_cnt_limit_reached_s;
++
+ endmodule

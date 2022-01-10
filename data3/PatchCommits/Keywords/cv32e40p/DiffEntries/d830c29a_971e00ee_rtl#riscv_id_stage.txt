@@ -1,0 +1,14 @@
+d830c29a2ce7ca43e876c4488f22755630d8f126
+Merge pull request #350 from wallento/fix-linter
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index 004edab..6461f6c 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -65,7 +65,6 @@ module riscv_id_stage
+     input  logic        rst_n,
+ 
+     input  logic        scan_cg_en_i,
+-    input  logic        fregfile_disable_i,
+ 
+     input  logic        fetch_enable_i,
+     output logic        ctrl_busy_o,

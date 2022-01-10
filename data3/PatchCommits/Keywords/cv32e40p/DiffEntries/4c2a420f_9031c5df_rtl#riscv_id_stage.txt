@@ -1,0 +1,26 @@
+4c2a420f056b70d30dace56f9754550e079dc4fe
+propagate debug_req_i signal (core->id_stage->controller)
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index 273d24f..241bc07 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -212,6 +212,8 @@ module riscv_id_stage
+     output logic [4:0]  irq_id_o,
+     output logic [5:0]  exc_cause_o,
+ 
++    // Debug Signal
++    input  logic        debug_req_i,
+ 
+     // Forward Signals
+     input  logic [5:0]  regfile_waddr_wb_i,
+@@ -1178,6 +1180,10 @@ module riscv_id_stage
+     .exc_ack_o                      ( exc_ack                ),
+     .exc_kill_o                     ( exc_kill               ),
+ 
++    // Debug Signal
++    .debug_req_i                    ( debug_req_i            ),
++
++
+     // CSR Controller Signals
+     .csr_save_cause_o               ( csr_save_cause_o       ),
+     .csr_cause_o                    ( csr_cause_o            ),

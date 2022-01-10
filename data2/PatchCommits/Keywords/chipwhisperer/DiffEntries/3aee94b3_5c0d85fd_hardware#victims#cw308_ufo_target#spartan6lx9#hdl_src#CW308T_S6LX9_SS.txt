@@ -1,0 +1,15 @@
+3aee94b3902b8cd5b9c72162a0c00acc0d61e593
+HW: Fix S6LX9 jitter (I think, tested w/ 5K traces). Update S6LX9 target example bitstream with fix.
+diff --git a/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v b/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
+index cea9ef5e..2118ec5e 100644
+--- a/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
++++ b/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
+@@ -73,7 +73,7 @@ module CW308T_S6LX9_Example(
+ 	*/
+ 	aes_core AESGoogleVault(
+ 		.clk(clk),
+-		.load_i(load_input),
++		.load_i(enc_go),
+ 		.key_i({enc_key, 128'h0}),
+ 		.data_i(enc_input),
+ 		.size_i(2'd0),

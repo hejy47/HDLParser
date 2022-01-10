@@ -1,0 +1,15 @@
+1e2cc29328b1954e5bafe858c62c895f84ffaa08
+More syntax error fixes and a logic bug with the mb to mem interface.
+diff --git a/scripts/xilinx/base_microblaze_design_wrapper.vhd b/scripts/xilinx/base_microblaze_design_wrapper.vhd
+index 7b1da58..f26db1a 100644
+--- a/scripts/xilinx/base_microblaze_design_wrapper.vhd
++++ b/scripts/xilinx/base_microblaze_design_wrapper.vhd
+@@ -184,7 +184,7 @@ base_microblaze_design_i: component base_microblaze_design
+     );
+     
+ compute_unit_fpga_i : component compute_unit_fpga
+-(
++port map (
+     S_AXI_ACLK => S_AXI_ACLK,
+     S_AXI_ARESETN => S_AXI_ARESETN,
+     S_AXI_AWADDR => S_AXI_AWADDR,

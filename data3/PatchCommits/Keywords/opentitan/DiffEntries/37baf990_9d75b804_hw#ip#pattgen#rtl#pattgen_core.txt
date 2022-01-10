@@ -1,0 +1,15 @@
+37baf9903560f6633adf6e7796beca4fa648faf6
+[pattgen] Minor lint fix
+diff --git a/hw/ip/pattgen/rtl/pattgen_core.sv b/hw/ip/pattgen/rtl/pattgen_core.sv
+index 6ab2d95f6..9ac837e04 100644
+--- a/hw/ip/pattgen/rtl/pattgen_core.sv
++++ b/hw/ip/pattgen/rtl/pattgen_core.sv
+@@ -88,4 +88,8 @@ module pattgen_core
+     .intr_o                 (intr_done_ch1_o)
+   );
+ 
++  // unused registers
++  logic unused_reg;
++  assign unused_reg = ^reg2hw.alert_test;
++
+ endmodule : pattgen_core

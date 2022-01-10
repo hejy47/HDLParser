@@ -1,0 +1,24 @@
+9b51b1143ad268f670228e435a2c61bdd8e4490f
+CSR: Access checks on Debug CSRs
+diff --git a/rtl/ibex_controller.sv b/rtl/ibex_controller.sv
+index c7ef3e0b..0ae8eb3b 100644
+--- a/rtl/ibex_controller.sv
++++ b/rtl/ibex_controller.sv
+@@ -65,6 +65,7 @@ module ibex_controller (
+     input  logic                  debug_req_i,
+     output ibex_pkg::dbg_cause_e  debug_cause_o,
+     output logic                  debug_csr_save_o,
++    output logic                  debug_mode_o,
+     input  logic                  debug_single_step_i,
+     input  logic                  debug_ebreakm_i,
+ 
+@@ -537,6 +538,9 @@ module ibex_controller (
+     endcase
+   end
+ 
++  // signal to CSR when in debug mode
++  assign debug_mode_o = debug_mode_q;
++
+   ///////////////////
+   // Stall control //
+   ///////////////////

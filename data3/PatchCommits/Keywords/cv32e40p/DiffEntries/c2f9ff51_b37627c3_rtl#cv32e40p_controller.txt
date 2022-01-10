@@ -1,0 +1,14 @@
+c2f9ff51240bd07b33b9e1f58c11b107db1bba87
+Merge pull request #419 from silabs-PaulZ/irq_debug_fsm_fix
+diff --git a/rtl/cv32e40p_controller.sv b/rtl/cv32e40p_controller.sv
+index 2e85db8..4123ca7 100644
+--- a/rtl/cv32e40p_controller.sv
++++ b/rtl/cv32e40p_controller.sv
+@@ -61,7 +61,6 @@ module cv32e40p_controller import cv32e40p_pkg::*;
+   input  logic        ebrk_insn_i,                // decoder encountered an ebreak instruction
+   input  logic        fencei_insn_i,              // decoder encountered an fence.i instruction
+   input  logic        csr_status_i,               // decoder encountered an csr status instruction
+-  input  logic        instr_multicycle_i,         // true when multiple cycles are decoded
+ 
+   output logic        hwlp_mask_o,                // prevent writes on the hwloop instructions in case interrupt are taken
+ 

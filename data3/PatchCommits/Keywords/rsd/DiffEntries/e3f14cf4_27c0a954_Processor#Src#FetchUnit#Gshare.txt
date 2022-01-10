@@ -1,0 +1,19 @@
+e3f14cf4371933def57948d8d8eb68bf188ce115
+Merge branch 'fix-for-latest-sim' into add-setassociative-dcache-tree-lru
+diff --git a/Processor/Src/FetchUnit/Gshare.sv b/Processor/Src/FetchUnit/Gshare.sv
+index 5c51201..980624e 100644
+--- a/Processor/Src/FetchUnit/Gshare.sv
++++ b/Processor/Src/FetchUnit/Gshare.sv
+@@ -115,7 +115,11 @@ module Gshare(
+         end
+ 
+         // Push Pht Queue
+-        if (pushPhtQueue) begin
++        if (port.rst) begin
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWA <= '0;
++            phtQueue[resetIndex % PHT_QUEUE_SIZE].phtWV <= PHT_ENTRY_MAX / 2 + 1;
++        end
++        else if (pushPhtQueue) begin
+             phtQueue[headPtr].phtWA <= phtWA[INT_ISSUE_WIDTH-1];
+             phtQueue[headPtr].phtWV <= phtWV[INT_ISSUE_WIDTH-1];
+         end

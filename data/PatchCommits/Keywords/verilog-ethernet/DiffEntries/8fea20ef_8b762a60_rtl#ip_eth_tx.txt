@@ -1,0 +1,15 @@
+8fea20ef772f0581cdc6d9842acd9bd83219ec82
+Fix frame_ptr_reg width
+diff --git a/rtl/ip_eth_tx.v b/rtl/ip_eth_tx.v
+index 0bbe2d3..911884a 100644
+--- a/rtl/ip_eth_tx.v
++++ b/rtl/ip_eth_tx.v
+@@ -123,7 +123,7 @@ reg [2:0] state_reg = STATE_IDLE, state_next;
+ reg store_ip_hdr;
+ reg store_last_word;
+ 
+-reg [7:0] frame_ptr_reg = 0, frame_ptr_next;
++reg [15:0] frame_ptr_reg = 0, frame_ptr_next;
+ 
+ reg [15:0] hdr_sum_reg = 0, hdr_sum_next;
+ 

@@ -1,0 +1,23 @@
+1e1272f8bcf5aa40cad5ba6cf64f48c22c174a8e
+start fixing elw with interrupts
+diff --git a/riscv_id_stage.sv b/riscv_id_stage.sv
+index cc58646..e8265c5 100644
+--- a/riscv_id_stage.sv
++++ b/riscv_id_stage.sv
+@@ -16,6 +16,7 @@
+ //                 Andreas Traber - atraber@student.ethz.ch                   //
+ //                 Sven Stucki - svstucki@student.ethz.ch                     //
+ //                 Michael Gautschi - gautschi@iis.ee.ethz.ch                 //
++//                 Davide Schiavone - pschiavo@iis.ee.ethz.ch                 //
+ //                                                                            //
+ // Design Name:    Instruction Decode Stage                                   //
+ // Project Name:   RI5CY                                                      //
+@@ -1096,7 +1097,7 @@ module riscv_id_stage
+     // LSU
+     .data_req_ex_i                  ( data_req_ex_o          ),
+     .data_misaligned_i              ( data_misaligned_i      ),
+-    .data_load_event_i              ( data_load_event_ex_o   ),
++    .data_load_event_i              ( data_load_event_id     ),
+ 
+     // ALU
+     .mult_multicycle_i              ( mult_multicycle_i      ),

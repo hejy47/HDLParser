@@ -1,0 +1,15 @@
+53ef2ec43c1c1eb00b771e17fc157f5bb1103ed5
+Update lowrisc_ibex to lowRISC/ibex@d14312c
+diff --git a/hw/vendor/lowrisc_ibex/examples/fpga/artya7-100/rtl/ram_1p.sv b/hw/vendor/lowrisc_ibex/examples/fpga/artya7-100/rtl/ram_1p.sv
+index 98b56c1ec..eaf131cc8 100644
+--- a/hw/vendor/lowrisc_ibex/examples/fpga/artya7-100/rtl/ram_1p.sv
++++ b/hw/vendor/lowrisc_ibex/examples/fpga/artya7-100/rtl/ram_1p.sv
+@@ -42,7 +42,7 @@ module ram_1p #(
+     if (!rst_ni) begin
+       rvalid_o <= '0;
+     end else begin
+-      rvalid_o <= req_i && ~write_i;
++      rvalid_o <= req_i;
+     end
+   end
+ 

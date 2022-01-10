@@ -1,0 +1,22 @@
+d71b9ce553570cff941a76f88dcf89c1d992b1ca
+Merge pull request #166 from aignacio/fix_apu_int_mult
+diff --git a/rtl/riscv_id_stage.sv b/rtl/riscv_id_stage.sv
+index 2dfa306..c098761 100644
+--- a/rtl/riscv_id_stage.sv
++++ b/rtl/riscv_id_stage.sv
+@@ -48,6 +48,7 @@ module riscv_id_stage
+   parameter FP_DIVSQRT        =  0,
+   parameter SHARED_FP         =  0,
+   parameter SHARED_DSP_MULT   =  0,
++  parameter SHARED_INT_MULT   =  0,
+   parameter SHARED_INT_DIV    =  0,
+   parameter SHARED_FP_DIVSQRT =  0,
+   parameter WAPUTYPE          =  0,
+@@ -1017,6 +1018,7 @@ module riscv_id_stage
+       .PULP_SECURE         ( PULP_SECURE          ),
+       .SHARED_FP           ( SHARED_FP            ),
+       .SHARED_DSP_MULT     ( SHARED_DSP_MULT      ),
++      .SHARED_INT_MULT     ( SHARED_INT_MULT      ),
+       .SHARED_INT_DIV      ( SHARED_INT_DIV       ),
+       .SHARED_FP_DIVSQRT   ( SHARED_FP_DIVSQRT    ),
+       .WAPUTYPE            ( WAPUTYPE             ),

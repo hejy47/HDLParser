@@ -1,0 +1,15 @@
+3f5d930cdea463681c911c8bd47a25bb48d9fdbc
+axi_adc_decimate/cic_decim: Fix clk_enable warning
+diff --git a/library/axi_adc_decimate/cic_decim.v b/library/axi_adc_decimate/cic_decim.v
+index 2f964370..5066c070 100644
+--- a/library/axi_adc_decimate/cic_decim.v
++++ b/library/axi_adc_decimate/cic_decim.v
+@@ -63,7 +63,7 @@ module cic_decim (
+ 
+   reg [15:0] rate;
+ 
+-  wire [4:0] enable = filter_enable & {5{clk_enable}};
++  wire [4:0] enable = (clk_enable == 1'b1) ? filter_enable : 5'b0;
+ 
+   always @(*) begin
+     case (rate_sel)

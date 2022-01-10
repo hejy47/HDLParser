@@ -1,0 +1,24 @@
+5f6d00ff7168de12c5314805bb2ba0a7390a25bd
+[prim/tlul] Various small lint fixes
+diff --git a/hw/ip/tlul/rtl/tlul_adapter_sram.sv b/hw/ip/tlul/rtl/tlul_adapter_sram.sv
+index 6e2f33191..b13a281a6 100644
+--- a/hw/ip/tlul/rtl/tlul_adapter_sram.sv
++++ b/hw/ip/tlul/rtl/tlul_adapter_sram.sv
+@@ -240,7 +240,7 @@ module tlul_adapter_sram #(
+   assign rspfifo_wvalid = rvalid_i & reqfifo_rvalid;
+ 
+   // Make sure only requested bytes are forwarded
+-  logic [SramDw-1:0] rdata;
++  logic [WidthMult-1:0][top_pkg::TL_DW-1:0] rdata;
+   logic [WidthMult-1:0][top_pkg::TL_DW-1:0] rmask;
+   //logic [SramDw-1:0] rmask;
+   logic [top_pkg::TL_DW-1:0] rdata_tlword;
+@@ -253,7 +253,7 @@ module tlul_adapter_sram #(
+   end
+ 
+   assign rdata = rdata_i & rmask;
+-  assign rdata_tlword = rdata[sramreqfifo_rdata.woffset * top_pkg::TL_DW +: top_pkg::TL_DW];
++  assign rdata_tlword = rdata[sramreqfifo_rdata.woffset];
+ 
+   assign rspfifo_wdata  = '{
+     data : rdata_tlword,

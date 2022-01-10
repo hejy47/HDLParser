@@ -1,0 +1,23 @@
+c91e061f6b85ab1652723999ed7f9b296adc2d6a
+fixed q_nonce initialization
+diff --git a/projects/VHDL_StratixIV_OrphanedGland/top/rtl/top.vhd b/projects/VHDL_StratixIV_OrphanedGland/top/rtl/top.vhd
+index 73ddaef..793f367 100644
+--- a/projects/VHDL_StratixIV_OrphanedGland/top/rtl/top.vhd
++++ b/projects/VHDL_StratixIV_OrphanedGland/top/rtl/top.vhd
+@@ -220,14 +220,14 @@ begin
+ 
+   end generate sha256_gen;
+     
+-  registers: process(clk, reset, q_nonce(0))
++  registers: process(clk, reset)
+   begin
+     if reset = '1' then
+       q_data_in                 <= (others => '0');
+       q_h_in                    <= (others => '0');
+       q_nonce(0)                <= (others => '0');
+       for i in NUM_CORES-1 downto 1 loop
+-        q_nonce(i)              <= q_nonce(0) + i;
++        q_nonce(i)              <= i;
+       end loop;
+       q_golden_nonce            <= (others => '0');
+     elsif rising_edge(clk) then

@@ -1,0 +1,17 @@
+fabe3b43777edcb5ced8a86baaa82cb59b073760
+Fix for #540 and #533
+diff --git a/rtl/cv32e40p_if_stage.sv b/rtl/cv32e40p_if_stage.sv
+index a6377dc..6d96ac8 100644
+--- a/rtl/cv32e40p_if_stage.sv
++++ b/rtl/cv32e40p_if_stage.sv
+@@ -230,8 +230,8 @@ module cv32e40p_if_stage
+     end
+   end
+ 
+-  assign if_busy_o       = prefetch_busy;
+-  assign perf_imiss_o    = (~fetch_valid) | branch_req;
++  assign if_busy_o    = prefetch_busy;
++  assign perf_imiss_o = !fetch_valid && !branch_req;
+ 
+   // IF-ID pipeline registers, frozen when the ID stage is stalled
+   always_ff @(posedge clk, negedge rst_n)

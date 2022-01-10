@@ -1,0 +1,14 @@
+62cdb5c156b3fcb2de0ce5c42a0bc952c1b9b65d
+[pwm, rtl] Add PWM RTL and some updates
+diff --git a/hw/ip/pwm/rtl/pwm_core.sv b/hw/ip/pwm/rtl/pwm_core.sv
+index 9db73e09d..721160720 100644
+--- a/hw/ip/pwm/rtl/pwm_core.sv
++++ b/hw/ip/pwm/rtl/pwm_core.sv
+@@ -108,6 +108,7 @@ module pwm_core #(
+       .phase_ctr_i      (phase_ctr_q),
+       .clr_blink_cntr_i (clr_blink_cntr[ii]),
+       .cycle_end_i      (cycle_end),
++      .dc_resn_i        (dc_resn_sync),
+       .pwm_o            (pwm_o[ii])
+     );
+ 

@@ -1,0 +1,33 @@
+8317b037bc142ac95e4bf3ecfdfafffb7f64ef8c
+Update lowrisc_ibex to lowRISC/ibex@25cd6600
+diff --git a/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv b/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
+index 3de2c17ef..68c7bf7fb 100644
+--- a/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
++++ b/hw/vendor/lowrisc_ibex/examples/simple_system/rtl/ibex_simple_system.sv
+@@ -161,7 +161,7 @@ module ibex_simple_system (
+     .cfg_device_addr_mask
+   );
+ 
+-  ibex_core_tracing #(
++  ibex_top_tracing #(
+       .SecureIbex      ( SecureIbex      ),
+       .PMPEnable       ( PMPEnable       ),
+       .PMPGranularity  ( PMPGranularity  ),
+@@ -178,7 +178,7 @@ module ibex_simple_system (
+       .BranchPredictor ( BranchPredictor ),
+       .DmHaltAddr      ( 32'h00100000    ),
+       .DmExceptionAddr ( 32'h00100000    )
+-    ) u_core (
++    ) u_top (
+       .clk_i                 (clk_sys),
+       .rst_ni                (rst_sys_n),
+ 
+@@ -282,7 +282,7 @@ module ibex_simple_system (
+   export "DPI-C" function mhpmcounter_get;
+ 
+   function automatic longint unsigned mhpmcounter_get(int index);
+-    return u_core.u_ibex_core.cs_registers_i.mhpmcounter[index];
++    return u_top.u_ibex_top.u_ibex_core.cs_registers_i.mhpmcounter[index];
+   endfunction
+ 
+ endmodule

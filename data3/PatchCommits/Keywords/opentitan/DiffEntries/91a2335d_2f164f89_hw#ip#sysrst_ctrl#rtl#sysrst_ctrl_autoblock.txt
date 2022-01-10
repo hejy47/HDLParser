@@ -1,0 +1,26 @@
+91a2335db7c362ea12962a6d0ccc6f589c1d01a3
+[sysrst_ctrl] cleaned up unused lint errors
+diff --git a/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_autoblock.sv b/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_autoblock.sv
+index 510252af2..2d48836f7 100644
+--- a/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_autoblock.sv
++++ b/hw/ip/sysrst_ctrl/rtl/sysrst_ctrl_autoblock.sv
+@@ -39,8 +39,8 @@ module sysrst_ctrl_autoblock import sysrst_ctrl_reg_pkg::*; (
+   logic ab_cond_met;
+   logic pwrb_int_i;
+ 
+-  //nc_ means no connect
+-  logic nc_auto_block_enable;
++  //unused_ means no connect
++  logic unused_auto_block_enable;
+ 
+   //synchronize between cfg(24MHz) and always-on(200KHz)
+   prim_flop_2sync # (
+@@ -52,7 +52,7 @@ module sysrst_ctrl_autoblock import sysrst_ctrl_reg_pkg::*; (
+     .q_o(cfg_auto_block_en)
+   );
+ 
+-  assign nc_auto_block_enable = auto_block_debounce_ctl_i.auto_block_enable.qe;
++  assign unused_auto_block_enable = auto_block_debounce_ctl_i.auto_block_enable.qe;
+ 
+   prim_fifo_async #(
+     .Width(16),

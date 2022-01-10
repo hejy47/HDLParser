@@ -1,0 +1,733 @@
+======Commit: 0a082e5e======
+======Short Message======
+fix: fix compile error when RSD_DISABLE_DEBUG_REGISTER is defined
+======Full Message======
+fix: fix compile error when RSD_DISABLE_DEBUG_REGISTER is defined
+
+
+
+
+======Commit: c834e16f======
+======Short Message======
+refactor: add a suffix "_" to private method's names 
+======Full Message======
+refactor: add a suffix "_" to private method's names 
+
+
+
+
+======Commit: 3ba7dd00======
+======Short Message======
+fix: fix a bug where labels are outputted more than once
+======Full Message======
+fix: fix a bug where labels are outputted more than once
+
+
+
+
+======Commit: 6b3b4dfd======
+======Short Message======
+fix: fix a bug where id wrap around is incorrectly processed
+======Full Message======
+fix: fix a bug where id wrap around is incorrectly processed
+
+
+
+
+======Commit: 0f4d86f1======
+======Short Message======
+fix: fix a bug where the fetch width is incorrecctly used 
+======Full Message======
+fix: fix a bug where the fetch width is incorrecctly used 
+
+
+
+
+======Commit: 0070dd92======
+======Short Message======
+fix: fix a bug where a branch misprediction signal is incorrect
+======Full Message======
+fix: fix a bug where a branch misprediction signal is incorrect
+
+
+
+
+======Commit: fdbc95b6======
+======Short Message======
+docs: fix spelling errors
+======Full Message======
+docs: fix spelling errors
+
+
+
+
+======Commit: 5d9e75d7======
+======Short Message======
+docs: fix spelling errors
+======Full Message======
+docs: fix spelling errors
+
+
+
+
+======Commit: cb18e487======
+======Short Message======
+docs: fix spelling errors
+======Full Message======
+docs: fix spelling errors
+
+
+
+
+======Commit: bb0c4b71======
+======Short Message======
+refactor: fix spelling errors
+======Full Message======
+refactor: fix spelling errors
+
+
+
+
+======Commit: cd61e9b0======
+======Short Message======
+fix: fix internal cycle counters for Konata
+======Full Message======
+fix: fix internal cycle counters for Konata
+
+
+
+
+======Commit: 6cea14bc======
+======Short Message======
+chore: fix spelling errors
+======Full Message======
+chore: fix spelling errors
+
+
+
+
+======Commit: 56b80962======
+======Short Message======
+chore: add some words to dictionary to detect spelling errors
+======Full Message======
+chore: add some words to dictionary to detect spelling errors
+
+
+
+
+======Commit: c2ab988c======
+======Short Message======
+fix: add temporal signal for synthesizing on Vivado only without error
+======Full Message======
+fix: add temporal signal for synthesizing on Vivado only without error
+
+
+
+
+======Commit: 039276c3======
+======Short Message======
+Merge pull request #25 from rsd-devel/fix-for-latest-sim
+======Full Message======
+Merge pull request #25 from rsd-devel/fix-for-latest-sim
+
+Fix for latest sim
+
+
+======Commit: e3f14cf4======
+======Short Message======
+Merge branch 'fix-for-latest-sim' into add-setassociative-dcache-tree-lru
+======Full Message======
+Merge branch 'fix-for-latest-sim' into add-setassociative-dcache-tree-lru
+
+# Conflicts:
+#	Processor/Src/Cache/DCache.sv
+
+
+
+======Commit: fdbdc191======
+======Short Message======
+fix: fix compile error on Synplify
+======Full Message======
+fix: fix compile error on Synplify
+
+
+
+
+======Commit: 3b6908b5======
+======Short Message======
+fix: Fix error on wrong use of enum in DCache
+======Full Message======
+fix: Fix error on wrong use of enum in DCache
+
+
+
+
+======Commit: 7360a174======
+======Short Message======
+refactor: fix spelling errors
+======Full Message======
+refactor: fix spelling errors
+
+
+
+
+======Commit: ee8b36b2======
+======Short Message======
+fix: fix dumpers so that verilator/modelsim outputs the same Kanata log 
+======Full Message======
+fix: fix dumpers so that verilator/modelsim outputs the same Kanata log 
+
+
+
+
+======Commit: ed8aeb4f======
+======Short Message======
+fix: elapsed cycles in velirator now match those in modelsim
+======Full Message======
+fix: elapsed cycles in velirator now match those in modelsim
+
+
+
+
+======Commit: bf721885======
+======Short Message======
+fix: fix a bug where modelsim outputs error in assert
+======Full Message======
+fix: fix a bug where modelsim outputs error in assert
+
+
+
+
+======Commit: bd4b3e44======
+======Short Message======
+fix: fix bugs where write queues for PHT/BTB are not reset correctly
+======Full Message======
+fix: fix bugs where write queues for PHT/BTB are not reset correctly
+
+
+
+
+======Commit: c6447ac9======
+======Short Message======
+fix: fix parts that modelsim 2020.2 cannot compile
+======Full Message======
+fix: fix parts that modelsim 2020.2 cannot compile
+
+
+
+
+======Commit: f05a97f5======
+======Short Message======
+fix: fix error message decoding for Verilator 4.106 
+======Full Message======
+fix: fix error message decoding for Verilator 4.106 
+
+
+
+
+======Commit: 8c995318======
+======Short Message======
+Fix Synplify project file
+======Full Message======
+Fix Synplify project file
+
+
+
+
+======Commit: 65cfacb8======
+======Short Message======
+Fix a bug that causes an overflow in TestMain.cpp
+======Full Message======
+Fix a bug that causes an overflow in TestMain.cpp
+
+
+
+
+======Commit: 70531429======
+======Short Message======
+Fix a bug in the port arbitration for the replacement of DCache
+======Full Message======
+Fix a bug in the port arbitration for the replacement of DCache
+
+
+
+
+======Commit: daa23f24======
+======Short Message======
+Fix a bug where MCAUSE is updated at incorrect timing
+======Full Message======
+Fix a bug where MCAUSE is updated at incorrect timing
+
+
+
+
+======Commit: 8d7cbffe======
+======Short Message======
+Fix a bug that NRU is updated multiple times with one access when updating from LSU
+======Full Message======
+Fix a bug that NRU is updated multiple times with one access when updating from LSU
+
+
+
+======Commit: 88ee931e======
+======Short Message======
+Fix a bug related to updating the state of DCacheEvictWaySelector
+======Full Message======
+Fix a bug related to updating the state of DCacheEvictWaySelector
+
+
+
+======Commit: fb90e1cb======
+======Short Message======
+Fix a bug related to updating the state of DCacheEvictWaySelector
+======Full Message======
+Fix a bug related to updating the state of DCacheEvictWaySelector
+
+
+
+======Commit: da73b24d======
+======Short Message======
+Fix read/write index for NRU
+======Full Message======
+Fix read/write index for NRU
+
+Note: This fixes a mistake made during the refactoring.
+The commit numbers associated with the mistake are 531d22c and 9e71ed7.
+
+
+
+======Commit: bba7134d======
+======Short Message======
+Merge pull request #20 from odxa20/patch-1
+======Full Message======
+Merge pull request #20 from odxa20/patch-1
+
+Added return statement to GetCommittedRegisterValue
+
+
+======Commit: 79d2000a======
+======Short Message======
+Added return statement to GetCommittedRegisterValue 
+======Full Message======
+Added return statement to GetCommittedRegisterValue 
+
+Added return statement to GetCommittedRegisterValue because in my system leaving this out makes the last for loop run forever and causes a segmentation fault due to out of bound access to the debugValue array
+
+
+======Commit: 4905234d======
+======Short Message======
+Add tmp signals to fix bugs
+======Full Message======
+Add tmp signals to fix bugs
+
+
+
+======Commit: 5423d4f2======
+======Short Message======
+Fix latch generation issue
+======Full Message======
+Fix latch generation issue
+
+
+
+======Commit: eed071d8======
+======Short Message======
+Fix a bug related to initialization
+======Full Message======
+Fix a bug related to initialization
+
+
+
+======Commit: 9e71ed75======
+======Short Message======
+Fix undefined signal value for read
+======Full Message======
+Fix undefined signal value for read
+
+
+
+======Commit: 48a73a5a======
+======Short Message======
+Add logic initialization to fix bugs
+======Full Message======
+Add logic initialization to fix bugs
+
+
+
+======Commit: 39ff35b7======
+======Short Message======
+Fix compile error
+======Full Message======
+Fix compile error
+
+
+
+======Commit: eaf0945a======
+======Short Message======
+Fix logic width
+======Full Message======
+Fix logic width
+
+
+
+======Commit: dd774817======
+======Short Message======
+fix: update code.hex
+======Full Message======
+fix: update code.hex
+
+
+
+
+======Commit: dc9384f1======
+======Short Message======
+fix: change error messages
+======Full Message======
+fix: change error messages
+
+
+
+
+======Commit: 4fb096c5======
+======Short Message======
+fix: change the way to specify the name and version of gcc
+======Full Message======
+fix: change the way to specify the name and version of gcc
+
+
+
+
+======Commit: 55631950======
+======Short Message======
+[fix] remove unused functions in rsd-loader.c
+======Full Message======
+[fix] remove unused functions in rsd-loader.c
+
+
+
+
+======Commit: efe048c4======
+======Short Message======
+[fix] fix small bugs
+======Full Message======
+[fix] fix small bugs
+
+
+
+
+======Commit: ce51f4ac======
+======Short Message======
+fix: a small bug fix
+======Full Message======
+fix: a small bug fix
+
+
+
+
+======Commit: 88199c5a======
+======Short Message======
+fix: fix bugs on verilator and Synplify post-synth simulation
+======Full Message======
+fix: fix bugs on verilator and Synplify post-synth simulation
+
+
+
+
+======Commit: 9212479d======
+======Short Message======
+fix: fix small bugs
+======Full Message======
+fix: fix small bugs
+
+
+
+
+======Commit: c46d5bb3======
+======Short Message======
+fix: modify to pass argument when using XilinxTools
+======Full Message======
+fix: modify to pass argument when using XilinxTools
+
+
+
+
+======Commit: 982bc8c3======
+======Short Message======
+fix: add auto-generated Vivado project file for post-synthesis simulation
+======Full Message======
+fix: add auto-generated Vivado project file for post-synthesis simulation
+
+
+
+
+======Commit: c0df2f9c======
+======Short Message======
+fix: add compiler directive to Vivado post-synthesis project
+======Full Message======
+fix: add compiler directive to Vivado post-synthesis project
+
+
+
+
+======Commit: 43f76863======
+======Short Message======
+fix: fix commands to build uboot, devicetree, and kernel
+======Full Message======
+fix: fix commands to build uboot, devicetree, and kernel
+
+
+
+
+======Commit: b57eb897======
+======Short Message======
+fix: fix a bug that compilation error occurs in post-synthesis on QuestaSim
+======Full Message======
+fix: fix a bug that compilation error occurs in post-synthesis on QuestaSim
+
+
+
+
+======Commit: 890f0369======
+======Short Message======
+fix: fix a bug that compilation error occurs on QuestaSim
+======Full Message======
+fix: fix a bug that compilation error occurs on QuestaSim
+
+
+
+
+======Commit: 993a1eb5======
+======Short Message======
+fix: fix to compile correctly with verilator
+======Full Message======
+fix: fix to compile correctly with verilator
+
+
+
+
+======Commit: f5f90f5e======
+======Short Message======
+fix: move all Vivado scripts in one directory
+======Full Message======
+fix: move all Vivado scripts in one directory
+
+
+
+
+======Commit: 1b94b8e2======
+======Short Message======
+fix: fix bug where post-synthesis simulation on Vivado did not run correctly
+======Full Message======
+fix: fix bug where post-synthesis simulation on Vivado did not run correctly
+
+
+
+
+======Commit: 54c344c5======
+======Short Message======
+Merge pull request #14 from felixonmars/patch-1
+======Full Message======
+Merge pull request #14 from felixonmars/patch-1
+
+Correct some typos in RSD_Parser.py
+
+
+======Commit: a8c25703======
+======Short Message======
+Merge pull request #12 from dalance/fix_modport
+======Full Message======
+Merge pull request #12 from dalance/fix_modport
+
+Fix modport direction and conflict
+
+
+======Commit: 6c02ac62======
+======Short Message======
+fix: change RSD_VIVADOSIM_PATH to RSD_VIVADO_BIN
+======Full Message======
+fix: change RSD_VIVADOSIM_PATH to RSD_VIVADO_BIN
+
+
+
+
+======Commit: 9263fb18======
+======Short Message======
+fix: change the directory structure under Processor/Project/Vivado
+======Full Message======
+fix: change the directory structure under Processor/Project/Vivado
+
+
+
+
+======Commit: 4722d3cf======
+======Short Message======
+fix: remove non-Vivado RAM from the post-synthesis project
+======Full Message======
+fix: remove non-Vivado RAM from the post-synthesis project
+
+
+
+
+======Commit: 4aab654d======
+======Short Message======
+fix: fix I/O definition so the debug register can be referenced when post-synthesis simulation
+======Full Message======
+fix: fix I/O definition so the debug register can be referenced when post-synthesis simulation
+
+
+
+
+======Commit: 78069335======
+======Short Message======
+Merge remote-tracking branch 'origin/fix-post-synthesis-bug' into support-vivado-alone-synthesis
+======Full Message======
+Merge remote-tracking branch 'origin/fix-post-synthesis-bug' into support-vivado-alone-synthesis
+
+
+
+
+======Commit: 33505e95======
+======Short Message======
+Fix modport direction and conflict
+======Full Message======
+Fix modport direction and conflict
+
+
+
+======Commit: b5731156======
+======Short Message======
+fix: fix bugs where vivado cannot compile them
+======Full Message======
+fix: fix bugs where vivado cannot compile them
+
+Merge branch 'support-vivado-alone-synthesis'
+
+
+
+======Commit: 518f0527======
+======Short Message======
+docs: merge branch 'mithro-fix-license-information'
+======Full Message======
+docs: merge branch 'mithro-fix-license-information'
+
+
+
+======Commit: 46ce16ed======
+======Short Message======
+fix: Update RAM_Vivado.sv for synthesis on Vivado
+======Full Message======
+fix: Update RAM_Vivado.sv for synthesis on Vivado
+
+
+
+
+======Commit: dea3bb8a======
+======Short Message======
+Fix errors for synthesis on Vivado
+======Full Message======
+Fix errors for synthesis on Vivado
+
+
+
+
+======Commit: c6f34718======
+======Short Message======
+Fixing LICENSE file
+======Full Message======
+Fixing LICENSE file
+
+Using the GitHub template for the Apache 2.0 should fix the license detection.
+
+
+======Commit: b508c6e3======
+======Short Message======
+Fix bug writing empty line in BinaryToHex.py
+======Full Message======
+Fix bug writing empty line in BinaryToHex.py
+
+
+
+======Commit: 8576689e======
+======Short Message======
+Fix loader bug
+======Full Message======
+Fix loader bug
+
+
+
+======Commit: 0d1314cb======
+======Short Message======
+Fix linker script
+======Full Message======
+Fix linker script
+
+
+
+======Commit: c190bb04======
+======Short Message======
+Merge pull request #3 from mmxsrup/fix-format-string
+======Full Message======
+Merge pull request #3 from mmxsrup/fix-format-string
+
+Fixed wrong format string
+
+
+======Commit: 47d5e09c======
+======Short Message======
+Fix makefile for running post-synthesis simulation correctly
+======Full Message======
+Fix makefile for running post-synthesis simulation correctly
+
+
+
+
+======Commit: b24b3282======
+======Short Message======
+Fix wrong format string
+======Full Message======
+Fix wrong format string
+
+
+
+======Commit: 143fe549======
+======Short Message======
+Fix codes to avoid errors in Vivado simulation
+======Full Message======
+Fix codes to avoid errors in Vivado simulation
+
+
+
+======Commit: 9a404eef======
+======Short Message======
+Merge branch 'fix-wrong-macro-invocation'
+======Full Message======
+Merge branch 'fix-wrong-macro-invocation'
+
+
+
+======Commit: 9a947bc9======
+======Short Message======
+Fixed wrong macro invocation
+======Full Message======
+Fixed wrong macro invocation
+
+
+
+======Commit: c50a496d======
+======Short Message======
+Merge branch 'fix-environment-bugs'
+======Full Message======
+Merge branch 'fix-environment-bugs'
+
+
+
+
+======Commit: 52c86be4======
+======Short Message======
+Fix bug that test programs cannot not be copied appropriately from RSD-env
+======Full Message======
+Fix bug that test programs cannot not be copied appropriately from RSD-env
+
+
+
+

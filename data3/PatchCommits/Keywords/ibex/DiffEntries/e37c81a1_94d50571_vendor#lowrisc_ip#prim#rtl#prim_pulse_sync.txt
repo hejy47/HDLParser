@@ -1,0 +1,20 @@
+e37c81a1c1c6801cfea218e14ab12574a43fa749
+Update lowrisc_ip to lowRISC/opentitan@067272a2
+diff --git a/vendor/lowrisc_ip/prim/rtl/prim_pulse_sync.sv b/vendor/lowrisc_ip/prim/rtl/prim_pulse_sync.sv
+index 143b0884..ad275fd9 100644
+--- a/vendor/lowrisc_ip/prim/rtl/prim_pulse_sync.sv
++++ b/vendor/lowrisc_ip/prim/rtl/prim_pulse_sync.sv
+@@ -39,11 +39,11 @@ module prim_pulse_sync (
+ 
+   prim_flop_2sync #(.Width(1)) prim_flop_2sync (
+     // source clock domain
+-    .d      (src_level),
++    .d_i    (src_level),
+     // destination clock domain
+     .clk_i  (clk_dst_i),
+     .rst_ni (rst_dst_ni),
+-    .q      (dst_level)
++    .q_o    (dst_level)
+   );
+ 
+   ////////////////////////////////////////

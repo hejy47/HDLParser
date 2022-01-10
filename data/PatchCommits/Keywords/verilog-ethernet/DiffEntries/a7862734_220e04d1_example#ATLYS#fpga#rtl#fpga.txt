@@ -1,0 +1,17 @@
+a78627343d6da8c50c52f4a11aa624b5d84858de
+Change default target parameter
+diff --git a/example/ATLYS/fpga/rtl/fpga.v b/example/ATLYS/fpga/rtl/fpga.v
+index a3f61bc..9afe071 100644
+--- a/example/ATLYS/fpga/rtl/fpga.v
++++ b/example/ATLYS/fpga/rtl/fpga.v
+@@ -179,7 +179,9 @@ sync_signal_inst (
+     .out({uart_rxd_int})
+ );
+ 
+-fpga_core
++fpga_core #(
++    .TARGET("XILINX")
++)
+ core_inst (
+     /*
+      * Clock: 125MHz

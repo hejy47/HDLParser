@@ -1,0 +1,24 @@
+ee57f869f1f74a0b39c18d29c6f71cb195e400bd
+axi_dmac: Fix bus resize block reset
+diff --git a/library/axi_dmac/request_arb.v b/library/axi_dmac/request_arb.v
+index b2067a4e..06204f7f 100644
+--- a/library/axi_dmac/request_arb.v
++++ b/library/axi_dmac/request_arb.v
+@@ -839,7 +839,7 @@ util_axis_resize #(
+   .MASTER_DATA_WIDTH(DMA_DATA_WIDTH)
+ ) i_src_repack (
+   .clk(src_clk),
+-  .resetn(src_resetn & src_enable),
++  .resetn(src_resetn & ~src_sync_id),
+   .s_valid(src_fifo_valid),
+   .s_ready(src_fifo_ready),
+   .s_data(src_fifo_data),
+@@ -874,7 +874,7 @@ util_axis_resize #(
+   .MASTER_DATA_WIDTH(DMA_DATA_WIDTH_DEST)
+ ) i_dest_repack (
+   .clk(dest_clk),
+-  .resetn(dest_resetn & dest_enable),
++  .resetn(dest_resetn & ~dest_sync_id),
+   .s_valid(dest_fifo_valid),
+   .s_ready(dest_fifo_ready),
+   .s_data(dest_fifo_data),

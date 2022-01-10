@@ -1,0 +1,14 @@
+32fa44c404c4ac82a7d274425d86e94c8b187bb8
+Merge pull request #38 from wallento/patch-1
+diff --git a/riscv_prefetch_buffer.sv b/riscv_prefetch_buffer.sv
+index ec9e3ce..d0ebb74 100644
+--- a/riscv_prefetch_buffer.sv
++++ b/riscv_prefetch_buffer.sv
+@@ -123,6 +123,7 @@ module riscv_prefetch_buffer
+     fifo_clear         = 1'b0;
+     hwlp_branch        = 1'b0;
+     hwloop_speculative = 1'b0;
++    hwlp_masked        = 1'b0;
+ 
+     unique case (hwlp_CS)
+       HWLP_NONE: begin

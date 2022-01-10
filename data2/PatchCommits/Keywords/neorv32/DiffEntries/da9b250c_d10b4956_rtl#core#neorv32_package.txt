@@ -1,0 +1,15 @@
+da9b250cad785681f1234b0eefa7373beab66db9
+Merge pull request #170 from henrikbrixandersen/sysint_axi4_uart1_swap_fix
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index 3dcbec3..501dcc3 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -64,7 +64,7 @@ package neorv32_package is
+   -- Architecture Constants (do not modify!) ------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+   constant data_width_c : natural := 32; -- native data path width - do not change!
+-  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01060102"; -- no touchy!
++  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01060103"; -- no touchy!
+   constant archid_c     : natural := 19; -- official NEORV32 architecture ID - hands off!
+ 
+   -- External Interface Types ---------------------------------------------------------------

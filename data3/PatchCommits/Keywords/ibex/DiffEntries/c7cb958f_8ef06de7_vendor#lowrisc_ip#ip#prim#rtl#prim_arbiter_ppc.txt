@@ -1,0 +1,17 @@
+c7cb958f0d6f143d835e33d7efe27336cc7737c1
+Update lowrisc_ip to lowRISC/opentitan@ca950b43a
+diff --git a/vendor/lowrisc_ip/ip/prim/rtl/prim_arbiter_ppc.sv b/vendor/lowrisc_ip/ip/prim/rtl/prim_arbiter_ppc.sv
+index 152015eb..86bef1e9 100644
+--- a/vendor/lowrisc_ip/ip/prim/rtl/prim_arbiter_ppc.sv
++++ b/vendor/lowrisc_ip/ip/prim/rtl/prim_arbiter_ppc.sv
+@@ -113,7 +113,9 @@ module prim_arbiter_ppc #(
+       end
+     end else begin: gen_nodatapath
+       assign data_o = '1;
+-      // TODO: waive data_i from NOT_READ error
++      // The following signal is used to avoid possible lint errors.
++      logic [DW-1:0] unused_data [N];
++      assign unused_data = data_i;
+     end
+ 
+     always_comb begin

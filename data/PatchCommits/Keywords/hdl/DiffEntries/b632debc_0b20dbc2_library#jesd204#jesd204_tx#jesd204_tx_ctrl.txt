@@ -1,0 +1,32 @@
+b632debc35fea5e0445758022b25cefb7124a38b
+jesd204:tx_ctrl: Fix sync_bits instance
+diff --git a/library/jesd204/jesd204_tx/jesd204_tx_ctrl.v b/library/jesd204/jesd204_tx/jesd204_tx_ctrl.v
+index 3c875678..676696a3 100644
+--- a/library/jesd204/jesd204_tx/jesd204_tx_ctrl.v
++++ b/library/jesd204/jesd204_tx/jesd204_tx_ctrl.v
+@@ -93,17 +93,14 @@ reg cgs_enable = 1'b1;
+ 
+ wire [NUM_LINKS-1:0] status_sync_cdc;
+ 
+-genvar i;
+-generate
+-  for (i=0; i<NUM_LINKS; i=i+1) begin : SYNC_CDC
+-    sync_bits i_cdc_sync (
+-      .in(sync[i]),
+-      .out_clk(clk),
+-      .out_resetn(1'b1),
+-      .out(status_sync_cdc[i])
+-    );
+-  end
+-endgenerate
++sync_bits #(
++  .NUM_OF_BITS (NUM_LINKS))
++i_cdc_sync (
++  .in(sync),
++  .out_clk(clk),
++  .out_resetn(1'b1),
++  .out(status_sync_cdc)
++);
+ assign status_sync = status_sync_cdc ^ cfg_links_disable;
+ 
+ always @(posedge clk) begin

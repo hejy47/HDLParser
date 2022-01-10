@@ -1,0 +1,17 @@
+dcbb54da015402db10bff092bd4291ece1fddc6d
+[prim_lc_combine] Fix parameterization error
+diff --git a/hw/ip/prim/rtl/prim_lc_combine.sv b/hw/ip/prim/rtl/prim_lc_combine.sv
+index 870d7c757..f66e57297 100644
+--- a/hw/ip/prim/rtl/prim_lc_combine.sv
++++ b/hw/ip/prim/rtl/prim_lc_combine.sv
+@@ -63,8 +63,8 @@ module prim_lc_combine #(
+   // different from the active value.
+   //
+   for (genvar k = 0; k < $bits(ActiveValue); k++) begin : gen_loop
+-    if (ActiveLow && ActiveValue[k] ||
+-       (!ActiveLow && !ActiveValue[k])) begin : gen_and_gate
++    if (CombineMode && ActiveValue[k] ||
++       (!CombineMode && !ActiveValue[k])) begin : gen_and_gate
+       assign lc_en_o[k] = lc_en_a_i[k] && lc_en_b_i[k];
+     end else begin : gen_or_gate
+       assign lc_en_o[k] = lc_en_a_i[k] || lc_en_b_i[k];

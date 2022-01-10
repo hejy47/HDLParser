@@ -1,0 +1,16 @@
+fa7c85a9ebfd7ad3dc8744ba688dd9625b0b5725
+all: Drive undriven input signals, complete interface
+diff --git a/library/axi_ad9371/axi_ad9371_tx.v b/library/axi_ad9371/axi_ad9371_tx.v
+index fbec4de4..310b1fbe 100644
+--- a/library/axi_ad9371/axi_ad9371_tx.v
++++ b/library/axi_ad9371/axi_ad9371_tx.v
+@@ -271,6 +271,9 @@ module axi_ad9371_tx #(
+     .dac_status_unf (dac_dunf),
+     .dac_clk_ratio (32'd2),
+     .up_dac_ce (),
++    .up_pps_rcounter (32'b0),
++    .up_pps_status (1'b0),
++    .up_pps_irq_mask (),
+     .up_drp_sel (),
+     .up_drp_wr (),
+     .up_drp_addr (),

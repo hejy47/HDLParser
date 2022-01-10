@@ -1,0 +1,26 @@
+f35a407906c5e4ef757cb280d036122938d52e9e
+Update lowrisc_ip to lowRISC/opentitan@5cae0cf1
+diff --git a/vendor/lowrisc_ip/prim/rtl/prim_flop_2sync.sv b/vendor/lowrisc_ip/prim/rtl/prim_flop_2sync.sv
+index 519ce6bf..757fe18d 100644
+--- a/vendor/lowrisc_ip/prim/rtl/prim_flop_2sync.sv
++++ b/vendor/lowrisc_ip/prim/rtl/prim_flop_2sync.sv
+@@ -6,7 +6,7 @@
+ 
+ module prim_flop_2sync #(
+   parameter int Width      = 16,
+-  parameter bit ResetValue = 0
++  parameter logic [Width-1:0] ResetValue = '0
+ ) (
+   input                    clk_i,    // receive clock
+   input                    rst_ni,
+@@ -18,8 +18,8 @@ module prim_flop_2sync #(
+ 
+   always_ff @(posedge clk_i or negedge rst_ni)
+     if (!rst_ni) begin
+-      intq <= {Width{ResetValue}};
+-      q    <= {Width{ResetValue}};
++      intq <= ResetValue;
++      q    <= ResetValue;
+     end else begin
+       intq <= d;
+       q    <= intq;

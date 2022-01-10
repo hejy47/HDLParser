@@ -1,0 +1,19 @@
+9d8296088804792c6ac9d8726285cf7a5459515a
+[dv] various updates to dv for divided clocks
+diff --git a/hw/top_earlgrey/ip/ast/rtl/aon_osc.sv b/hw/top_earlgrey/ip/ast/rtl/aon_osc.sv
+index 2ff60fa38..cef8bbc5f 100644
+--- a/hw/top_earlgrey/ip/ast/rtl/aon_osc.sv
++++ b/hw/top_earlgrey/ip/ast/rtl/aon_osc.sv
+@@ -24,9 +24,9 @@ module aon_osc #(
+ 
+ // localparam real AON_CLK_PERIOD = 5000; // 5000ns (200Khz)
+ // TBD
+-// This is a temporary work-around until the design fully supports
+-// async clocks as part of a different PR.
+-localparam real AON_CLK_PERIOD = 20;
++// sped up to 200ns by default.
++// There should be a DV hook here so that the test can choose the actual frequency
++   localparam real AON_CLK_PERIOD = 200;
+ 
+ logic init_start, clk;
+ 

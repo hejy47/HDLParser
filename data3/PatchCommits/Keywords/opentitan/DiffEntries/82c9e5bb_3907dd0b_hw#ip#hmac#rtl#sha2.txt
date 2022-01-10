@@ -1,0 +1,15 @@
+82c9e5bbc34d7d35352310c0925e0c6cb18ef39d
+[hmac] Lint fix
+diff --git a/hw/ip/hmac/rtl/sha2.sv b/hw/ip/hmac/rtl/sha2.sv
+index 120671444..4d93d790e 100644
+--- a/hw/ip/hmac/rtl/sha2.sv
++++ b/hw/ip/hmac/rtl/sha2.sv
+@@ -132,7 +132,7 @@ module sha2 import hmac_pkg::*; (
+     end else if (!sha_en) begin
+       round <= '0;
+     end else if (run_hash) begin
+-      if (round == RoundWidth'(NumRound-1)) begin
++      if (round == RoundWidth'(unsigned'(NumRound-1))) begin
+         round <= '0;
+       end else begin
+         round <= round + 1;

@@ -1,0 +1,27 @@
+2777249b654e83506b22c1ac24a5e8f753ed83f3
+[rtl/core] reworked reset system
+diff --git a/rtl/core/neorv32_cpu_cp_muldiv.vhd b/rtl/core/neorv32_cpu_cp_muldiv.vhd
+index cf5c1bd..71f5681 100644
+--- a/rtl/core/neorv32_cpu_cp_muldiv.vhd
++++ b/rtl/core/neorv32_cpu_cp_muldiv.vhd
+@@ -120,14 +120,14 @@ begin
+   begin
+     if (rstn_i = '0') then
+       state        <= IDLE;
+-      div_opx      <= (others => '-');
+-      div_opy      <= (others => '-');
+-      cnt          <= (others => '-');
+-      cp_op_ff     <= (others => '-');
++      div_opx      <= (others => def_rst_val_c);
++      div_opy      <= (others => def_rst_val_c);
++      cnt          <= (others => def_rst_val_c);
++      cp_op_ff     <= (others => def_rst_val_c);
+       start_div    <= '0';
+       valid        <= '0';
+-      div_res_corr <= '0';
+-      opy_is_zero  <= '0';
++      div_res_corr <= def_rst_val_c;
++      opy_is_zero  <= def_rst_val_c;
+     elsif rising_edge(clk_i) then
+       -- defaults --
+       start_div <= '0';

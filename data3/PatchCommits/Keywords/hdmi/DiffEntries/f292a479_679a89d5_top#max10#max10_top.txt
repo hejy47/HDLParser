@@ -1,0 +1,15 @@
+f292a479df3b9683bc0cdf783849647a1ef154b4
+Fix clock regen table index bit order inversion
+diff --git a/top/max10/max10_top.sv b/top/max10/max10_top.sv
+index cd38333..61c5759 100644
+--- a/top/max10/max10_top.sv
++++ b/top/max10/max10_top.sv
+@@ -19,7 +19,7 @@ wire clk_tmds;
+ wire clk_pixel;
+ pll pll(.inclk0(CLK_50MHZ), .c0(clk_tmds), .c1(clk_pixel));
+ 
+-localparam AUDIO_BIT_WIDTH = 20;
++localparam AUDIO_BIT_WIDTH = 16;
+ wire [AUDIO_BIT_WIDTH-1:0] audio_in;
+ wire [AUDIO_BIT_WIDTH-1:0] audio_out;
+ sawtooth #(.BIT_WIDTH(AUDIO_BIT_WIDTH)) sawtooth (.clk_audio(CLK_32KHZ), .level(audio_in));

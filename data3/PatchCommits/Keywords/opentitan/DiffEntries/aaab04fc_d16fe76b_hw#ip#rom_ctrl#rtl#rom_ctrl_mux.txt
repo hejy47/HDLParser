@@ -1,0 +1,22 @@
+aaab04fc40982b1539f8ec52acde8e4d59ab1f9e
+[rom_ctrl] Only raise ROM req line when not in reset
+diff --git a/hw/ip/rom_ctrl/rtl/rom_ctrl_mux.sv b/hw/ip/rom_ctrl/rtl/rom_ctrl_mux.sv
+index d477e80a7..3991fb1de 100644
+--- a/hw/ip/rom_ctrl/rtl/rom_ctrl_mux.sv
++++ b/hw/ip/rom_ctrl/rtl/rom_ctrl_mux.sv
+@@ -24,6 +24,7 @@ module rom_ctrl_mux #(
+ 
+   // Interface for ROM checker
+   input logic [AW-1:0]  chk_addr_i,
++  input logic           chk_req_i,
+   output logic [39:0]   chk_rdata_o,
+ 
+   // Interface for ROM
+@@ -60,6 +61,6 @@ module rom_ctrl_mux #(
+   assign chk_rdata_o = rom_scr_rdata_i;
+ 
+   assign rom_addr_o = sel_i ? chk_addr_i : bus_addr_i;
+-  assign rom_req_o  = sel_i ? 1'b1       : bus_req_i;
++  assign rom_req_o  = sel_i ? chk_req_i  : bus_req_i;
+ 
+ endmodule

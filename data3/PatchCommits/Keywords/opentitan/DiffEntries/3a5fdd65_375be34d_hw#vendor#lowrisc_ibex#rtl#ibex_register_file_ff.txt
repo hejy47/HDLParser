@@ -1,0 +1,15 @@
+3a5fdd65bfd8e71701c7e019ae980ec39610b474
+Update lowrisc_ibex to lowRISC/ibex@5826af8
+diff --git a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_ff.sv b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_ff.sv
+index 05892492f..3e887b129 100644
+--- a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_ff.sv
++++ b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_ff.sv
+@@ -95,4 +95,8 @@ module ibex_register_file_ff #(
+   assign rdata_a_o = rf_reg[raddr_a_i];
+   assign rdata_b_o = rf_reg[raddr_b_i];
+ 
++  // Signal not used in FF register file
++  logic unused_test_en;
++  assign unused_test_en = test_en_i;
++
+ endmodule

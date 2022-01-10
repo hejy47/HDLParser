@@ -1,0 +1,14 @@
+ec5e7a3278eaf2d4e315ab37ca46ff32ca52e6eb
+Added/corrected sleep interface; fixed #373, #362, #379
+diff --git a/rtl/cv32e40p_tracer.sv b/rtl/cv32e40p_tracer.sv
+index 90247b3..f32d090 100644
+--- a/rtl/cv32e40p_tracer.sv
++++ b/rtl/cv32e40p_tracer.sv
+@@ -39,7 +39,6 @@ module cv32e40p_tracer (
+   input  logic        clk,
+   input  logic        rst_n,
+ 
+-  input  logic        fetch_enable,
+   input  logic [31:0] hart_id_i,
+ 
+   input  logic [31:0] pc,

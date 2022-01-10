@@ -1,0 +1,466 @@
+======Commit: 6e8b2f67======
+======Short Message======
+Fix broken link (point to Wayback Machine)
+======Full Message======
+Fix broken link (point to Wayback Machine)
+
+
+======Commit: 6502305b======
+======Short Message======
+fix casting issues
+======Full Message======
+fix casting issues
+
+
+
+======Commit: 46d98ce0======
+======Short Message======
+fix one-off for CTS counter output
+======Full Message======
+fix one-off for CTS counter output
+
+
+
+======Commit: 6d21a1ce======
+======Short Message======
+fix one-off error in clock regen packet
+======Full Message======
+fix one-off error in clock regen packet
+
+The clock wrap counter was off by 1, so it had the chance
+to cause some downstream issues for sinks. Would work for
+most, but not all that rely on CTS to be exactly correct.
+
+
+
+======Commit: 9d5c8b06======
+======Short Message======
+audio sample packet: always send 4 samples
+======Full Message======
+audio sample packet: always send 4 samples
+
+Some televisions seem to dislike the frequent sending of audio sample
+packets with few samples (1 or 2) and will completely ignore the audio
+that's being sent without any indication of an error.
+
+This commit should deal with these TVs that are not fully compliant and
+expect us to send >= 3 samples per packet, by always sending 4 samples.
+
+I was using a set of load and clear registers, but now I've adopted a
+buffer-swapping technique similar to double-buffering in video.
+
+
+
+======Commit: bae2572d======
+======Short Message======
+Fix incorrect info frame checksum
+======Full Message======
+Fix incorrect info frame checksum
+
+Checksum was one off because I assumed ~8'd12 + 8'd12 = 8'd255
+(supposed to be 8'd0)
+
+Adding stronger checks to the testbench to make sure things are right
+and remain correct.
+
+
+
+======Commit: 05c1034f======
+======Short Message======
+top_tb: keep grey box approach & read tmds values directly, fixes #9
+======Full Message======
+top_tb: keep grey box approach & read tmds values directly, fixes #9
+
+
+
+======Commit: 8053047f======
+======Short Message======
+Merge pull request #10 from dnet/patch-1
+======Full Message======
+Merge pull request #10 from dnet/patch-1
+
+fixed source-sink mixup in README.md
+
+
+======Commit: 52add60f======
+======Short Message======
+fixed source-sink mixup in README.md
+======Full Message======
+fixed source-sink mixup in README.md
+
+
+======Commit: fdd61189======
+======Short Message======
+Fix end of SPD product desc so it can actually be up to 16 chars
+======Full Message======
+Fix end of SPD product desc so it can actually be up to 16 chars
+
+
+
+======Commit: 59d1289c======
+======Short Message======
+Handle Vivado synthesis errors, fixes #8
+======Full Message======
+Handle Vivado synthesis errors, fixes #8
+
+Also add a sanity testbench for SPD info frame
+
+
+
+======Commit: d9bd2be6======
+======Short Message======
+Fix audio padding for non 24-bit audio, closes #6
+======Full Message======
+Fix audio padding for non 24-bit audio, closes #6
+After examining IEC60958-1, it turns out that I
+thought that a 16-bit sample would be LSB aligned
+with a 24-bit sample, which is wrong: it is MSB
+aligned. That way even if the source is
+misconfigured for 24-bit when you're sending 16-bit
+you can hear it but the quiet sounds might be clamped
+and sound bad.
+
+
+
+======Commit: 96034b5b======
+======Short Message======
+Make modelsim the only sim tool, fix path for sed in travis
+======Full Message======
+Make modelsim the only sim tool, fix path for sed in travis
+
+
+
+======Commit: 956d56d5======
+======Short Message======
+Fix test/testbench confusion, try telling travis to install multilib
+======Full Message======
+Fix test/testbench confusion, try telling travis to install multilib
+
+
+
+======Commit: c235c2f1======
+======Short Message======
+Try some more travis debugging
+======Full Message======
+Try some more travis debugging
+
+
+
+======Commit: 2d6de5b7======
+======Short Message======
+Debugging failed ModelSim install on Travis
+======Full Message======
+Debugging failed ModelSim install on Travis
+
+
+
+======Commit: 2a1f99fa======
+======Short Message======
+Fix vco outputting linux_rh60
+======Full Message======
+Fix vco outputting linux_rh60
+
+
+
+======Commit: 66af81bf======
+======Short Message======
+Implement SPD InfoFrame, put audio packets in their own files, fix sub missing a byte (PB[6:0] instead of PB[7:0])
+======Full Message======
+Implement SPD InfoFrame, put audio packets in their own files, fix sub missing a byte (PB[6:0] instead of PB[7:0])
+
+
+
+======Commit: 715d2cae======
+======Short Message======
+Correct some default values for AVI InfoFrame
+======Full Message======
+Correct some default values for AVI InfoFrame
+
+
+
+======Commit: acb4d060======
+======Short Message======
+Change audio rate default to the more common 44.1kHz
+======Full Message======
+Change audio rate default to the more common 44.1kHz
+
+
+
+======Commit: 3e52a1a2======
+======Short Message======
+Make CTS assignment independent of regen packet choice to fix large jitter issue
+======Full Message======
+Make CTS assignment independent of regen packet choice to fix large jitter issue
+
+
+
+======Commit: 603befd8======
+======Short Message======
+Re-do multi-sample audio packet, fix CTS counter logic, simpilfy some statements to reduce resource usage
+======Full Message======
+Re-do multi-sample audio packet, fix CTS counter logic, simpilfy some statements to reduce resource usage
+
+
+
+======Commit: e159237d======
+======Short Message======
+Pull packet logic out of hdmi into packet picker, add generate statements to further support DVI_OUTPUT, fix CTS counter logic errors
+======Full Message======
+Pull packet logic out of hdmi into packet picker, add generate statements to further support DVI_OUTPUT, fix CTS counter logic errors
+
+
+
+======Commit: 4e32ff3e======
+======Short Message======
+Fix buffer bit width + update comments, force top to infer RAM instead of logic cells
+======Full Message======
+Fix buffer bit width + update comments, force top to infer RAM instead of logic cells
+
+
+
+======Commit: 7995f312======
+======Short Message======
+Fix 32kHz conditional
+======Full Message======
+Fix 32kHz conditional
+
+
+
+======Commit: 1a6a7cd0======
+======Short Message======
+Fix one-off error when buffer wraps around
+======Full Message======
+Fix one-off error when buffer wraps around
+
+
+
+======Commit: 3a36106e======
+======Short Message======
+Revert "Fix synthesis errors"
+======Full Message======
+Revert "Fix synthesis errors"
+
+This reverts commit 68968dc6784ff3d73bf436e5b18c895bfaac39ca.
+
+
+
+======Commit: 68968dc6======
+======Short Message======
+Fix synthesis errors
+======Full Message======
+Fix synthesis errors
+
+
+
+======Commit: dfb00a31======
+======Short Message======
+Fix sample freq routing
+======Full Message======
+Fix sample freq routing
+
+
+
+======Commit: 60a3f251======
+======Short Message======
+Fix table formatting
+======Full Message======
+Fix table formatting
+
+
+
+======Commit: 50c87ee7======
+======Short Message======
+Milestone: audio works
+======Full Message======
+Milestone: audio works
+* Finish top testbench
+* Remove all clock-based logic from packet generators
+* Move IEC 60958 frame counter to packet_assembler
+* Fix audio sample parity left being calculated with channel status right
+* Assign bytes in NULL/Audio Clock to "don't care" as per HDMI spec
+* Remove prev_packet_enable
+* Replace sawtooth audio with dummy square wave sampler
+
+
+
+======Commit: 41d01e7c======
+======Short Message======
+Fix timing for first clock tmds output
+======Full Message======
+Fix timing for first clock tmds output
+
+
+
+======Commit: 9b318630======
+======Short Message======
+Create top testbench, fix some bit size errors, fix a variable rename mistake, speed up clocks in hdmi/assembler TBs
+======Full Message======
+Create top testbench, fix some bit size errors, fix a variable rename mistake, speed up clocks in hdmi/assembler TBs
+
+
+
+======Commit: ccaa213e======
+======Short Message======
+Correct another one-off error
+======Full Message======
+Correct another one-off error
+
+
+
+======Commit: d1af50c3======
+======Short Message======
+Fix mode being 1 clock off
+======Full Message======
+Fix mode being 1 clock off
+
+
+
+======Commit: a48b2092======
+======Short Message======
+Fix subpacket parity calculation ending early, add testbench for assembler and assertions for subpacket parity
+======Full Message======
+Fix subpacket parity calculation ending early, add testbench for assembler and assertions for subpacket parity
+
+
+
+======Commit: faa15ad7======
+======Short Message======
+Fix parity computation
+======Full Message======
+Fix parity computation
+
+
+
+======Commit: 4d84bca0======
+======Short Message======
+Fix incorrect word length after asserting channel status
+======Full Message======
+Fix incorrect word length after asserting channel status
+
+
+
+======Commit: f292a479======
+======Short Message======
+Fix clock regen table index bit order inversion
+======Full Message======
+Fix clock regen table index bit order inversion
+
+
+
+======Commit: cfb4a0b1======
+======Short Message======
+Fix inverted validity bits
+======Full Message======
+Fix inverted validity bits
+
+
+
+======Commit: aee2099e======
+======Short Message======
+Fix clk enable assignment
+======Full Message======
+Fix clk enable assignment
+
+
+
+======Commit: c4129db6======
+======Short Message======
+Remove 1 clock delay on hsync/vsync + fix some warnings
+======Full Message======
+Remove 1 clock delay on hsync/vsync + fix some warnings
+
+
+
+======Commit: 0141c1a9======
+======Short Message======
+Fix incorrect IEC 60958 bit order
+======Full Message======
+Fix incorrect IEC 60958 bit order
+
+
+
+======Commit: 8cc81848======
+======Short Message======
+Update testbench and fix modelsim compatibility issues
+======Full Message======
+Update testbench and fix modelsim compatibility issues
+
+
+
+======Commit: 4a73bff5======
+======Short Message======
+Correct synthesis error for now
+======Full Message======
+Correct synthesis error for now
+
+
+
+======Commit: 7474848d======
+======Short Message======
+Finalize first-pass audio implementation, onto debugging
+======Full Message======
+Finalize first-pass audio implementation, onto debugging
+
+
+
+======Commit: 9fe6ccfa======
+======Short Message======
+Bulk changes
+======Full Message======
+Bulk changes
+* Swap to SystemVerilog for aggregate assignments
+* Fix non-ANSI-compliant use of parameters
+* Use generate instead of always @*
+* Additional work on audio packetization
+* Ensure proper compilation
+
+
+
+======Commit: 48baa97c======
+======Short Message======
+Correct data_island typing error, fixes #3
+======Full Message======
+Correct data_island typing error, fixes #3
+
+
+
+======Commit: b7e8416d======
+======Short Message======
+Fix incorrect control code for 2'b11
+======Full Message======
+Fix incorrect control code for 2'b11
+
+
+
+======Commit: c96ece9b======
+======Short Message======
+Update DVI comments, hopefully fix #2 by disabling video preamble
+======Full Message======
+Update DVI comments, hopefully fix #2 by disabling video preamble
+
+
+
+======Commit: 7a6aa679======
+======Short Message======
+Rearrange modules for public use, fix DVI_OUTPUT being inverted
+======Full Message======
+Rearrange modules for public use, fix DVI_OUTPUT being inverted
+
+
+
+======Commit: d2b969e1======
+======Short Message======
+fix some one-off concerns, implement non-DVI HDMI compliance
+======Full Message======
+fix some one-off concerns, implement non-DVI HDMI compliance
+
+
+
+======Commit: 78044ea3======
+======Short Message======
+Optimize for speed, fix some incorrect operations in tmds channel
+======Full Message======
+Optimize for speed, fix some incorrect operations in tmds channel
+
+
+

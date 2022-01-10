@@ -1,0 +1,15 @@
+15e14c76b9bb6eda76e30786babf7e77bb412aeb
+jesd204_rx: Don't auto reset on frame alignment error by default
+diff --git a/library/jesd204/jesd204_rx/jesd204_rx.v b/library/jesd204/jesd204_rx/jesd204_rx.v
+index 9a11d846..98195628 100755
+--- a/library/jesd204/jesd204_rx/jesd204_rx.v
++++ b/library/jesd204/jesd204_rx/jesd204_rx.v
+@@ -52,7 +52,7 @@ module jesd204_rx #(
+   /* Only 4 is supported at the moment for 8b/10b and 8 for 64b */
+   parameter DATA_PATH_WIDTH = LINK_MODE == 2 ? 8 : 4,
+   parameter ENABLE_FRAME_ALIGN_CHECK = 1,
+-  parameter ENABLE_FRAME_ALIGN_ERR_RESET = 1
++  parameter ENABLE_FRAME_ALIGN_ERR_RESET = 0
+ ) (
+   input clk,
+   input reset,

@@ -1,0 +1,15 @@
+e7ea4037230fc7c5ee77112acd0b6d9a9feb5cf2
+Fix some naming problems
+diff --git a/src/nontrivial_mips_impl.sv b/src/nontrivial_mips_impl.sv
+index 7e23f5c..8d8df1c 100644
+--- a/src/nontrivial_mips_impl.sv
++++ b/src/nontrivial_mips_impl.sv
+@@ -149,7 +149,7 @@ module nontrivial_mips_impl #(
+ 	// synchronize reset
+ 	logic [1:0] sync_rst;
+ 	always_ff @(posedge clk) begin
+-		sync_rst <= { sync_rst[0], ~rst_n };
++		sync_rst <= { sync_rst[0], ~reset_n };
+ 	end
+ 
+ 	wire rst = sync_rst[1];

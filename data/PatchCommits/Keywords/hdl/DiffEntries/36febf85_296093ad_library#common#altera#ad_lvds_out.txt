@@ -1,0 +1,15 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/common/altera/ad_lvds_out.v b/library/common/altera/ad_lvds_out.v
+index 81f24f4a..edc75611 100644
+--- a/library/common/altera/ad_lvds_out.v
++++ b/library/common/altera/ad_lvds_out.v
+@@ -51,7 +51,7 @@ module ad_lvds_out (
+ 
+   // parameters
+ 
+-  parameter   BUFTYPE = 0;
++  parameter   DEVICE_TYPE = 0;
+   localparam  SERIES7 = 0;
+   localparam  VIRTEX6 = 1;
+ 

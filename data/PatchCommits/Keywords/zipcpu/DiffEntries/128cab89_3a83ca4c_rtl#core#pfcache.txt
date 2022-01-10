@@ -1,0 +1,15 @@
+128cab89f5edaae4699184f50c1334598ebe904e
+Formal based corrections to the pfcache module
+diff --git a/rtl/core/pfcache.v b/rtl/core/pfcache.v
+index 8f2f68d..e89aa1a 100644
+--- a/rtl/core/pfcache.v
++++ b/rtl/core/pfcache.v
+@@ -137,7 +137,7 @@ module	pfcache(i_clk, i_reset, i_new_pc, i_clear_cache,
+ 
+ 	reg			r_v_from_pc, r_v_from_last, r_new_request;
+ 	reg			rvsrc, tagsrc;
+-	wire			w_new_request, w_v_from_pc, w_v_from_last;
++	wire			w_v_from_pc, w_v_from_last;
+ 	reg	[(AW+1):0]	lastpc;
+ 	reg	[(CW-1):0]	wraddr;
+ 	reg	[(AW-1):CW]	tagvalipc, tagvallst;

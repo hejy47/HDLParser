@@ -1,0 +1,15 @@
+e38146466c337a0a5c9114e2fa90f7fe98ab93e9
+Update lowrisc_ibex to lowRISC/ibex@f30e84b
+diff --git a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_ff.sv b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_ff.sv
+index fe42fe9de..05892492f 100644
+--- a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_ff.sv
++++ b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_ff.sv
+@@ -10,7 +10,7 @@
+  * This register file is based on flip flops. Use this register file when
+  * targeting FPGA synthesis or Verilator simulation.
+  */
+-module ibex_register_file #(
++module ibex_register_file_ff #(
+     parameter bit          RV32E             = 0,
+     parameter int unsigned DataWidth         = 32,
+     parameter bit          DummyInstructions = 0

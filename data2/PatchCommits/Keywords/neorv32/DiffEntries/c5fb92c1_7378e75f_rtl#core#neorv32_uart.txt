@@ -1,0 +1,15 @@
+c5fb92c155d56debe730ea7f7c85f5f5fbdd1255
+[rtl] clean-up of generic defaults
+diff --git a/rtl/core/neorv32_uart.vhd b/rtl/core/neorv32_uart.vhd
+index 4e07581..ef0966a 100644
+--- a/rtl/core/neorv32_uart.vhd
++++ b/rtl/core/neorv32_uart.vhd
+@@ -66,7 +66,7 @@ use std.textio.all; -- obviously only for simulation
+ 
+ entity neorv32_uart is
+   generic (
+-    UART_PRIMARY : boolean := true -- true = primary UART (UART0), false = secondary UART (UART1)
++    UART_PRIMARY : boolean -- true = primary UART (UART0), false = secondary UART (UART1)
+   );
+   port (
+     -- host access --

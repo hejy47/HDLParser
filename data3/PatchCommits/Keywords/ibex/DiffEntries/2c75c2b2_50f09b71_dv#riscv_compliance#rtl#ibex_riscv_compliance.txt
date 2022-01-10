@@ -1,0 +1,14 @@
+2c75c2b2ec90bebb756386e1360810474323c1ad
+Update lowrisc_ip to lowRISC/opentitan@1ae03937f
+diff --git a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+index cc37bce5..db625783 100644
+--- a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
++++ b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+@@ -132,6 +132,7 @@ module ibex_riscv_compliance (
+       .rst_ni         (rst_sys_n         ),
+ 
+       .test_en_i      ('b0               ),
++      .ram_cfg_i      ('b0               ),
+ 
+       .hart_id_i      (32'b0             ),
+       // First instruction executed is at 0x0 + 0x80

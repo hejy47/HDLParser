@@ -1,0 +1,22 @@
+010e3cc350cf011452b3c79b8d3362ee27670d9b
+[top] Minor lint fixes
+diff --git a/hw/ip/flash_ctrl/rtl/flash_phy.sv b/hw/ip/flash_ctrl/rtl/flash_phy.sv
+index 7ec5c703c..9de316f03 100644
+--- a/hw/ip/flash_ctrl/rtl/flash_phy.sv
++++ b/hw/ip/flash_ctrl/rtl/flash_phy.sv
+@@ -22,6 +22,7 @@ module flash_phy import flash_ctrl_pkg::*; (
+   input flash_req_t flash_ctrl_i,
+   output flash_rsp_t flash_ctrl_o,
+   input scanmode_i,
++  input scan_en_i,
+   input scan_rst_ni,
+   input flash_power_ready_h_i,
+   input flash_power_down_h_i,
+@@ -265,6 +266,7 @@ module flash_phy import flash_ctrl_pkg::*; (
+     .tdo_o(tdo),
+     .bist_enable_i(flash_bist_enable_i & lc_nvm_debug_en[FlashBistSel]),
+     .scanmode_i,
++    .scan_en_i,
+     .scan_rst_ni,
+     .flash_power_ready_h_i,
+     .flash_power_down_h_i,

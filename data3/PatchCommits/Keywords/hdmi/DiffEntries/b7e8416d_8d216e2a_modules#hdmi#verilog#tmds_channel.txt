@@ -1,0 +1,15 @@
+b7e8416d3874bf2fd73d2dd64c02fcfd4163a9a6
+Fix incorrect control code for 2'b11
+diff --git a/modules/hdmi/verilog/tmds_channel.v b/modules/hdmi/verilog/tmds_channel.v
+index b997073..fcf42c0 100644
+--- a/modules/hdmi/verilog/tmds_channel.v
++++ b/modules/hdmi/verilog/tmds_channel.v
+@@ -55,7 +55,7 @@ wire [9:0] control_coding =
+     control_data == 2'b00 ? 10'b1101010100
+     : control_data == 2'b01 ? 10'b0010101011 
+     : control_data == 2'b10 ? 10'b0101010100
+-    : 10'b0101010100;
++    : 10'b1010101011;
+ 
+ // See Section 5.4.3
+ wire [9:0] terc4_coding =

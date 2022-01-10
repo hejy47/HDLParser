@@ -1,0 +1,22 @@
+9a93b56882f1de44b60fea567d075f52da1a3154
+axi_adrv9001:rx: Add reset to link layer
+diff --git a/library/axi_adrv9001/axi_adrv9001_if.v b/library/axi_adrv9001/axi_adrv9001_if.v
+index 38e74fd1..011046c6 100644
+--- a/library/axi_adrv9001/axi_adrv9001_if.v
++++ b/library/axi_adrv9001/axi_adrv9001_if.v
+@@ -237,6 +237,7 @@ module axi_adrv9001_if #(
+   adrv9001_rx_link #(
+     .CMOS_LVDS_N (CMOS_LVDS_N)
+   ) i_rx_1_link (
++    .adc_rst (rx1_rst),
+     .adc_clk_div (adc_1_clk_div),
+     .adc_data_0 (adc_1_data_0),
+     .adc_data_1 (adc_1_data_1),
+@@ -297,6 +298,7 @@ module axi_adrv9001_if #(
+   adrv9001_rx_link #(
+     .CMOS_LVDS_N (CMOS_LVDS_N)
+   ) i_rx_2_link (
++    .adc_rst (rx2_rst),
+     .adc_clk_div (adc_2_clk_div),
+     .adc_data_0 (adc_2_data_0),
+     .adc_data_1 (adc_2_data_1),

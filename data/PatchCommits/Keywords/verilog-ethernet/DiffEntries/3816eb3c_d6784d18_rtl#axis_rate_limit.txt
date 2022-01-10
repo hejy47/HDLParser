@@ -1,0 +1,16 @@
+3816eb3c20f40b72d2d23cb6964a8bd8126985c2
+Fix parameters
+diff --git a/rtl/axis_rate_limit.v b/rtl/axis_rate_limit.v
+index f1ebb70..a7f113e 100644
+--- a/rtl/axis_rate_limit.v
++++ b/rtl/axis_rate_limit.v
+@@ -31,8 +31,7 @@ THE SOFTWARE.
+  */
+ module axis_rate_limit #
+ (
+-    parameter DATA_WIDTH = 64,
+-    parameter KEEP_WIDTH = (DATA_WIDTH/8)
++    parameter DATA_WIDTH = 8
+ )
+ (
+     input  wire                   clk,

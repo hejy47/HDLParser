@@ -1,0 +1,15 @@
+b81c8373e54d0eaf3c08b41b05672663132e7fd7
+spi_engine: In read only mode SDO line should stay in its default level
+diff --git a/library/spi_engine/spi_engine_execution/spi_engine_execution.v b/library/spi_engine/spi_engine_execution/spi_engine_execution.v
+index 585c9b5a..fdbb8d2f 100644
+--- a/library/spi_engine/spi_engine_execution/spi_engine_execution.v
++++ b/library/spi_engine/spi_engine_execution/spi_engine_execution.v
+@@ -359,7 +359,7 @@ always @(posedge clk) begin
+         end
+ end
+ 
+-assign sdo = (inst_d1 == CMD_TRANSFER) ? data_shift[DATA_WIDTH] : SDO_DEFAULT;
++assign sdo = ((inst_d1 == CMD_TRANSFER) && (sdo_enabled)) ? data_shift[DATA_WIDTH] : SDO_DEFAULT;
+ 
+ assign sdi_data = (NUM_OF_SDI == 1) ? data_shift[(DATA_WIDTH-1):0] :
+                   (NUM_OF_SDI == 2) ? {data_shift_1[(DATA_WIDTH-1):0], data_shift[(DATA_WIDTH-1):0]} :

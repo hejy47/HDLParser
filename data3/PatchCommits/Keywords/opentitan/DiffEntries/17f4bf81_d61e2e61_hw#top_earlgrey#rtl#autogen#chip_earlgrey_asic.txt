@@ -1,0 +1,14 @@
+17f4bf815e5eed73c1c16d0260862c5b6d54a1ee
+[pinmux] Update strap sampling mode in DFT-enabled LC states
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+index 4d53f10b9..6737a59e7 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+@@ -103,7 +103,6 @@ module chip_earlgrey_asic (
+ 
+   // DFT and Debug signal positions in the pinout.
+   localparam pinmux_pkg::target_cfg_t PinmuxTargetCfg = '{
+-    const_sampling:    1'b1,
+     tck_idx:           TckPadIdx,
+     tms_idx:           TmsPadIdx,
+     trst_idx:          TrstNPadIdx,

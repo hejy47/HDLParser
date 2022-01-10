@@ -1,0 +1,15 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/common/altera/ad_lvds_in.v b/library/common/altera/ad_lvds_in.v
+index 459a1401..7ab54045 100644
+--- a/library/common/altera/ad_lvds_in.v
++++ b/library/common/altera/ad_lvds_in.v
+@@ -60,7 +60,7 @@ module ad_lvds_in (
+ 
+   // parameters
+ 
+-  parameter   BUFTYPE = 0;
++  parameter   DEVICE_TYPE = 0;
+   parameter   IODELAY_CTRL = 0;
+   parameter   IODELAY_GROUP = "dev_if_delay_group";
+   localparam  SERIES7 = 0;

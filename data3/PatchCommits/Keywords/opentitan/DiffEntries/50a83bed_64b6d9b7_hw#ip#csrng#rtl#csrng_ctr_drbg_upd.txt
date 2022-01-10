@@ -1,0 +1,56 @@
+50a83bedd4d6e3af8ef3c3696cf12fdbce53aaad
+[csrng/rtl] internal state read timing improvements
+diff --git a/hw/ip/csrng/rtl/csrng_ctr_drbg_upd.sv b/hw/ip/csrng/rtl/csrng_ctr_drbg_upd.sv
+index 3e198bdc8..0d1855c53 100644
+--- a/hw/ip/csrng/rtl/csrng_ctr_drbg_upd.sv
++++ b/hw/ip/csrng/rtl/csrng_ctr_drbg_upd.sv
+@@ -263,7 +263,8 @@ module csrng_ctr_drbg_upd #(
+   prim_fifo_sync #(
+     .Width(UpdReqFifoWidth),
+     .Pass(0),
+-    .Depth(UpdReqFifoDepth)
++    .Depth(UpdReqFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_updreq (
+     .clk_i    (clk_i),
+     .rst_ni   (rst_ni),
+@@ -365,7 +366,8 @@ module csrng_ctr_drbg_upd #(
+   prim_fifo_sync #(
+     .Width(BlkEncReqFifoWidth),
+     .Pass(0),
+-    .Depth(BlkEncReqFifoDepth)
++    .Depth(BlkEncReqFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_bencreq (
+     .clk_i    (clk_i),
+     .rst_ni   (rst_ni),
+@@ -406,7 +408,8 @@ module csrng_ctr_drbg_upd #(
+   prim_fifo_sync #(
+     .Width(BlkEncAckFifoWidth),
+     .Pass(0),
+-    .Depth(BlkEncAckFifoDepth)
++    .Depth(BlkEncAckFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_bencack (
+     .clk_i    (clk_i),
+     .rst_ni   (rst_ni),
+@@ -439,7 +442,8 @@ module csrng_ctr_drbg_upd #(
+   prim_fifo_sync #(
+     .Width(PDataFifoWidth),
+     .Pass(0),
+-    .Depth(PDataFifoDepth)
++    .Depth(PDataFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_pdata (
+     .clk_i    (clk_i),
+     .rst_ni   (rst_ni),
+@@ -539,7 +543,8 @@ module csrng_ctr_drbg_upd #(
+   prim_fifo_sync #(
+     .Width(FinalFifoWidth),
+     .Pass(0),
+-    .Depth(FinalFifoDepth)
++    .Depth(FinalFifoDepth),
++    .OutputZeroIfEmpty(1'b0)
+   ) u_prim_fifo_sync_final (
+     .clk_i    (clk_i),
+     .rst_ni   (rst_ni),

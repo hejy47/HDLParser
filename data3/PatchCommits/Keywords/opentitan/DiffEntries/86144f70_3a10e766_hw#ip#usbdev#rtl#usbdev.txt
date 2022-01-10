@@ -1,0 +1,15 @@
+86144f7033cb38171990fb9bd5f5f0f8f85f0c5d
+[usbdev] Fix issues discovered with linter
+diff --git a/hw/ip/usbdev/rtl/usbdev.sv b/hw/ip/usbdev/rtl/usbdev.sv
+index ae595e5cb..2f313357e 100644
+--- a/hw/ip/usbdev/rtl/usbdev.sv
++++ b/hw/ip/usbdev/rtl/usbdev.sv
+@@ -580,7 +580,7 @@ module usbdev (
+   always_comb begin : proc_stall_tieoff
+     for (int i = 0; i < NEndpoints; i++) begin
+         hw2reg.stall[i].d  = 1'b0;              
+-        if (setup_received && usb_out_endpoint == i) begin
++        if (setup_received && usb_out_endpoint == 4'(i)) begin
+           hw2reg.stall[i].de = 1'b1;
+         end else begin
+           hw2reg.stall[i].de = 1'b0;

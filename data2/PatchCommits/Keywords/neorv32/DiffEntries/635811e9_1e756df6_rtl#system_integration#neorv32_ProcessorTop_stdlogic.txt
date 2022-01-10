@@ -1,0 +1,19 @@
+635811e957a07443a59c25dfae4f6433972259e7
+[rtl/system_integration] fixed missing UART signal connection
+diff --git a/rtl/system_integration/neorv32_ProcessorTop_stdlogic.vhd b/rtl/system_integration/neorv32_ProcessorTop_stdlogic.vhd
+index d9da193..4aa6712 100644
+--- a/rtl/system_integration/neorv32_ProcessorTop_stdlogic.vhd
++++ b/rtl/system_integration/neorv32_ProcessorTop_stdlogic.vhd
+@@ -441,8 +441,12 @@ begin
+ 
+   uart0_txd_o     <= std_logic(uart0_txd_o_int);
+   uart0_rxd_i_int <= std_ulogic(uart0_rxd_i);
++  uart0_rts_o     <= std_logic(uart0_rts_o_int);
++  uart0_cts_i_int <= std_ulogic(uart0_cts_i);
+   uart1_txd_o     <= std_logic(uart1_txd_o_int);
+   uart1_rxd_i_int <= std_ulogic(uart1_rxd_i);
++  uart1_rts_o     <= std_logic(uart1_rts_o_int);
++  uart1_cts_i_int <= std_ulogic(uart1_cts_i);
+ 
+   spi_sck_o       <= std_logic(spi_sck_o_int);
+   spi_sdo_o       <= std_logic(spi_sdo_o_int);

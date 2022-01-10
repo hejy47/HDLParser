@@ -1,0 +1,17 @@
+a5e3a073750affb1e6cdc79ec89928ea2c536dc7
+dma: altera fix id assignments
+diff --git a/library/axi_dmac/axi_dmac_alt.v b/library/axi_dmac/axi_dmac_alt.v
+index 9fb9e962..1d9cefbf 100755
+--- a/library/axi_dmac/axi_dmac_alt.v
++++ b/library/axi_dmac/axi_dmac_alt.v
+@@ -353,8 +353,8 @@ module axi_dmac_alt (
+ 
+   // defaults
+ 
+-  assign s_axi_bid = 'd0;
+-  assign s_axi_rid = 'd0;
++  assign s_axi_bid = s_axi_awid;
++  assign s_axi_rid = s_axi_arid;
+   assign s_axi_rlast = 1'd0;
+ 
+   // instantiation

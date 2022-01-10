@@ -1,0 +1,18 @@
+1855295f3d2327751dbf9e8f7994c51e479b597d
+[prim_subreg_shadow] Disallow phase updates when storage err is present
+diff --git a/hw/ip/prim/rtl/prim_subreg_shadow.sv b/hw/ip/prim/rtl/prim_subreg_shadow.sv
+index 7b59e20b3..c744e4106 100644
+--- a/hw/ip/prim/rtl/prim_subreg_shadow.sv
++++ b/hw/ip/prim/rtl/prim_subreg_shadow.sv
+@@ -86,9 +86,9 @@ module prim_subreg_shadow
+   always_ff @(posedge clk_i or negedge rst_ni) begin : phase_reg
+     if (!rst_ni) begin
+       phase_q <= 1'b0;
+-    end else if (wr_en) begin
++    end else if (wr_en && !err_storage) begin
+       phase_q <= ~phase_q;
+-    end else if (phase_clear) begin
++    end else if (phase_clear || err_storage) begin
+       phase_q <= 1'b0;
+     end
+   end

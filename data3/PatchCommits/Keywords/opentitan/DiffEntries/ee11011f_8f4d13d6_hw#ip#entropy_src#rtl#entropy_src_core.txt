@@ -1,0 +1,15 @@
+ee11011fe057a188e3d2ce61182ddb10e0521685
+[entropy_src/rtl] fixes #5800
+diff --git a/hw/ip/entropy_src/rtl/entropy_src_core.sv b/hw/ip/entropy_src/rtl/entropy_src_core.sv
+index 9a5ccfe2c..bf36c09d1 100755
+--- a/hw/ip/entropy_src/rtl/entropy_src_core.sv
++++ b/hw/ip/entropy_src/rtl/entropy_src_core.sv
+@@ -577,7 +577,7 @@ module entropy_src_core import entropy_src_pkg::*; #(
+ 
+   assign sfifo_esrng_clr  = !es_enable;
+   assign sfifo_esrng_wdata = es_rng_bus;
+-  assign sfifo_esrng_pop = es_enable && es_rate_entropy_pulse && sfifo_esrng_not_empty;
++  assign sfifo_esrng_pop = es_enable_rng && es_rng_src_valid && sfifo_esrng_not_empty;
+ 
+   // note: allow input rng raw entropy to drop
+ 

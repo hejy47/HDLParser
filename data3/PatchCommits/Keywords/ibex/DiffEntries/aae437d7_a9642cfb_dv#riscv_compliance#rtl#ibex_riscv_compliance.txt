@@ -1,0 +1,15 @@
+aae437d75bd293b1f09446117c3d40671f064ea6
+[rtl] Add alert outputs
+diff --git a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+index f40918f3..8cb860cc 100644
+--- a/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
++++ b/dv/riscv_compliance/rtl/ibex_riscv_compliance.sv
+@@ -157,6 +157,8 @@ module ibex_riscv_compliance (
+       .debug_req_i    ('b0               ),
+ 
+       .fetch_enable_i ('b1               ),
++      .alert_minor_o  (                  ),
++      .alert_major_o  (                  ),
+       .core_sleep_o   (                  )
+     );
+ 

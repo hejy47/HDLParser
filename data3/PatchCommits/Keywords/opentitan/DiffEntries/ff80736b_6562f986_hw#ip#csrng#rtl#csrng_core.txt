@@ -1,0 +1,18 @@
+ff80736b44398742c53650eefe7b2293be3093cb
+[top_earlgrey/rtl] adding csrng and edn blocks
+diff --git a/hw/ip/csrng/rtl/csrng_core.sv b/hw/ip/csrng/rtl/csrng_core.sv
+old mode 100755
+new mode 100644
+index 6471592d2..bc178e263
+--- a/hw/ip/csrng/rtl/csrng_core.sv
++++ b/hw/ip/csrng/rtl/csrng_core.sv
+@@ -1125,7 +1125,8 @@ module csrng_core import csrng_pkg::*; #(
+ 
+   assign hw2reg.sum_sts.diag.de = !cs_enable;
+   assign hw2reg.sum_sts.diag.d  =
+-         (reg2hw.regen)          || // not used
++         1'b0                    &&
++         (reg2hw.regen)          && // not used
+          (|reg2hw.genbits.q);       // not used
+ 
+ 

@@ -1,0 +1,15 @@
+0dc3bb89056c154dd843ed6641d4b55a30d1cc5a
+axi_dmac: Fix src_reponse_fifo control signals
+diff --git a/library/axi_dmac/request_arb.v b/library/axi_dmac/request_arb.v
+index 360986bb..abf882d5 100644
+--- a/library/axi_dmac/request_arb.v
++++ b/library/axi_dmac/request_arb.v
+@@ -1012,6 +1012,8 @@ util_axis_fifo #(
+ 	.m_axis_ready(response_src_ready),
+ 	.m_axis_data(response_src_resp)
+ );*/
++assign src_response_empty = 1'b1;
++assign src_response_ready = 1'b1;
+ 
+ dmac_request_generator #(
+ 	.C_ID_WIDTH(C_ID_WIDTH),

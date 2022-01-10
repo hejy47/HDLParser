@@ -1,0 +1,29 @@
+de6e479401510aed7041bd8581d29b7980624958
+[entropy_src/rtl] IO changes updated
+diff --git a/hw/ip/entropy_src/rtl/entropy_src_ack_sm.sv b/hw/ip/entropy_src/rtl/entropy_src_ack_sm.sv
+index a58bd4117..66286f038 100755
+--- a/hw/ip/entropy_src/rtl/entropy_src_ack_sm.sv
++++ b/hw/ip/entropy_src/rtl/entropy_src_ack_sm.sv
+@@ -37,7 +37,12 @@ module entropy_src_ack_sm (
+     AckWait   = 6'b111000  // wait until the fifo has an entry
+   } state_e;
+ 
+-  state_e state_q, state_d;
++  state_e state_d;
++
++  logic [StateWidth-1:0] state_q;
++
++  // This primitive is used to place a size-only constraint on the
++  // flops in order to prevent FSM state encoding optimizations.
+ 
+   prim_flop #(
+     .Width(StateWidth),
+@@ -50,7 +55,7 @@ module entropy_src_ack_sm (
+   );
+ 
+   always_comb begin
+-    state_d = state_q;
++    state_d = state_e'(state_q);
+     ack_o = 1'b0;
+     fifo_pop_o = 1'b0;
+     unique case (state_q)

@@ -1,0 +1,15 @@
+d5c526d95e2d085ffcdf43eb37410d06ba8c8ad1
+Merge pull request #511 from Silabs-ArjanB/ArjanB_irq_0
+diff --git a/rtl/cv32e40p_decoder.sv b/rtl/cv32e40p_decoder.sv
+index a028cb8..5e3446a 100644
+--- a/rtl/cv32e40p_decoder.sv
++++ b/rtl/cv32e40p_decoder.sv
+@@ -2790,6 +2790,8 @@ module cv32e40p_decoder import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*;
+                 instr_rdata_i[31:20] == CSR_UEPC      ||
+                 instr_rdata_i[31:20] == CSR_MCAUSE    ||
+                 instr_rdata_i[31:20] == CSR_UCAUSE    ||
++                instr_rdata_i[31:20] == CSR_MTVEC     ||
++                instr_rdata_i[31:20] == CSR_UTVEC     ||
+                 instr_rdata_i[31:20] == CSR_PRIVLV    ||
+                 // Debug registers
+                 instr_rdata_i[31:20] == CSR_DCSR      ||

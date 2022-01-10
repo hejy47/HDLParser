@@ -1,0 +1,14 @@
+247e540cf0f406ac0057b78022c0003df958eb2b
+hdl/library- fix syntax errors/synthesis warnings
+diff --git a/library/altera/common/ad_mul.v b/library/altera/common/ad_mul.v
+index 65f24e44..f479a26c 100644
+--- a/library/altera/common/ad_mul.v
++++ b/library/altera/common/ad_mul.v
+@@ -75,6 +75,7 @@ module ad_mul #(
+   i_lpm_mult (
+     .clken (1'b1),
+     .aclr (1'b0),
++    .sclr (1'b0),
+     .sum (1'b0),
+     .clock (clk),
+     .dataa (data_a),

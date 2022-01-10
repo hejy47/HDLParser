@@ -1,0 +1,15 @@
+8317b037bc142ac95e4bf3ecfdfafffb7f64ef8c
+Update lowrisc_ibex to lowRISC/ibex@25cd6600
+diff --git a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+index 23d13be11..d676f3953 100644
+--- a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
++++ b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+@@ -173,7 +173,7 @@ module rv_core_ibex #(
+     .lc_en_o(lc_cpu_en)
+   );
+ 
+-  ibex_core #(
++  ibex_top #(
+     .PMPEnable                ( PMPEnable                ),
+     .PMPGranularity           ( PMPGranularity           ),
+     .PMPNumRegions            ( PMPNumRegions            ),

@@ -1,0 +1,15 @@
+ea4193c6682fc8064b7befdd1de6b912a777a639
+fixed ecall and broken irq sec path
+diff --git a/riscv_controller.sv b/riscv_controller.sv
+index 9e271b7..2e1c4d9 100644
+--- a/riscv_controller.sv
++++ b/riscv_controller.sv
+@@ -562,7 +562,7 @@ module riscv_controller
+           unique case(1'b1)
+             ecall_insn_i: begin
+                 //exceptions
+-                pc_mux_o              = PC_ERET;
++                pc_mux_o              = PC_EXCEPTION;
+                 pc_set_o              = 1'b1;
+                 exc_save_id_o         = 1'b1;
+                 exc_done_o            = 1'b1;

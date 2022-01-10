@@ -1,0 +1,21 @@
+be139be85c3a9bfcba7219f4b8413196949b051e
+[pwrmgr] Harden pwrmgr FSM / main_pok handling
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+index 5f109403b..0fcfeb374 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+@@ -1061,11 +1061,13 @@ module chip_earlgrey_asic (
+   // Top-level design //
+   //////////////////////
+ 
++  logic [rstmgr_pkg::PowerDomains-1:0] por_n;
++  assign por_n = {ast_pwst.main_pok, ast_pwst.aon_pok};
+   top_earlgrey #(
+     .PinmuxAonTargetCfg(PinmuxTargetCfg)
+   ) top_earlgrey (
+     // ast connections
+-    .por_n_i                      ( ast_pwst.aon_pok           ),
++    .por_n_i                      ( por_n                      ),
+     .clk_main_i                   ( ast_base_clks.clk_sys      ),
+     .clk_io_i                     ( ast_base_clks.clk_io       ),
+     .clk_usb_i                    ( ast_base_clks.clk_usb      ),

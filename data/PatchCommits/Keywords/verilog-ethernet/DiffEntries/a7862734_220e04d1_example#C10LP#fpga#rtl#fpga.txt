@@ -1,0 +1,17 @@
+a78627343d6da8c50c52f4a11aa624b5d84858de
+Change default target parameter
+diff --git a/example/C10LP/fpga/rtl/fpga.v b/example/C10LP/fpga/rtl/fpga.v
+index bc1d337..166d94c 100644
+--- a/example/C10LP/fpga/rtl/fpga.v
++++ b/example/C10LP/fpga/rtl/fpga.v
+@@ -197,7 +197,9 @@ debounce_switch_inst (
+ 
+ assign user_led = ~led_int;
+ 
+-fpga_core
++fpga_core #(
++    .TARGET("ALTERA")
++)
+ core_inst (
+     /*
+      * Clock: 125MHz

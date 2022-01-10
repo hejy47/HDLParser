@@ -1,0 +1,35 @@
+e1829a061d8ea891c1ce599b0899921e3c172804
+adrv9001: fixes for reset metastability on xilinx ioserdes
+diff --git a/library/axi_adrv9001/adrv9001_rx.v b/library/axi_adrv9001/adrv9001_rx.v
+index de15969b..e9ce7783 100644
+--- a/library/axi_adrv9001/adrv9001_rx.v
++++ b/library/axi_adrv9001/adrv9001_rx.v
+@@ -200,12 +200,26 @@ module adrv9001_rx #(
+       .CE (1'b1),
+       .I (clk_in_s),
+       .O (adc_clk_div_s));
+-
++    /*
+     BUFG I_bufg (
+       .I (adc_clk_div_s),
+       .O (adc_clk_div)
+     );
+-    assign ssi_rst = mssi_sync;
++    */
++    assign adc_clk_div = adc_clk_div_s;
++
++    xpm_cdc_async_rst
++    # (
++       .DEST_SYNC_FF    (10), // DECIMAL; range: 2-10
++       .INIT_SYNC_FF    ( 0), // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
++       .RST_ACTIVE_HIGH ( 1)  // DECIMAL; 0=active low reset, 1=active high reset
++      )
++    rst_syncro
++    (
++     .src_arst (mssi_sync  ),
++     .dest_clk (adc_clk_div),
++     .dest_arst(ssi_rst    )
++    );
+ 
+   end else begin
+     wire adc_clk_in;

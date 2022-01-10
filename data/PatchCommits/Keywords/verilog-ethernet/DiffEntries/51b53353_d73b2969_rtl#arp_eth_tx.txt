@@ -1,0 +1,15 @@
+51b5335318c83e2662a0edb768b05ac7cbcd6603
+Remove z from default states for FSM inference
+diff --git a/rtl/arp_eth_tx.v b/rtl/arp_eth_tx.v
+index f12475b..30d620a 100644
+--- a/rtl/arp_eth_tx.v
++++ b/rtl/arp_eth_tx.v
+@@ -139,7 +139,7 @@ assign output_eth_type = output_eth_type_reg;
+ assign busy = busy_reg;
+ 
+ always @* begin
+-    state_next = 2'bz;
++    state_next = STATE_IDLE;
+ 
+     input_frame_ready_next = 0;
+ 

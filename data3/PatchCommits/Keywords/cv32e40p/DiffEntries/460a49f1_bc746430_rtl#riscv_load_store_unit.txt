@@ -1,0 +1,15 @@
+460a49f114e74965703a9fa77cbb7195aac84438
+Merge conflict fix. Fixed double assign to irq_sec_i
+diff --git a/rtl/riscv_load_store_unit.sv b/rtl/riscv_load_store_unit.sv
+index 9e3be19..ec2b33f 100644
+--- a/rtl/riscv_load_store_unit.sv
++++ b/rtl/riscv_load_store_unit.sv
+@@ -82,7 +82,7 @@ module riscv_load_store_unit
+   logic [31:0]  data_wdata;
+ 
+   logic         misaligned_st;   // high if we are currently performing the second part of a misaligned store
+-
++  logic         load_err_o, store_err_o;
+ 
+   enum logic [1:0]  { IDLE, WAIT_RVALID, WAIT_RVALID_EX_STALL, IDLE_EX_STALL } CS, NS;
+ 

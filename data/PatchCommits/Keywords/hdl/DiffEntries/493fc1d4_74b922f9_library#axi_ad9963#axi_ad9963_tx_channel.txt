@@ -1,0 +1,14 @@
+493fc1d48b8b34a944fad0ddfb240d7db084dede
+axi_*: Fix instantiation of up_[adc|dac]_[common|channel]
+diff --git a/library/axi_ad9963/axi_ad9963_tx_channel.v b/library/axi_ad9963/axi_ad9963_tx_channel.v
+index 774b9b84..e508720e 100644
+--- a/library/axi_ad9963/axi_ad9963_tx_channel.v
++++ b/library/axi_ad9963/axi_ad9963_tx_channel.v
+@@ -228,6 +228,7 @@ module axi_ad9963_tx_channel #(
+   // single channel processor
+ 
+   up_dac_channel #(
++    .COMMON_ID (6'h11),
+     .CHANNEL_ID(CHANNEL_ID),
+     .DDS_DISABLE(DATAPATH_DISABLE),
+     .IQCORRECTION_DISABLE(DATAPATH_DISABLE),

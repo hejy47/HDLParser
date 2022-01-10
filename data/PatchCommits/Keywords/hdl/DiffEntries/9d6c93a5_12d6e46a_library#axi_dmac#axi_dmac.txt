@@ -1,0 +1,24 @@
+9d6c93a5d860e45405e133558f55722aec3cfe04
+Fix warnings
+diff --git a/library/axi_dmac/axi_dmac.v b/library/axi_dmac/axi_dmac.v
+index ac698bd3..f5332bcf 100644
+--- a/library/axi_dmac/axi_dmac.v
++++ b/library/axi_dmac/axi_dmac.v
+@@ -42,7 +42,7 @@ module axi_dmac (
+   input s_axi_aresetn,
+ 
+   input         s_axi_awvalid,
+-  input  [13:0] s_axi_awaddr,
++  input  [31:0] s_axi_awaddr,
+   output        s_axi_awready,
+   input   [2:0] s_axi_awprot,
+   input         s_axi_wvalid,
+@@ -53,7 +53,7 @@ module axi_dmac (
+   output [ 1:0] s_axi_bresp,
+   input         s_axi_bready,
+   input         s_axi_arvalid,
+-  input  [13:0] s_axi_araddr,
++  input  [31:0] s_axi_araddr,
+   output        s_axi_arready,
+   input   [2:0] s_axi_arprot,
+   output        s_axi_rvalid,

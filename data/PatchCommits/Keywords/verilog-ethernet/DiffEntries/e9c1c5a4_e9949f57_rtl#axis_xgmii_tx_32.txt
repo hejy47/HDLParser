@@ -1,0 +1,15 @@
+e9c1c5a49d63a5f28eb9b0d133baa26165385ac1
+Fix state register width
+diff --git a/rtl/axis_xgmii_tx_32.v b/rtl/axis_xgmii_tx_32.v
+index ead5aff..15f4a70 100644
+--- a/rtl/axis_xgmii_tx_32.v
++++ b/rtl/axis_xgmii_tx_32.v
+@@ -121,7 +121,7 @@ localparam [3:0]
+     STATE_IFG = 4'd7,
+     STATE_WAIT_END = 4'd8;
+ 
+-reg [2:0] state_reg = STATE_IDLE, state_next;
++reg [3:0] state_reg = STATE_IDLE, state_next;
+ 
+ // datapath control signals
+ reg reset_crc;

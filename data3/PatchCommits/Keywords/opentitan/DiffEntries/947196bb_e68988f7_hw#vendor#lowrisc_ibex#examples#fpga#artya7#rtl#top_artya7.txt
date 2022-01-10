@@ -1,0 +1,14 @@
+947196bbc9844013c4fd9c2456a46a9ba23ce1f0
+Update lowrisc_ibex to lowRISC/ibex@5c60b094
+diff --git a/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv b/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv
+index 62c9fea11..92642b39e 100644
+--- a/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv
++++ b/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv
+@@ -51,6 +51,7 @@ module top_artya7 (
+      .rst_ni                (rst_sys_n),
+ 
+      .test_en_i             ('b0),
++     .scan_rst_ni           (1'b1),
+      .ram_cfg_i             ('b0),
+ 
+      .hart_id_i             (32'b0),

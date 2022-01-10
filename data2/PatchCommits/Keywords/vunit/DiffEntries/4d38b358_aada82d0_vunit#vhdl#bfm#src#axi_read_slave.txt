@@ -1,0 +1,15 @@
+4d38b358430c75bd822e0c6f812d70836d29b3aa
+Make memory permission checking off by default.
+diff --git a/vunit/vhdl/bfm/src/axi_read_slave.vhd b/vunit/vhdl/bfm/src/axi_read_slave.vhd
+index 8c699c6b..3202a45d 100644
+--- a/vunit/vhdl/bfm/src/axi_read_slave.vhd
++++ b/vunit/vhdl/bfm/src/axi_read_slave.vhd
+@@ -88,7 +88,7 @@ begin
+         rvalid <= '1';
+         for j in 0 to burst.size-1 loop
+           idx := (address + j) mod self.data_size;
+-          rdata(8*idx+7 downto 8*idx) <= std_logic_vector(to_unsigned(read_byte(memory, address+j), 8));
++          rdata(8*idx+7 downto 8*idx) <= std_logic_vector(to_unsigned(read_byte(memory, address+j, check_permissions => true), 8));
+         end loop;
+ 
+         if burst.burst_type = axi_burst_type_incr then

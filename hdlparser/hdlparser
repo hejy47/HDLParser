@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+
+# This file is part of hdlparser.
+
+from xml.dom import minidom 
+import sys
+import os, re
+from hdlConvertorAst.language import Language
+from hdlConvertorAst.hdlAst._expr import HdlAll, HdlOthers, HdlTypeType, HdlTypeSubtype, HdlTypeAuto, HdlOp
+from hdlConvertor import HdlConvertor
+
+doc = minidom.Document()
+positions = [0]
+
+def main(file):
+  readFile(file)
+  filenames = [file]
+  include_dirs = [os.path.dirname(file)]
+  c = HdlConvertor()
+  # note that there is also Language.VERILOG_2005, Language.SYSTEM_VERILOG_2017 and others
+  try:
+    vAst = c.parse(filenames, Language.VERILOG, include_dirs, hierarchyOnly=False, debug=True)
+  except:
+    try:
+        vAst = c.parse(filenames, Language.VHDL, include_dirs, hierarchyOnly=False, debug=True)
+    except:
+        vAst = c.parse(filenames, Language.SYSTEM_VERILOG, include_dirs, hierarchyOnly=False, debug=True)
+  gumtreeAst = toGumtreeNode(vAst, "")
+  doc.appendChild(gumtreeAst)
+  processNode(vAst, gumtreeAst)
+  xml = doc.toprettyxml()
+  print(xml)
+
+def processNode(parsoNode, gumtreeNode):
+
+  children = []
+  attrsName = []
+  if parsoNode in [HdlAll, HdlOthers, HdlTypeType, HdlTypeSubtype, HdlTypeAuto]:
+    pass
+  elif isinstance(parsoNode, (list, tuple)):
+    for pNode in parsoNode:
+      if pNode: children.append(["", pNode])
+  else:
+    if hasattr(parsoNode, "__dict__"):
+      attrsName = list(parsoNode.__dict__.keys())
+    elif hasattr(parsoNode, "__slots__"):
+      attrsName = parsoNode.__slots__
+    for attrName in attrsName:
+      if attrName in ["module_name", "fn", "join_t"] or not hasattr(parsoNode, attrName): continue
+      attr = getattr(parsoNode, attrName)
+      if isinstance(attr, (list, tuple)) or attr.__class__.__name__.startswith("Hdl"):
+        children.append([attrName, attr])
+    if hasattr(parsoNode, "name") and type(parsoNode.name) == HdlOp:
+      children.append(["name", parsoNode.name])
+  for (label, parsoChild) in children:
+    gumtreeChild = toGumtreeNode(parsoChild, label)
+    if gumtreeChild != None:
+      gumtreeNode.appendChild(gumtreeChild)
+      processNode(parsoChild, gumtreeChild)
+
+def toString(s):
+  if type(s) == "str":
+    return str(s)
+
+def toGumtreeNode(vNode, label):
+  if vNode == None: return None
+  gumtreeNode = doc.createElement('tree')
+  if vNode == HdlAll:
+    gumtreeNode.setAttribute("type", "HdlAll")
+  else:
+    gumtreeNode.setAttribute("type", str(vNode.__class__.__name__))
+  
+  if hasattr(vNode, "position") and vNode.position and vNode.position.start_line:
+    startPos = positions[vNode.position.start_line-1] + vNode.position.start_column-1
+    endPos = positions[vNode.position.stop_line-1] + vNode.position.stop_column
+    length = endPos - startPos
+    gumtreeNode.setAttribute("pos", str(startPos))
+    gumtreeNode.setAttribute("length", str(length))
+  
+  nodeLabel0, nodeLabel1 = "",""
+  if hasattr(vNode, "module_name") and vNode.module_name != None:
+    nodeLabel0 = str(vNode.module_name)
+  if hasattr(vNode, "name") and type(vNode.name) != HdlOp and vNode.name != None:
+    nodeLabel1 = str(vNode.name)
+  elif hasattr(vNode, "value") and vNode.value != None:
+    nodeLabel1 = str(vNode.value)
+  elif hasattr(vNode, "val") and vNode.val != None:
+    nodeLabel1 = str(vNode.val)
+  elif hasattr(vNode, "fn") and vNode.fn != None:
+    nodeLabel1 = str(vNode.fn.name)
+  elif hasattr(vNode, "join_t") and vNode.join_t != None:
+    nodeLabel1 = str(vNode.join_t.name)
+  elif hasattr(vNode, "switch_on") and vNode.switch_on != None:
+    nodeLabel1 = str(vNode.switch_on)
+  if nodeLabel0 != "" or nodeLabel1 != "":
+    if nodeLabel0 == "":
+      gumtreeNode.setAttribute("label", nodeLabel1)
+    elif nodeLabel1 == "":
+      gumtreeNode.setAttribute("label", nodeLabel0)
+    else:
+      gumtreeNode.setAttribute("label", nodeLabel0 + "-" + nodeLabel1)
+  else:
+    gumtreeNode.setAttribute("label", label)
+  return gumtreeNode
+
+def readFile(filePath):
+  with open(filePath, 'r') as f:
+    data = f.read()
+  includeFiles = re.findall("`include \"(.+?)\"", data)
+  for includeFile in includeFiles:
+    includeFilePath = os.path.join(os.path.dirname(filePath), includeFile)
+    includeFileContent = readFile(includeFilePath)
+    data = includeFileContent + data
+  index = 0
+  for chr in data:
+    index += 1
+    if chr == '\n':
+      positions.append(index)
+  return data
+  
+if __name__ == '__main__':
+  main(sys.argv[1])
+

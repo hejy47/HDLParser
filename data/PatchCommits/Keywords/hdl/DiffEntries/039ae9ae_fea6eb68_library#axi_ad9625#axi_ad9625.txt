@@ -1,0 +1,14 @@
+039ae9ae9226e228173f5ee57bccd798baef9f2b
+fmcadc5- syntax/port name fixes
+diff --git a/library/axi_ad9625/axi_ad9625.v b/library/axi_ad9625/axi_ad9625.v
+index 940da11c..e45ab940 100644
+--- a/library/axi_ad9625/axi_ad9625.v
++++ b/library/axi_ad9625/axi_ad9625.v
+@@ -198,7 +198,6 @@ module axi_ad9625 #(
+     .adc_clk_ratio (32'd16),
+     .adc_start_code (),
+     .adc_sync (),
+-    .adc_sref_sync (),
+     .adc_sref_sync (adc_sref_sync_s),
+     .up_status_pn_err (up_adc_pn_err_s),
+     .up_status_pn_oos (up_adc_pn_oos_s),

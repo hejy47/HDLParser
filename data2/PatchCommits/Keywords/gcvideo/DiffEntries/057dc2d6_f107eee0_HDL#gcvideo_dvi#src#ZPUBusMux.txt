@@ -1,0 +1,15 @@
+057dc2d65fbc4b6c26471217dcf150a2220a716e
+ZPUBusMux: Use '-' instead of '0' for default device data
+diff --git a/HDL/gcvideo_dvi/src/ZPUBusMux.vhd b/HDL/gcvideo_dvi/src/ZPUBusMux.vhd
+index 34840dc..a375a5b 100644
+--- a/HDL/gcvideo_dvi/src/ZPUBusMux.vhd
++++ b/HDL/gcvideo_dvi/src/ZPUBusMux.vhd
+@@ -83,7 +83,7 @@ begin
+     elsif current_device = -1 then
+       -- default device
+       mem_busy_out <= '0';
+-      mem_read_out <= (others => '0');
++      mem_read_out <= (others => '-');  -- same
+     else
+       -- copy outputs of selected device
+       mem_busy_out <= DevOuts(current_device).mem_busy;

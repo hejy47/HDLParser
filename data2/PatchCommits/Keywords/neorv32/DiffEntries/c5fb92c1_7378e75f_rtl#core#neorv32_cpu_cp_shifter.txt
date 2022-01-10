@@ -1,0 +1,15 @@
+c5fb92c155d56debe730ea7f7c85f5f5fbdd1255
+[rtl] clean-up of generic defaults
+diff --git a/rtl/core/neorv32_cpu_cp_shifter.vhd b/rtl/core/neorv32_cpu_cp_shifter.vhd
+index 5897668..f725da7 100644
+--- a/rtl/core/neorv32_cpu_cp_shifter.vhd
++++ b/rtl/core/neorv32_cpu_cp_shifter.vhd
+@@ -45,7 +45,7 @@ use neorv32.neorv32_package.all;
+ 
+ entity neorv32_cpu_cp_shifter is
+   generic (
+-    FAST_SHIFT_EN : boolean := false -- use barrel shifter for shift operations
++    FAST_SHIFT_EN : boolean -- use barrel shifter for shift operations
+   );
+   port (
+     -- global control --

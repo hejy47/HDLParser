@@ -1,0 +1,24 @@
+4fe515fd5f41eb82ff3738b9f85a3eb8ef1ef9f1
+Merge remote-tracking branch 'origin' into fix325
+diff --git a/rtl/cv32e40p_sim_clock_gate.sv b/rtl/cv32e40p_sim_clock_gate.sv
+index 8cacfee..3295a48 100644
+--- a/rtl/cv32e40p_sim_clock_gate.sv
++++ b/rtl/cv32e40p_sim_clock_gate.sv
+@@ -12,7 +12,7 @@ module cv32e40p_clock_gate
+ (
+     input  logic clk_i,
+     input  logic en_i,
+-    input  logic test_en_i,
++    input  logic scan_cg_en_i,
+     output logic clk_o
+   );
+ 
+@@ -26,7 +26,7 @@ module cv32e40p_clock_gate
+   always_latch
+   begin
+      if (clk_i == 1'b0)
+-       clk_en <= en_i | test_en_i;
++       clk_en <= en_i | scan_cg_en_i;
+   end
+ 
+   assign clk_o = clk_i & clk_en;

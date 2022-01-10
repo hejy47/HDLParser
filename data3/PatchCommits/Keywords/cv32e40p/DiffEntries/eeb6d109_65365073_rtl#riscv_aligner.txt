@@ -1,0 +1,23 @@
+eeb6d1092a16837aaef626b05d827e09b5736c10
+fix NS in riscv_aligner
+diff --git a/rtl/riscv_aligner.sv b/rtl/riscv_aligner.sv
+index 2ca9a72..4e007c1 100644
+--- a/rtl/riscv_aligner.sv
++++ b/rtl/riscv_aligner.sv
+@@ -264,11 +264,11 @@ module riscv_aligner
+                 /*
+                   We jumped to a misaligned location that contains 16bits instruction
+                 */
+-                NS               = ALIGNED32;
+-                pc_n             = pc_plus2;
+-                instr_o          = {16'b0,mem_content_i[31:16]};
+-                instr_compress_o = 1'b1;
+-                update_state     = (fetch_valid_i & id_valid_i) | flush_instr_i;
++              NS               = MISALIGNED16;
++              pc_n             = pc_plus2;
++              instr_o          = {16'b0,mem_content_i[31:16]};
++              instr_compress_o = 1'b1;
++              update_state     = (fetch_valid_i & id_valid_i) | flush_instr_i;
+             end
+       end
+     endcase // CS

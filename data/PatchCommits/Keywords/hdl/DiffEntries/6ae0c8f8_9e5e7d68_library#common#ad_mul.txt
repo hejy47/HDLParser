@@ -1,0 +1,17 @@
+6ae0c8f85e1a8d4a429b3621f990343528eed571
+library: Fixed changes related to parameters
+diff --git a/library/common/ad_mul.v b/library/common/ad_mul.v
+index c5b7986c..2c3ad9f6 100644
+--- a/library/common/ad_mul.v
++++ b/library/common/ad_mul.v
+@@ -85,8 +85,8 @@ module ad_mul (
+ 
+   MULT_MACRO #(
+     .LATENCY (3),
+-    .A_DATA_WIDTH (17),
+-    .B_DATA_WIDTH (17))
++    .WIDTH_A (17),
++    .WIDTH_B (17))
+   i_mult_macro (
+     .CE (1'b1),
+     .RST (1'b0),

@@ -1,0 +1,17 @@
+6c234260b2484d7c8a64a0608f3a457ffefdb4fc
+Fix assignment type
+diff --git a/rtl/axis_pipeline_fifo.v b/rtl/axis_pipeline_fifo.v
+index aa11d78..46f958a 100644
+--- a/rtl/axis_pipeline_fifo.v
++++ b/rtl/axis_pipeline_fifo.v
+@@ -158,8 +158,8 @@ if (LENGTH > 0) begin
+ 
+         if (rst) begin
+             for (i = 0; i < LENGTH; i = i + 1) begin
+-                axis_tvalid_reg[i] = 1'b0;
+-                axis_tready_reg[i] = 1'b0;
++                axis_tvalid_reg[i] <= 1'b0;
++                axis_tready_reg[i] <= 1'b0;
+             end
+         end
+     end

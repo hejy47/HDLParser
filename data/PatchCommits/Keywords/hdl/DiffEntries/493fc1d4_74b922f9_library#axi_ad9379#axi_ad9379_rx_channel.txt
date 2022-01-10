@@ -1,0 +1,19 @@
+493fc1d48b8b34a944fad0ddfb240d7db084dede
+axi_*: Fix instantiation of up_[adc|dac]_[common|channel]
+diff --git a/library/axi_ad9379/axi_ad9379_rx_channel.v b/library/axi_ad9379/axi_ad9379_rx_channel.v
+index b738575a..5ee2c8bb 100644
+--- a/library/axi_ad9379/axi_ad9379_rx_channel.v
++++ b/library/axi_ad9379/axi_ad9379_rx_channel.v
+@@ -168,7 +168,11 @@ module axi_ad9379_rx_channel #(
+ 
+   up_adc_channel #(
+     .COMMON_ID (COMMON_ID),
+-    .CHANNEL_ID (CHANNEL_ID))
++    .CHANNEL_ID (CHANNEL_ID),
++    .USERPORTS_DISABLE(1),
++    .DATAFORMAT_DISABLE(DATAPATH_DISABLE),
++    .DCFILTER_DISABLE(DATAPATH_DISABLE),
++    .IQCORRECTION_DISABLE(DATAPATH_DISABLE))
+   i_up_adc_channel (
+     .adc_clk (adc_clk),
+     .adc_rst (adc_rst),

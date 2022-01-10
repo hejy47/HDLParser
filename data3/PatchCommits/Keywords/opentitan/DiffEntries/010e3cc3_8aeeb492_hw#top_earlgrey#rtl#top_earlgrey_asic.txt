@@ -1,0 +1,14 @@
+010e3cc350cf011452b3c79b8d3362ee27670d9b
+[top] Minor lint fixes
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+index 0a1a69c12..e97a99cb4 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+@@ -306,6 +306,7 @@ module top_earlgrey_asic (
+ 
+     // DFT signals
+     .scan_rst_ni     ( 1'b1          ),
++    .scan_en_i       ( 1'b0          ),
+     .scanmode_i      ( 1'b0          )
+   );
+ 

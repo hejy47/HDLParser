@@ -1,0 +1,26 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/axi_ad9250/axi_ad9250_channel.v b/library/axi_ad9250/axi_ad9250_channel.v
+index fd071715..c5e6b2e6 100644
+--- a/library/axi_ad9250/axi_ad9250_channel.v
++++ b/library/axi_ad9250/axi_ad9250_channel.v
+@@ -72,8 +72,8 @@ module axi_ad9250_channel (
+ 
+   // parameters
+ 
+-  parameter IQSEL = 0;
+-  parameter CHID = 0;
++  parameter Q_OR_I_N = 0;
++  parameter CHANNEL_ID = 0;
+ 
+   // adc interface
+ 
+@@ -136,7 +136,7 @@ module axi_ad9250_channel (
+   end
+   endgenerate
+ 
+-  up_adc_channel #(.PCORE_ADC_CHID(CHID)) i_up_adc_channel (
++  up_adc_channel #(.ADC_CHANNEL_ID(CHANNEL_ID)) i_up_adc_channel (
+     .adc_clk (adc_clk),
+     .adc_rst (adc_rst),
+     .adc_enable (adc_enable),

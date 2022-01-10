@@ -1,0 +1,18 @@
+a7e501077e22ac4d6ef05550defeb80c0db4c1cb
+Fixed a register use-before-name issue
+diff --git a/rtl/aux/wbdblpriarb.v b/rtl/aux/wbdblpriarb.v
+index a2e71ee..6413fa7 100644
+--- a/rtl/aux/wbdblpriarb.v
++++ b/rtl/aux/wbdblpriarb.v
+@@ -107,9 +107,10 @@ module	wbdblpriarb(i_clk, i_rst,
+ 	//
+ 	// The CYC logic is here to make certain that, by the time we determine
+ 	// who the bus owner is, we can do so based upon determined criteria.
++	reg	r_a_owner;
++
+ 	assign o_cyc_a = ((r_a_owner) ? i_a_cyc_a : i_b_cyc_a);
+ 	assign o_cyc_b = ((r_a_owner) ? i_a_cyc_b : i_b_cyc_b);
+-	reg	r_a_owner;
+ 	initial	r_a_owner = 1'b1;
+ 	always @(posedge i_clk)
+ 		if (i_rst)

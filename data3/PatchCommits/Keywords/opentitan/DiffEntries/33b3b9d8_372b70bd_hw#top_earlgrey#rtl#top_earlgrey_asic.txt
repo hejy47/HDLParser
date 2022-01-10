@@ -1,0 +1,20 @@
+33b3b9d82556c7e7244ff6e3a382dcd64b705257
+[clkmgr, top] - Add clk_aon_i, and rename other clocks
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+index 2bb4897c4..311f81f42 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_asic.sv
+@@ -180,11 +180,10 @@ module top_earlgrey_asic (
+   //////////////////////
+ 
+   top_earlgrey top_earlgrey (
+-    // Clocks, resets
+     .clk_i           ( clk           ),
+     .rst_ni          ( rst_n         ),
+-    .clk_fixed_i     ( clk           ),
+-    .clk_usb_48mhz_i ( clk_usb_48mhz ),
++    .clk_io_i        ( clk           ),
++    .clk_usb_i       ( clk_usb_48mhz ),
+ 
+     // JTAG
+     .jtag_tck_i      ( jtag_tck      ),

@@ -1,0 +1,23 @@
+a9992f02b028cfa36f0aaaf6d1f7b7006f9d7bc9
+fifo2s: bug fixes- on 64mhz dma clock
+diff --git a/library/axi_fifo2s/axi_fifo2s_wr.v b/library/axi_fifo2s/axi_fifo2s_wr.v
+index b43596df..3d2a0475 100755
+--- a/library/axi_fifo2s/axi_fifo2s_wr.v
++++ b/library/axi_fifo2s/axi_fifo2s_wr.v
+@@ -82,6 +82,7 @@ module axi_fifo2s_wr (
+   axi_buser,
+   axi_bready,
+ 
++
+   // axi status
+ 
+   axi_dwovf,
+@@ -252,7 +253,7 @@ module axi_fifo2s_wr (
+       m_xfer_init <= m_xfer_req_m[1] & ~m_xfer_req_m[2];
+       if (m_xfer_init == 1'b1) begin
+         m_xfer_limit <= 1'd1;
+-      end else if (m_xfer_addr >= AXI_ADDRLIMIT) begin
++      end else if ((m_xfer_addr >= AXI_ADDRLIMIT) || (m_xfer_enable == 1'b0)) begin
+         m_xfer_limit <= 1'd0;
+       end
+       if (m_xfer_init == 1'b1) begin

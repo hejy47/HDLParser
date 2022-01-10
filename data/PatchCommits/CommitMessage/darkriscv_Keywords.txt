@@ -1,0 +1,764 @@
+======Commit: 24aadfa5======
+======Short Message======
+fixed markdown typo
+======Full Message======
+fixed markdown typo
+
+
+
+======Commit: 8aea6e4e======
+======Short Message======
+Merge pull request #36 from zmeiresearch/master
+======Full Message======
+Merge pull request #36 from zmeiresearch/master
+
+Makefile convenience fixes and an utility to create a backtrace
+
+
+======Commit: e4429265======
+======Short Message======
+spartan-3 build fixed (problem w/ clog2()), makefile structure simplified, small enhancements in the performance report.
+======Full Message======
+spartan-3 build fixed (problem w/ clog2()), makefile structure simplified, small enhancements in the performance report.
+
+Changes to be committed:
+	modified:   Makefile
+	modified:   rtl/config.vh
+	modified:   rtl/darkriscv.v
+	modified:   rtl/darksocv.v
+	modified:   src/Makefile
+
+
+
+======Commit: 897fdac4======
+======Short Message======
+additional setup to fix the bitstream for kintex-7
+======Full Message======
+additional setup to fix the bitstream for kintex-7
+
+Changes to be committed:
+	modified:   boards/aliexpress_hpc40gbe_k420/darksocv.xise
+
+
+
+======Commit: 54b5157d======
+======Short Message======
+bug fix for spartan-3 (LUT reduction + ISE crash prevention)
+======Full Message======
+bug fix for spartan-3 (LUT reduction + ISE crash prevention)
+
+Changes to be committed:
+	modified:   rtl/config.vh
+	modified:   rtl/darkriscv.v
+
+
+
+======Commit: 8547c560======
+======Short Message======
+UART w/ buffered TX/RX option (hotfix for a special customer).
+======Full Message======
+UART w/ buffered TX/RX option (hotfix for a special customer).
+
+Changes to be committed:
+	modified:   rtl/config.vh
+	modified:   rtl/darkuart.v
+
+
+
+======Commit: fb2ea8ca======
+======Short Message======
+small fixes and optimizations in the firmware, SoC and core.
+======Full Message======
+small fixes and optimizations in the firmware, SoC and core.
+
+Changes to be committed:
+	modified:   Makefile
+	modified:   boards/avnet_microboard_lx9/darksocv.xise
+	modified:   rtl/config.vh
+	modified:   rtl/darkriscv.v
+	modified:   rtl/darksocv.v
+	modified:   rtl/darkuart.v
+	modified:   src/Makefile
+	modified:   src/banner.o
+	modified:   src/banner.s
+	deleted:    src/boot.c
+	modified:   src/boot.o
+	modified:   src/boot.s
+	modified:   src/darksocv.ld
+	modified:   src/darksocv.ld.src
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.mem
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram.mem
+	modified:   src/darksocv.rom.mem
+	modified:   src/include/stdio.h
+	modified:   src/io.o
+	modified:   src/io.s
+	modified:   src/main.c
+	modified:   src/main.o
+	modified:   src/main.s
+	modified:   src/stdio.c
+	modified:   src/stdio.o
+	modified:   src/stdio.s
+
+
+
+======Commit: 878bc324======
+======Short Message======
+hotfix regarding a bug in the div/mod routines
+======Full Message======
+hotfix regarding a bug in the div/mod routines
+
+Changes to be committed:
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.mem
+	modified:   src/darksocv.o
+	modified:   src/darksocv.rom.mem
+	modified:   src/stdio.c
+	modified:   src/stdio.o
+	modified:   src/stdio.s
+
+
+
+======Commit: f1d27973======
+======Short Message======
+Merge pull request #35 from kingsumos/master
+======Full Message======
+Merge pull request #35 from kingsumos/master
+
+Fix building example code with new gcc (v10)
+
+
+======Commit: ba5a2874======
+======Short Message======
+Fix building with example code wih new gcc (v10)
+======Full Message======
+Fix building with example code wih new gcc (v10)
+
+Add "-fcommon" option to CCFLAGS
+
+
+======Commit: b5859f1a======
+======Short Message======
+small fixes regarding logic reduction and reset logic (core). small changes in the instruction bus if (soc).
+======Full Message======
+small fixes regarding logic reduction and reset logic (core). small changes in the instruction bus if (soc).
+
+Changes to be committed:
+	modified:   rtl/config.vh
+	modified:   rtl/darkriscv.v
+	modified:   rtl/darksocv.v
+
+
+
+======Commit: e652d817======
+======Short Message======
+Support for Piswords RS485 LX9 board, fix in boot.c, updates in the README and other small fixes.
+======Full Message======
+Support for Piswords RS485 LX9 board, fix in boot.c, updates in the README and other small fixes.
+
+Changes to be committed:
+	modified:   Makefile
+	modified:   README.md
+	modified:   boards/README.md
+	new file:   boards/piswords_rs485_lx9/README.md
+	new file:   boards/piswords_rs485_lx9/darksocv.imp
+	new file:   boards/piswords_rs485_lx9/darksocv.mk
+	new file:   boards/piswords_rs485_lx9/darksocv.prj
+	new file:   boards/piswords_rs485_lx9/darksocv.ucf
+	new file:   boards/piswords_rs485_lx9/darksocv.ut
+	new file:   boards/piswords_rs485_lx9/darksocv.xise
+	new file:   boards/piswords_rs485_lx9/darksocv.xst
+	modified:   rtl/config.vh
+	modified:   src/boot.c
+	modified:   src/boot.o
+	modified:   src/boot.s
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram.mem
+	modified:   src/darksocv.rom.mem
+	modified:   src/include/io.h
+	modified:   src/io.c
+	modified:   src/io.o
+	modified:   src/io.s
+	modified:   src/main.o
+	modified:   src/main.s
+
+
+
+======Commit: 081013b4======
+======Short Message======
+fixes in the boot.c, libc (usleep), main.c and some options re-enabled by default in the core for tests.
+======Full Message======
+fixes in the boot.c, libc (usleep), main.c and some options re-enabled by default in the core for tests.
+
+Changes to be committed:
+	modified:   rtl/config.vh
+	modified:   rtl/darksocv.v
+	modified:   src/Makefile
+	modified:   src/boot.c
+	modified:   src/boot.o
+	modified:   src/boot.s
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.mem
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram.mem
+	modified:   src/darksocv.rom.mem
+	modified:   src/main.c
+	modified:   src/main.o
+	modified:   src/main.s
+	modified:   src/stdio.c
+	modified:   src/stdio.o
+	modified:   src/stdio.s
+
+
+
+======Commit: 8cf52ea9======
+======Short Message======
+small fixes in the boot code, libc and partial support for vivado.
+======Full Message======
+small fixes in the boot code, libc and partial support for vivado.
+
+	modified:   Makefile
+	modified:   rtl/darksocv.v
+	modified:   src/boot.c
+	modified:   src/boot.o
+	modified:   src/boot.s
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.mem
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram.mem
+	modified:   src/darksocv.rom.mem
+	modified:   src/include/io.h
+	modified:   src/io.c
+	modified:   src/io.o
+	modified:   src/io.s
+	modified:   src/main.c
+	modified:   src/main.o
+	modified:   src/main.s
+	modified:   src/stdio.c
+	modified:   src/stdio.o
+	modified:   src/stdio.s
+
+
+
+======Commit: 194253fe======
+======Short Message======
+changes regarding Vivado support (memories with .mem extension) and additional fixes regarding the full/pseudo-harvard mode, including better debug outputs.
+======Full Message======
+changes regarding Vivado support (memories with .mem extension) and additional fixes regarding the full/pseudo-harvard mode, including better debug outputs.
+
+changed files:
+
+	modified:   ../Makefile
+	modified:   ../boards/avnet_microboard_lx9/darksocv.mk
+	modified:   ../boards/qmtech_sdram_lx16/darksocv.mk
+	modified:   ../boards/xilinx_ac701_a200/darksocv.mk
+	modified:   ../rtl/config.vh
+	modified:   ../rtl/darksocv.v
+	modified:   ../src/Makefile
+	modified:   ../src/boot.c
+	modified:   ../src/boot.o
+	modified:   ../src/boot.s
+	modified:   ../src/darksocv.ld
+	modified:   ../src/darksocv.ld.src
+	modified:   ../src/darksocv.lst
+	modified:   ../src/darksocv.map
+	modified:   ../src/darksocv.mem
+	modified:   ../src/darksocv.o
+	renamed:    ../src/darksocv.ram -> ../src/darksocv.ram.mem
+	renamed:    ../src/darksocv.rom -> ../src/darksocv.rom.mem
+	modified:   ../src/main.c
+	modified:   ../src/main.o
+	modified:   ../src/main.s
+
+
+
+======Commit: aa03b251======
+======Short Message======
+new config.vh file, new rv32e support, fixes regarding threading, fixes in the libc, etc.
+======Full Message======
+new config.vh file, new rv32e support, fixes regarding threading, fixes in the libc, etc.
+
+Changes to be committed:
+	modified:   README.md
+	modified:   boards/avnet_microboard_lx9/darksocv.mk
+	modified:   rtl/README.md
+	modified:   rtl/config.vh
+	modified:   rtl/darkriscv.v
+	modified:   rtl/darksocv.v
+	modified:   sim/Makefile
+	modified:   src/Makefile
+	modified:   src/darksocv.bin
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram
+	modified:   src/darksocv.rom
+	modified:   src/main.c
+	modified:   src/main.o
+	modified:   src/main.s
+	modified:   src/stdio.c
+	modified:   src/stdio.o
+	modified:   src/stdio.s
+	modified:   tmp/darksocv.bit
+
+
+
+======Commit: b8080242======
+======Short Message======
+new rtl/config.vh, fixes in the simulation and fix in the core reset (2-stage version).
+======Full Message======
+new rtl/config.vh, fixes in the simulation and fix in the core reset (2-stage version).
+
+Changes to be committed:
+	new file:   rtl/config.vh
+	modified:   rtl/darkriscv.v
+	modified:   rtl/darksocv.v
+	modified:   rtl/darkuart.v
+	modified:   sim/Makefile
+	modified:   sim/darksimv.v
+
+
+
+======Commit: 75002724======
+======Short Message======
+fixes in the core reset, fixes in the timer, fixes in the boot.c regarding interrupt handling... small fixes in the makefiles, code size, etc.
+======Full Message======
+fixes in the core reset, fixes in the timer, fixes in the boot.c regarding interrupt handling... small fixes in the makefiles, code size, etc.
+
+Changes to be committed:
+	modified:   ../Makefile
+	modified:   ../rtl/darkriscv.v
+	modified:   ../rtl/darksocv.v
+	modified:   ../sim/Makefile
+	modified:   ../sim/darksimv.v
+	modified:   Makefile
+	modified:   banner.c
+	modified:   banner.o
+	modified:   banner.s
+	modified:   boot.c
+	modified:   boot.o
+	modified:   boot.s
+	modified:   darksocv.bin
+	modified:   darksocv.lst
+	modified:   darksocv.map
+	modified:   darksocv.o
+	modified:   darksocv.ram
+	modified:   darksocv.rom
+	modified:   include/io.h
+	modified:   io.c
+	modified:   io.o
+	modified:   io.s
+	modified:   main.c
+	modified:   main.o
+	modified:   main.s
+	modified:   stdio.c
+	modified:   stdio.o
+	modified:   stdio.s
+	modified:   ../tmp/darksocv.bit
+
+
+
+======Commit: 402c7945======
+======Short Message======
+fixes in the stdio.c (issue #17) and other small fixes and improvements.
+======Full Message======
+fixes in the stdio.c (issue #17) and other small fixes and improvements.
+
+Changes to be committed:
+	modified:   Makefile
+	modified:   boards/Makefile
+	modified:   rtl/darkriscv.v
+	modified:   rtl/darksocv.v
+	modified:   sim/Makefile
+	modified:   src/Makefile
+	modified:   src/banner.o
+	modified:   src/banner.s
+	modified:   src/boot.c
+	modified:   src/boot.o
+	modified:   src/boot.s
+	modified:   src/darksocv.bin
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram
+	modified:   src/darksocv.rom
+	modified:   src/include/stdio.h
+	modified:   src/main.c
+	modified:   src/main.o
+	modified:   src/main.s
+	modified:   src/stdio.c
+	modified:   src/stdio.o
+	modified:   src/stdio.s
+	modified:   tmp/darksocv.bit
+
+
+
+======Commit: 560c07f0======
+======Short Message======
+tests w/ rv32e optimization, fixes in the Makefile structure and documentation updates.
+======Full Message======
+tests w/ rv32e optimization, fixes in the Makefile structure and documentation updates.
+
+ Changes to be committed:
+	modified:   ../Makefile
+	modified:   ../README.md
+	modified:   ../boards/Makefile
+	modified:   ../doc/README.md
+	modified:   ../sim/Makefile
+	modified:   Makefile
+	modified:   banner.o
+	modified:   banner.s
+	modified:   darksocv.bin
+	modified:   darksocv.lst
+	modified:   darksocv.map
+	modified:   darksocv.o
+	modified:   darksocv.rom
+	modified:   main.o
+	modified:   main.s
+	modified:   stdio.o
+	modified:   stdio.s
+	modified:   ../tmp/darksocv.bit
+
+
+
+======Commit: 2aeff888======
+======Short Message======
+updated diretory structure, with lots of fixes, new Makefiles and new README
+======Full Message======
+updated diretory structure, with lots of fixes, new Makefiles and new README
+files to help understand how the project works.
+
+Changes to be committed:
+	modified:   Makefile
+	modified:   README.md
+	renamed:    boards/avnet_microboard_lx9/Makefile -> boards/Makefile
+	modified:   boards/README.md
+	new file:   boards/avnet_microboard_lx9/README.md
+	renamed:    boards/avnet_microboard_lx9/ise/darksocv.imp -> boards/avnet_microboard_lx9/darksocv.imp
+	renamed:    boards/avnet_microboard_lx9/ise/Makefile -> boards/avnet_microboard_lx9/darksocv.mk
+	new file:   boards/avnet_microboard_lx9/darksocv.prj
+	renamed:    boards/avnet_microboard_lx9/ise/darksocv.ucf -> boards/avnet_microboard_lx9/darksocv.ucf
+	renamed:    boards/avnet_microboard_lx9/ise/darksocv.ut -> boards/avnet_microboard_lx9/darksocv.ut
+	renamed:    boards/avnet_microboard_lx9/ise/darksocv.xise -> boards/avnet_microboard_lx9/darksocv.xise
+	renamed:    boards/avnet_microboard_lx9/ise/darksocv.xst -> boards/avnet_microboard_lx9/darksocv.xst
+	deleted:    boards/avnet_microboard_lx9/ise/darksocv.prj
+	deleted:    boards/avnet_microboard_lx9/rtl
+	deleted:    boards/avnet_microboard_lx9/sim
+	deleted:    boards/avnet_microboard_lx9/src
+	new file:   boards/qmtech_sdram_lx16/README.md
+	new file:   boards/qmtech_sdram_lx16/darksocv.imp
+	new file:   boards/qmtech_sdram_lx16/darksocv.mk
+	new file:   boards/qmtech_sdram_lx16/darksocv.prj
+	modified:   boards/qmtech_sdram_lx16/darksocv.xise
+	modified:   boards/qmtech_sdram_lx16/darksocv.xst
+	new file:   boards/xilinx_ac701_a200/README.md
+	new file:   boards/xilinx_ac701_a200/darksocv.imp
+	new file:   boards/xilinx_ac701_a200/darksocv.mk
+	new file:   boards/xilinx_ac701_a200/darksocv.prj
+	modified:   boards/xilinx_ac701_a200/darksocv.xise
+	modified:   boards/xilinx_ac701_a200/darksocv.xst
+	copied:     README.md -> doc/README.md
+	new file:   rtl/README.md
+	modified:   rtl/darksocv.v
+	new file:   sim/README.md
+	new file:   src/README.md
+	renamed:    boards/avnet_microboard_lx9/tmp/darksocv.bit -> tmp/darksocv.bit
+
+
+
+======Commit: 152ce444======
+======Short Message======
+temporary fixes for isim and ise via symlinks... probably works only in *nix systems! :(
+======Full Message======
+temporary fixes for isim and ise via symlinks... probably works only in *nix systems! :(
+
+Changes to be committed:
+	modified:   ise/darksocv.xise
+	new file:   rtl
+	new file:   sim
+	new file:   src
+
+
+
+======Commit: c008442a======
+======Short Message======
+experimental MAC instruction, software based mul/div/mod and other small fixes.
+======Full Message======
+experimental MAC instruction, software based mul/div/mod and other small fixes.
+
+Changes to be committed:
+	modified:   README.md
+	modified:   rtl/darkriscv.v
+	modified:   src/Makefile
+	modified:   src/darksocv.bin
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram
+	modified:   src/darksocv.rom
+	modified:   src/include/io.h
+	modified:   src/include/stdio.h
+	modified:   src/io.c
+	modified:   src/main.c
+	modified:   src/main.o
+	modified:   src/main.s
+	modified:   src/stdio.c
+	modified:   src/stdio.o
+	modified:   src/stdio.s
+	modified:   tmp/darksocv.bit
+
+
+
+======Commit: 8f72a235======
+======Short Message======
+added support for interrupt handling, performance measurements and other small fixes.
+======Full Message======
+added support for interrupt handling, performance measurements and other small fixes.
+
+ Changes to be committed:
+	modified:   README.md
+	modified:   rtl/darkriscv.v
+	modified:   rtl/darksocv.v
+	modified:   rtl/darkuart.v
+	modified:   src/boot.c
+	modified:   src/boot.o
+	modified:   src/boot.s
+	modified:   src/darksocv.bin
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram
+	modified:   src/darksocv.rom
+	modified:   tmp/darksocv.bit
+
+
+
+======Commit: 53ad049a======
+======Short Message======
+additional optimizations in the core, fixes, updates and support for QMTech LX16 board.
+======Full Message======
+additional optimizations in the core, fixes, updates and support for QMTech LX16 board.
+
+Changes to be committed:
+	modified:   README.md
+	modified:   ise/Makefile
+	modified:   ise/board/avnet_microboard_lx9/darksocv.xise
+	new file:   ise/board/qmtech_sdram_lx16/darksocv.ucf
+	new file:   ise/board/qmtech_sdram_lx16/darksocv.ut
+	new file:   ise/board/qmtech_sdram_lx16/darksocv.xise
+	new file:   ise/board/qmtech_sdram_lx16/darksocv.xst
+	modified:   rtl/darkriscv.v
+	modified:   rtl/darksocv.v
+	modified:   rtl/darkuart.v
+	modified:   src/boot.c
+	modified:   src/boot.o
+	modified:   src/boot.s
+	modified:   src/darksocv.bin
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram
+	modified:   src/darksocv.rom
+	modified:   src/io.c
+	modified:   src/io.o
+	modified:   src/io.s
+	modified:   tmp/darksocv.bit
+
+
+
+======Commit: 35e92088======
+======Short Message======
+added support for Artix-7 dev board, new board organization and lots of fixes!
+======Full Message======
+added support for Artix-7 dev board, new board organization and lots of fixes!
+
+Changes to be committed:
+	modified:   README.md
+	modified:   ise/Makefile
+	renamed:    ise/darksocv.ucf -> ise/board/avnet_microboard_lx9/darksocv.ucf
+	renamed:    ise/darksocv.ut -> ise/board/avnet_microboard_lx9/darksocv.ut
+	renamed:    ise/darksocv.xise -> ise/board/avnet_microboard_lx9/darksocv.xise
+	renamed:    ise/darksocv.xst -> ise/board/avnet_microboard_lx9/darksocv.xst
+	new file:   ise/board/xilinx_ac701_a200/darksocv.ucf
+	new file:   ise/board/xilinx_ac701_a200/darksocv.ut
+	new file:   ise/board/xilinx_ac701_a200/darksocv.xise
+	new file:   ise/board/xilinx_ac701_a200/darksocv.xst
+	deleted:    ise/iseconfig/darksocv.projectmgr
+	deleted:    ise/iseconfig/darksocv.xreport
+	modified:   rtl/darksocv.v
+	modified:   rtl/darkuart.v
+	modified:   sim/Makefile
+	modified:   src/Makefile
+	modified:   src/boot.c
+	modified:   src/boot.o
+	modified:   src/boot.s
+	modified:   src/darksocv.bin
+	modified:   src/darksocv.lst
+	modified:   src/darksocv.map
+	modified:   src/darksocv.o
+	modified:   src/darksocv.ram
+	modified:   src/darksocv.rom
+	modified:   src/hello.c
+	modified:   src/hello.o
+	modified:   src/hello.s
+	modified:   src/include/io.h
+	modified:   src/include/stdio.h
+	modified:   src/io.c
+	modified:   src/io.o
+	modified:   src/io.s
+	modified:   src/main.c
+	modified:   src/main.o
+	modified:   src/main.s
+	modified:   src/stdio.c
+	modified:   src/stdio.o
+	modified:   src/stdio.s
+	modified:   tmp/darksocv.bit
+
+
+
+======Commit: e8ff046c======
+======Short Message======
+instruction decode pipeline, M/R data path merge and other fixes.
+======Full Message======
+instruction decode pipeline, M/R data path merge and other fixes.
+
+Changes to be committed:
+	modified:   darkriscv.v
+	modified:   darksocv.v
+	modified:   ../tmp/darksocv.bit
+
+
+
+======Commit: 7d01f5aa======
+======Short Message======
+rom/ram inference, printf fixes and tests, etc.
+======Full Message======
+rom/ram inference, printf fixes and tests, etc.
+
+Changes to be committed:
+	modified:   ../ise/darksocv.ucf
+	modified:   ../rtl/darksocv.v
+	modified:   Makefile
+	modified:   boot.c
+	modified:   boot.o
+	modified:   boot.s
+	modified:   darksocv.bin
+	modified:   darksocv.lst
+	modified:   darksocv.map
+	modified:   darksocv.o
+	modified:   darksocv.ram
+	modified:   darksocv.rom
+	copied:     boot.c -> hello.c
+	new file:   hello.o
+	copied:     boot.s -> hello.s
+	new file:   include/io.h
+	modified:   include/stdio.h
+	modified:   io.c
+	modified:   io.o
+	modified:   io.s
+	modified:   main.c
+	modified:   main.o
+	modified:   main.s
+	modified:   stdio.c
+	modified:   stdio.o
+	modified:   stdio.s
+	modified:   ../tmp/darksocv.bit
+
+
+
+======Commit: 033f2e16======
+======Short Message======
+fixes in the darksocv.rom and documentation update.
+======Full Message======
+fixes in the darksocv.rom and documentation update.
+
+Changes to be committed:
+	modified:   README.md
+	modified:   src/Makefile
+	modified:   src/darksocv.rom
+	modified:   tmp/darksocv.bit
+
+
+
+======Commit: dc601e36======
+======Short Message======
+small fixes in the linker and soc in order to better support the harvard architecture w/ separated rom/ram!
+======Full Message======
+small fixes in the linker and soc in order to better support the harvard architecture w/ separated rom/ram!
+
+Changes to be committed:
+	modified:   ../ise/Makefile
+	modified:   ../rtl/darksocv.v
+	modified:   ../sim/darksimv.v
+	modified:   Makefile
+	modified:   boot.c
+	modified:   boot.o
+	modified:   boot.s
+	modified:   darksocv.bin
+	deleted:    darksocv.hex
+	modified:   darksocv.ld
+	modified:   darksocv.lst
+	modified:   darksocv.map
+	modified:   darksocv.o
+	new file:   darksocv.ram
+	new file:   darksocv.rom
+	deleted:    hello.o
+	deleted:    hello.s
+	modified:   include/stdio.h
+	renamed:    hello.c -> io.c
+	new file:   io.o
+	new file:   io.s
+	new file:   main.c
+	new file:   main.o
+	new file:   main.s
+	modified:   stdio.c
+	modified:   stdio.o
+	modified:   stdio.s
+	modified:   ../tmp/darksocv.bit
+
+
+
+======Commit: fff029a7======
+======Short Message======
+Fixes regarding issues #8/#10 (branches, auipc, load/store w/ byte selection).
+======Full Message======
+Fixes regarding issues #8/#10 (branches, auipc, load/store w/ byte selection).
+
+Changes to be committed:
+	modified:   rtl/darkriscv.v
+	modified:   rtl/darksocv.v
+
+
+
+======Commit: 999f9b87======
+======Short Message======
+Merge pull request #3 from erjanmx/fix-readme-typo
+======Full Message======
+Merge pull request #3 from erjanmx/fix-readme-typo
+
+Fix readme typo
+
+
+======Commit: b8ebe8b6======
+======Short Message======
+Merge branch 'master' into fix-readme-typo
+======Full Message======
+Merge branch 'master' into fix-readme-typo
+
+
+======Commit: 047e206d======
+======Short Message======
+Merge pull request #2 from phuclv90/master
+======Full Message======
+Merge pull request #2 from phuclv90/master
+
+Fix of CR-LF characters order
+
+

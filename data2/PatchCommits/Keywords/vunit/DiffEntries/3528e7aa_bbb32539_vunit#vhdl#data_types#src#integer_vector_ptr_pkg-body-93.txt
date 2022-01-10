@@ -1,0 +1,14 @@
+3528e7aa1d1ff83f1bdd0506b4a2f98aa84bec1a
+Merge pull request #467 from dbhi/fix-ghdl-e
+diff --git a/vunit/vhdl/data_types/src/integer_vector_ptr_pkg-body-93.vhd b/vunit/vhdl/data_types/src/integer_vector_ptr_pkg-body-93.vhd
+index df7c0a3e..b3372053 100644
+--- a/vunit/vhdl/data_types/src/integer_vector_ptr_pkg-body-93.vhd
++++ b/vunit/vhdl/data_types/src/integer_vector_ptr_pkg-body-93.vhd
+@@ -58,7 +58,6 @@ package body integer_vector_ptr_pkg is
+   end function;
+ 
+   procedure reallocate(ptr : integer_vector_ptr_t; length : natural; value : integer := 0) is
+-    variable old_ptr, new_ptr : integer_vector_access_t;
+   begin
+     deallocate(ptrs(ptr.index));
+     ptrs(ptr.index) := new integer_vector'(0 to length - 1 => value);

@@ -1,0 +1,15 @@
+d132ed45cdb687dc9ec4dbf0aadb0347ec51d16d
+arradio- timing violations fix
+diff --git a/library/axi_ad9361/altera/axi_ad9361_lvds_if_c5.v b/library/axi_ad9361/altera/axi_ad9361_lvds_if_c5.v
+index f92fedb0..7666139a 100644
+--- a/library/axi_ad9361/altera/axi_ad9361_lvds_if_c5.v
++++ b/library/axi_ad9361/altera/axi_ad9361_lvds_if_c5.v
+@@ -93,7 +93,7 @@ module axi_ad9361_lvds_if_c5 (
+ 
+   // internal registers
+ 
+-  reg                 pll_rst = 'd0;
++  reg                 pll_rst = 1'd1;
+   reg                 locked_int = 'd0;
+   reg                 tx_core_enable_int = 'd0;
+   reg                 tx_core_txnrx_int = 'd0;

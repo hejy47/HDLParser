@@ -1,0 +1,15 @@
+e1b4f635d6f30811b7892c7eae8e7686dc07c98f
+[prim] - Fix generic flash enum reference
+diff --git a/hw/ip/prim_generic/rtl/prim_generic_flash.sv b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+index 642249991..1f0ec3c12 100644
+--- a/hw/ip/prim_generic/rtl/prim_generic_flash.sv
++++ b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+@@ -102,7 +102,7 @@ module prim_generic_flash #(
+   always_ff @(posedge clk_i or negedge rst_ni) begin
+     if (!rst_ni) begin
+       held_addr <= '0;
+-      held_part <= '0;
++      held_part <= flash_ctrl_pkg::DataPart;
+       held_wdata <= '0;
+     end else if (hold_cmd) begin
+       held_addr <= rd_q ? addr_q : addr_i;

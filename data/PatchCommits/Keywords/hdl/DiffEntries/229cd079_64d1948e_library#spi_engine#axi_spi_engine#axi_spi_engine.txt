@@ -1,0 +1,15 @@
+229cd079b9ea91fe1811df1b4957215b1caf255b
+spi_engine: Fix to support multiple SDI lines
+diff --git a/library/spi_engine/axi_spi_engine/axi_spi_engine.v b/library/spi_engine/axi_spi_engine/axi_spi_engine.v
+index 9e598011..793c5fa0 100644
+--- a/library/spi_engine/axi_spi_engine/axi_spi_engine.v
++++ b/library/spi_engine/axi_spi_engine/axi_spi_engine.v
+@@ -93,7 +93,7 @@ wire sdo_fifo_in_valid;
+ wire [SDI_FIFO_ADDRESS_WIDTH:0] sdi_fifo_level;
+ wire sdi_fifo_almost_full;
+ 
+-wire [7:0] sdi_fifo_out_data;
++wire [31:0] sdi_fifo_out_data;
+ wire sdi_fifo_out_ready;
+ wire sdi_fifo_out_valid;
+ 

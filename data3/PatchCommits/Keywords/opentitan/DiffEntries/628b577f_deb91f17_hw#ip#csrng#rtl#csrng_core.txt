@@ -1,0 +1,14 @@
+628b577fd2f0edb9bfbd46350930dcfc721d8a8a
+[csrng/rtl] gen cmd additional data for multiple channels
+diff --git a/hw/ip/csrng/rtl/csrng_core.sv b/hw/ip/csrng/rtl/csrng_core.sv
+index 0065eb2e6..4cb058364 100644
+--- a/hw/ip/csrng/rtl/csrng_core.sv
++++ b/hw/ip/csrng/rtl/csrng_core.sv
+@@ -1356,6 +1356,7 @@ module csrng_core import csrng_pkg::*; #(
+ 
+ 
+   csrng_ctr_drbg_gen #(
++    .NApps(NApps),
+     .Cmd(Cmd),
+     .StateId(StateId),
+     .BlkLen(BlkLen),

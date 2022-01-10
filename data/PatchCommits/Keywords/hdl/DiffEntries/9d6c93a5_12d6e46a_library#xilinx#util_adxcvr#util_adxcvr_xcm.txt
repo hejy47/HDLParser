@@ -1,0 +1,16 @@
+9d6c93a5d860e45405e133558f55722aec3cfe04
+Fix warnings
+diff --git a/library/xilinx/util_adxcvr/util_adxcvr_xcm.v b/library/xilinx/util_adxcvr/util_adxcvr_xcm.v
+index a13956ab..75128cb5 100644
+--- a/library/xilinx/util_adxcvr/util_adxcvr_xcm.v
++++ b/library/xilinx/util_adxcvr/util_adxcvr_xcm.v
+@@ -142,6 +142,9 @@ module util_adxcvr_xcm #(
+     .SIM_RESET_SPEEDUP ("TRUE"),
+     .SIM_VERSION ("4.0"))
+   i_gtxe2_common (
++    .QPLLDMONITOR (),
++    .QPLLFBCLKLOST (),
++    .REFCLKOUTMONITOR (),
+     .BGBYPASSB (1'h1),
+     .BGMONITORENB (1'h1),
+     .BGPDB (1'h1),

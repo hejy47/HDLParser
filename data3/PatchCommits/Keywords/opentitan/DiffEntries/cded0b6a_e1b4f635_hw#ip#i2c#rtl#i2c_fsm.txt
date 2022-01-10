@@ -1,0 +1,17 @@
+cded0b6ab8097b1b4d06895ab0a3aa70bb97450c
+[i2c, rtl] Style Lint fixes
+diff --git a/hw/ip/i2c/rtl/i2c_fsm.sv b/hw/ip/i2c/rtl/i2c_fsm.sv
+index 36322e1e4..df82e4c17 100644
+--- a/hw/ip/i2c/rtl/i2c_fsm.sv
++++ b/hw/ip/i2c/rtl/i2c_fsm.sv
+@@ -97,8 +97,8 @@ module i2c_fsm (
+         tClockStop  : tcount_d = t_f_i + tlow_i - thd_dat_i;
+         tSetupStop  : tcount_d = t_r_i + tsu_sto_i;
+         tHoldStop   : tcount_d = t_r_i + t_buf_i - tsu_sta_i;
+-        tNoDelay    : tcount_d = 20'b1;
+-        default     : tcount_d = 20'b1;
++        tNoDelay    : tcount_d = 20'h00001;
++        default     : tcount_d = 20'h00001;
+       endcase
+     end else if (stretch == 0) begin
+       tcount_d = tcount_q - 1'b1;

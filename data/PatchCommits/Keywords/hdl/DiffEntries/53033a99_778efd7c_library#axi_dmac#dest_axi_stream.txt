@@ -1,0 +1,16 @@
+53033a99f50a0ef8b01dc6176d3aaba5b4f504a5
+axi_dmac: Fix tlast generation on AXI stream master
+diff --git a/library/axi_dmac/dest_axi_stream.v b/library/axi_dmac/dest_axi_stream.v
+index a72a24e8..48c5dea5 100644
+--- a/library/axi_dmac/dest_axi_stream.v
++++ b/library/axi_dmac/dest_axi_stream.v
+@@ -100,7 +100,8 @@ dmac_data_mover # (
+ 	.ID_WIDTH(ID_WIDTH),
+ 	.DATA_WIDTH(S_AXIS_DATA_WIDTH),
+ 	.BEATS_PER_BURST_WIDTH(BEATS_PER_BURST_WIDTH),
+-	.DISABLE_WAIT_FOR_ID(0)
++	.DISABLE_WAIT_FOR_ID(0),
++	.LAST(1)
+ ) i_data_mover (
+ 	.clk(s_axis_aclk),
+ 	.resetn(s_axis_aresetn),

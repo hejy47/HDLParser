@@ -1,0 +1,15 @@
+3a5fdd65bfd8e71701c7e019ae980ec39610b474
+Update lowrisc_ibex to lowRISC/ibex@5826af8
+diff --git a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_fpga.sv b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_fpga.sv
+index 50655451c..e603dc4b0 100644
+--- a/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_fpga.sv
++++ b/hw/vendor/lowrisc_ibex/rtl/ibex_register_file_fpga.sv
+@@ -63,5 +63,8 @@ module ibex_register_file_fpga #(
+   // Dummy instruction changes not relevant for FPGA implementation
+   logic unused_dummy_instr;
+   assign unused_dummy_instr = dummy_instr_id_i;
++  // Test enable signal not used in FPGA implementation
++  logic unused_test_en;
++  assign unused_test_en = test_en_i;
+ 
+ endmodule

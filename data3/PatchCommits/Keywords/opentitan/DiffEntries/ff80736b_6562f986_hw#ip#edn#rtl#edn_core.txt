@@ -1,0 +1,17 @@
+ff80736b44398742c53650eefe7b2293be3093cb
+[top_earlgrey/rtl] adding csrng and edn blocks
+diff --git a/hw/ip/edn/rtl/edn_core.sv b/hw/ip/edn/rtl/edn_core.sv
+old mode 100755
+new mode 100644
+index 9c04dbde8..2338b5be1
+--- a/hw/ip/edn/rtl/edn_core.sv
++++ b/hw/ip/edn/rtl/edn_core.sv
+@@ -532,7 +532,7 @@ module edn_core import edn_pkg::*; #(
+   //--------------------------------------------
+ 
+   assign     hw2reg.sum_sts.internal_use.de = !edn_enable;
+-  assign     hw2reg.sum_sts.internal_use.d  = reg2hw.regen;
++  assign     hw2reg.sum_sts.internal_use.d  = 1'b0 && reg2hw.regen;
+ 
+ 
+ endmodule

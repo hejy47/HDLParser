@@ -1,0 +1,14 @@
+cfb4a0b115bfed323179d1e63d6f746ff62aacc0
+Fix inverted validity bits
+diff --git a/modules/sound/wave.sv b/modules/sound/wave.sv
+index 8015678..87e5344 100644
+--- a/modules/sound/wave.sv
++++ b/modules/sound/wave.sv
+@@ -8,7 +8,5 @@ module sawtooth
+ );
+ 
+ always @(posedge clk_audio)
+-begin
+     level <= level + 1'd1;
+-end
+ endmodule

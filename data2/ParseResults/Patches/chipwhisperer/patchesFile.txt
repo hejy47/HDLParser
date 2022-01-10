@@ -1,0 +1,661 @@
+CommitId: 07e0f688a273973b23fa049bcf6952587ae28486
+HW:fpga:iotrigger: fix license to GPL, fix jitter issue with iotrigger pattern start location
+--- a/hardware/common/hdl/io_trigger/trigger_system.v
++++ b/hardware/common/hdl/io_trigger/trigger_system.v
+@@ -57,6 +48,7 @@ module trigger_system#(
+ 	
+ 	//Clock Enables for 2x and divided clock
+ 	wire clkdiv;
++	reg  clkdiv_rst;
+ 	
+ 	wire [stateaddr_width-1:0] stateaddr;
+ 	reg  [stateaddr_width-1:0] stateaddr_reg;
+
+ParseResult:
+INS HdlIdDef@@clkdiv_rst to objs
+HdlIdDef: clkdiv_rst
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: reg
+    HdlDirection: INTERNAL
+
+
+CommitId: 07e0f688a273973b23fa049bcf6952587ae28486
+HW:fpga:iotrigger: fix license to GPL, fix jitter issue with iotrigger pattern start location
+--- a/hardware/common/hdl/io_trigger/trigger_system.v
++++ b/hardware/common/hdl/io_trigger/trigger_system.v
+@@ -93,11 +85,14 @@ module trigger_system#(
+ 	/* Count interations in current state */
+ 	reg [8:0] currentstate_cnt;
+ 	always @(posedge clk)
+-			if (io_changed)
+-				currentstate_cnt <= 1;
+-			else if (clkdiv_delay)
++			if (rst) begin
++				currentstate_cnt <= 9'd1;
++			end else if (io_changed) begin
++				currentstate_cnt <= 9'd1;
++			end else if (clkdiv_delay) begin
+ 				if (currentstate_cnt < 9'd510)
+ 					currentstate_cnt <= currentstate_cnt + 9'd1;
++			end
+ 		
+ 	wire [7:0] expected_low_limit;
+ 	wire [8:0] expected_high_limit;
+
+ParseResult:
+UPD HdlStmIf@@body to body
+    UPD HdlValueId@@io_changed to rst
+    MOV tuple@@ to elifs
+    tuple
+        HdlValueId: clkdiv_delay
+        HdlStmIf
+            HdlOp: LT
+                list: ops
+                    HdlValueId: currentstate_cnt
+                    HdlValueInt: 510
+            HdlStmAssign: if_true
+                HdlOp: ADD
+                    list: ops
+                        HdlValueId: currentstate_cnt
+                        HdlValueInt: 1
+                HdlValueId: currentstate_cnt
+            list: elifs
+    UPD list@@elifs to body
+    MOV list@@elifs to body
+    list: elifs
+        tuple
+            HdlValueId: clkdiv_delay
+            HdlStmIf
+                HdlOp: LT
+                    list: ops
+                        HdlValueId: currentstate_cnt
+                        HdlValueInt: 510
+                HdlStmAssign: if_true
+                    HdlOp: ADD
+                        list: ops
+                            HdlValueId: currentstate_cnt
+                            HdlValueInt: 1
+                    HdlValueId: currentstate_cnt
+                list: elifs
+
+UPD HdlStmAssign@@if_true to 
+
+MOV HdlStmAssign@@if_true to body
+HdlStmAssign: if_true
+    HdlValueInt: 1
+    HdlValueId: currentstate_cnt
+
+MOV HdlStmIf@@ to 
+HdlStmIf
+    HdlOp: LT
+        list: ops
+            HdlValueId: currentstate_cnt
+            HdlValueInt: 510
+    HdlStmAssign: if_true
+        HdlOp: ADD
+            list: ops
+                HdlValueId: currentstate_cnt
+                HdlValueInt: 1
+        HdlValueId: currentstate_cnt
+    list: elifs
+
+
+CommitId: 07e0f688a273973b23fa049bcf6952587ae28486
+HW:fpga:iotrigger: fix license to GPL, fix jitter issue with iotrigger pattern start location
+--- a/hardware/common/hdl/io_trigger/trigger_system.v
++++ b/hardware/common/hdl/io_trigger/trigger_system.v
+@@ -127,6 +122,17 @@ module trigger_system#(
+ 				stateaddr_reg <= stateaddr_reg + 1'b1;
+ 		end
+ 	
++	/* Start the clock divider on change of IO pin to syncronize to device clock */
++	always @(posedge clk) begin
++		if (rst) begin
++			clkdiv_rst <= 1'b1;
++		end else if ((stateaddr_reg == 0) && (currentstate_cnt == 9'd510)) begin
++			clkdiv_rst <= 1'b1;
++		end else begin
++			clkdiv_rst <= 1'b0;
++		end
++	end
++	
+ 	/* Watch for end of state storage */
+ 	reg trig_out_reg;
+ 	assign trig_out = trig_out_reg;
+
+ParseResult:
+INS HdlStmProcess@@ to objs
+HdlStmProcess
+    list: sensitivity
+        HdlOp: RISING
+            list: ops
+                HdlValueId: clk
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmIf
+                HdlValueId: rst
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 1
+                            HdlValueId: clkdiv_rst
+                list: elifs
+                    tuple
+                        HdlOp: AND_LOG
+                            list: ops
+                                HdlOp: EQ
+                                    list: ops
+                                        HdlValueId: stateaddr_reg
+                                        HdlValueInt: 0
+                                HdlOp: EQ
+                                    list: ops
+                                        HdlValueId: currentstate_cnt
+                                        HdlValueInt: 510
+                        HdlStmBlock: SEQ
+                            list: body
+                                HdlStmAssign
+                                    HdlValueInt: 1
+                                    HdlValueId: clkdiv_rst
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 0
+                            HdlValueId: clkdiv_rst
+
+
+CommitId: 07e0f688a273973b23fa049bcf6952587ae28486
+HW:fpga:iotrigger: fix license to GPL, fix jitter issue with iotrigger pattern start location
+--- a/hardware/common/hdl/io_trigger/trigger_system.v
++++ b/hardware/common/hdl/io_trigger/trigger_system.v
+@@ -192,19 +203,23 @@ module clk_div(
+ 		
+ 	always @(posedge clk) begin
+ 		if (rst)
+-			clkdiv_reg_last <= 0;
++			clkdiv_reg_last <= 1'b0;
+ 		else if (clk2xcnt == clk2xdiv_setting)
+ 			clkdiv_reg_last <= ~clkdiv_reg_last;
+ 	end
+ 		
+-	always @(posedge clk) begin
+-		if ((clk2xcnt == clk2xdiv_setting) || (rst)) begin
+-			clk2xdiv_reg <= 1;
++	always @(posedge clk) begin	
++		if (rst) begin
++			clk2xdiv_reg <= 1'b1;
++			clkdiv_reg <= 1'b1;
++			clk2xcnt <= 0;
++		end else if (clk2xcnt == clk2xdiv_setting) begin
++			clk2xdiv_reg <= 1'b1;
+ 			clkdiv_reg <= clkdiv_reg_last;
+ 			clk2xcnt <= 0;
+ 		end else begin
+-			clk2xdiv_reg <= 0;
+-			clkdiv_reg <= 0;
++			clk2xdiv_reg <= 1'b0;
++			clkdiv_reg <= 1'b0;
+ 			clk2xcnt <= clk2xcnt + 18'd1;
+ 		end
+ 	end
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS HdlValueId@@rst to 
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 1
+                HdlValueId: clk2xdiv_reg
+            HdlStmAssign
+                HdlValueInt: 1
+                HdlValueId: clkdiv_reg
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: clk2xcnt
+    INS list@@elifs to 
+    INS tuple@@ to elifs
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@OR_LOG to OR_LOG
+        MOV HdlOp@@EQ to ops
+        HdlOp: EQ
+            list: ops
+                HdlValueId: clk2xcnt
+                HdlValueId: clk2xdiv_setting
+        DEL HdlValueId@@rst from ops
+        DEL list@@ops from OR_LOG
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 1
+                HdlValueId: clk2xdiv_reg
+            HdlStmAssign
+                HdlValueId: clkdiv_reg_last
+                HdlValueId: clkdiv_reg
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: clk2xcnt
+    DEL HdlOp@@OR_LOG from 
+    DEL list@@elifs from 
+
+
+CommitId: d67ca0025c410afae8d19d171ae4f8e72e560c8c
+Fix various warnings in Verilog synthesis
+--- a/hardware/common/hdl/io_trigger/trigger_system.v
++++ b/hardware/common/hdl/io_trigger/trigger_system.v
+@@ -50,13 +50,13 @@ module trigger_system#(
+ 	
+ 	/* Programming of trigger data*/
+    input state_prog_en,
+-   input [8:0] state_prog_addr,
++   input [stateaddr_width-1:0] state_prog_addr,
+    input state_prog_wr,
+    input [17:0] state_prog_data	
+    );
+ 	
+ 	//Clock Enables for 2x and divided clock
+-	wire clk2xdiv, clkdiv;
++	wire clkdiv;
+ 	
+ 	wire [stateaddr_width-1:0] stateaddr;
+ 	reg  [stateaddr_width-1:0] stateaddr_reg;
+
+ParseResult:
+UPD HdlIdDef@@state_prog_addr to state_prog_addr
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            INS HdlOp@@SUB to ops
+            UPD HdlOp@@SUB to SUB
+                INS list@@ops to SUB
+                INS HdlValueId@@stateaddr_width to ops
+
+UPD HdlIdDef@@state_prog_addr to state_prog_addr
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@8 to 1
+            MOV HdlValueInt@@8 to ops
+            HdlValueInt: 8
+
+DEL HdlIdDef@@clk2xdiv from objs
+HdlIdDef: clk2xdiv
+    HdlDirection: INTERNAL
+
+
+CommitId: d67ca0025c410afae8d19d171ae4f8e72e560c8c
+Fix various warnings in Verilog synthesis
+--- a/hardware/common/hdl/universal_serial/usi.v
++++ b/hardware/common/hdl/universal_serial/usi.v
+@@ -40,7 +40,7 @@ module usitx#(
+ 	output reg dataout,
+ 	input run,
+ 	output reg done,
+-	input [stateaddr_width:0] num_states,
++	input [stateaddr_width-1:0] num_states,
+ 
+ 	
+ 	/* freq = clk / (2*(clkdivider-1)) . Therefor:
+
+ParseResult:
+UPD HdlIdDef@@num_states to num_states
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            INS HdlOp@@SUB to ops
+            UPD HdlOp@@SUB to SUB
+                INS list@@ops to SUB
+                INS HdlValueInt@@1 to ops
+
+UPD HdlIdDef@@num_states to num_states
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            MOV HdlValueId@@stateaddr_width to ops
+            HdlValueId: stateaddr_width
+
+
+CommitId: d67ca0025c410afae8d19d171ae4f8e72e560c8c
+Fix various warnings in Verilog synthesis
+--- a/hardware/common/hdl/universal_serial/usi.v
++++ b/hardware/common/hdl/universal_serial/usi.v
+@@ -50,7 +50,7 @@ module usitx#(
+ 	
+ 	/* Programming of trigger data*/
+    input state_prog_en,
+-   input [15:0] state_prog_addr,
++   input [stateaddr_width-1:0] state_prog_addr,
+    input state_prog_wr,
+    input [7:0] state_prog_data	
+    );
+
+ParseResult:
+UPD HdlIdDef@@state_prog_addr to state_prog_addr
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            INS HdlOp@@SUB to ops
+            UPD HdlOp@@SUB to SUB
+                INS list@@ops to SUB
+                INS HdlValueId@@stateaddr_width to ops
+
+UPD HdlIdDef@@state_prog_addr to state_prog_addr
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@15 to 1
+            MOV HdlValueInt@@15 to ops
+            HdlValueInt: 15
+
+
+CommitId: d67ca0025c410afae8d19d171ae4f8e72e560c8c
+Fix various warnings in Verilog synthesis
+--- a/hardware/common/hdl/universal_serial/usi.v
++++ b/hardware/common/hdl/universal_serial/usi.v
+@@ -156,7 +156,7 @@ module usirx#(
+ 	input datain,
+ 	input run,
+ 	output reg done,
+-	input [stateaddr_width:0] num_states,
++	input [stateaddr_width-1:0] num_states,
+ 
+ 	
+ 	/* freq = clk / (2*(clkdivider-1)) . Therefor:
+
+ParseResult:
+UPD HdlIdDef@@num_states to num_states
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            INS HdlOp@@SUB to ops
+            UPD HdlOp@@SUB to SUB
+                INS list@@ops to SUB
+                INS HdlValueInt@@1 to ops
+
+UPD HdlIdDef@@num_states to num_states
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            MOV HdlValueId@@stateaddr_width to ops
+            HdlValueId: stateaddr_width
+
+
+CommitId: d67ca0025c410afae8d19d171ae4f8e72e560c8c
+Fix various warnings in Verilog synthesis
+--- a/hardware/common/hdl/universal_serial/usi.v
++++ b/hardware/common/hdl/universal_serial/usi.v
+@@ -166,7 +166,7 @@ module usirx#(
+ 	
+ 	/* Read of Data */
+    input state_read_en,
+-   input [15:0] state_read_addr,
++   input [stateaddr_width-1:0] state_read_addr,
+    output reg [7:0] state_read_data	
+    );
+ 	
+
+ParseResult:
+UPD HdlIdDef@@state_read_addr to state_read_addr
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            INS HdlOp@@SUB to ops
+            UPD HdlOp@@SUB to SUB
+                INS list@@ops to SUB
+                INS HdlValueId@@stateaddr_width to ops
+
+UPD HdlIdDef@@state_read_addr to state_read_addr
+    UPD HdlOp@@PARAMETRIZATION to PARAMETRIZATION
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@15 to 1
+            MOV HdlValueInt@@15 to ops
+            HdlValueInt: 15
+
+
+CommitId: b6328e02bf537b223ef2f97a3413a947ed92b0ec
+HW: Fixes for S6LX9 example
+--- a/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
++++ b/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
+@@ -66,7 +66,7 @@ module CW308T_S6LX9_Example(
+    
+ 	
+ 	wire enc_busy;
+-	assign IO4 = enc_busy;
++	assign IO4 = ~enc_busy;
+ 	
+ 	/* To use this example AES core:
+ 		 - We need to generate our own flag indicating when output data is valid
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@NEG to 
+    UPD HdlOp@@NEG to NEG
+        INS list@@ops to NEG
+
+UPD HdlStmAssign@@ to 
+    MOV HdlValueId@@enc_busy to 
+    HdlValueId: enc_busy
+
+
+CommitId: 40abe989796928479183cae018396b605176371c
+Updated smartcard stuff, still need to fix ATR
+--- a/hardware/targets/sasebow-integrated/hdl/sasebo-w-unified-iseproject/chip_sasebo_w_vcp.v
++++ b/hardware/targets/sasebow-integrated/hdl/sasebo-w-unified-iseproject/chip_sasebo_w_vcp.v
+@@ -136,6 +136,19 @@ module CHIP_SASEBO_W_VCP
+ 	
+ 	wire scardusb_rst;
+ 	
++	wire reg_rst;
++	wire [5:0] reg_addr;
++	wire [15:0] reg_bcnt;
++	wire [7:0] reg_datao;
++	wire [7:0] reg_datai;
++	wire [15:0] reg_size;
++	wire reg_read;
++	wire reg_write;
++	wire reg_addrvalid;
++	wire reg_stream;
++	wire [5:0] reg_hypaddr;
++	wire [15:0] reg_hyplen;
++	
+ 	 openadc_interface openadc_inst(
+     .reset_i(rst), 
+ 	 .clk_adcint(clk100mhz),
+
+ParseResult:
+INS HdlIdDef@@reg_rst to objs
+HdlIdDef: reg_rst
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_addr to objs
+HdlIdDef: reg_addr
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 5
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_bcnt to objs
+HdlIdDef: reg_bcnt
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_datao to objs
+HdlIdDef: reg_datao
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_datai to objs
+HdlIdDef: reg_datai
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_size to objs
+HdlIdDef: reg_size
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_read to objs
+HdlIdDef: reg_read
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_write to objs
+HdlIdDef: reg_write
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_addrvalid to objs
+HdlIdDef: reg_addrvalid
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_stream to objs
+HdlIdDef: reg_stream
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_hypaddr to objs
+HdlIdDef: reg_hypaddr
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 5
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@reg_hyplen to objs
+HdlIdDef: reg_hyplen
+    HdlOp: PARAMETRIZATION
+        list: ops
+            HdlValueId: wire
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+                    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+
+CommitId: 18c24c65d2a6dcfa4beba7aa0d393dd3994273ba
+FPGA: Fix USI problem
+--- a/hardware/common/hdl/universal_serial/usi.v
++++ b/hardware/common/hdl/universal_serial/usi.v
+@@ -306,9 +306,9 @@ module usirx#(
+ 	always @(posedge clk)
+ 		if (prevclkdiv)
+ 			if (bitcnt == 3'b000)
+-				ram_wr <= 'b1;
++				ram_wr <= go;
+ 			else
+-				ram_wr <= 'b0;
++				ram_wr <= 1'b0;
+ 	
+ 	wire[7:0] read_data;
+ 	
+
+ParseResult:
+UPD HdlStmAssign@@if_true to if_true
+    INS HdlValueId@@go to if_true
+
+UPD HdlStmAssign@@if_true to if_true
+    DEL HdlValueInt@@1 from if_true
+
+
+CommitId: 6f87b52ef2d1fbddbbf07a29bad5186892ddbc35
+HW: Fixes for S6LX9 example
+--- a/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
++++ b/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
+@@ -66,7 +66,7 @@ module CW308T_S6LX9_Example(
+    
+ 	
+ 	wire enc_busy;
+-	assign IO4 = enc_busy;
++	assign IO4 = ~enc_busy;
+ 	
+ 	/* To use this example AES core:
+ 		 - We need to generate our own flag indicating when output data is valid
+
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@NEG to 
+    UPD HdlOp@@NEG to NEG
+        INS list@@ops to NEG
+
+UPD HdlStmAssign@@ to 
+    MOV HdlValueId@@enc_busy to 
+    HdlValueId: enc_busy
+
+
+CommitId: f465f860729f082e9e35ae3f35d9d09560139772
+HW: More LX9 fixes, move .UCF file, update schematic with -02 rev
+--- a/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
++++ b/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
+@@ -66,12 +66,11 @@ module CW308T_S6LX9_Example(
+    
+ 	
+ 	wire enc_busy;
+-	assign IO4 = ~enc_busy;
++	assign IO4 = enc_busy;
+ 	
+ 	/* To use this example AES core:
+ 		 - We need to generate our own flag indicating when output data is valid
+ 	*/
+-	
+ 	aes_core AESGoogleVault(
+ 		.clk(clk),
+ 		.load_i(load_input),
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@NEG to NEG
+        MOV HdlValueId@@enc_busy to ops
+        HdlValueId: enc_busy
+        DEL list@@ops from NEG
+    DEL HdlOp@@NEG from 
+
+
+CommitId: 84713824f7e6f373b3b5d2e0b921b86bdaaca598
+HW: More LX9 fixes, move .UCF file, update schematic with -02 rev
+--- a/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
++++ b/hardware/victims/cw308_ufo_target/spartan6lx9/hdl_src/CW308T_S6LX9_SS.v
+@@ -66,12 +66,11 @@ module CW308T_S6LX9_Example(
+    
+ 	
+ 	wire enc_busy;
+-	assign IO4 = ~enc_busy;
++	assign IO4 = enc_busy;
+ 	
+ 	/* To use this example AES core:
+ 		 - We need to generate our own flag indicating when output data is valid
+ 	*/
+-	
+ 	aes_core AESGoogleVault(
+ 		.clk(clk),
+ 		.load_i(load_input),
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@NEG to NEG
+        MOV HdlValueId@@enc_busy to ops
+        HdlValueId: enc_busy
+        DEL list@@ops from NEG
+    DEL HdlOp@@NEG from 
+
+

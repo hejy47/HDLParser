@@ -1,0 +1,40 @@
+3776f5beb152ff954cf02d9ac0613ea3111ab275
+[fpga] Add a clock buffer to the JTAG clock obtained from pinmux/padring
+diff --git a/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv b/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv
+index 5f1a02213..9160cd1b5 100644
+--- a/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv
++++ b/hw/top_earlgrey/rtl/top_earlgrey_nexysvideo.sv
+@@ -140,7 +140,7 @@ module top_earlgrey_nexysvideo #(
+   //////////////////////
+ 
+   logic jtag_trst_n, jtag_srst_n;
+-  logic jtag_tck, jtag_tms, jtag_tdi, jtag_tdo;
++  logic jtag_tck, jtag_tck_buf, jtag_tms, jtag_tdi, jtag_tdo;
+ 
+   localparam int NumIOs = padctrl_reg_pkg::NMioPads +
+                           padctrl_reg_pkg::NDioPads;
+@@ -187,6 +187,15 @@ module top_earlgrey_nexysvideo #(
+     .in_padring_i  ( {dio_in_padring , mio_in_padring } )
+   );
+ 
++  ////////////////////////////////
++  // JTAG clock buffer for FPGA //
++  ////////////////////////////////
++
++  BUFG jtag_buf (
++    .I (jtag_tck),
++    .O (jtag_tck_buf)
++  );
++
+   //////////////////
+   // PLL for FPGA //
+   //////////////////
+@@ -251,7 +260,7 @@ module top_earlgrey_nexysvideo #(
+     .ast_tl_rsp_i                ( '0              ),
+ 
+     // JTAG
+-    .jtag_tck_i      ( jtag_tck      ),
++    .jtag_tck_i      ( jtag_tck_buf  ),
+     .jtag_tms_i      ( jtag_tms      ),
+     .jtag_trst_ni    ( jtag_trst_n   ),
+     .jtag_tdi_i      ( jtag_tdi      ),

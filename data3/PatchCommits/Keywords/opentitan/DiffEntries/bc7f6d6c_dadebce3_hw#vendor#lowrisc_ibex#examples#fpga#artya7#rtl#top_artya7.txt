@@ -1,0 +1,14 @@
+bc7f6d6cde2259f2741e40112f2ff4c6871d0d75
+Update lowrisc_ibex to lowRISC/ibex@6d9e1ac
+diff --git a/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv b/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv
+index c26ca459d..ef50ceb21 100644
+--- a/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv
++++ b/hw/vendor/lowrisc_ibex/examples/fpga/artya7/rtl/top_artya7.sv
+@@ -80,6 +80,7 @@ module top_artya7 (
+      .irq_nm_i              (1'b0),
+ 
+      .debug_req_i           ('b0),
++     .crash_dump_o          (),
+ 
+      .fetch_enable_i        ('b1),
+      .alert_minor_o         (),

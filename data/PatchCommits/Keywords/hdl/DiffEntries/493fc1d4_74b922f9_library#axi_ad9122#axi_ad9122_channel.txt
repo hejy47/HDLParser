@@ -1,0 +1,21 @@
+493fc1d48b8b34a944fad0ddfb240d7db084dede
+axi_*: Fix instantiation of up_[adc|dac]_[common|channel]
+diff --git a/library/axi_ad9122/axi_ad9122_channel.v b/library/axi_ad9122/axi_ad9122_channel.v
+index 315c5188..f1e7ae4b 100644
+--- a/library/axi_ad9122/axi_ad9122_channel.v
++++ b/library/axi_ad9122/axi_ad9122_channel.v
+@@ -209,7 +209,13 @@ module axi_ad9122_channel #(
+ 
+   // single channel processor
+ 
+-  up_dac_channel #(.CHANNEL_ID(CHANNEL_ID)) i_up_dac_channel (
++  up_dac_channel #(
++    .COMMON_ID (6'h11),
++    .CHANNEL_ID(CHANNEL_ID),
++    .DDS_DISABLE (0),
++    .USERPORTS_DISABLE (0),
++    .IQCORRECTION_DISABLE (0))
++  i_up_dac_channel (
+     .dac_clk (dac_div_clk),
+     .dac_rst (dac_rst),
+     .dac_dds_scale_1 (dac_dds_scale_1_s),

@@ -1,0 +1,19 @@
+f50b00cbe4bf5fa146a21fe77e80632ad54ed210
+Trying to fix D$ on stringsearch. [func test][perf test]
+diff --git a/src/cache/dcache.sv b/src/cache/dcache.sv
+index a956016..77242f3 100644
+--- a/src/cache/dcache.sv
++++ b/src/cache/dcache.sv
+@@ -229,6 +229,12 @@ always_comb begin
+         rf_data_wdata = wb_line;
+     end else begin
+         rf_data_wdata = line_recv;
++    end
++
++    // Only rewrite the last byte in RECEIVING state
++    // Because we may need rf_data_wdata for stage 2 write hit
++    // We don't want to write invalid data after our receiving is finished
++    if(state == RECEIVING) begin
+         rf_data_wdata[DATA_PER_LINE - 1][DATA_WIDTH - 1 -: 32] = axi_resp.rdata;
+     end
+ 

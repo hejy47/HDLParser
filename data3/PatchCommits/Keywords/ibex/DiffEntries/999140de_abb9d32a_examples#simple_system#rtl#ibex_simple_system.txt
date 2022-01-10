@@ -1,0 +1,29 @@
+999140ded8aa4286de81576e1038298b9b5813a1
+Fix lint issues
+diff --git a/examples/simple_system/rtl/ibex_simple_system.sv b/examples/simple_system/rtl/ibex_simple_system.sv
+index abe37791..3d48a08f 100644
+--- a/examples/simple_system/rtl/ibex_simple_system.sv
++++ b/examples/simple_system/rtl/ibex_simple_system.sv
+@@ -50,11 +50,11 @@ module ibex_simple_system (
+ 
+   logic clk_sys = 1'b0, rst_sys_n;
+ 
+-  typedef enum {
++  typedef enum logic {
+     CoreD
+   } bus_host_e;
+ 
+-  typedef enum {
++  typedef enum logic[1:0] {
+     Ram,
+     SimCtrl,
+     Timer
+@@ -117,7 +117,7 @@ module ibex_simple_system (
+       #8
+       rst_sys_n = 1'b1;
+     end
+-    always begin
++    always_comb begin
+       #1 clk_sys = 1'b0;
+       #1 clk_sys = 1'b1;
+     end

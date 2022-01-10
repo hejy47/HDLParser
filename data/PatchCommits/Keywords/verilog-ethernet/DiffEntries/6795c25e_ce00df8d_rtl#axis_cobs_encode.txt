@@ -1,0 +1,24 @@
+6795c25e7ffd5d8380e3fc1f8b34e30179a24df7
+Fix use before define
+diff --git a/rtl/axis_cobs_encode.v b/rtl/axis_cobs_encode.v
+index 7a2d4b3..a0e2418 100644
+--- a/rtl/axis_cobs_encode.v
++++ b/rtl/axis_cobs_encode.v
+@@ -86,8 +86,6 @@ wire      m_axis_tready_int_early;
+ 
+ reg s_axis_tready_mask;
+ 
+-assign s_axis_tready = code_fifo_in_tready && data_fifo_in_tready && s_axis_tready_mask;
+-
+ reg [7:0] code_fifo_in_tdata;
+ reg code_fifo_in_tvalid;
+ reg code_fifo_in_tlast;
+@@ -100,6 +98,8 @@ wire code_fifo_out_tlast;
+ wire code_fifo_out_tuser;
+ reg code_fifo_out_tready;
+ 
++assign s_axis_tready = code_fifo_in_tready && data_fifo_in_tready && s_axis_tready_mask;
++
+ axis_fifo #(
+     .DEPTH(256),
+     .DATA_WIDTH(8),

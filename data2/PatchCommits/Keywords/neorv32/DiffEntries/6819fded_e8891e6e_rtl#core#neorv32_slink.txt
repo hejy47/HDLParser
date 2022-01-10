@@ -1,0 +1,14 @@
+6819fdedfc283fc65e7c8ebb71eb7b2e6f636140
+[rtl/core/slink] minor fix
+diff --git a/rtl/core/neorv32_slink.vhd b/rtl/core/neorv32_slink.vhd
+index a3ea26a..65aac7c 100644
+--- a/rtl/core/neorv32_slink.vhd
++++ b/rtl/core/neorv32_slink.vhd
+@@ -311,6 +311,7 @@ begin
+   for i in SLINK_NUM_RX to 7 generate
+     rx_fifo_avail(i)  <= '0';
+     slink_rx_rdy_o(i) <= '0';
++    rx_fifo_rdata(i)  <= (others => '0');
+   end generate;
+ 
+ 

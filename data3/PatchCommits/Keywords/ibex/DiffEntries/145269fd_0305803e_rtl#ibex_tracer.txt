@@ -1,0 +1,55 @@
+145269fdc88e1d545fca692fd3e3a43c99e1ac12
+Replace non-unique `case` with `unique case` + `default`
+diff --git a/rtl/ibex_tracer.sv b/rtl/ibex_tracer.sv
+index ccfd44f6..f08552d2 100644
+--- a/rtl/ibex_tracer.sv
++++ b/rtl/ibex_tracer.sv
+@@ -234,7 +234,7 @@ module ibex_tracer #(
+           size = instr_i[30:28];
+         end
+ 
+-        case (size)
++        unique case (size)
+           3'b000: mnemonic = "lb";
+           3'b001: mnemonic = "lh";
+           3'b010: mnemonic = "lw";
+@@ -246,6 +246,10 @@ module ibex_tracer #(
+             printMnemonic("INVALID");
+             return;
+           end
++          default: begin
++            printMnemonic("INVALID");
++            return;
++          end
+         endcase
+ 
+         regs_write.push_back('{rd, 'x});
+@@ -264,7 +268,7 @@ module ibex_tracer #(
+       string mnemonic;
+       begin
+ 
+-        case (instr_i[13:12])
++        unique case (instr_i[13:12])
+           2'b00:  mnemonic = "sb";
+           2'b01:  mnemonic = "sh";
+           2'b10:  mnemonic = "sw";
+@@ -272,6 +276,10 @@ module ibex_tracer #(
+             printMnemonic("INVALID");
+             return;
+           end
++          default: begin
++            printMnemonic("INVALID");
++            return;
++          end
+         endcase
+ 
+         if (!instr_i[14]) begin
+@@ -333,7 +341,7 @@ module ibex_tracer #(
+       trace.instr      = instr_i;
+ 
+       // use casex instead of case inside due to ModelSim bug
+-      casex (instr_i)
++      unique casex (instr_i)
+         // Aliases
+         32'h00_00_00_13:  trace.printMnemonic("nop");
+         // Regular opcodes

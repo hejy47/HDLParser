@@ -1,0 +1,24 @@
+402c7945669b5ab5bad64780fc36e4a143468029
+fixes in the stdio.c (issue #17) and other small fixes and improvements.
+diff --git a/rtl/darkriscv.v b/rtl/darkriscv.v
+index 89d8372..ea43b00 100644
+--- a/rtl/darkriscv.v
++++ b/rtl/darkriscv.v
+@@ -70,7 +70,7 @@
+ // performance impact.
+ // Note: interrupts are currently supported only in the 3-stage pipeline version.
+ 
+-//`define __INTERRUPT__ 
++`define __INTERRUPT__ 
+ 
+ // performance measurements can be done in the simulation level by eabling the __PERFMETER__
+ // define, in order to check how the MHz are used :)
+@@ -85,7 +85,7 @@
+ // used to accelerate the mul/div operations, the mac operation is designed for DSP applications.
+ // with some effort (low level machine code), it is possible peak 100MMAC/s @100MHz.
+ 
+-//`define __MAC16X16__
++`define __MAC16X16__
+ 
+ module darkriscv
+ #(

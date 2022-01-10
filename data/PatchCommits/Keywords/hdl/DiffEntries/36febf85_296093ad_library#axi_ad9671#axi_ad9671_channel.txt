@@ -1,0 +1,24 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/axi_ad9671/axi_ad9671_channel.v b/library/axi_ad9671/axi_ad9671_channel.v
+index 17af19de..939fe8cd 100644
+--- a/library/axi_ad9671/axi_ad9671_channel.v
++++ b/library/axi_ad9671/axi_ad9671_channel.v
+@@ -74,7 +74,7 @@ module axi_ad9671_channel (
+ 
+   // parameters
+ 
+-  parameter CHID = 0;
++  parameter CHANNEL_ID = 0;
+ 
+   // adc interface
+ 
+@@ -135,7 +135,7 @@ module axi_ad9671_channel (
+     .dfmt_type (adc_dfmt_type_s),
+     .dfmt_se (adc_dfmt_se_s));
+ 
+-  up_adc_channel #(.PCORE_ADC_CHID(CHID)) i_up_adc_channel (
++  up_adc_channel #(.ADC_CHANNEL_ID(CHANNEL_ID)) i_up_adc_channel (
+     .adc_clk (adc_clk),
+     .adc_rst (adc_rst),
+     .adc_enable (adc_enable),

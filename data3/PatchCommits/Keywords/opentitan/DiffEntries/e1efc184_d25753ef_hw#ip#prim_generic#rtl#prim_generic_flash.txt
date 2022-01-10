@@ -1,0 +1,20 @@
+e1efc18470f1b9f730cdc8bab83dd4abaca419bf
+[prim_ram_1p] Move advanced functionality into wrapper
+diff --git a/hw/ip/prim_generic/rtl/prim_generic_flash.sv b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+index ef2d4b4ed..6a0655e0a 100644
+--- a/hw/ip/prim_generic/rtl/prim_generic_flash.sv
++++ b/hw/ip/prim_generic/rtl/prim_generic_flash.sv
+@@ -274,13 +274,11 @@ module prim_generic_flash #(
+     .DataBitsPerMask(DataWidth)
+   ) u_mem (
+     .clk_i,
+-    .rst_ni,
+     .req_i    (mem_req),
+     .write_i  (mem_wr),
+     .addr_i   (mem_addr),
+     .wdata_i  (mem_wdata),
+     .wmask_i  ({DataWidth{1'b1}}),
+-    .rvalid_o (),
+     .rdata_o  (rd_data_o)
+   );
+ 

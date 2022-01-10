@@ -1,0 +1,44 @@
+4c27cf802013e7a8f457eec6bd56818bcc61d571
+Merge pull request #491 from davideschiavone/fix_mepc_racecondition
+diff --git a/rtl/cv32e40p_cs_registers.sv b/rtl/cv32e40p_cs_registers.sv
+index 96445f1..22a42d6 100644
+--- a/rtl/cv32e40p_cs_registers.sv
++++ b/rtl/cv32e40p_cs_registers.sv
+@@ -731,7 +731,7 @@ if(PULP_SECURE==1) begin
+                     dcsr_n.ebreakm   = csr_wdata_int[15];
+                     dcsr_n.ebreaks   = csr_wdata_int[13];
+                     dcsr_n.ebreaku   = csr_wdata_int[12];
+-                    dcsr_n.stepie    = 1'b0;                            // stepie
++                    dcsr_n.stepie    = csr_wdata_int[11];               // stepie
+                     dcsr_n.stopcount = 1'b0;                            // stopcount
+                     dcsr_n.stoptime  = 1'b0;                            // stoptime
+                     dcsr_n.mprven    = 1'b0;                            // mprven
+@@ -1012,7 +1012,7 @@ end else begin //PULP_SECURE == 0
+                     dcsr_n.ebreakm   = csr_wdata_int[15];
+                     dcsr_n.ebreaks   = csr_wdata_int[13];
+                     dcsr_n.ebreaku   = csr_wdata_int[12];
+-                    dcsr_n.stepie    = 1'b0;                            // stepie
++                    dcsr_n.stepie    = csr_wdata_int[11];               // stepie
+                     dcsr_n.stopcount = 1'b0;                            // stopcount
+                     dcsr_n.stoptime  = 1'b0;                            // stoptime
+                     dcsr_n.mprven    = 1'b0;                            // mprven
+@@ -1105,7 +1105,7 @@ end //PULP_SECURE
+     csr_wdata_int = csr_wdata_i;
+     csr_we_int    = 1'b1;
+ 
+-    unique case (csr_op_i)
++    case (csr_op_i)
+       CSR_OP_WRITE: csr_wdata_int = csr_wdata_i;
+       CSR_OP_SET:   csr_wdata_int = csr_wdata_i | csr_rdata_o;
+       CSR_OP_CLEAR: csr_wdata_int = (~csr_wdata_i) & csr_rdata_o;
+@@ -1167,8 +1167,8 @@ end //PULP_SECURE
+ 
+ 
+   // directly output some registers
+-  assign m_irq_enable_o  = mstatus_q.mie & priv_lvl_q == PRIV_LVL_M;
+-  assign u_irq_enable_o  = mstatus_q.uie & priv_lvl_q == PRIV_LVL_U;
++  assign m_irq_enable_o  = mstatus_q.mie && !(dcsr_q.step && !dcsr_q.stepie);
++  assign u_irq_enable_o  = mstatus_q.uie && !(dcsr_q.step && !dcsr_q.stepie);
+   assign priv_lvl_o      = priv_lvl_q;
+   assign sec_lvl_o       = priv_lvl_q[0];
+   assign frm_o           = (FPU == 1) ? frm_q : '0;

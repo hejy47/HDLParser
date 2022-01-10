@@ -1,0 +1,5 @@
+,HdlOp-InfixExpression,HdlOp-PARAMETRIZATION,HdlOp-DOWNTO,HdlOp-PrefixExpression
+update,6,10.0,10.0,4.0
+move,1,,,
+delete,1,,,2.0
+insert,5,,,2.0

@@ -1,0 +1,18 @@
+c035b84e0c1d9c37be3c075787fa66c6ff77ee4f
+[chiplevel] Minor lint fixes
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+index ec41c3630..198a13883 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_asic.sv
+@@ -770,7 +770,10 @@ module chip_earlgrey_asic (
+     // D is used as an input only
+     dio_out[DioUsbdevD],
+     dio_oe[DioUsbdevD],
+-    dio_attr[DioUsbdevD]
++    dio_attr[DioUsbdevD],
++    // Pullup/down
++    dio_attr[DioUsbdevDpPullup],
++    dio_attr[DioUsbdevDnPullup]
+   };
+ 
+   //////////////////////

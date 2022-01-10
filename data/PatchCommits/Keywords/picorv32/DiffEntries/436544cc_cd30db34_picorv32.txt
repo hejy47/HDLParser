@@ -1,0 +1,21 @@
+436544ccab9dcef61d074feda19e52c94fdb5c1b
+Fix decoding of C.ADDI instruction
+diff --git a/picorv32.v b/picorv32.v
+index 6de2bd4..ba9fc0a 100644
+--- a/picorv32.v
++++ b/picorv32.v
+@@ -890,11 +890,9 @@ module picorv32 #(
+ 					2'b01: begin // Quadrant 1
+ 						case (mem_rdata_latched[15:13])
+ 							3'b000: begin // C.NOP / C.ADDI
+-								if (!mem_rdata_latched[12:2] || mem_rdata_latched[11:7]) begin
+-									is_alu_reg_imm <= 1;
+-									decoded_rd <= mem_rdata_latched[11:7];
+-									decoded_rs1 <= mem_rdata_latched[11:7];
+-								end
++								is_alu_reg_imm <= 1;
++								decoded_rd <= mem_rdata_latched[11:7];
++								decoded_rs1 <= mem_rdata_latched[11:7];
+ 							end
+ 							3'b001: begin // C.JAL
+ 								instr_jal <= 1;

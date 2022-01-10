@@ -1,0 +1,22 @@
+1cbbcfb90b4b69e6d565a997d29d75529c7ce11f
+Fix linting errors/warnings and remove dead signals
+diff --git a/register_file.sv b/register_file.sv
+index f52254d5..3a6af5e7 100644
+--- a/register_file.sv
++++ b/register_file.sv
+@@ -35,11 +35,11 @@ module riscv_register_file
+ 
+   logic [DATA_WIDTH-1:0]      MemContentxDP[NUM_WORDS];
+ 
+-  logic [NUM_WORDS-1:0]       WAddrOneHotxDa;
+-  logic [NUM_WORDS-1:0]       WAddrOneHotxDb;
+-  logic [NUM_WORDS-1:0]       WAddrOneHotxDb_reg;
++  logic [NUM_WORDS-1:1]       WAddrOneHotxDa;
++  logic [NUM_WORDS-1:1]       WAddrOneHotxDb;
++  logic [NUM_WORDS-1:1]       WAddrOneHotxDb_reg;
+ 
+-  logic [NUM_WORDS-1:0]       ClocksxC;
++  logic [NUM_WORDS-1:1]       ClocksxC;
+   logic [DATA_WIDTH-1:0]      WDataIntxDa;
+   logic [DATA_WIDTH-1:0]      WDataIntxDb;
+ 

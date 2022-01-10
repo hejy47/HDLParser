@@ -1,0 +1,3749 @@
+======Commit: 62a6a226======
+======Short Message======
+tox: do not skip missing interpreters by default
+======Full Message======
+tox: do not skip missing interpreters by default
+
+
+
+======Commit: 45a78783======
+======Short Message======
+vunit/parsing/tokenizer: fix typing
+======Full Message======
+vunit/parsing/tokenizer: fix typing
+
+
+
+======Commit: 48202dff======
+======Short Message======
+docs/contributing: fix ref to Travis CI (deprecated), GitHub Actions is used now
+======Full Message======
+docs/contributing: fix ref to Travis CI (deprecated), GitHub Actions is used now
+
+
+
+======Commit: 9db0fd88======
+======Short Message======
+revert "Revert Sphinx version to workaround search bug."
+======Full Message======
+revert "Revert Sphinx version to workaround search bug."
+
+This reverts commit 859819f49a97b7096dd169088f9b5f72d133aac7.
+
+
+
+======Commit: 3e5613ad======
+======Short Message======
+log_deprecated_pkg: fix compilation issues with Cadence tools
+======Full Message======
+log_deprecated_pkg: fix compilation issues with Cadence tools
+
+
+
+======Commit: 75da56d1======
+======Short Message======
+Fixed lint issues introduced with pylint 2.10.2.
+======Full Message======
+Fixed lint issues introduced with pylint 2.10.2.
+
+
+
+======Commit: fa8b32c7======
+======Short Message======
+Fixed pylint issues.
+======Full Message======
+Fixed pylint issues.
+
+
+
+======Commit: 64cebf1d======
+======Short Message======
+Fix non-blocking partial check
+======Full Message======
+Fix non-blocking partial check
+
+
+
+======Commit: 1f959267======
+======Short Message======
+Fix message content
+======Full Message======
+Fix message content
+
+
+
+======Commit: d4e53cb6======
+======Short Message======
+vunit/ui/common: make glob search recursive by default
+======Full Message======
+vunit/ui/common: make glob search recursive by default
+
+
+
+======Commit: 096de38e======
+======Short Message======
+ci: fix deploy condition event
+======Full Message======
+ci: fix deploy condition event
+
+
+
+======Commit: f6b2818f======
+======Short Message======
+Fixed check_equal of special characters.
+======Full Message======
+Fixed check_equal of special characters.
+
+
+
+======Commit: 9d6c76bf======
+======Short Message======
+Fixed lint issues
+======Full Message======
+Fixed lint issues
+
+
+
+======Commit: 859819f4======
+======Short Message======
+Revert Sphinx version to workaround search bug.
+======Full Message======
+Revert Sphinx version to workaround search bug.
+
+
+
+======Commit: 8535b440======
+======Short Message======
+Fixed bug in AXI stream protocol checker rule 4.
+======Full Message======
+Fixed bug in AXI stream protocol checker rule 4.
+
+
+
+======Commit: 5141f7c6======
+======Short Message======
+Fixed lint issues.
+======Full Message======
+Fixed lint issues.
+
+
+
+======Commit: f87a6ecd======
+======Short Message======
+fix broken msg passing in wishbone master for (fix #692) (#693)
+======Full Message======
+fix broken msg passing in wishbone master for (fix #692) (#693)
+
+Co-authored-by: Sławomir Siluk <slawomir.siluk@enamorint.com>
+
+
+======Commit: 41b99a09======
+======Short Message======
+push avalon master read req msg one cycle earlier (fix #695) (#696)
+======Full Message======
+push avalon master read req msg one cycle earlier (fix #695) (#696)
+
+Co-authored-by: Sławomir Siluk <slawomir.siluk@enamorint.com>
+
+
+======Commit: 710f68d5======
+======Short Message======
+Fixed lint errors
+======Full Message======
+Fixed lint errors
+
+
+
+======Commit: 7e3502f0======
+======Short Message======
+fix riviera pro coverage merge error (#675)
+======Full Message======
+fix riviera pro coverage merge error (#675)
+
+Co-authored-by: Guy Eschemann <eschemann@formled.com>
+
+
+======Commit: f0d861e4======
+======Short Message======
+test/lint: fix function name, is test_mypy
+======Full Message======
+test/lint: fix function name, is test_mypy
+
+
+
+======Commit: 9d9843c6======
+======Short Message======
+ci: fix images.sh URL from ghdl/docker
+======Full Message======
+ci: fix images.sh URL from ghdl/docker
+
+
+
+======Commit: ff997a4b======
+======Short Message======
+ui: fix not serializable path when exporting JSON (#657)
+======Full Message======
+ui: fix not serializable path when exporting JSON (#657)
+
+
+
+======Commit: ea1a5f55======
+======Short Message======
+docs: fix duplicated content and index of vunit_cli
+======Full Message======
+docs: fix duplicated content and index of vunit_cli
+
+
+
+======Commit: 0b3bf191======
+======Short Message======
+docs: use autodoc_default_options instead of (deprecated) autodoc_default_flags
+======Full Message======
+docs: use autodoc_default_options instead of (deprecated) autodoc_default_flags
+
+
+
+======Commit: d93adf72======
+======Short Message======
+fix: use 'str' for params to 'self.check'
+======Full Message======
+fix: use 'str' for params to 'self.check'
+
+
+
+======Commit: eb5aa86f======
+======Short Message======
+fix: make tools/release.py executable
+======Full Message======
+fix: make tools/release.py executable
+
+
+
+======Commit: fe11736e======
+======Short Message======
+fix: release trigger condition in workflow 'push'
+======Full Message======
+fix: release trigger condition in workflow 'push'
+
+
+
+======Commit: 3124d974======
+======Short Message======
+codec: fix "prefix of array attribute must be an object name" (#635)
+======Full Message======
+codec: fix "prefix of array attribute must be an object name" (#635)
+
+
+
+
+======Commit: f1c4102b======
+======Short Message======
+add code coverage support for ghdl (#627)
+======Full Message======
+add code coverage support for ghdl (#627)
+
+* sim_if: add supports_coverage method
+* Expose supports_coverage to user
+* Add code coverage support for ghdl
+Simulation now puts the compile-time gcno with the compiled .o-files, and run-time gcda folders within the output folder for each test
+Each test case produces a separate .gcda file.
+* Hopefully make ghdl coverage work when using multiple threads
+* Add merge_coverage method for GHDLInterface
+* Update coverage example for GHDL
+* Adapt for usage of Pathlib
+* Better handling of empty glob results
+* Correct comment
+* Minor fixes after review by LukasVik
+* Add enable_coverage for source files
+* Fix linting
+* Add coverage example to acceptance tests
+* Updates after review
+* Add documentation for the enable_coverage flags for GHDL
+
+Co-authored-by: Lukas Vik <10241915+LukasVik@users.noreply.github.com>
+
+
+======Commit: bb53c031======
+======Short Message======
+fix pathlib conversion (#632)
+======Full Message======
+fix pathlib conversion (#632)
+
+
+
+======Commit: bcdabe4a======
+======Short Message======
+Fix "prefix of array attribute must be an object name"
+======Full Message======
+Fix "prefix of array attribute must be an object name"
+
+
+
+======Commit: a7f2bbe7======
+======Short Message======
+add possibility to configure random stalls for axi_stream (#557)
+======Full Message======
+add possibility to configure random stalls for axi_stream (#557)
+
+* Added possibility to configure random stalls
+
+At creation of master/slave one can provide a configuration which tells
+how often a stall should occure, and if it occures what the
+minimal/maximal stall length of such a stall shall be.
+
+* Added lines for linter
+
+* Removed whitespaces and added check for zero stall activity where not expected
+
+* replaced configuration functions by constants configured by generic
+
+* uncommented disabled checks
+
+* fixed ordering of the signals in if statement and used VHDL 2008
+
+* Fixed order of generics to be backwards compatible
+
+based on pull request comment of 1138-4EB
+
+* Change of stall generics to provide [0-100]% stall
+
+* replaces stat signals with records
+
+* only include RandomPType with use instead of all
+
+* made random variable privat to process
+
+* moved procedures that are private to a private package
+
+* give meaningful name to generics to avoid comment
+
+* fixed return value for p_actor in new_axi_stream_slave
+
+Changed new_actor to p_actor
+
+* added procedure drive_invalid_output
+
+* replaced for loop with direct call to test case
+
+* introduced new_stall_config function
+
+* unified random stall test cases for axi_stream
+
+* removed explicit numbers in test case
+
+this makes it more general and percentage numbers can be varied through
+the generics without having to manual change the vhdl code.
+
+* replaced if statement for min/max evaluation by min/max functions
+
+* reformated using black
+
+* fixed typo
+
+* fixed formating issues
+
+* Fixed year of license text in axi_stream_private_pkg.vhd
+
+* uppercased test bench variable
+
+
+
+======Commit: 7bfdf1eb======
+======Short Message======
+docs: switch from ablog to alabaster (default)
+======Full Message======
+docs: switch from ablog to alabaster (default)
+
+
+
+======Commit: 82ef224c======
+======Short Message======
+Merge pull request #620 from LukasVik/ghdl_doc
+======Full Message======
+Merge pull request #620 from LukasVik/ghdl_doc
+
+Fix "ghdl.flags" error in documentation
+
+
+======Commit: 47528524======
+======Short Message======
+Fix "ghdl.flags" error in documentation
+======Full Message======
+Fix "ghdl.flags" error in documentation
+
+
+
+======Commit: 53f681c7======
+======Short Message======
+fix parsing adjacent hyphens in a literal (#616)
+======Full Message======
+fix parsing adjacent hyphens in a literal (#616)
+
+* Fixes #529: comment parsing error
+* Add unit test for Issue#529
+* fmt
+
+Co-authored-by: eine <eine@users.noreply.github.com>
+
+
+
+======Commit: 26fe21d4======
+======Short Message======
+ci: fix images (ghdl/pkg is not a tarball any more)
+======Full Message======
+ci: fix images (ghdl/pkg is not a tarball any more)
+
+
+
+======Commit: 626b76cf======
+======Short Message======
+ci: fix travis, get dev docker images from GHPR
+======Full Message======
+ci: fix travis, get dev docker images from GHPR
+
+
+
+======Commit: c6ccaeeb======
+======Short Message======
+fix: add mode assertions to -93 sources
+======Full Message======
+fix: add mode assertions to -93 sources
+
+
+
+======Commit: 5db27441======
+======Short Message======
+docs: fix paths to tests
+======Full Message======
+docs: fix paths to tests
+
+
+
+======Commit: fefa9965======
+======Short Message======
+Black format fix
+======Full Message======
+Black format fix
+
+
+
+======Commit: b2270261======
+======Short Message======
+Fix broken library vhdl_standard. #594
+======Full Message======
+Fix broken library vhdl_standard. #594
+
+
+
+======Commit: dbb8c102======
+======Short Message======
+Merge pull request #585 from aappl/aappl-activehdl-package-generics
+======Full Message======
+Merge pull request #585 from aappl/aappl-activehdl-package-generics
+
+Fix version number bug in activehdl_interface.py
+
+
+======Commit: c2038b99======
+======Short Message======
+Changed the way find_prefix is mocked to support python 2.7
+======Full Message======
+Changed the way find_prefix is mocked to support python 2.7
+
+
+
+
+======Commit: f1b6fcd2======
+======Short Message======
+fix(vivado_util.py): use 'sim_if' instead of 'simulator_interface'
+======Full Message======
+fix(vivado_util.py): use 'sim_if' instead of 'simulator_interface'
+
+
+
+======Commit: 017e0c58======
+======Short Message======
+update .gitignore (#586)
+======Full Message======
+update .gitignore (#586)
+
+* fix .gitignore: /vunit/test is now /tests
+* tests/acceptance/test_artificial: use 'artificial_out' instead of 'artificial out', for gitignore pick it
+* .gitignore: add generated vunit/vhdl/check/test/tb_check_*.vhd
+
+
+
+======Commit: caa9cb2a======
+======Short Message======
+Fixed lint errors in test_activehdl_interface
+======Full Message======
+Fixed lint errors in test_activehdl_interface
+
+
+
+
+======Commit: b10dfa82======
+======Short Message======
+Fixed Aldec compile issue.
+======Full Message======
+Fixed Aldec compile issue.
+
+
+
+======Commit: edc7609d======
+======Short Message======
+fix(examples/vhdl/external_buffer): use the reference C sources
+======Full Message======
+fix(examples/vhdl/external_buffer): use the reference C sources
+
+* add sigabrt.md
+
+
+
+======Commit: c7c580ce======
+======Short Message======
+Move new_log_handler to public section and add default parameters (closes #566)
+======Full Message======
+Move new_log_handler to public section and add default parameters (closes #566)
+
+
+
+======Commit: bfc2d64b======
+======Short Message======
+Fixed mismatch between procedure declaration/definition.
+======Full Message======
+Fixed mismatch between procedure declaration/definition.
+
+
+
+======Commit: ccc290aa======
+======Short Message======
+Fix release.py
+======Full Message======
+Fix release.py
+
+
+
+======Commit: 33d30fb4======
+======Short Message======
+fix: add ignores to pycodestyle and pylint
+======Full Message======
+fix: add ignores to pycodestyle and pylint
+
+
+
+======Commit: 4661fe13======
+======Short Message======
+do not add extra quotes when invoking a subprocess (fix #563)
+======Full Message======
+do not add extra quotes when invoking a subprocess (fix #563)
+
+
+
+======Commit: 214de988======
+======Short Message======
+Merge pull request #561 from eschmidscs/bugfix/check_axi_stream
+======Full Message======
+Merge pull request #561 from eschmidscs/bugfix/check_axi_stream
+
+Bugfix/check axi stream
+
+
+======Commit: 779dc710======
+======Short Message======
+fix documentation of .init_files.before_run
+======Full Message======
+fix documentation of .init_files.before_run
+
+
+
+======Commit: 903173c9======
+======Short Message======
+Fix braces in rivierapro_interface.py
+======Full Message======
+Fix braces in rivierapro_interface.py
+
+
+======Commit: e8dc630c======
+======Short Message======
+Fix braces in modelsim_interface.py
+======Full Message======
+Fix braces in modelsim_interface.py
+
+
+======Commit: 3de8d229======
+======Short Message======
+Fix work reference for non-lower case library names. #556
+======Full Message======
+Fix work reference for non-lower case library names. #556
+
+
+
+======Commit: 7635bfed======
+======Short Message======
+Trying to fix linter
+======Full Message======
+Trying to fix linter
+
+
+
+======Commit: bb0189db======
+======Short Message======
+Fix axi_stream_check for zero length fields
+======Full Message======
+Fix axi_stream_check for zero length fields
+
+
+
+======Commit: 00eebc79======
+======Short Message======
+Extend tb_axi_stream to detect check_axi_stream error for tid/tdest/tuserlength=0
+======Full Message======
+Extend tb_axi_stream to detect check_axi_stream error for tid/tdest/tuserlength=0
+
+
+
+======Commit: 0a54b58b======
+======Short Message======
+Fixed too long line
+======Full Message======
+Fixed too long line
+
+
+
+======Commit: 66550f01======
+======Short Message======
+Fixed linting error
+======Full Message======
+Fixed linting error
+
+
+
+======Commit: f49cf1f3======
+======Short Message======
+Added test for ui and fixed bug found
+======Full Message======
+Added test for ui and fixed bug found
+
+
+
+======Commit: 5eef013a======
+======Short Message======
+Added test for get_minimal_file_set_in_compile_order and fixed bug
+======Full Message======
+Added test for get_minimal_file_set_in_compile_order and fixed bug
+
+
+
+======Commit: 55e0fc6e======
+======Short Message======
+fix release scripts
+======Full Message======
+fix release scripts
+
+
+
+======Commit: 03c2b9b9======
+======Short Message======
+Fix pylint errors in new pylint version
+======Full Message======
+Fix pylint errors in new pylint version
+
+
+
+======Commit: ce6697e6======
+======Short Message======
+test_verilog_tokenizer: fix test_tokenizes_keywords (#546)
+======Full Message======
+test_verilog_tokenizer: fix test_tokenizes_keywords (#546)
+
+
+
+
+======Commit: 1c8347d7======
+======Short Message======
+Fix pycodestyle
+======Full Message======
+Fix pycodestyle
+
+
+
+======Commit: 27c31f82======
+======Short Message======
+Fix verilog module with SV keyword name. #545
+======Full Message======
+Fix verilog module with SV keyword name. #545
+
+
+
+======Commit: 7e38f6f7======
+======Short Message======
+Merge pull request #538 from dbhi/fix-color-win
+======Full Message======
+Merge pull request #538 from dbhi/fix-color-win
+
+fix: use LinuxColorPrinter if MSYSTEM envvar is set
+
+
+======Commit: 32338b8e======
+======Short Message======
+fix: use LinuxColorPrinter if MSYSTEM envvar is set
+======Full Message======
+fix: use LinuxColorPrinter if MSYSTEM envvar is set
+
+
+
+======Commit: ba45c6a1======
+======Short Message======
+Fix incorrect test result when vunit_load fails. #537
+======Full Message======
+Fix incorrect test result when vunit_load fails. #537
+
+
+
+======Commit: f8738cd9======
+======Short Message======
+fix: allow docs_utils to handle empty eg subdirs
+======Full Message======
+fix: allow docs_utils to handle empty eg subdirs
+
+
+
+======Commit: 20fa67b4======
+======Short Message======
+fix(egs): ensure that VUnit is not executed when docs are built
+======Full Message======
+fix(egs): ensure that VUnit is not executed when docs are built
+
+
+
+======Commit: 12be9732======
+======Short Message======
+Fixed failing check tests. Closes #526.
+======Full Message======
+Fixed failing check tests. Closes #526.
+
+
+
+======Commit: b7fc4232======
+======Short Message======
+fix(doc): links to examples need a subdir
+======Full Message======
+fix(doc): links to examples need a subdir
+
+
+
+======Commit: f84902c4======
+======Short Message======
+Fixed broken tests
+======Full Message======
+Fixed broken tests
+
+
+
+======Commit: 305bff61======
+======Short Message======
+Fix Riviera-PRO compilation issues.
+======Full Message======
+Fix Riviera-PRO compilation issues.
+
+
+
+======Commit: 5c48ef64======
+======Short Message======
+Merge pull request #514 from benreynwar/update_incisive_vhdl_fixup
+======Full Message======
+Merge pull request #514 from benreynwar/update_incisive_vhdl_fixup
+
+Update incisive vhdl fixup so that contexts are replaced with correct…
+
+
+======Commit: 70ff2ba1======
+======Short Message======
+Merge pull request #512 from pStefanNilsson/merge_cover_fix
+======Full Message======
+Merge pull request #512 from pStefanNilsson/merge_cover_fix
+
+Modified merge_coverage to handle long vcover merge commands.
+
+
+======Commit: c2d8cb0d======
+======Short Message======
+Update incisive vhdl fixup so that contexts are replaced with correct packages.
+======Full Message======
+Update incisive vhdl fixup so that contexts are replaced with correct packages.
+
+
+
+======Commit: 1181ff28======
+======Short Message======
+Fixed some lint errors.
+======Full Message======
+Fixed some lint errors.
+
+
+
+======Commit: 82f5d551======
+======Short Message======
+Fixed line endings
+======Full Message======
+Fixed line endings
+
+
+
+======Commit: bfc05566======
+======Short Message======
+fix: files affected by 'length' being renamed to 'len'
+======Full Message======
+fix: files affected by 'length' being renamed to 'len'
+
+
+
+======Commit: 3528e7aa======
+======Short Message======
+Merge pull request #467 from dbhi/fix-ghdl-e
+======Full Message======
+Merge pull request #467 from dbhi/fix-ghdl-e
+
+add sim_opt 'ghdl.elab_e' to run 'ghdl -e' instead of 'ghdl --elab-run --no-run'
+
+
+======Commit: bbb32539======
+======Short Message======
+fix: do not use hardcoded slashes in paths
+======Full Message======
+fix: do not use hardcoded slashes in paths
+
+
+
+======Commit: 983be6a7======
+======Short Message======
+fix pylint disable=protected-access
+======Full Message======
+fix pylint disable=protected-access
+
+
+
+======Commit: 3c5a9785======
+======Short Message======
+fix unit test for 'ghdl.elab_e'
+======Full Message======
+fix unit test for 'ghdl.elab_e'
+
+
+
+======Commit: 4cc5e8de======
+======Short Message======
+Merge pull request #469 from dbhi/fix-test-suites
+======Full Message======
+Merge pull request #469 from dbhi/fix-test-suites
+
+fix: nonzero return values should produce a fail
+
+
+======Commit: cdd5663a======
+======Short Message======
+fix lint
+======Full Message======
+fix lint
+
+
+
+======Commit: 07ea721c======
+======Short Message======
+fix skipped
+======Full Message======
+fix skipped
+
+
+
+======Commit: ecbcc636======
+======Short Message======
+fix acceptance tests: must preserve 'skipped' results
+======Full Message======
+fix acceptance tests: must preserve 'skipped' results
+
+
+
+======Commit: 05423531======
+======Short Message======
+fix lint (replace map on lamba)
+======Full Message======
+fix lint (replace map on lamba)
+
+
+
+======Commit: 839d5608======
+======Short Message======
+fix lint (do not use try/except)
+======Full Message======
+fix lint (do not use try/except)
+
+
+
+======Commit: bed5a28e======
+======Short Message======
+fix lint
+======Full Message======
+fix lint
+
+
+
+======Commit: 496eb197======
+======Short Message======
+apply fix only with VHDL 2008
+======Full Message======
+apply fix only with VHDL 2008
+
+
+
+======Commit: dc5a704c======
+======Short Message======
+fix: nonzero return values should produce a fail
+======Full Message======
+fix: nonzero return values should produce a fail
+
+
+
+======Commit: 6e0a990e======
+======Short Message======
+fixed copy/paste error
+======Full Message======
+fixed copy/paste error
+
+
+
+======Commit: db38a814======
+======Short Message======
+Merge pull request #456 from LukasVik/stylefix
+======Full Message======
+Merge pull request #456 from LukasVik/stylefix
+
+Simplify extract_compile_order.tcl
+
+
+======Commit: 90ef53e9======
+======Short Message======
+Merge pull request #453 from LukasVik/dependency_scan
+======Full Message======
+Merge pull request #453 from LukasVik/dependency_scan
+
+Add option to not dependency scan xil_defaultlib
+
+
+======Commit: 74d7db3d======
+======Short Message======
+Add option to not dependency scan xil_defaultlib
+======Full Message======
+Add option to not dependency scan xil_defaultlib
+
+
+
+======Commit: e88663c6======
+======Short Message======
+Fixed lint issues
+======Full Message======
+Fixed lint issues
+
+
+
+======Commit: 5d825c91======
+======Short Message======
+Modify tb_com.vhd tests to demonstrate bug in delete_envelope
+======Full Message======
+Modify tb_com.vhd tests to demonstrate bug in delete_envelope
+
+
+
+======Commit: 964a60c9======
+======Short Message======
+Fix bug when deleting envelopes in com_messenger.vhd
+======Full Message======
+Fix bug when deleting envelopes in com_messenger.vhd
+
+When deleting an envelope, the mailbox linked list is not updated
+correctly. The last_envelope pointer is updated only if the linked
+list is completely empty after deletion. However, it is not updated
+if the last envelope is deleted but other envelopes still exist.
+This leaves the last_envelope pointer hanging and pointing to a
+deallocated envelope.
+
+This update corrects the mistake.
+
+
+
+======Commit: f6f2abe9======
+======Short Message======
+Fix Travis deployment
+======Full Message======
+Fix Travis deployment
+
+
+
+======Commit: 1a192339======
+======Short Message======
+Merge pull request #434 from bradleyharden/test_modelsim_fixup
+======Full Message======
+Merge pull request #434 from bradleyharden/test_modelsim_fixup
+
+Correct misuse of os.path.join in Modelsim interface unit tests
+
+
+======Commit: 754cf989======
+======Short Message======
+fix potential lockup with calling wait_until_idle on a (just) empty queue
+======Full Message======
+fix potential lockup with calling wait_until_idle on a (just) empty queue
+
+
+
+======Commit: e9bfb353======
+======Short Message======
+Merge pull request #428 from imd1/master
+======Full Message======
+Merge pull request #428 from imd1/master
+
+Fix modelsim gui merge coverage
+
+
+======Commit: 606fbbf4======
+======Short Message======
+Fix space before system verilog macro argument. Closes #423
+======Full Message======
+Fix space before system verilog macro argument. Closes #423
+
+
+
+======Commit: 492cb5a7======
+======Short Message======
+Fix test broken by previous commit
+======Full Message======
+Fix test broken by previous commit
+
+
+
+======Commit: ac52521d======
+======Short Message======
+Fix multiple attribute arguments. #426
+======Full Message======
+Fix multiple attribute arguments. #426
+
+
+
+======Commit: fbdb49dc======
+======Short Message======
+Merge pull request #420 from olafvandenberg/fix/axi_stream_master_clock_alignment
+======Full Message======
+Merge pull request #420 from olafvandenberg/fix/axi_stream_master_clock_alignment
+
+Fixed clock alignment in axi_stream_master vc
+
+
+======Commit: 2eea7110======
+======Short Message======
+Merge pull request #414 from soilheart/fix_riviera_license_queue
+======Full Message======
+Merge pull request #414 from soilheart/fix_riviera_license_queue
+
+Fix issue with rivierapro not waiting for license before running sim
+
+
+======Commit: c43a0958======
+======Short Message======
+Fix issue with rivierapro not waiting for license before running sim
+======Full Message======
+Fix issue with rivierapro not waiting for license before running sim
+
+
+
+======Commit: abd37bec======
+======Short Message======
+Fix pylint warnings after new pylint release
+======Full Message======
+Fix pylint warnings after new pylint release
+
+
+
+======Commit: 2506adc9======
+======Short Message======
+Merge pull request #413 from soilheart/master
+======Full Message======
+Merge pull request #413 from soilheart/master
+
+Fix bug with coverage flag not working with unique-sim in rivierapro
+
+
+======Commit: 5a227ab4======
+======Short Message======
+Fix bug with coverage flag not working with unique-sim in rivierapro
+======Full Message======
+Fix bug with coverage flag not working with unique-sim in rivierapro
+
+
+
+======Commit: 3aa83d1a======
+======Short Message======
+Fix generic list parsing for strings with semi colon. #409
+======Full Message======
+Fix generic list parsing for strings with semi colon. #409
+
+
+
+======Commit: ed0d0347======
+======Short Message======
+Fix potentially missed Ctrl-C also add more debug logging. #408.
+======Full Message======
+Fix potentially missed Ctrl-C also add more debug logging. #408.
+
+
+
+======Commit: 12dfd839======
+======Short Message======
+Fix issue with missing coverage information in Riviera
+======Full Message======
+Fix issue with missing coverage information in Riviera
+
+
+
+======Commit: 707a75a8======
+======Short Message======
+Fix python 2.7 tests
+======Full Message======
+Fix python 2.7 tests
+
+
+
+======Commit: 8af4b9bc======
+======Short Message======
+Fix tb_path absolute path broken by #402. Fixes #406
+======Full Message======
+Fix tb_path absolute path broken by #402. Fixes #406
+
+
+
+======Commit: 3ee8f09c======
+======Short Message======
+Fix tests on Windows
+======Full Message======
+Fix tests on Windows
+
+
+
+======Commit: 0b18775b======
+======Short Message======
+Fix test offset offset for DOS line endings. #347
+======Full Message======
+Fix test offset offset for DOS line endings. #347
+
+
+
+======Commit: f0e69030======
+======Short Message======
+Fix ActiveHDL interface
+======Full Message======
+Fix ActiveHDL interface
+
+
+
+======Commit: 2eed8ec8======
+======Short Message======
+Fix set_timeout for large values in ModelSim. Closes #405
+======Full Message======
+Fix set_timeout for large values in ModelSim. Closes #405
+
+
+
+======Commit: 188435e5======
+======Short Message======
+Correct syntax error within vivado_util in vivado example
+======Full Message======
+Correct syntax error within vivado_util in vivado example
+
+
+
+======Commit: 41d73d6a======
+======Short Message======
+Fix axi_dma example
+======Full Message======
+Fix axi_dma example
+
+
+
+======Commit: 713e0f68======
+======Short Message======
+Release 4.0.2, fix push of message and make sure axi_lite_master aligns with clk
+======Full Message======
+Release 4.0.2, fix push of message and make sure axi_lite_master aligns with clk
+
+
+
+======Commit: c4b201fa======
+======Short Message======
+Use hardcoded dependency from vivado outside of xil_defaultlib
+======Full Message======
+Use hardcoded dependency from vivado outside of xil_defaultlib
+
+
+
+======Commit: 14a4118e======
+======Short Message======
+Fix mistake in previous commit
+======Full Message======
+Fix mistake in previous commit
+
+
+
+======Commit: 643d9444======
+======Short Message======
+Fixup
+======Full Message======
+Fixup
+
+
+
+======Commit: 3d607ebb======
+======Short Message======
+Fixup
+======Full Message======
+Fixup
+
+
+
+======Commit: bc95996a======
+======Short Message======
+Allow recovery on preprocessing failure
+======Full Message======
+Allow recovery on preprocessing failure
+
+When attempting to add a file with syntax errors, VUnit will
+report that an error has occurred and skip preprocessing for
+the file. A unit test for this case has also been added.
+
+
+
+======Commit: b14f1fa1======
+======Short Message======
+Merge pull request #391 from eschmidscs/bugfix/check_axi_stream
+======Full Message======
+Merge pull request #391 from eschmidscs/bugfix/check_axi_stream
+
+Fix check_axi_stream for reduced arguments
+
+
+======Commit: 81bdaf91======
+======Short Message======
+Fix check_axi_stream for reduced arguments
+======Full Message======
+Fix check_axi_stream for reduced arguments
+
+
+
+======Commit: 3c972365======
+======Short Message======
+Fixes for lint
+======Full Message======
+Fixes for lint
+
+
+
+======Commit: f6457650======
+======Short Message======
+Renamed argument 'format' to 'fmt'; fixes line length and redefining-builtin issues
+======Full Message======
+Renamed argument 'format' to 'fmt'; fixes line length and redefining-builtin issues
+
+
+
+======Commit: c0b2de35======
+======Short Message======
+Fix tests failing in GHDL
+======Full Message======
+Fix tests failing in GHDL
+
+
+
+======Commit: cc4c6b62======
+======Short Message======
+Fix ghdl compilation
+======Full Message======
+Fix ghdl compilation
+
+
+
+======Commit: e1efcaaf======
+======Short Message======
+Fix whitespace linting
+======Full Message======
+Fix whitespace linting
+
+
+
+======Commit: 29e2559a======
+======Short Message======
+Minor merge fixes and extensions
+======Full Message======
+Minor merge fixes and extensions
+
+
+
+======Commit: f046e9d8======
+======Short Message======
+adds transaction record to avalon stream (#381)
+======Full Message======
+adds transaction record to avalon stream (#381)
+
+* adds transaction record to avalon stream
+
+* fix tb
+
+
+
+======Commit: 53c15460======
+======Short Message======
+Merge pull request #378 from eschmidscs/wbm_wait
+======Full Message======
+Merge pull request #378 from eschmidscs/wbm_wait
+
+Fix and test wishbone master wait for idle
+
+
+======Commit: 88c11b19======
+======Short Message======
+Fix and test wishbone master wait for idle
+======Full Message======
+Fix and test wishbone master wait for idle
+
+
+
+======Commit: 4e5ea10a======
+======Short Message======
+Use Process() to fix unit test problems
+======Full Message======
+Use Process() to fix unit test problems
+
+
+
+======Commit: 7e39b354======
+======Short Message======
+Use _prefix when launching vlist
+======Full Message======
+Use _prefix when launching vlist
+
+
+======Commit: 1fb8cf07======
+======Short Message======
+Integrated AXI protocol checker into other AXI VCs. Some lint fixing.
+======Full Message======
+Integrated AXI protocol checker into other AXI VCs. Some lint fixing.
+
+
+
+======Commit: 15b5422c======
+======Short Message======
+fix formatting
+======Full Message======
+fix formatting
+
+Lack of a return between the above line and list led to the VCs list.
+
+
+======Commit: fb93754c======
+======Short Message======
+fix trailing whitespace
+======Full Message======
+fix trailing whitespace
+
+
+
+======Commit: 13c80572======
+======Short Message======
+Adding avalon and wishbone packages to vc context.  Alphebetized package order for easier maintenance
+======Full Message======
+Adding avalon and wishbone packages to vc context.  Alphebetized package order for easier maintenance
+
+Working fixed latency read, added new generics to allow configurable
+behavior
+
+
+
+======Commit: 039a2b51======
+======Short Message======
+Fixed lint issues from new pylint version.
+======Full Message======
+Fixed lint issues from new pylint version.
+
+
+
+======Commit: 75841e20======
+======Short Message======
+Fix broken vivado example wrt verilog headers. #344
+======Full Message======
+Fix broken vivado example wrt verilog headers. #344
+
+
+
+======Commit: dd05de13======
+======Short Message======
+Fix Python 2.7 error i nprevious commit
+======Full Message======
+Fix Python 2.7 error i nprevious commit
+
+
+
+======Commit: 19c4d892======
+======Short Message======
+Fixed memory leak when popping messages from queues.
+======Full Message======
+Fixed memory leak when popping messages from queues.
+
+
+
+======Commit: 8fbad7f3======
+======Short Message======
+fix wip
+======Full Message======
+fix wip
+
+
+
+======Commit: 391c294f======
+======Short Message======
+add dump_debug_data
+======Full Message======
+add dump_debug_data
+
+
+
+======Commit: 94ca3e0c======
+======Short Message======
+Merge pull request #336 from AdamSteenkamer/patch-1
+======Full Message======
+Merge pull request #336 from AdamSteenkamer/patch-1
+
+Update python_interface.rst
+
+
+======Commit: dfd21b48======
+======Short Message======
+Update python_interface.rst
+======Full Message======
+Update python_interface.rst
+
+Fixed a typo in post_check example
+
+
+======Commit: 2f087d58======
+======Short Message======
+Graceful recovery and error message from failed VHDL parsing. Closes #334
+======Full Message======
+Graceful recovery and error message from failed VHDL parsing. Closes #334
+
+
+
+======Commit: a3fbb5be======
+======Short Message======
+Fix build_docs.py
+======Full Message======
+Fix build_docs.py
+
+
+
+======Commit: 77bc0962======
+======Short Message======
+Fix windows unit test path problem
+======Full Message======
+Fix windows unit test path problem
+
+
+
+======Commit: 97e095ff======
+======Short Message======
+Decouple simulator interfaces from exit_without_errors
+======Full Message======
+Decouple simulator interfaces from exit_without_errors
+
+
+
+======Commit: d33be673======
+======Short Message======
+Fixed testbench failing under Modelsim.
+======Full Message======
+Fixed testbench failing under Modelsim.
+
+
+
+======Commit: c42809e5======
+======Short Message======
+Fix running --list and --files without simulator
+======Full Message======
+Fix running --list and --files without simulator
+
+
+
+======Commit: e67ac7c9======
+======Short Message======
+Add stall probability to all axi slave channels.
+======Full Message======
+Add stall probability to all axi slave channels.
+
+Also remove _channel suffix for address channel name.
+
+
+
+======Commit: 42cd894c======
+======Short Message======
+Add debug logging to axi_lite_master
+======Full Message======
+Add debug logging to axi_lite_master
+
+
+
+======Commit: 1b08dde6======
+======Short Message======
+Fix lint
+======Full Message======
+Fix lint
+
+
+
+======Commit: 390b6ebd======
+======Short Message======
+Merge pull request #329 from 1138-4EB/fixdelayedsimdetect
+======Full Message======
+Merge pull request #329 from 1138-4EB/fixdelayedsimdetect
+
+fix delayed simulator selection
+
+
+======Commit: 2da9518d======
+======Short Message======
+fix delayed simulator selection
+======Full Message======
+fix delayed simulator selection
+
+
+
+======Commit: e8c426d0======
+======Short Message======
+Fix AppVeyor
+======Full Message======
+Fix AppVeyor
+
+
+
+======Commit: 9f1a0386======
+======Short Message======
+Fix broken documentation links, turn warning into error
+======Full Message======
+Fix broken documentation links, turn warning into error
+
+
+
+======Commit: 944cda0a======
+======Short Message======
+fix data_path
+======Full Message======
+fix data_path
+
+
+
+======Commit: c673b2b1======
+======Short Message======
+Fix Travis deployment. travis-ci/travis-ci#9312
+======Full Message======
+Fix Travis deployment. travis-ci/travis-ci#9312
+
+
+
+======Commit: 6bc3c930======
+======Short Message======
+Fix copyright and code clean
+======Full Message======
+Fix copyright and code clean
+
+
+
+======Commit: ef60350a======
+======Short Message======
+Fix cycle termination
+======Full Message======
+Fix cycle termination
+
+
+
+======Commit: 0dddf5bd======
+======Short Message======
+Fix Pop from empty queue error
+======Full Message======
+Fix Pop from empty queue error
+
+Call receive is not valid for such a use case (multi process
+BFM)
+
+
+
+======Commit: 1b61e106======
+======Short Message======
+Find the origin of pop from empty queue error
+======Full Message======
+Find the origin of pop from empty queue error
+
+It is in wishbone slave module in ack process
+when the third (last?) msg is processed.
+
+
+
+======Commit: b423930d======
+======Short Message======
+Pass sim
+======Full Message======
+Pass sim
+
+But need to fix memory write read values (currently
+checking is disabled in tb). Also need to perfrom
+block write and read back to back
+
+
+
+======Commit: 99d11d09======
+======Short Message======
+Fix single write
+======Full Message======
+Fix single write
+
+
+
+======Commit: 3fecbad7======
+======Short Message======
+Fixed memory leak
+======Full Message======
+Fixed memory leak
+
+
+
+======Commit: f31ea350======
+======Short Message======
+Use constant instead of alias to work arround Sigasi bug
+======Full Message======
+Use constant instead of alias to work arround Sigasi bug
+
+
+
+======Commit: 75ff1bb6======
+======Short Message======
+Fix 93/2002
+======Full Message======
+Fix 93/2002
+
+
+
+======Commit: dc5e1264======
+======Short Message======
+Deprecated constants with _c suffix.
+======Full Message======
+Deprecated constants with _c suffix.
+
+
+
+======Commit: 79f4e123======
+======Short Message======
+Make fail_on_warning first parameter of test_runner_cleanup.
+======Full Message======
+Make fail_on_warning first parameter of test_runner_cleanup.
+
+To avoid bad interaction with legacy external_error parameter.
+
+
+
+======Commit: cd77159f======
+======Short Message======
+Removed warning_, error_ and failure_unless.
+======Full Message======
+Removed warning_, error_ and failure_unless.
+
+
+
+======Commit: c06f3518======
+======Short Message======
+Fixed some user guide typos.
+======Full Message======
+Fixed some user guide typos.
+
+
+
+======Commit: 29112aa1======
+======Short Message======
+Potential GHDL fix
+======Full Message======
+Potential GHDL fix
+
+
+
+======Commit: 59e4b324======
+======Short Message======
+Fixed third_party_integration example
+======Full Message======
+Fixed third_party_integration example
+
+
+
+======Commit: 7358afdd======
+======Short Message======
+Fixed core_pkg corruption
+======Full Message======
+Fixed core_pkg corruption
+
+
+
+======Commit: 10220c5f======
+======Short Message======
+Deprecated external_error flag to test_runner_cleanup
+======Full Message======
+Deprecated external_error flag to test_runner_cleanup
+
+
+
+======Commit: 1fe22b3b======
+======Short Message======
+Added option to allow disabled failures and errors
+======Full Message======
+Added option to allow disabled failures and errors
+
+
+
+======Commit: 84109e77======
+======Short Message======
+Default check logger is named check again
+======Full Message======
+Default check logger is named check again
+
+
+
+======Commit: fcdec07f======
+======Short Message======
+Fix line length lint
+======Full Message======
+Fix line length lint
+
+
+
+======Commit: 3646fec0======
+======Short Message======
+Set stop level only for warning, error, failure
+======Full Message======
+Set stop level only for warning, error, failure
+
+
+
+======Commit: 6f66db20======
+======Short Message======
+Remove default file_handler
+======Full Message======
+Remove default file_handler
+
+
+
+======Commit: b502fabf======
+======Short Message======
+Remove default logging to file
+======Full Message======
+Remove default logging to file
+
+
+
+======Commit: dbc172ec======
+======Short Message======
+Documented com debugging functionality and added examples.
+======Full Message======
+Documented com debugging functionality and added examples.
+
+
+
+======Commit: 7f1ce066======
+======Short Message======
+Fix broken bullet list in com user guide
+======Full Message======
+Fix broken bullet list in com user guide
+
+
+
+======Commit: be0d967e======
+======Short Message======
+Fixing timeout issue when sending to multiple receivers
+======Full Message======
+Fixing timeout issue when sending to multiple receivers
+
+
+
+======Commit: 8c9023b1======
+======Short Message======
+Fixed some linting issues.
+======Full Message======
+Fixed some linting issues.
+
+
+
+======Commit: 628b7a4b======
+======Short Message======
+com user guide show/hide fixup
+======Full Message======
+com user guide show/hide fixup
+
+
+
+======Commit: abf02bb7======
+======Short Message======
+Fixed formatting and style issues in com user guide and example testbench.
+======Full Message======
+Fixed formatting and style issues in com user guide and example testbench.
+
+
+
+======Commit: 7f387730======
+======Short Message======
+Updated com user guide and example testbench with the publisher/subscriber pattern. Fixed bugs.
+======Full Message======
+Updated com user guide and example testbench with the publisher/subscriber pattern. Fixed bugs.
+
+
+
+======Commit: 27a01fb7======
+======Short Message======
+Testing that read slave checks for permission errors
+======Full Message======
+Testing that read slave checks for permission errors
+
+
+
+======Commit: 03becfcf======
+======Short Message======
+Testing that write slave checks for permission errors
+======Full Message======
+Testing that write slave checks for permission errors
+
+
+
+======Commit: a55b6cd0======
+======Short Message======
+Allow VC logger to be used in memory error logs
+======Full Message======
+Allow VC logger to be used in memory error logs
+
+
+
+======Commit: 3d93c0fc======
+======Short Message======
+Added default endianness to memory
+======Full Message======
+Added default endianness to memory
+
+
+
+======Commit: 4d38b358======
+======Short Message======
+Make memory permission checking off by default.
+======Full Message======
+Make memory permission checking off by default.
+
+It is only in models that permission checking should be active and it is more convenient to have it off by default in test benches.
+
+
+
+======Commit: b3a42bbb======
+======Short Message======
+Fix logging doc underline to short
+======Full Message======
+Fix logging doc underline to short
+
+
+
+======Commit: 8773637c======
+======Short Message======
+Fix axi_write_slave narrow and unaligned bursts
+======Full Message======
+Fix axi_write_slave narrow and unaligned bursts
+
+
+
+======Commit: 0d0b2391======
+======Short Message======
+Updated test_runner_cleanup to fail on all checkers with n_failed > 0 and on all logger entries with level error and above.
+======Full Message======
+Updated test_runner_cleanup to fail on all checkers with n_failed > 0 and on all logger entries with level error and above.
+
+
+
+======Commit: 97dadd1a======
+======Short Message======
+Moved com codecs to datatypes. Removed support for debug codecs.
+======Full Message======
+Moved com codecs to datatypes. Removed support for debug codecs.
+
+
+
+======Commit: f6537bb8======
+======Short Message======
+Update com.
+======Full Message======
+Update com.
+
+Replaced error codes with failing asserts and added overloaded
+subprograms without status output. Kept old APIs with status for
+backward compatibility but marked them as deprecated
+
+Changed strategy to drop messages when publishing to full subscriber
+inboxes with a waiting with timeout strategy
+
+Streamlined APIs and functionality for the request/reply pattern
+
+Made timeout an error by default
+
+Moved deprecated APIs to separate package
+
+Separated string payload APIs from core APIs
+
+Added support for anonymous requests
+
+Updated com's wait and get message APIs to support msg_t
+
+Added support for publisher/subscriber pattern with msg_t
+
+Added support for subscription on all inbound and outbound actor traffic
+
+
+
+======Commit: 88bf0fd5======
+======Short Message======
+Fix instance parsing after end block label. #305
+======Full Message======
+Fix instance parsing after end block label. #305
+
+
+
+======Commit: 574be5bf======
+======Short Message======
+Fixes invalid Verilog test-case
+======Full Message======
+Fixes invalid Verilog test-case
+
+
+
+======Commit: a1244a40======
+======Short Message======
+Fixed pre_config call for class methods
+======Full Message======
+Fixed pre_config call for class methods
+
+
+
+======Commit: e44da823======
+======Short Message======
+systemverilog: Fix WATCHDOG macro when local timescale is set. #299.
+======Full Message======
+systemverilog: Fix WATCHDOG macro when local timescale is set. #299.
+
+
+
+======Commit: e44a5e3b======
+======Short Message======
+Fix indentation
+======Full Message======
+Fix indentation
+
+
+
+======Commit: 17adec43======
+======Short Message======
+dictionary: add default value option to get function
+======Full Message======
+dictionary: add default value option to get function
+
+
+
+======Commit: fd52f37e======
+======Short Message======
+Fix lint problems and small refactor of tests
+======Full Message======
+Fix lint problems and small refactor of tests
+
+
+
+======Commit: 9b3cecb6======
+======Short Message======
+Only searching for default component binding in same library
+======Full Message======
+Only searching for default component binding in same library
+
+
+
+======Commit: 95289a42======
+======Short Message======
+Fix pylint 1.8.1 issues
+======Full Message======
+Fix pylint 1.8.1 issues
+
+
+
+======Commit: 5d623bf6======
+======Short Message======
+Fixup for modelsim coverage argument (#288)
+======Full Message======
+Fixup for modelsim coverage argument (#288)
+
+
+
+
+======Commit: 24b3b45b======
+======Short Message======
+Fix problem with vsim_extra_args between entity and architecture in riviera and activehdl
+======Full Message======
+Fix problem with vsim_extra_args between entity and architecture in riviera and activehdl
+
+
+
+======Commit: 564564cf======
+======Short Message======
+Fixed string_ops bug.
+======Full Message======
+Fixed string_ops bug.
+
+
+
+======Commit: a18bca05======
+======Short Message======
+Fixes commas in Modelsim generics. Closes #280. (#284)
+======Full Message======
+Fixes commas in Modelsim generics. Closes #280. (#284)
+
+Modelsim interface needs to enclose strings for generic values containing spaces and commas in quotes or quotes and braces. 
+Strings with a space require braces and quotes eg. `'{"x y"}'` or `'{"x, y"}'`. 
+String with a comma but no space must have quotes but no braces eg. `'"x,y"'`.
+String with neither comma or space require no braces or quotes eg. `'xy'`.
+
+
+======Commit: db61c3cc======
+======Short Message======
+Fixed user guide typo
+======Full Message======
+Fixed user guide typo
+
+
+
+======Commit: f1ca1dbe======
+======Short Message======
+Error on adding duplicate source files, closes #274
+======Full Message======
+Error on adding duplicate source files, closes #274
+
+
+
+======Commit: a9de2a01======
+======Short Message======
+Fix broken docs build by locking down docutils version
+======Full Message======
+Fix broken docs build by locking down docutils version
+
+
+
+======Commit: 4dd3d7bc======
+======Short Message======
+Remove redundant path prefix
+======Full Message======
+Remove redundant path prefix
+
+
+
+======Commit: 0726b9e0======
+======Short Message======
+vsim init file bugfix
+======Full Message======
+vsim init file bugfix
+
+
+
+======Commit: 133cdd9c======
+======Short Message======
+Add error when broad set-methods does not operate on any object #250
+======Full Message======
+Add error when broad set-methods does not operate on any object #250
+
+
+
+======Commit: 33b7d1a9======
+======Short Message======
+Fix test bench detection regex giving partial matches. Closes #263
+======Full Message======
+Fix test bench detection regex giving partial matches. Closes #263
+
+
+
+======Commit: 9633843b======
+======Short Message======
+Fix git date to tag extraction
+======Full Message======
+Fix git date to tag extraction
+
+
+
+======Commit: 40df2966======
+======Short Message======
+Declare global variable 'aldec' in vunit_load, in order to fix the Matlab interface. (#259)
+======Full Message======
+Declare global variable 'aldec' in vunit_load, in order to fix the Matlab interface. (#259)
+
+* Declare global variable 'aldec' in vunit_load, in order to fix the Matlab interface.
+
+* Add a comment to the line 'global aldec' in vunit_load.
+
+* Respect the maximum line length of 79 characters.
+
+
+
+======Commit: b077f552======
+======Short Message======
+Add a command-line argument that can turn off the catching of excepti… (#256)
+======Full Message======
+Add a command-line argument that can turn off the catching of excepti… (#256)
+
+* Add a command-line argument that can turn off the catching of exceptions.
+
+* Fixing argument list style to be same as before additional argument was added.
+
+
+
+======Commit: 690f08da======
+======Short Message======
+Fixed bug in array type parsing. (#255)
+======Full Message======
+Fixed bug in array type parsing. (#255)
+
+* Fixed bug in array type parsing.
+
+* Add vhdl_parser test to confirm that array type declarations are found.
+
+* Modification to get pep8 and pylint compliance.
+
+
+
+======Commit: 381c0887======
+======Short Message======
+Adds support for referencing non-lower case library names. Fixes #241.
+======Full Message======
+Adds support for referencing non-lower case library names. Fixes #241.
+
+Also forbids defining libraries with case-insensitive name collision.
+
+
+
+======Commit: 358493ec======
+======Short Message======
+Adds code coverage support for RivieraPRO. Fixes #225
+======Full Message======
+Adds code coverage support for RivieraPRO. Fixes #225
+
+Also makes code coverage flag trigger recompile of source files due different compile options for coverage.
+
+
+
+======Commit: 665dc574======
+======Short Message======
+Fixed incorred rivierapro library mapping regex
+======Full Message======
+Fixed incorred rivierapro library mapping regex
+
+
+
+======Commit: a66b46d3======
+======Short Message======
+Fixed lint issues in com.
+======Full Message======
+Fixed lint issues in com.
+
+
+
+======Commit: f0ed7e99======
+======Short Message======
+Fixed lint issues in examples.
+======Full Message======
+Fixed lint issues in examples.
+
+
+
+======Commit: 7ba63aad======
+======Short Message======
+Fixed lint issues in com package.
+======Full Message======
+Fixed lint issues in com package.
+
+
+
+======Commit: e35a1878======
+======Short Message======
+Fixed lint issues in dictionary package.
+======Full Message======
+Fixed lint issues in dictionary package.
+
+
+
+======Commit: 267d91ee======
+======Short Message======
+Fixed lint issues in check package.
+======Full Message======
+Fixed lint issues in check package.
+
+
+
+======Commit: 0dea2e57======
+======Short Message======
+Fixed lint issues in log package.
+======Full Message======
+Fixed lint issues in log package.
+
+
+
+======Commit: 0a5315cd======
+======Short Message======
+Fixed lint issues in string_ops.vhd
+======Full Message======
+Fixed lint issues in string_ops.vhd
+
+
+
+======Commit: 17df414f======
+======Short Message======
+Fixed linting.
+======Full Message======
+Fixed linting.
+
+
+
+======Commit: 86b7c8db======
+======Short Message======
+pre_config: pass optional simulator_output_path argument (#237)
+======Full Message======
+pre_config: pass optional simulator_output_path argument (#237)
+
+* pre_config: pass optional simulator_output_path argument
+
+Fixes #236.
+
+* fix pylint issues
+
+* document simulator_output_path
+
+
+
+======Commit: e69ed419======
+======Short Message======
+Merge pull request #229 from nathanaelhuffman/master
+======Full Message======
+Merge pull request #229 from nathanaelhuffman/master
+
+TCL's command pipe will always return failing error codes on anything that prints to stderr
+
+
+======Commit: 73046c5f======
+======Short Message======
+Updating comments to clarify why we're redirecting stderr to stdout.
+======Full Message======
+Updating comments to clarify why we're redirecting stderr to stdout.
+fix a spelling error in doc string.
+
+
+
+======Commit: b216e258======
+======Short Message======
+TCL's command pipe will always return failing error codes on anything printed to stderr.  Merge stderr to stdout from python so that TCL's catch will rely on the error code returned rather than being tricked by warnings printed to stderr
+======Full Message======
+TCL's command pipe will always return failing error codes on anything printed to stderr.  Merge stderr to stdout from python so that TCL's catch will rely on the error code returned rather than being tricked by warnings printed to stderr
+
+
+
+======Commit: 9e62f93a======
+======Short Message======
+Fixed linting issues.
+======Full Message======
+Fixed linting issues.
+
+
+
+======Commit: 71cfa942======
+======Short Message======
+Fixed Python 2.7 compatibility issue.
+======Full Message======
+Fixed Python 2.7 compatibility issue.
+
+
+
+======Commit: c3af1948======
+======Short Message======
+Fixed linting issues.
+======Full Message======
+Fixed linting issues.
+
+
+
+======Commit: 9f981660======
+======Short Message======
+Fixed license years.
+======Full Message======
+Fixed license years.
+
+
+
+======Commit: 3223ffd0======
+======Short Message======
+Made design unit duplication a warning instead of runtime error again. #207
+======Full Message======
+Made design unit duplication a warning instead of runtime error again. #207
+
+
+
+======Commit: 9eb5b0aa======
+======Short Message======
+Temporarily downgrade sphinx to 1.4.9 to avoid ablog errors with 1.5
+======Full Message======
+Temporarily downgrade sphinx to 1.4.9 to avoid ablog errors with 1.5
+
+
+
+======Commit: 3eaa2b1e======
+======Short Message======
+Fix dependency scanning for verilog files early exit
+======Full Message======
+Fix dependency scanning for verilog files early exit
+
+
+
+======Commit: 7bc9c392======
+======Short Message======
+Made duplicate design units cause runtime error for immediate stop. Closes #207
+======Full Message======
+Made duplicate design units cause runtime error for immediate stop. Closes #207
+
+
+
+======Commit: c13b28f6======
+======Short Message======
+Merge pull request #210 from tivervac/patch-1
+======Full Message======
+Merge pull request #210 from tivervac/patch-1
+
+Fixed typo
+
+
+======Commit: 73b1c393======
+======Short Message======
+Fixed typos in about.html
+======Full Message======
+Fixed typos in about.html
+
+Signed-off-by: Titouan Vervack <tivervac@gmail.com>
+
+
+
+======Commit: 277341c6======
+======Short Message======
+Fixed typo in selected tox environment. Removed environment exports since these are handled by tox.
+======Full Message======
+Fixed typo in selected tox environment. Removed environment exports since these are handled by tox.
+
+
+
+======Commit: 9c841444======
+======Short Message======
+Fixed incorrect default vhdl_standard when using ui-level add_source_files
+======Full Message======
+Fixed incorrect default vhdl_standard when using ui-level add_source_files
+
+
+
+======Commit: abca347d======
+======Short Message======
+Added support for excluding subprograms from location preprocessing. Improved preprocessor to avoid assignments to array slices sharing name with a log or check subprogram. Fixed some lint issues. Related to #200
+======Full Message======
+Added support for excluding subprograms from location preprocessing. Improved preprocessor to avoid assignments to array slices sharing name with a log or check subprogram. Fixed some lint issues. Related to #200
+
+
+
+======Commit: 5abb0635======
+======Short Message======
+Fixed license
+======Full Message======
+Fixed license
+
+
+
+======Commit: 24231dda======
+======Short Message======
+Fixed testbench ambiguities.
+======Full Message======
+Fixed testbench ambiguities.
+
+
+
+======Commit: a34a5edd======
+======Short Message======
+New version number to fix incomplete PyPi upload
+======Full Message======
+New version number to fix incomplete PyPi upload
+
+
+
+======Commit: cd6d5b03======
+======Short Message======
+Fixed testbench bug.
+======Full Message======
+Fixed testbench bug.
+
+
+
+======Commit: 83b9f87d======
+======Short Message======
+Added missing favicon file and fixed bad documentation hyperlink.
+======Full Message======
+Added missing favicon file and fixed bad documentation hyperlink.
+
+
+
+======Commit: 2bf30f4e======
+======Short Message======
+Merge pull request #184 from VUnit/rivierapro_parallel_sim
+======Full Message======
+Merge pull request #184 from VUnit/rivierapro_parallel_sim
+
+Fix database.asdb file conflict with parallel rivierapro simulations
+
+
+======Commit: f18ab555======
+======Short Message======
+Fix database.asdb file conflict with parallel rivierapro simulations
+======Full Message======
+Fix database.asdb file conflict with parallel rivierapro simulations
+
+Change-Id: Ic54e6eab40d81f0f13855dfe0f875b1af8a00e35
+
+
+
+======Commit: 1cfa8613======
+======Short Message======
+Fixed lint issue
+======Full Message======
+Fixed lint issue
+
+
+
+======Commit: da5058d7======
+======Short Message======
+Potential fix for #167 and #170
+======Full Message======
+Potential fix for #167 and #170
+
+
+
+======Commit: a3259e5c======
+======Short Message======
+Use an assert for an internal error rather than a printout that should never happen.
+======Full Message======
+Use an assert for an internal error rather than a printout that should never happen.
+
+
+
+======Commit: 79b0540e======
+======Short Message======
+Fix whitespace LINT bugs
+======Full Message======
+Fix whitespace LINT bugs
+
+
+
+======Commit: 21029500======
+======Short Message======
+Fix linewidth and remove unneeded line breaks
+======Full Message======
+Fix linewidth and remove unneeded line breaks
+
+
+
+======Commit: 36aca5ef======
+======Short Message======
+Possible fix for #161
+======Full Message======
+Possible fix for #161
+
+
+
+======Commit: d01ed043======
+======Short Message======
+Fixed such that commas can be part of test case names. Related to #162.
+======Full Message======
+Fixed such that commas can be part of test case names. Related to #162.
+
+
+
+======Commit: 58a1577b======
+======Short Message======
+Fixed broken Verilog acceptance test
+======Full Message======
+Fixed broken Verilog acceptance test
+
+
+
+======Commit: ea523da9======
+======Short Message======
+Fixed license
+======Full Message======
+Fixed license
+
+
+
+======Commit: 0c312222======
+======Short Message======
+Fixed trailing whitespace
+======Full Message======
+Fixed trailing whitespace
+
+
+
+======Commit: 71c46755======
+======Short Message======
+Merge pull request #159 from ehliar/coverage_fix
+======Full Message======
+Merge pull request #159 from ehliar/coverage_fix
+
+Make sure vcover is executed correctly when using coverage
+
+
+======Commit: 7420b633======
+======Short Message======
+Fix spelling errors
+======Full Message======
+Fix spelling errors
+
+
+
+======Commit: 2da6ca71======
+======Short Message======
+Disable warning is error in documentation build.
+======Full Message======
+Disable warning is error in documentation build.
+
+The warning below has appeared and cannot be avoided without removing our fontawesome icons:
+WARNING: The config value `fontawesome_link_cdn' has type `str',
+defaults to `bool.'
+
+
+
+======Commit: 26a3ec68======
+======Short Message======
+Fixes Verilog parameter name with wrong case. Closes #153
+======Full Message======
+Fixes Verilog parameter name with wrong case. Closes #153
+
+
+
+======Commit: 0a914613======
+======Short Message======
+Merge pull request #154 from joshrsmith/issue_149
+======Full Message======
+Merge pull request #154 from joshrsmith/issue_149
+
+Work-around fix for #149
+
+
+======Commit: e4f01d7b======
+======Short Message======
+Work-around fix for #149
+======Full Message======
+Work-around fix for #149
+
+
+
+======Commit: 58612bea======
+======Short Message======
+Copyright fix
+======Full Message======
+Copyright fix
+
+
+
+======Commit: 3e66bd9b======
+======Short Message======
+Made it possible to automatically fix license headers.
+======Full Message======
+Made it possible to automatically fix license headers.
+
+
+
+======Commit: 97958c90======
+======Short Message======
+Using line instead of 10000 long fixed string for runner_cfg
+======Full Message======
+Using line instead of 10000 long fixed string for runner_cfg
+
+
+
+======Commit: a48d6634======
+======Short Message======
+Increased length of runner_cfg_default to the maximum for runner_cfg to work with Incisive. Generally removed the default value from testbenches but kept it in examples where it's explicitly discussed.
+======Full Message======
+Increased length of runner_cfg_default to the maximum for runner_cfg to work with Incisive. Generally removed the default value from testbenches but kept it in examples where it's explicitly discussed.
+
+
+
+======Commit: c950b16c======
+======Short Message======
+Fixed typo
+======Full Message======
+Fixed typo
+
+
+
+======Commit: f2e15267======
+======Short Message======
+Added default values to all parameters
+======Full Message======
+Added default values to all parameters
+
+
+
+======Commit: 7d3836db======
+======Short Message======
+Added possibility to set VUNIT_<SIMULATOR_NAME>_PATH environment variable to explicitly set simulator executable prefix. Closes #148
+======Full Message======
+Added possibility to set VUNIT_<SIMULATOR_NAME>_PATH environment variable to explicitly set simulator executable prefix. Closes #148
+
+
+
+======Commit: beabadd0======
+======Short Message======
+Added explicit prefix to ghdl_inteface
+======Full Message======
+Added explicit prefix to ghdl_inteface
+
+
+
+======Commit: f3c1f413======
+======Short Message======
+Added -k/--keep-compiling flag. Closes #140.
+======Full Message======
+Added -k/--keep-compiling flag. Closes #140.
+
+Keeps compiling even after errors. Skipping only files that depend on failures.
+
+
+
+======Commit: db191740======
+======Short Message======
+Merge pull request #145 from joshrsmith/master
+======Full Message======
+Merge pull request #145 from joshrsmith/master
+
+Documentation improvements and lint fix
+
+
+======Commit: 88f22573======
+======Short Message======
+Fixed copyright to pass lint
+======Full Message======
+Fixed copyright to pass lint
+
+
+
+======Commit: 261d33b3======
+======Short Message======
+Documentation fixup related to 992c2a93de19a995bfedffdc21180389cc1fe1d1
+======Full Message======
+Documentation fixup related to 992c2a93de19a995bfedffdc21180389cc1fe1d1
+
+
+
+======Commit: dce54146======
+======Short Message======
+Fix for lint error
+======Full Message======
+Fix for lint error
+
+
+
+======Commit: 1354a9ff======
+======Short Message======
+Fixes tb_logging not being run after 4cf3c13592bf7961dc983924e52a8c9d2bac4ebc
+======Full Message======
+Fixes tb_logging not being run after 4cf3c13592bf7961dc983924e52a8c9d2bac4ebc
+
+
+
+======Commit: 79ea4bf7======
+======Short Message======
+Not adding .all suffix when there are named configurations
+======Full Message======
+Not adding .all suffix when there are named configurations
+
+
+
+======Commit: 263b2914======
+======Short Message======
+Merge pull request #142 from joshrsmith/master
+======Full Message======
+Merge pull request #142 from joshrsmith/master
+
+Minor typo fixes and doc updates
+
+
+======Commit: ad909afe======
+======Short Message======
+fix some typos
+======Full Message======
+fix some typos
+
+
+
+======Commit: 2b507674======
+======Short Message======
+Fixes method rename that broke acceptance tests
+======Full Message======
+Fixes method rename that broke acceptance tests
+
+
+
+======Commit: 5c59c845======
+======Short Message======
+Fixes problem with test_ghdl_interface.py relying on installed tools.
+======Full Message======
+Fixes problem with test_ghdl_interface.py relying on installed tools.
+
+
+
+======Commit: 75320e45======
+======Short Message======
+Early runtime error when gtkwave is missing. Closes #137
+======Full Message======
+Early runtime error when gtkwave is missing. Closes #137
+
+
+
+======Commit: eb8724d5======
+======Short Message======
+Fixing tox.ini python 3 selection
+======Full Message======
+Fixing tox.ini python 3 selection
+
+
+
+======Commit: 39c8d926======
+======Short Message======
+Updated documentation with .all suffix
+======Full Message======
+Updated documentation with .all suffix
+
+
+
+======Commit: 7ada684a======
+======Short Message======
+Update tests for xunit classename attribute and default empty test name.
+======Full Message======
+Update tests for xunit classename attribute and default empty test name.
+
+
+
+======Commit: 90eb6075======
+======Short Message======
+Fixes #129
+======Full Message======
+Fixes #129
+
+
+
+======Commit: b2e9a558======
+======Short Message======
+Avoid crash on errors from tokens created without a file
+======Full Message======
+Avoid crash on errors from tokens created without a file
+
+
+
+======Commit: c05dbb65======
+======Short Message======
+Added better error message with circular dependencies
+======Full Message======
+Added better error message with circular dependencies
+
+
+
+======Commit: cc635154======
+======Short Message======
+Merge pull request #120 from cmarqu/patch-6
+======Full Message======
+Merge pull request #120 from cmarqu/patch-6
+
+Typofix; mention run() and `TEST_CASE().
+
+
+======Commit: f251aef0======
+======Short Message======
+Fixing circular dependency detection
+======Full Message======
+Fixing circular dependency detection
+
+
+
+======Commit: 5330f6ae======
+======Short Message======
+Merge pull request #124 from cmarqu/patch-3
+======Full Message======
+Merge pull request #124 from cmarqu/patch-3
+
+Typofix.
+
+
+======Commit: 3ea5a2f9======
+======Short Message======
+Merge pull request #123 from cmarqu/patch-2
+======Full Message======
+Merge pull request #123 from cmarqu/patch-2
+
+Comment improvements.
+
+
+======Commit: 3fc5469c======
+======Short Message======
+Merge pull request #122 from cmarqu/patch-1
+======Full Message======
+Merge pull request #122 from cmarqu/patch-1
+
+Comment improvements.
+
+
+======Commit: 2a110ebd======
+======Short Message======
+Typofix.
+======Full Message======
+Typofix.
+
+
+======Commit: eb0597b1======
+======Short Message======
+Typofix; mention run() and `TEST_CASE().
+======Full Message======
+Typofix; mention run() and `TEST_CASE().
+
+
+======Commit: b13a0538======
+======Short Message======
+Spellfix in preprocessor warning
+======Full Message======
+Spellfix in preprocessor warning
+
+
+
+======Commit: 347939e6======
+======Short Message======
+Merge pull request #114 from cmarqu/patch-4
+======Full Message======
+Merge pull request #114 from cmarqu/patch-4
+
+Typofix.
+
+
+======Commit: 69a8bde0======
+======Short Message======
+Fixed modelsim persistent mode
+======Full Message======
+Fixed modelsim persistent mode
+
+
+
+======Commit: 742c308e======
+======Short Message======
+Verilog parser improvements #113
+======Full Message======
+Verilog parser improvements #113
+
+Making the verilog parser more robust as and provide better error
+messages.
+
+
+
+======Commit: 200d074f======
+======Short Message======
+Typofix.
+======Full Message======
+Typofix.
+
+
+======Commit: dcb0a5f1======
+======Short Message======
+Fixed verilog parser crashes
+======Full Message======
+Fixed verilog parser crashes
+
+
+
+======Commit: 9c74e3e9======
+======Short Message======
+Merge pull request #110 from cmarqu/patch-3
+======Full Message======
+Merge pull request #110 from cmarqu/patch-3
+
+Typofixes.
+
+
+======Commit: f74a4b9a======
+======Short Message======
+Typofixes.
+======Full Message======
+Typofixes.
+
+
+======Commit: 10121fa0======
+======Short Message======
+Merge pull request #107 from cmarqu/patch-2
+======Full Message======
+Merge pull request #107 from cmarqu/patch-2
+
+Update user_guide.rst
+
+
+======Commit: 25ab07fd======
+======Short Message======
+Update user_guide.rst
+======Full Message======
+Update user_guide.rst
+
+Typofix
+
+
+======Commit: b40f2008======
+======Short Message======
+Fix problem with modelsim TCL exit boolean under SystemVerilog. Closes #98.
+======Full Message======
+Fix problem with modelsim TCL exit boolean under SystemVerilog. Closes #98.
+
+
+
+======Commit: aba54c40======
+======Short Message======
+Updated version number and fixed lint issues.
+======Full Message======
+Updated version number and fixed lint issues.
+
+
+
+======Commit: 55f25d9a======
+======Short Message======
+Fixes #95. Bug in parsing of the used_packages input to generate_codecs function.
+======Full Message======
+Fixes #95. Bug in parsing of the used_packages input to generate_codecs function.
+
+
+
+======Commit: 05f534da======
+======Short Message======
+Fixes #94. Bug in codec generation for integer_vectors with min valued elements.
+======Full Message======
+Fixes #94. Bug in codec generation for integer_vectors with min valued elements.
+
+
+
+======Commit: d0e6298e======
+======Short Message======
+Fixes #90. GCC backend does not get output flag.
+======Full Message======
+Fixes #90. GCC backend does not get output flag.
+
+
+
+======Commit: 3f5f023a======
+======Short Message======
+Fixed broken OSVVM integration test cases
+======Full Message======
+Fixed broken OSVVM integration test cases
+
+
+
+======Commit: 79005fb6======
+======Short Message======
+Fixed broken unit tests under Python 3
+======Full Message======
+Fixed broken unit tests under Python 3
+
+
+
+======Commit: 3ea41dc7======
+======Short Message======
+Fixes issue #86. Setting generic of type time.
+======Full Message======
+Fixes issue #86. Setting generic of type time.
+
+
+
+======Commit: 056a4fcc======
+======Short Message======
+Added -g short flag for --gui. Made 'load' the default in modelsim interface when using -g/--gui
+======Full Message======
+Added -g short flag for --gui. Made 'load' the default in modelsim interface when using -g/--gui
+
+
+
+======Commit: bc0324c8======
+======Short Message======
+Merge pull request #84 from vermaete/master
+======Full Message======
+Merge pull request #84 from vermaete/master
+
+Fix version in setup.py
+
+
+======Commit: 86a1e99a======
+======Short Message======
+fix #83
+======Full Message======
+fix #83
+
+* set the version number to 0.39.0
+* removed the 'v' prefix, see PEP0440
+
+
+
+======Commit: 7d2540e9======
+======Short Message======
+Fixes #78. Compiling the same file into multiple libraries did not work.
+======Full Message======
+Fixes #78. Compiling the same file into multiple libraries did not work.
+
+
+
+======Commit: 9970f4b6======
+======Short Message======
+Fixed bug in codec generation causing some alias signatures to include the constraint for an array type parameter.
+======Full Message======
+Fixed bug in codec generation causing some alias signatures to include the constraint for an array type parameter.
+
+
+
+======Commit: 8360eaab======
+======Short Message======
+Lower case all generics from the user to match internal representation. Fixes #77
+======Full Message======
+Lower case all generics from the user to match internal representation. Fixes #77
+
+
+
+======Commit: dab64f4c======
+======Short Message======
+Fixed incomplete setup.py. Closes #76.
+======Full Message======
+Fixed incomplete setup.py. Closes #76.
+
+
+
+======Commit: 992f997e======
+======Short Message======
+Made tb_run.vhd work with Aldec no debug compilation.
+======Full Message======
+Made tb_run.vhd work with Aldec no debug compilation.
+
+
+
+======Commit: 456ed842======
+======Short Message======
+Workaround for Aldec's simulators which fail if a check of an equality is made with a function and that function is used to create the error message as well.
+======Full Message======
+Workaround for Aldec's simulators which fail if a check of an equality is made with a function and that function is used to create the error message as well.
+
+
+
+======Commit: 7f6e46db======
+======Short Message======
+Fix set call that Aldec simulator considers ambiguous
+======Full Message======
+Fix set call that Aldec simulator considers ambiguous
+
+
+
+======Commit: c3639e80======
+======Short Message======
+Work around Aldec simulator file writing bug
+======Full Message======
+Work around Aldec simulator file writing bug
+
+
+
+======Commit: 9a78e4ee======
+======Short Message======
+Made modelsim_interface use explicit installation prefix.
+======Full Message======
+Made modelsim_interface use explicit installation prefix.
+
+
+
+======Commit: 2d26488a======
+======Short Message======
+Fixed issue #71
+======Full Message======
+Fixed issue #71
+
+
+
+======Commit: e3eae148======
+======Short Message======
+Fixed license header
+======Full Message======
+Fixed license header
+
+
+
+======Commit: 4bbd629b======
+======Short Message======
+Suspend no-simulator error until it is actually used
+======Full Message======
+Suspend no-simulator error until it is actually used
+
+
+
+======Commit: ca74c29b======
+======Short Message======
+Fixes issue #65
+======Full Message======
+Fixes issue #65
+
+
+
+======Commit: c8b7e607======
+======Short Message======
+Removed unnused constant parsing code. Fixes issue #59.
+======Full Message======
+Removed unnused constant parsing code. Fixes issue #59.
+
+
+
+======Commit: 5d375b49======
+======Short Message======
+Not writing error.csv to current working directory per default, rather using the output path
+======Full Message======
+Not writing error.csv to current working directory per default, rather using the output path
+
+
+
+======Commit: 4e2d978a======
+======Short Message======
+Fixes problem when vunit_load vsim_extra_args is a string of multiple arguments
+======Full Message======
+Fixes problem when vunit_load vsim_extra_args is a string of multiple arguments
+
+
+
+======Commit: 594e747d======
+======Short Message======
+Fixed dependency scanning bug. Closes issue #50.
+======Full Message======
+Fixed dependency scanning bug. Closes issue #50.
+
+
+
+======Commit: e70dd3a6======
+======Short Message======
+Adds --exit-0 flag to exit with code 0 even with failed tests but not when a fatal error occured
+======Full Message======
+Adds --exit-0 flag to exit with code 0 even with failed tests but not when a fatal error occured
+
+
+
+======Commit: fe9cf8f3======
+======Short Message======
+Some fixes to OSVVM 2015.03 to make it run with GHDL
+======Full Message======
+Some fixes to OSVVM 2015.03 to make it run with GHDL
+
+
+
+======Commit: c2318279======
+======Short Message======
+Improved error message when no simulators were detected
+======Full Message======
+Improved error message when no simulators were detected
+
+
+
+======Commit: b850c612======
+======Short Message======
+Fixed overflow problem on GHDL with mcode backend
+======Full Message======
+Fixed overflow problem on GHDL with mcode backend
+
+
+
+======Commit: 7d6fe162======
+======Short Message======
+Fixed broken encoding test
+======Full Message======
+Fixed broken encoding test
+
+
+
+======Commit: 131b3b0d======
+======Short Message======
+Fixed sloppy pep8
+======Full Message======
+Fixed sloppy pep8
+
+
+
+======Commit: 3694499f======
+======Short Message======
+Fix negative index out of natural range in com_string.vhd
+======Full Message======
+Fix negative index out of natural range in com_string.vhd
+
+
+
+======Commit: 330b74e5======
+======Short Message======
+Fixed incorrect use of 'value attribute. GHDL gives error, modelsim warns
+======Full Message======
+Fixed incorrect use of 'value attribute. GHDL gives error, modelsim warns
+
+
+
+======Commit: 614151ae======
+======Short Message======
+Fixes tb_check_stable.vhd dependency on process execution order.
+======Full Message======
+Fixes tb_check_stable.vhd dependency on process execution order.
+
+
+
+======Commit: aede6806======
+======Short Message======
+Fixed missing request_id in reply messages.
+======Full Message======
+Fixed missing request_id in reply messages.
+
+
+
+======Commit: 9e3e0a19======
+======Short Message======
+Fixed reading output in com
+======Full Message======
+Fixed reading output in com
+
+
+
+======Commit: 34a6f3bd======
+======Short Message======
+Fixed indentation bug causing the used_packages argument to the generate_codecs method to malfunction.
+======Full Message======
+Fixed indentation bug causing the used_packages argument to the generate_codecs method to malfunction.
+
+
+
+======Commit: 1b3379fa======
+======Short Message======
+Fixed a problem with seconds last commit that broke acceptance tests.
+======Full Message======
+Fixed a problem with seconds last commit that broke acceptance tests.
+
+
+
+======Commit: b055ae01======
+======Short Message======
+Fixed file encoding error in licence check on Windows
+======Full Message======
+Fixed file encoding error in licence check on Windows
+
+
+
+======Commit: a31025ff======
+======Short Message======
+Fixed encoding issue on Windows
+======Full Message======
+Fixed encoding issue on Windows
+
+
+
+======Commit: dcdd1576======
+======Short Message======
+Fixed pep8 errors not found by pep8-1.4.6 but by 1.6.2
+======Full Message======
+Fixed pep8 errors not found by pep8-1.4.6 but by 1.6.2
+
+
+
+======Commit: 70909d5e======
+======Short Message======
+Fixed exception on non-ASCII encoded files using Python 2.7. Closes #41.
+======Full Message======
+Fixed exception on non-ASCII encoded files using Python 2.7. Closes #41.
+
+
+
+======Commit: 757a9f42======
+======Short Message======
+Fixed broken modelsim_interface.py on specific modelsim build.
+======Full Message======
+Fixed broken modelsim_interface.py on specific modelsim build.
+
+
+
+======Commit: 6479b977======
+======Short Message======
+Fixed crash with missing output file. Closes #38
+======Full Message======
+Fixed crash with missing output file. Closes #38
+
+
+
+======Commit: c1cdc1ef======
+======Short Message======
+Fixed modelsim_interface.py on Windows.
+======Full Message======
+Fixed modelsim_interface.py on Windows.
+
+
+
+======Commit: 3a32ee61======
+======Short Message======
+Fixed mixedup persistence mode
+======Full Message======
+Fixed mixedup persistence mode
+
+
+
+======Commit: 41028edd======
+======Short Message======
+Fixed mistake
+======Full Message======
+Fixed mistake
+
+
+
+======Commit: c695cda2======
+======Short Message======
+Fixed old-style-class
+======Full Message======
+Fixed old-style-class
+
+
+
+======Commit: 09cbb731======
+======Short Message======
+Fixes pylint missing-docstring
+======Full Message======
+Fixes pylint missing-docstring
+
+
+
+======Commit: 47609ba8======
+======Short Message======
+Fixes missing docstrings
+======Full Message======
+Fixes missing docstrings
+
+
+
+======Commit: a14fdb94======
+======Short Message======
+Fixes missing docstrings
+======Full Message======
+Fixes missing docstrings
+
+
+
+======Commit: a27872a3======
+======Short Message======
+Fixed some missing docstrings, also fixed a bug in NoColorPrinter which lacked bg and fg arguments
+======Full Message======
+Fixed some missing docstrings, also fixed a bug in NoColorPrinter which lacked bg and fg arguments
+
+
+
+======Commit: 96cfb56a======
+======Short Message======
+Fixed pylint relative-import
+======Full Message======
+Fixed pylint relative-import
+
+
+
+======Commit: 8068a550======
+======Short Message======
+Fixes pylint proteced-access
+======Full Message======
+Fixes pylint proteced-access
+
+
+
+======Commit: 9f8ef5b4======
+======Short Message======
+Fixes pylint duplicate-code
+======Full Message======
+Fixes pylint duplicate-code
+
+
+
+======Commit: 4ef95bee======
+======Short Message======
+Fixes pylint no-init
+======Full Message======
+Fixes pylint no-init
+
+
+
+======Commit: 02395a7b======
+======Short Message======
+Fixes pylint no-self-use
+======Full Message======
+Fixes pylint no-self-use
+
+
+
+======Commit: be6f2815======
+======Short Message======
+Fixes invalid-name
+======Full Message======
+Fixes invalid-name
+
+
+
+======Commit: b75df6de======
+======Short Message======
+Fixes attribute-defined-outside-init
+======Full Message======
+Fixes attribute-defined-outside-init
+
+
+
+======Commit: cf22d3f0======
+======Short Message======
+Fixes too-many-locals
+======Full Message======
+Fixes too-many-locals
+
+
+
+======Commit: 33c2cf10======
+======Short Message======
+Fixed broken test_dictionary.py
+======Full Message======
+Fixed broken test_dictionary.py
+
+
+
+======Commit: 91cff911======
+======Short Message======
+Many pylint fixes.
+======Full Message======
+Many pylint fixes.
+
+
+
+======Commit: 4747f98c======
+======Short Message======
+Pylint fixes
+======Full Message======
+Pylint fixes
+
+
+
+======Commit: 85b0dfcc======
+======Short Message======
+Fixed pylint warning
+======Full Message======
+Fixed pylint warning
+
+
+
+======Commit: 585675ff======
+======Short Message======
+Added r"" string prefix when using \s \w \( etc in regexp string.
+======Full Message======
+Added r"" string prefix when using \s \w \( etc in regexp string.
+
+
+
+======Commit: 63892f43======
+======Short Message======
+Added pylint check of errors only to lint tests
+======Full Message======
+Added pylint check of errors only to lint tests
+
+
+
+======Commit: 450d7556======
+======Short Message======
+Moved mock 2 or 3 selection to separate file and disabled false pylint error
+======Full Message======
+Moved mock 2 or 3 selection to separate file and disabled false pylint error
+
+
+
+======Commit: 83993724======
+======Short Message======
+Fixed bad set_pli function
+======Full Message======
+Fixed bad set_pli function
+
+
+
+======Commit: c82b690b======
+======Short Message======
+Removed un-used and broken function extract_compile_order
+======Full Message======
+Removed un-used and broken function extract_compile_order
+
+Fixing some PEP8 formatting issues, namely missing 2 blank lines before functions and classes.  Changed comparisons from '== None' or '!= None' to 'is None' or 'is not None' respectively per PEP8 comparison to singletons recommendation
+
+Fixing some spelling errors
+
+Merging from upstream master and some PEP8 cleanup
+
+Moving to absolute import which unrestricts this test from being run in a specific place
+
+
+
+======Commit: 079ddf07======
+======Short Message======
+Enabling MODELSIM environment variable set bug work-arround also for ALTERA STARTER EDITION vsim 10.3c
+======Full Message======
+Enabling MODELSIM environment variable set bug work-arround also for ALTERA STARTER EDITION vsim 10.3c
+
+
+
+======Commit: 1509d9ca======
+======Short Message======
+Fixed copyright year range
+======Full Message======
+Fixed copyright year range
+
+
+
+======Commit: e5633a36======
+======Short Message======
+Added better error handling when VUnit VHDL parser fails. Closes #28
+======Full Message======
+Added better error handling when VUnit VHDL parser fails. Closes #28
+
+
+
+======Commit: f4f6f730======
+======Short Message======
+Merge pull request #26 from barri/patch-1
+======Full Message======
+Merge pull request #26 from barri/patch-1
+
+Consistent formatting for .csv
+
+
+======Commit: 5a59d2b3======
+======Short Message======
+Merge pull request #20 from tomasnilefrost/wip-fix-environment-variable
+======Full Message======
+Merge pull request #20 from tomasnilefrost/wip-fix-environment-variable
+
+Remove tcl flag. Closes #16 for Microsemi 10.3a
+
+
+======Commit: fb930c5a======
+======Short Message======
+Updated array example with usage of fixed input/output files
+======Full Message======
+Updated array example with usage of fixed input/output files
+
+
+
+======Commit: e1cff832======
+======Short Message======
+Merge pull request #21 from barri/patch-1
+======Full Message======
+Merge pull request #21 from barri/patch-1
+
+Spelling correction in README.md
+
+
+======Commit: 1e5f4d90======
+======Short Message======
+Merge pull request #19 from tomasnilefrost/wip-fix-license-notice
+======Full Message======
+Merge pull request #19 from tomasnilefrost/wip-fix-license-notice
+
+Update missing copyright range
+
+
+======Commit: b19a4d98======
+======Short Message======
+Fixes broken test and removes invalid test
+======Full Message======
+Fixes broken test and removes invalid test
+
+
+
+======Commit: ba3c6eb5======
+======Short Message======
+Update osvvm_integration.md
+======Full Message======
+Update osvvm_integration.md
+
+Fixed links
+
+
+======Commit: 62c7eae9======
+======Short Message======
+Update osvvm_integration.md
+======Full Message======
+Update osvvm_integration.md
+
+Fixed typos
+
+
+======Commit: 979458b0======
+======Short Message======
+OSVVM alert statistics injected into VUnit. Testbenches now fail regardless of the alert stop count value, i.e. they fail even if they are allowed to complete despite errors.
+======Full Message======
+OSVVM alert statistics injected into VUnit. Testbenches now fail regardless of the alert stop count value, i.e. they fail even if they are allowed to complete despite errors.
+
+
+
+======Commit: a1d2f59e======
+======Short Message======
+Minimal changes to make VUnit testbenches of the original files. File and entity renaming (tb_ prefix) is not necessary but the quickest way to make VUnit recognize these testbenches. Another way is to add
+======Full Message======
+Minimal changes to make VUnit testbenches of the original files. File and entity renaming (tb_ prefix) is not necessary but the quickest way to make VUnit recognize these testbenches. Another way is to add
+
+ui._tb_filter = my_tb_filter to run.py
+
+where my_tb_filter replaces the tb_filter function found in test_scanner.py
+
+
+
+======Commit: 1d31b1ab======
+======Short Message======
+Fixed license check depending on current working directory
+======Full Message======
+Fixed license check depending on current working directory
+
+
+
+======Commit: edfdc8f5======
+======Short Message======
+Update README.md
+======Full Message======
+Update README.md
+
+Fixed typo
+
+
+======Commit: 34cf5016======
+======Short Message======
+Fixed license notice.
+======Full Message======
+Fixed license notice.
+
+
+
+======Commit: c6411a32======
+======Short Message======
+Fixed to_integer_string such that it can handle long vectors (32+ bits) containing metalogical values.
+======Full Message======
+Fixed to_integer_string such that it can handle long vectors (32+ bits) containing metalogical values.
+
+
+
+======Commit: 54a7a9f9======
+======Short Message======
+Fixed broken unit test in windows environment
+======Full Message======
+Fixed broken unit test in windows environment
+
+
+
+======Commit: 19024de9======
+======Short Message======
+Fixes #6 by catching exception when removing output path
+======Full Message======
+Fixes #6 by catching exception when removing output path
+
+
+
+======Commit: 395c8981======
+======Short Message======
+Improved error message for unknown file endings
+======Full Message======
+Improved error message for unknown file endings
+
+
+
+======Commit: 00fea727======
+======Short Message======
+Added support for displaying the full vector representation of integers/naturals in check_equal error messages even when the vector with which the integer/natural is compared has a length shorter than what's needed to house the integer/natural.
+======Full Message======
+Added support for displaying the full vector representation of integers/naturals in check_equal error messages even when the vector with which the integer/natural is compared has a length shorter than what's needed to house the integer/natural.
+
+
+
+======Commit: 80da5e72======
+======Short Message======
+Changed check_equal error messages to include both vector and integer representations of the left and right operands when at least one operand is a vector. Made
+======Full Message======
+Changed check_equal error messages to include both vector and integer representations of the left and right operands when at least one operand is a vector. Made
+vectors representations more readable by separating nibbles with underscore.
+
+
+
+======Commit: 959e09e5======
+======Short Message======
+Prevented location preprocessor to confuse VHDL assertions with severity warning, error, or failure with log calls with the same names.
+======Full Message======
+Prevented location preprocessor to confuse VHDL assertions with severity warning, error, or failure with log calls with the same names.
+
+
+
+======Commit: 1367cc81======
+======Short Message======
+Made the default run.py script a more basic example. Other more advanced features which may or may not be needed/wanted in various situations will be added/described in separate run.py files.
+======Full Message======
+Made the default run.py script a more basic example. Other more advanced features which may or may not be needed/wanted in various situations will be added/described in separate run.py files.
+
+
+
+======Commit: cf5ad4b7======
+======Short Message======
+Update README.md
+======Full Message======
+Update README.md
+
+Fixed example links.
+
+
+======Commit: 99d5779d======
+======Short Message======
+Fixes incorrect test pass when either tb or see command crashes.
+======Full Message======
+Fixes incorrect test pass when either tb or see command crashes.
+
+
+
+======Commit: b568f5c0======
+======Short Message======
+Fixed csvlogs unit tests not working with python 2.7 under linux due to \n \r\n mismatch.
+======Full Message======
+Fixed csvlogs unit tests not working with python 2.7 under linux due to \n \r\n mismatch.
+
+
+
+======Commit: c4f611f6======
+======Short Message======
+Removed file that is not supposed to be checked in and fixed license check looking at temporary test files.
+======Full Message======
+Removed file that is not supposed to be checked in and fixed license check looking at temporary test files.
+
+
+
+======Commit: 6a8f698a======
+======Short Message======
+Removed error messages from count function. Valid use cases exists. Also allowed in the Python string method from which count was inspired.
+======Full Message======
+Removed error messages from count function. Valid use cases exists. Also allowed in the Python string method from which count was inspired.
+
+
+

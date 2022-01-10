@@ -1,0 +1,23 @@
+1e537b1083ecde14a66eb7612c3a17caa45f0ad0
+axi_ad9963: Fix warnings
+diff --git a/library/axi_ad9963/axi_ad9963_tx.v b/library/axi_ad9963/axi_ad9963_tx.v
+index 131c340b..112610f7 100644
+--- a/library/axi_ad9963/axi_ad9963_tx.v
++++ b/library/axi_ad9963/axi_ad9963_tx.v
+@@ -204,6 +204,8 @@ module axi_ad9963_tx #(
+     .mmcm_rst (),
+     .dac_clk (dac_clk),
+     .dac_rst (dac_rst),
++    .dac_num_lanes (),
++    .dac_sdr_ddr_n (),
+     .dac_sync (dac_sync_out),
+     .dac_frame (),
+     .dac_clksel(),
+@@ -213,6 +215,7 @@ module axi_ad9963_tx #(
+     .dac_datafmt (dac_dds_format_s),
+     .dac_datarate (),
+     .dac_status (1'b1),
++    .dac_sync_in_status (1'b1),
+     .dac_status_unf (dac_dunf),
+     .dac_clk_ratio (32'd1),
+     .up_dac_ce(up_dac_ce),

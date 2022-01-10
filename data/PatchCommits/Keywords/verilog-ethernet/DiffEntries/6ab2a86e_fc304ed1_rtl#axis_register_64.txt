@@ -1,0 +1,15 @@
+6ab2a86e13279003877e0ba6557fb1c950a4e201
+Change default data width
+diff --git a/rtl/axis_register_64.v b/rtl/axis_register_64.v
+index 3b494e9..b041ef4 100644
+--- a/rtl/axis_register_64.v
++++ b/rtl/axis_register_64.v
+@@ -31,7 +31,7 @@ THE SOFTWARE.
+  */
+ module axis_register_64 #
+ (
+-    parameter DATA_WIDTH = 8,
++    parameter DATA_WIDTH = 64,
+     parameter KEEP_WIDTH = (DATA_WIDTH/8)
+ )
+ (

@@ -1,0 +1,17 @@
+ebe4e36b2ff115d5ec3223cc73499718c23ccd41
+[usbdev] Fixes for pin config sims to pass
+diff --git a/hw/ip/usbdev/rtl/usbdev_iomux.sv b/hw/ip/usbdev/rtl/usbdev_iomux.sv
+index 267524ffd..ca70d742f 100644
+--- a/hw/ip/usbdev/rtl/usbdev_iomux.sv
++++ b/hw/ip/usbdev/rtl/usbdev_iomux.sv
+@@ -183,8 +183,8 @@ module usbdev_iomux
+           cio_usb_dp_o = 1'b0;
+           cio_usb_dn_o = 1'b0;
+         end else begin
+-          cio_usb_dp_o = usb_tx_d_i;
+-          cio_usb_dn_o = !usb_tx_d_i;
++          cio_usb_dp_o = cio_usb_d_flipped;
++          cio_usb_dn_o = ~cio_usb_d_flipped;
+         end
+       end
+     end

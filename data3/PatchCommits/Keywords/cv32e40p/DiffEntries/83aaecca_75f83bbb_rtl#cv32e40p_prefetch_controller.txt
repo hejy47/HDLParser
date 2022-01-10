@@ -1,0 +1,30 @@
+83aaeccaa83ca3f7aed6c959eed5d9e3f71d1832
+Merge pull request #581 from davideschiavone/fix_rand_interrupt_gen
+diff --git a/rtl/cv32e40p_prefetch_controller.sv b/rtl/cv32e40p_prefetch_controller.sv
+index 1924c6c..595c5c2 100644
+--- a/rtl/cv32e40p_prefetch_controller.sv
++++ b/rtl/cv32e40p_prefetch_controller.sv
+@@ -78,7 +78,9 @@ module cv32e40p_prefetch_controller
+   input  logic                     fifo_empty_i             // FIFO is empty
+ );
+ 
+-  enum logic {IDLE, BRANCH_WAIT} state_q, next_state;
++  import cv32e40p_pkg::*;
++
++  prefetch_state_e state_q, next_state;
+ 
+   logic  [FIFO_ADDR_DEPTH:0]     cnt_q;                           // Transaction counter
+   logic  [FIFO_ADDR_DEPTH:0]     next_cnt;                        // Next value for cnt_q
+@@ -188,9 +190,9 @@ module cv32e40p_prefetch_controller
+ 
+       BRANCH_WAIT:
+       begin
+-        // Replay previous branch target address (trans_addr_q) or new branch address (although this
+-        // can probably not occur in CV32E40P (defensive programming to always be receptive for a new
+-        // taken branch)) until accepted by the bus interface adapter.
++        // Replay previous branch target address (trans_addr_q) or new branch address (this can
++        // occur if for example an interrupt is taken right after a taken jump which did not
++        // yet have its target address accepted by the bus interface adapter.
+         trans_addr_o = branch_i ? aligned_branch_addr : trans_addr_q;
+         if (trans_valid_o && trans_ready_i) begin
+           // Transaction with branch target address has been accepted. Start regular prefetch again.

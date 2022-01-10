@@ -1,0 +1,31 @@
+ba24909a253681d44673e608aa1e845959d19ff1
+axi_streaming_dma_rx_fifo: fix period_count clock and TLAST
+diff --git a/library/common/axi_streaming_dma_rx_fifo.vhd b/library/common/axi_streaming_dma_rx_fifo.vhd
+index 7a353f47..fcdb78e2 100644
+--- a/library/common/axi_streaming_dma_rx_fifo.vhd
++++ b/library/common/axi_streaming_dma_rx_fifo.vhd
+@@ -100,14 +100,16 @@ begin
+ 
+ 	period_counter: process(m_axis_aclk) is
+ 	begin
+-		if resetn = '0' then
+-			period_count <= period_len;
+-		else
+-			if out_stb = '1' and m_axis_tready = '1' then
+-				if period_count = 0 then
+-					period_count <= period_len;
+-				else
+-					period_count <= period_count - 1;
++		if rising_edge(m_axis_aclk) then
++			if resetn = '0' then
++				period_count <= period_len;
++			else
++				if out_stb = '1' and m_axis_tready = '1' then
++					if period_count = 0 then
++						period_count <= period_len;
++					else
++						period_count <= period_count - 1;
++					end if;
+ 				end if;
+ 			end if;
+ 		end if;

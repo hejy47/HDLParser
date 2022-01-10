@@ -1,0 +1,15 @@
+a2a4f3402c5f181234c362223c60d9e5e4e681f1
+up_hdmi_rx: Fix TPM OOS clear
+diff --git a/library/common/up_hdmi_rx.v b/library/common/up_hdmi_rx.v
+index 4d2cc1fd..b2706c82 100644
+--- a/library/common/up_hdmi_rx.v
++++ b/library/common/up_hdmi_rx.v
+@@ -206,7 +206,7 @@ module up_hdmi_rx (
+       if (up_tpm_oos_s == 1'b1) begin
+         up_tpm_oos <= 1'b1;
+       end else if ((up_wreq_s == 1'b1) && (up_waddr[11:0] == 12'h019)) begin
+-        up_tpm_oos <= up_tpm_oos & ~up_wdata[0];
++        up_tpm_oos <= up_tpm_oos & ~up_wdata[1];
+       end
+       if (up_vs_oos_s == 1'b1) begin
+         up_vs_oos <= 1'b1;

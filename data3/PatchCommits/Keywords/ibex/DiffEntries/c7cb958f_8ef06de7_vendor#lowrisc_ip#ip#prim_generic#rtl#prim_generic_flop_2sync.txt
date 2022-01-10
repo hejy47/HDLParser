@@ -1,0 +1,27 @@
+c7cb958f0d6f143d835e33d7efe27336cc7737c1
+Update lowrisc_ip to lowRISC/opentitan@ca950b43a
+diff --git a/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_flop_2sync.sv b/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_flop_2sync.sv
+index 76a072ca..45f802bb 100644
+--- a/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_flop_2sync.sv
++++ b/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_flop_2sync.sv
+@@ -7,11 +7,10 @@
+ // for synchronization
+ 
+ module prim_generic_flop_2sync #(
+-  parameter int Width       = 16,
+-  localparam int WidthSubOne = Width-1, // temp work around #2679
+-  parameter logic [WidthSubOne:0] ResetValue = '0
++  parameter int               Width      = 16,
++  parameter logic [Width-1:0] ResetValue = '0
+ ) (
+-  input                    clk_i,       // receive clock
++  input                    clk_i,
+   input                    rst_ni,
+   input        [Width-1:0] d_i,
+   output logic [Width-1:0] q_o
+@@ -39,5 +38,4 @@ module prim_generic_flop_2sync #(
+     .q_o
+   );
+ 
+-
+ endmodule

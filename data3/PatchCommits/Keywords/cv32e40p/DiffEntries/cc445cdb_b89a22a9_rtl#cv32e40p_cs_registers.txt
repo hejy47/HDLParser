@@ -1,0 +1,34 @@
+cc445cdb24f9bdb24547c72200480fcc0507375b
+Merge pull request #376 from Silabs-ArjanB/ArjanB_csr_address_fix
+diff --git a/rtl/cv32e40p_cs_registers.sv b/rtl/cv32e40p_cs_registers.sv
+index 60f2c5b..a23bd54 100644
+--- a/rtl/cv32e40p_cs_registers.sv
++++ b/rtl/cv32e40p_cs_registers.sv
+@@ -355,9 +355,11 @@ if(PULP_SECURE==1) begin
+       // mvendorid: Machine Vendor ID
+       CSR_MVENDORID: csr_rdata_int = {MVENDORID_BANK, MVENDORID_OFFSET};
+ 
++      // marchid: Machine Architecture ID
++      CSR_MARCHID: csr_rdata_int = MARCHID;
++
+       // unimplemented, read 0 CSRs
+-      CSR_MARCHID,
+-        CSR_MIMPID,
++      CSR_MIMPID,
+         CSR_MTVAL :
+           csr_rdata_int = 'b0;
+ 
+@@ -536,9 +538,11 @@ end else begin //PULP_SECURE == 0
+       // mvendorid: Machine Vendor ID
+       CSR_MVENDORID: csr_rdata_int = {MVENDORID_BANK, MVENDORID_OFFSET};
+ 
++      // marchid: Machine Architecture ID
++      CSR_MARCHID: csr_rdata_int = MARCHID;
++
+       // unimplemented, read 0 CSRs
+-      CSR_MARCHID,
+-        CSR_MIMPID,
++      CSR_MIMPID,
+         CSR_MTVAL :
+           csr_rdata_int = 'b0;
+ 

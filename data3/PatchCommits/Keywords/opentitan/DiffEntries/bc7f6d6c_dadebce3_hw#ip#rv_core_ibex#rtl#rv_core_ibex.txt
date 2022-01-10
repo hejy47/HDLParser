@@ -1,0 +1,14 @@
+bc7f6d6cde2259f2741e40112f2ff4c6871d0d75
+Update lowrisc_ibex to lowRISC/ibex@6d9e1ac
+diff --git a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+index 5820aef1e..44f8b0a51 100644
+--- a/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
++++ b/hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv
+@@ -224,6 +224,7 @@ module rv_core_ibex import rv_core_ibex_pkg::*; #(
+     .irq_nm_i       ( irq_nm       ),
+ 
+     .debug_req_i,
++    .crash_dump_o   (              ),
+ 
+ `ifdef RVFI
+     .rvfi_valid,

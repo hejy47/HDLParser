@@ -1,0 +1,2184 @@
+CommitId: ee45f3ff3e740731c6e535638020246bf6c920ea
+Fixing bug in checksum of data packets.
+--- a/hdl/tcp/tcp_add_header.vhd
++++ b/hdl/tcp/tcp_add_header.vhd
+@@ -180,7 +180,8 @@ process(clk)
+             tcp_checksum_u1b <= to_unsigned(0,20) + unsigned(pseudohdr_08) + unsigned(pseudohdr_09) 
+                                                   + unsigned(pseudohdr_10) + unsigned(pseudohdr_11) 
+                                                   + unsigned(pseudohdr_12) + unsigned(pseudohdr_13)
+-                                                  + x"0000"                + unsigned(pseudohdr_15);   
++                                                  + x"0000"                + unsigned(pseudohdr_15)
++                                                  + unsigned(data_checksum);   
+             tcp_checksum_u2 <= to_unsigned(0,17) + tcp_checksum_u1a(15 downto 0) + tcp_checksum_u1a(19 downto 16) 
+                                                  + tcp_checksum_u1b(15 downto 0) + tcp_checksum_u1b(19 downto 16);
+             tcp_checksum_u3 <= tcp_checksum_u2(15 downto 0) + tcp_checksum_u2(16 downto 16);
+ParseResult:
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@ADD to 
+    UPD HdlOp@@ADD to ADD
+        INS list@@ops to ADD
+        INS HdlOp@@INDEX to ops
+        HdlOp: INDEX
+            list: ops
+                HdlValueId: unsigned
+                HdlValueId: data_checksum
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@ADD to 
+    HdlOp: ADD
+        list: ops
+            HdlOp: ADD
+                list: ops
+                    HdlOp: ADD
+                        list: ops
+                            HdlOp: ADD
+                                list: ops
+                                    HdlOp: ADD
+                                        list: ops
+                                            HdlOp: ADD
+                                                list: ops
+                                                    HdlOp: ADD
+                                                        list: ops
+                                                            HdlOp: ADD
+                                                                list: ops
+                                                                    HdlOp: INDEX
+                                                                        list: ops
+                                                                            HdlValueId: to_unsigned
+                                                                            HdlValueInt: 20
+                                                                    HdlOp: INDEX
+                                                                        list: ops
+                                                                            HdlValueId: unsigned
+                                                                            HdlValueId: pseudohdr_08
+                                                            HdlOp: INDEX
+                                                                list: ops
+                                                                    HdlValueId: unsigned
+                                                                    HdlValueId: pseudohdr_09
+                                                    HdlOp: INDEX
+                                                        list: ops
+                                                            HdlValueId: unsigned
+                                                            HdlValueId: pseudohdr_10
+                                            HdlOp: INDEX
+                                                list: ops
+                                                    HdlValueId: unsigned
+                                                    HdlValueId: pseudohdr_11
+                                    HdlOp: INDEX
+                                        list: ops
+                                            HdlValueId: unsigned
+                                            HdlValueId: pseudohdr_12
+                            HdlOp: INDEX
+                                list: ops
+                                    HdlValueId: unsigned
+                                    HdlValueId: pseudohdr_13
+                    HdlValueInt: 0000
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlValueId: pseudohdr_15
+
+
+CommitId: 379db9945d4742a75c6f999dc13dc235a2b83196
+Minor bug fix - sending two extra bytes on the ICMP packets)
+--- a/hdl/icmp/icmp_commit_buffer.vhd
++++ b/hdl/icmp/icmp_commit_buffer.vhd
+@@ -66,7 +68,11 @@ process(clk)
+             ------------------------------------------------
+             if write_state = write_writing or data_valid_in = '1' then 
+                 data_buffer(to_integer(write_addr))(8)          <= data_valid_in;
+-                data_buffer(to_integer(write_addr))(7 downto 0) <= data_in;
++                if data_valid_in = '1' then
++                    data_buffer(to_integer(write_addr))(7 downto 0) <= data_in;
++                else
++                    data_buffer(to_integer(write_addr))(7 downto 0) <= (others => '0');
++                end if;
+             end if;
+             
+             case write_state is
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueId: data_valid_in
+    HdlOp: INDEX
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: data_buffer
+                    HdlOp: CALL
+                        list: ops
+                            HdlValueId: to_integer
+                            HdlValueId: write_addr
+            HdlValueInt: 8
+
+INS HdlStmIf@@ to body
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@EQ to 
+    HdlOp: EQ
+        list: ops
+            HdlValueId: data_valid_in
+            HdlValueInt: 1
+    INS list@@elifs to 
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                list: src
+                    HdlOp: MAP_ASSOCIATION
+                        list: ops
+                            type
+                            HdlValueInt: 0
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: data_buffer
+                                HdlOp: CALL
+                                    list: ops
+                                        HdlValueId: to_integer
+                                        HdlValueId: write_addr
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 7
+
+UPD HdlStmIf@@ to 
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueId: data_valid_in
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: data_buffer
+                                HdlOp: CALL
+                                    list: ops
+                                        HdlValueId: to_integer
+                                        HdlValueId: write_addr
+                        HdlValueInt: 8
+            HdlStmAssign
+                HdlValueId: data_in
+                HdlOp: INDEX
+                    list: ops
+                        HdlOp: INDEX
+                            list: ops
+                                HdlValueId: data_buffer
+                                HdlOp: CALL
+                                    list: ops
+                                        HdlValueId: to_integer
+                                        HdlValueId: write_addr
+                        HdlOp: DOWNTO
+                            list: ops
+                                HdlValueInt: 7
+
+
+CommitId: 379db9945d4742a75c6f999dc13dc235a2b83196
+Minor bug fix - sending two extra bytes on the ICMP packets)
+--- a/hdl/icmp/icmp_commit_buffer.vhd
++++ b/hdl/icmp/icmp_commit_buffer.vhd
+@@ -107,11 +113,11 @@ process(clk)
+             -------------------------------------------
+             case read_state is
+                 when read_reading =>
+-                    i_packet_out_valid <= data_buffer(to_integer(read_addr))(8);
+-                    i_packet_out_data  <= data_buffer(to_integer(read_addr))(7 downto 0);
+                     if(i_packet_out_valid = '0') then
+                         read_state <= read_waiting;                      
+                     else
++                        i_packet_out_valid <= data_buffer(to_integer(read_addr))(8);
++                        i_packet_out_data  <= data_buffer(to_integer(read_addr))(7 downto 0);
+                         read_addr <= read_addr + 1;
+                     end if;
+                     
+
+ParseResult:
+INS HdlStmIf@@ to body
+
+UPD HdlStmIf@@ to 
+    MOV HdlOp@@EQ to 
+    HdlOp: EQ
+        list: ops
+            HdlValueId: i_packet_out_valid
+            HdlValueInt: 0
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueId: read_waiting
+                HdlValueId: read_state
+    DEL list@@elifs from 
+    UPD HdlStmBlock@@SEQ to SEQ
+        DEL list@@body from SEQ
+    DEL HdlStmBlock@@SEQ from 
+
+UPD HdlStmIf@@ to 
+    INS list@@elifs to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: data_buffer
+                    HdlOp: CALL
+                        list: ops
+                            HdlValueId: to_integer
+                            HdlValueId: read_addr
+            HdlValueInt: 8
+    HdlValueId: i_packet_out_valid
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: INDEX
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: data_buffer
+                    HdlOp: CALL
+                        list: ops
+                            HdlValueId: to_integer
+                            HdlValueId: read_addr
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    HdlValueId: i_packet_out_data
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: ADD
+        list: ops
+            HdlValueId: read_addr
+            HdlValueInt: 1
+    HdlValueId: read_addr
+
+DEL HdlStmIf@@ from body
+
+
+CommitId: 379db9945d4742a75c6f999dc13dc235a2b83196
+Minor bug fix - sending two extra bytes on the ICMP packets)
+--- a/hdl/icmp/icmp_commit_buffer.vhd
++++ b/hdl/icmp/icmp_commit_buffer.vhd
+@@ -131,6 +137,10 @@ process(clk)
+                     end if;
+                     
+                 when others => --- For the read_idle state
++                    -- Start counting from 2, as this causes the 'request' line    
++                    -- to drop early enough to release the TX interface the   
++                    -- cycle that the last word of the interpacket gap is sent.
++                    read_pause <= (1 => '1', others => '0');
+                     if read_addr = committed_addr then
+                         -- Nothing to do
+                         packet_out_request <= '0';    
+ParseResult:
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    list: src
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                HdlValueInt: 1
+                HdlValueInt: 1
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlValueId: read_pause
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/tcp/tcp_add_header.vhd
++++ b/hdl/tcp/tcp_add_header.vhd
+@@ -124,7 +124,7 @@ begin
+                     & tcp_flag_syn & tcp_flag_fin;
+ 
+     pseudohdr_13 <= tcp_window;
+-    pseudohdr_14 <= (others => '0'); -- checksum
++    pseudohdr_14 <= tcp_checksum;
+     pseudohdr_15 <= tcp_urgent_ptr;
+          
+     
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlValueId: tcp_checksum
+    HdlValueId: pseudohdr_14
+
+DEL HdlStmAssign@@ from objs
+HdlStmAssign
+    list: src
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlValueId: pseudohdr_14
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/tcp/tcp_add_header.vhd
++++ b/hdl/tcp/tcp_add_header.vhd
+@@ -180,7 +180,7 @@ process(clk)
+             tcp_checksum_u1b <= to_unsigned(0,20) + unsigned(pseudohdr_08) + unsigned(pseudohdr_09) 
+                                                   + unsigned(pseudohdr_10) + unsigned(pseudohdr_11) 
+                                                   + unsigned(pseudohdr_12) + unsigned(pseudohdr_13)
+-                                                  + unsigned(pseudohdr_14) + unsigned(pseudohdr_15);   
++                                                  + x"0000"                + unsigned(pseudohdr_15);   
+             tcp_checksum_u2 <= to_unsigned(0,17) + tcp_checksum_u1a(15 downto 0) + tcp_checksum_u1a(19 downto 16) 
+                                                  + tcp_checksum_u1b(15 downto 0) + tcp_checksum_u1b(19 downto 16);
+             tcp_checksum_u3 <= tcp_checksum_u2(15 downto 0) + tcp_checksum_u2(16 downto 16);
+ParseResult:
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@ADD to ADD
+        UPD HdlOp@@ADD to ADD
+            INS HdlValueInt@@0000 to ops
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@ADD to ADD
+        UPD HdlOp@@ADD to ADD
+            DEL HdlOp@@INDEX from ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlValueId: pseudohdr_14
+
+
+CommitId: 379db9945d4742a75c6f999dc13dc235a2b83196
+Minor bug fix - sending two extra bytes on the ICMP packets)
+--- a/hdl/icmp/icmp_handler.vhd
++++ b/hdl/icmp/icmp_handler.vhd
+@@ -173,7 +173,7 @@ architecture Behavioral of icmp_handler is
+         probe2 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+         probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+         probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+-        probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
++        probe5 : IN STD_LOGIC_VECTOR(7 DOWNTO 0)
+     );
+     END COMPONENT ;
+ begin
+
+ParseResult:
+UPD HdlIdDef@@probe5 to probe5
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            INS HdlValueInt@@7 to ops
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/tx/tx_interface.vhd
++++ b/hdl/tx/tx_interface.vhd
+@@ -42,6 +42,11 @@ entity tx_interface is
+            icmp_valid   : in  STD_LOGIC;
+            icmp_data    : in  STD_LOGIC_VECTOR (7 downto 0);
+            ---
++           udp_request : in  STD_LOGIC;
++           udp_granted : out STD_LOGIC;
++           udp_valid   : in  STD_LOGIC;
++           udp_data    : in  STD_LOGIC_VECTOR (7 downto 0);
++           ---
+            eth_txck    : out STD_LOGIC;
+            eth_txctl   : out STD_LOGIC;
+            eth_txd     : out STD_LOGIC_VECTOR (3 downto 0));
+
+ParseResult:
+INS HdlIdDef@@udp_request to ports
+HdlIdDef: udp_request
+    HdlValueId: STD_LOGIC
+    HdlDirection: IN
+
+INS HdlIdDef@@udp_granted to ports
+HdlIdDef: udp_granted
+    HdlValueId: STD_LOGIC
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_valid to ports
+HdlIdDef: udp_valid
+    HdlValueId: STD_LOGIC
+    HdlDirection: IN
+
+INS HdlIdDef@@udp_data to ports
+HdlIdDef: udp_data
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: STD_LOGIC_VECTOR
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    HdlDirection: IN
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/tx/tx_interface.vhd
++++ b/hdl/tx/tx_interface.vhd
+@@ -64,6 +69,11 @@ architecture Behavioral of tx_interface is
+            ch1_valid         : in  STD_LOGIC;
+            ch1_data          : in  STD_LOGIC_VECTOR (7 downto 0);
+ 
++           ch2_request       : in  STD_LOGIC;
++           ch2_granted       : out STD_LOGIC;
++           ch2_valid         : in  STD_LOGIC;
++           ch2_data          : in  STD_LOGIC_VECTOR (7 downto 0);
++
+            merged_data_valid : out STD_LOGIC;
+            merged_data       : out STD_LOGIC_VECTOR (7 downto 0));
+     end component;
+
+ParseResult:
+INS HdlIdDef@@ch2_request to ports
+HdlIdDef: ch2_request
+    HdlValueId: STD_LOGIC
+    HdlDirection: IN
+
+INS HdlIdDef@@ch2_granted to ports
+HdlIdDef: ch2_granted
+    HdlValueId: STD_LOGIC
+    HdlDirection: OUT
+
+INS HdlIdDef@@ch2_valid to ports
+HdlIdDef: ch2_valid
+    HdlValueId: STD_LOGIC
+    HdlDirection: IN
+
+INS HdlIdDef@@ch2_data to ports
+HdlIdDef: ch2_data
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: STD_LOGIC_VECTOR
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    HdlDirection: IN
+
+
+CommitId: a81742116058020ad571594fbfec2096b57ec042
+Second attempt at fixing ICMP checksum bug, and remove UDP padding.
+--- a/hdl/udp/udp_extract_udp_header.vhd
++++ b/hdl/udp/udp_extract_udp_header.vhd
+@@ -32,6 +32,8 @@ architecture Behavioral of udp_extract_udp_header is
+     signal i_udp_dst_port : STD_LOGIC_VECTOR (15 downto 0) := (others => '0');
+     signal i_udp_length   : STD_LOGIC_VECTOR (15 downto 0) := (others => '0');
+     signal i_udp_checksum : STD_LOGIC_VECTOR (15 downto 0) := (others => '0');
++    -- 'data_count' us used for trimming off padding on the end of the UDP packet 
++    signal data_count     : unsigned(11 downto 0)          := (others => '0');
+ begin
+     udp_length   <= i_udp_length;
+     udp_checksum <= i_udp_checksum;
+
+ParseResult:
+INS HdlIdDef@@data_count to objs
+HdlIdDef: data_count
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: unsigned
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 11
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+
+CommitId: a81742116058020ad571594fbfec2096b57ec042
+Second attempt at fixing ICMP checksum bug, and remove UDP padding.
+--- a/hdl/udp/udp_extract_udp_header.vhd
++++ b/hdl/udp/udp_extract_udp_header.vhd
+@@ -43,26 +45,33 @@ process(clk)
+         if rising_edge(clk) then
+             data_out       <= data_in;
+             if data_valid_in = '1' then
+-                -- Note, at count of zero,  
+                 case count is
+-                    when "0000" => i_udp_src_port(7 downto 0)  <= data_in;
+-                    when "0001" => i_udp_src_port(15 downto 8) <= data_in;
+-                    when "0010" => i_udp_dst_port(7 downto 0)  <= data_in;
+-                    when "0011" => i_udp_dst_port(15 downto 8) <= data_in;
+-                    when "0100" => i_udp_length(7 downto 0)    <= data_in;
+-                    when "0101" => i_udp_length(15 downto 8)   <= data_in;
+-                    when "0110" => i_udp_checksum(7 downto 0)  <= data_in;
+-                    when "0111" => i_udp_checksum(15 downto 8) <= data_in;
+-                    when others => data_valid_out <= data_valid_in;
+-                                   data_out       <= data_in;
++                    when "0000" => i_udp_src_port(15 downto 8) <= data_in;
++                    when "0001" => i_udp_src_port( 7 downto 0) <= data_in;
++                    when "0010" => i_udp_dst_port(15 downto 8) <= data_in;
++                    when "0011" => i_udp_dst_port( 7 downto 0) <= data_in;
++                    when "0100" => i_udp_length(15 downto 8)   <= data_in;
++                    when "0101" => i_udp_length( 7 downto 0)   <= data_in;
++                    when "0110" => i_udp_checksum(15 downto 8) <= data_in;
++                    when "0111" => i_udp_checksum( 7 downto 0) <= data_in;
++                    when others => if data_count < unsigned(i_udp_length) then
++                                       data_valid_out <= data_valid_in;
++                                       data_out       <= data_in;
++                                   else
++                                       data_valid_out <= '0';
++                                       data_out       <= data_in;
++                                   end if;
++                                    
+                 end case;
+                 if count /= "1111" then
+                     count <= count+1;
+                 end if;
++                data_count <= data_count + 1;
+             else
+                data_valid_out <= '0';
+                data_out       <= data_in;
+                count <= (others => '0');
++               data_count <= (others => '0');
+             end if;
+         end if;
+     end process;
+ParseResult:
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: ADD
+        list: ops
+            HdlValueId: data_count
+            HdlValueInt: 1
+    HdlValueId: data_count
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    list: src
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlValueId: data_count
+
+UPD HdlStmCase@@count to count
+    MOV tuple@@ to cases
+    tuple
+        str
+        HdlStmBlock: SEQ
+            list: body
+                HdlStmAssign
+                    HdlValueId: data_in
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: i_udp_src_port
+                            HdlOp: DOWNTO
+                                list: ops
+                                    HdlValueInt: 7
+    MOV tuple@@ to cases
+    tuple
+        str
+        HdlStmBlock: SEQ
+            list: body
+                HdlStmAssign
+                    HdlValueId: data_in
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: i_udp_dst_port
+                            HdlOp: DOWNTO
+                                list: ops
+                                    HdlValueInt: 7
+    MOV tuple@@ to cases
+    tuple
+        str
+        HdlStmBlock: SEQ
+            list: body
+                HdlStmAssign
+                    HdlValueId: data_in
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: i_udp_length
+                            HdlOp: DOWNTO
+                                list: ops
+                                    HdlValueInt: 7
+    MOV tuple@@ to cases
+    tuple
+        str
+        HdlStmBlock: SEQ
+            list: body
+                HdlStmAssign
+                    HdlValueId: data_in
+                    HdlOp: INDEX
+                        list: ops
+                            HdlValueId: i_udp_checksum
+                            HdlOp: DOWNTO
+                                list: ops
+                                    HdlValueInt: 7
+    MOV HdlStmBlock@@SEQ to count
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueId: data_valid_in
+                HdlValueId: data_valid_out
+            HdlStmAssign
+                HdlValueId: data_in
+                HdlValueId: data_out
+
+UPD HdlStmCase@@count to count
+    INS HdlStmBlock@@SEQ to count
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+INS HdlStmIf@@ to body
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@LT to 
+    HdlOp: LT
+        list: ops
+            HdlValueId: data_count
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlValueId: i_udp_length
+    INS list@@elifs to 
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: data_valid_out
+            HdlStmAssign
+                HdlValueId: data_in
+                HdlValueId: data_out
+
+
+CommitId: ee45f3ff3e740731c6e535638020246bf6c920ea
+Fixing bug in checksum of data packets.
+--- a/hdl/tcp_engine/tcp_engine.vhd
++++ b/hdl/tcp_engine/tcp_engine.vhd
+@@ -529,6 +529,11 @@ process(clk)
+ send_packets: process(clk)
+     begin
+         if rising_edge(clk) then
++            -------------------------------------------------------------
++            -- Update the sequence number if a packet was sent last cycle
++            -------------------------------------------------------------
++            tosend_seq_num <= tosend_seq_num_next;
++
+             -------------------------------------------------
+             -- This block is to set up the initial sequence  
+             -- numbers during the initial three-way handshake
+
+ParseResult:
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueId: tosend_seq_num_next
+    HdlValueId: tosend_seq_num
+
+
+CommitId: a81742116058020ad571594fbfec2096b57ec042
+Second attempt at fixing ICMP checksum bug, and remove UDP padding.
+--- a/hdl/FPGA_webserver.vhd
++++ b/hdl/FPGA_webserver.vhd
+@@ -217,7 +217,8 @@ process(clk125Mhz)
+     begin
+         if rising_edge(clk125Mhz) then
+             -- assign any data on UDP port 5140 (0x1414) to the LEDs
+-            if udp_rx_valid_last = '0'  and udp_rx_valid = '1' and udp_rx_dst_port = x"1414" then  
++--            if udp_rx_valid_last = '0'  and udp_rx_valid = '1' and udp_rx_dst_port = x"1414" then  
++            if udp_rx_valid = '1' and udp_rx_dst_port = x"1234" then  
+                 leds <= udp_rx_data;
+             end if;
+             udp_rx_valid_last <= udp_rx_valid;
+ParseResult:
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@AND to AND
+        MOV HdlOp@@AND to ops
+        HdlOp: AND
+            list: ops
+                HdlOp: EQ
+                    list: ops
+                        HdlValueId: udp_rx_valid_last
+                        HdlValueInt: 0
+                HdlOp: EQ
+                    list: ops
+                        HdlValueId: udp_rx_valid
+                        HdlValueInt: 1
+        MOV HdlOp@@EQ to ops
+        HdlOp: EQ
+            list: ops
+                HdlValueId: udp_rx_dst_port
+                HdlValueInt: 1414
+        UPD HdlOp@@EQ to EQ
+            UPD HdlValueInt@@1414 to 1234
+        UPD HdlOp@@AND to AND
+            DEL HdlOp@@EQ from ops
+            HdlOp: EQ
+                list: ops
+                    HdlValueId: udp_rx_valid_last
+                    HdlValueInt: 0
+        DEL list@@ops from AND
+    DEL HdlOp@@AND from 
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/ip/ip_extract_header.vhd
++++ b/hdl/ip/ip_extract_header.vhd
+@@ -78,7 +78,7 @@ architecture Behavioral of ip_extract_header is
+     signal i_ip_checksum        : STD_LOGIC_VECTOR (15 downto 0)  := (others => '0');
+     signal i_ip_src_ip          : STD_LOGIC_VECTOR (31 downto 0)  := (others => '0');
+     signal i_ip_dest_ip         : STD_LOGIC_VECTOR (31 downto 0)  := (others => '0');           
+-
++    signal data_count           : UNSIGNED(10 downto 0)   := (others => '0');
+ begin
+ 
+     ip_version         <= i_ip_version;
+
+ParseResult:
+INS HdlIdDef@@data_count to objs
+HdlIdDef: data_count
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: UNSIGNED
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 10
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/ip/ip_extract_header.vhd
++++ b/hdl/ip/ip_extract_header.vhd
+@@ -99,6 +99,7 @@ process(clk)
+             data_out       <= data_in;
+             if data_valid_in = '1' then
+                 -- Note, at count of zero,  
++                data_count <= data_count + 1;
+                 case count is
+                     when "0000000" => i_ip_version                      <= data_in(7 downto 4);
+                                       header_len(5 downto 2)            <= unsigned(data_in(3 downto 0));
+
+ParseResult:
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: ADD
+        list: ops
+            HdlValueId: data_count
+            HdlValueInt: 1
+    HdlValueId: data_count
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/ip/ip_extract_header.vhd
++++ b/hdl/ip/ip_extract_header.vhd
+@@ -128,7 +129,12 @@ process(clk)
+                 if unsigned(count) >= unsigned(header_len) and unsigned(count) > 4
+                     and i_ip_version = x"4" and i_ip_protocol = filter_protocol
+                     and (i_ip_dest_ip = our_ip or i_ip_dest_ip = our_broadcast) then
+-                    data_valid_out                   <= data_valid_in;
++                     
++                    if data_count < unsigned(i_ip_length) then
++                        data_valid_out                   <= data_valid_in;
++                    else
++                        data_valid_out                   <= '0';
++                    end if;
+                     data_out                         <= data_in;
+                 end if;
+                 if count /= "1111111" then
+
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+INS HdlStmIf@@ to body
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueId: data_in
+    HdlValueId: data_out
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@LT to 
+    HdlOp: LT
+        list: ops
+            HdlValueId: data_count
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlValueId: i_ip_length
+    INS list@@elifs to 
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: data_valid_out
+
+UPD HdlStmIf@@ to 
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueId: data_valid_in
+                HdlValueId: data_valid_out
+            HdlStmAssign
+                HdlValueId: data_in
+                HdlValueId: data_out
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/ip/ip_extract_header.vhd
++++ b/hdl/ip/ip_extract_header.vhd
+@@ -138,6 +144,7 @@ process(clk)
+                data_valid_out <= '0';
+                data_out       <= data_in;
+                count          <= (others => '0');
++               data_count <= (others => '0');
+             end if;
+         end if;
+     end process;
+ParseResult:
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    list: src
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlValueId: data_count
+
+UPD HdlStmIf@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@LT to 
+    HdlOp: LT
+        list: ops
+            HdlValueId: data_count
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlValueId: i_ip_length
+    INS list@@elifs to 
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlValueInt: 0
+                HdlValueId: data_valid_out
+
+
+CommitId: 212d8ff66e3664ae4c47049c4c233b55a63cb1cc
+Remove timing error from eth_tx interface
+--- a/hdl/clocking.vhd
++++ b/hdl/clocking.vhd
+@@ -36,8 +30,10 @@ entity clocking is
+ end clocking;
+ 
+ architecture Behavioral of clocking is
+-    signal clk100MHz_buffered : std_logic := '0';
+-    signal clkfb              : std_logic := '0';
++    signal clk100MHz_buffered     : std_logic := '0';
++    signal clkfb                  : std_logic := '0';
++    signal clk125MHz_unbuffered   : STD_LOGIC;
++    signal clk125MHz90_unbuffered : STD_LOGIC;
+ begin
+ bufg_100: BUFG 
+     port map (
+
+ParseResult:
+INS HdlIdDef@@clk125MHz_unbuffered to objs
+HdlIdDef: clk125MHz_unbuffered
+    HdlValueId: STD_LOGIC
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@clk125MHz90_unbuffered to objs
+HdlIdDef: clk125MHz90_unbuffered
+    HdlValueId: STD_LOGIC
+    HdlDirection: INTERNAL
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/tx/tx_arbiter.vhd
++++ b/hdl/tx/tx_arbiter.vhd
+@@ -25,6 +25,11 @@ entity tx_arbiter is
+            ch1_granted    : out STD_LOGIC;
+            ch1_valid      : in  STD_LOGIC;
+            ch1_data       : in  STD_LOGIC_VECTOR (7 downto 0);
++
++           ch2_request    : in  STD_LOGIC;
++           ch2_granted    : out STD_LOGIC;
++           ch2_valid      : in  STD_LOGIC;
++           ch2_data       : in  STD_LOGIC_VECTOR (7 downto 0);
+     
+            merged_data_valid  : out STD_LOGIC;
+            merged_data        : out STD_LOGIC_VECTOR (7 downto 0));
+
+ParseResult:
+INS HdlIdDef@@ch2_request to ports
+HdlIdDef: ch2_request
+    HdlValueId: STD_LOGIC
+    HdlDirection: IN
+
+INS HdlIdDef@@ch2_granted to ports
+HdlIdDef: ch2_granted
+    HdlValueId: STD_LOGIC
+    HdlDirection: OUT
+
+INS HdlIdDef@@ch2_valid to ports
+HdlIdDef: ch2_valid
+    HdlValueId: STD_LOGIC
+    HdlDirection: IN
+
+INS HdlIdDef@@ch2_data to ports
+HdlIdDef: ch2_data
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: STD_LOGIC_VECTOR
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    HdlDirection: IN
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/tx/tx_arbiter.vhd
++++ b/hdl/tx/tx_arbiter.vhd
+@@ -40,9 +45,12 @@ begin
+ 
+     request(1)  <= ch1_request;
+ 	ch1_granted <= grant(1) and request(1);
++
++    request(2)  <= ch2_request;
++	ch2_granted <= grant(2) and request(2);
+ 	
+-	merged_data_valid <= ch0_valid or ch1_valid; 
+-	merged_data       <= ch0_data  or ch1_data; 
++	merged_data_valid <= ch0_valid or ch1_valid or ch2_valid; 
++	merged_data       <= ch0_data  or ch1_data  or ch2_data; 
+ 
+ process(clk)
+     begin  
+
+ParseResult:
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlValueId: ch2_request
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: request
+            HdlValueInt: 2
+
+INS HdlStmAssign@@ to objs
+HdlStmAssign
+    HdlOp: AND
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: grant
+                    HdlValueInt: 2
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: request
+                    HdlValueInt: 2
+    HdlValueId: ch2_granted
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@OR to 
+    HdlOp: OR
+        list: ops
+            HdlValueId: ch0_valid
+            HdlValueId: ch1_valid
+
+UPD HdlStmAssign@@ to 
+    MOV HdlOp@@OR to 
+    HdlOp: OR
+        list: ops
+            HdlValueId: ch0_data
+            HdlValueId: ch1_data
+
+
+CommitId: ee45f3ff3e740731c6e535638020246bf6c920ea
+Fixing bug in checksum of data packets.
+--- a/hdl/other/buffer_count_and_checksum_data.vhd
++++ b/hdl/other/buffer_count_and_checksum_data.vhd
+@@ -128,7 +128,7 @@ main_proc: process(clk)
+             
+             if data_valid_in = '1' then
+                 --- Update the checksum here
+-                if data_count(0) = '0' then
++                if data_count(0) = '0' or data_valid_in_last = '0' then
+                     checksum <= to_unsigned(0,17) + checksum(15 downto 0) + checksum(16 downto 16) + (unsigned(data_in) & to_unsigned(0,8));
+                 else
+                     checksum <= to_unsigned(0,17) + checksum(15 downto 0) + checksum(16 downto 16) + unsigned(data_in); 
+ParseResult:
+UPD HdlStmIf@@ to 
+    INS HdlOp@@OR to 
+    UPD HdlOp@@OR to OR
+        INS list@@ops to OR
+        INS HdlOp@@EQ to ops
+        HdlOp: EQ
+            list: ops
+                HdlValueId: data_valid_in_last
+                HdlValueInt: 0
+
+UPD HdlStmIf@@ to 
+    MOV HdlOp@@EQ to 
+    HdlOp: EQ
+        list: ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: data_count
+            HdlValueInt: 0
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/FPGA_webserver.vhd
++++ b/hdl/FPGA_webserver.vhd
+@@ -25,7 +25,7 @@ use IEEE.STD_LOGIC_1164.ALL;
+ entity FPGA_webserver is
+     Port (  clk100MHz : in    std_logic; -- system clock
+             switches  : in    std_logic_vector(3 downto 0);
+-            leds      : out   std_logic_vector(3 downto 0);
++            leds      : out   std_logic_vector(7 downto 0);
+             
+             -- Ethernet Control signals
+             eth_int_b : in    std_logic; -- interrupt
+
+ParseResult:
+UPD HdlIdDef@@leds to leds
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@3 to 7
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/FPGA_webserver.vhd
++++ b/hdl/FPGA_webserver.vhd
+@@ -48,6 +48,7 @@ end FPGA_webserver;
+ architecture Behavioral of FPGA_webserver is
+     constant our_mac     : std_logic_vector(47 downto 0) := x"AB_89_67_45_23_02"; -- NOTE this is 02:23:45:67:89:AB
+     constant our_ip      : std_logic_vector(31 downto 0) := x"0A_00_00_0A";
++    constant our_netmask : std_logic_vector(31 downto 0) := x"00_FF_FF_FF";
+     signal phy_ready     : std_logic := '0';
+     -----------------------------
+     -- For the clocking 
+
+ParseResult:
+INS HdlIdDef@@our_netmask to objs
+HdlIdDef: our_netmask
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+    HdlValueInt: 00ffffff
+    HdlDirection: INTERNAL
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/FPGA_webserver.vhd
++++ b/hdl/FPGA_webserver.vhd
+@@ -111,6 +112,7 @@ architecture Behavioral of FPGA_webserver is
+     component main_design is
+     generic (
+         our_mac     : std_logic_vector(47 downto 0) := (others => '0');
++        our_netmask : std_logic_vector(31 downto 0) := (others => '0');
+         our_ip      : std_logic_vector(31 downto 0) := (others => '0'));
+     Port ( clk125Mhz          : in  STD_LOGIC;
+            clk125Mhz90        : in  STD_LOGIC;
+
+ParseResult:
+INS HdlIdDef@@our_netmask to params
+HdlIdDef: our_netmask
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: IN
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/FPGA_webserver.vhd
++++ b/hdl/FPGA_webserver.vhd
+@@ -122,12 +124,27 @@ architecture Behavioral of FPGA_webserver is
+ 
+            phy_ready          : in  STD_LOGIC;
+            status             : out STD_LOGIC_VECTOR (3 downto 0);
+-           
++
++           -- data received over UDP
++           udp_rx_valid         : out std_logic := '0';
++           udp_rx_data          : out std_logic_vector(7 downto 0) := (others => '0');
++           udp_rx_src_ip        : out std_logic_vector(31 downto 0) := (others => '0');
++           udp_rx_src_port      : out std_logic_vector(15 downto 0) := (others => '0');
++           udp_rx_dst_broadcast : out std_logic := '0';
++           udp_rx_dst_port      : out std_logic_vector(15 downto 0) := (others => '0');
++                  
+            eth_txck           : out std_logic := '0';
+            eth_txctl          : out std_logic := '0';
+            eth_txd            : out std_logic_vector(3 downto 0) := (others => '0'));
+     end component;
+ 
++    signal udp_rx_valid         : std_logic := '0';
++    signal udp_rx_data          : std_logic_vector(7 downto 0) := (others => '0');
++    signal udp_rx_src_ip        : std_logic_vector(31 downto 0) := (others => '0');
++    signal udp_rx_src_port      : std_logic_vector(15 downto 0) := (others => '0');
++    signal udp_rx_dst_broadcast : std_logic := '0';
++    signal udp_rx_dst_port      : std_logic_vector(15 downto 0) := (others => '0');
++
+ begin
+ 
+ i_clocking: clocking port map (
+
+ParseResult:
+INS HdlIdDef@@udp_rx_valid to objs
+HdlIdDef: udp_rx_valid
+    HdlValueId: std_logic
+    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@udp_rx_data to objs
+HdlIdDef: udp_rx_data
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@udp_rx_src_ip to objs
+HdlIdDef: udp_rx_src_ip
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@udp_rx_src_port to objs
+HdlIdDef: udp_rx_src_port
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@udp_rx_dst_broadcast to objs
+HdlIdDef: udp_rx_dst_broadcast
+    HdlValueId: std_logic
+    HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@udp_rx_dst_port to objs
+HdlIdDef: udp_rx_dst_port
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+INS HdlIdDef@@udp_rx_valid to ports
+HdlIdDef: udp_rx_valid
+    HdlValueId: std_logic
+    HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_data to ports
+HdlIdDef: udp_rx_data
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_src_ip to ports
+HdlIdDef: udp_rx_src_ip
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_src_port to ports
+HdlIdDef: udp_rx_src_port
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_dst_broadcast to ports
+HdlIdDef: udp_rx_dst_broadcast
+    HdlValueId: std_logic
+    HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_dst_port to ports
+HdlIdDef: udp_rx_dst_port
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: OUT
+
+
+CommitId: 379db9945d4742a75c6f999dc13dc235a2b83196
+Minor bug fix - sending two extra bytes on the ICMP packets)
+--- a/hdl/defragment_and_check_crc.vhd
++++ b/hdl/defragment_and_check_crc.vhd
+@@ -36,9 +36,9 @@ architecture Behavioral of defragment_and_check_crc is
+     type a_buffer is array(0 to 2047) of std_logic_vector(8 downto 0);
+     signal data_buffer : a_buffer := (others => (others => '0'));
+     
+-    signal read_addr            : unsigned(12 downto 0) := (others => '0'); 
+-    signal start_of_packet_addr : unsigned(12 downto 0) := (others => '0'); 
+-    signal write_addr           : unsigned(12 downto 0) := (others => '0');
++    signal read_addr            : unsigned(10 downto 0) := (others => '0'); 
++    signal start_of_packet_addr : unsigned(10 downto 0) := (others => '0'); 
++    signal write_addr           : unsigned(10 downto 0) := (others => '0');
+     --------------------------------------------------------------------
+     -- because all frames must be > 15 bytes long, the maximum frames 
+     -- in the buffer is 2048/15 = 136
+ParseResult:
+UPD HdlIdDef@@read_addr to read_addr
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@12 to 10
+
+UPD HdlIdDef@@start_of_packet_addr to start_of_packet_addr
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@12 to 10
+
+UPD HdlIdDef@@write_addr to write_addr
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@DOWNTO to DOWNTO
+            UPD HdlValueInt@@12 to 10
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/icmp/icmp_build_reply.vhd
++++ b/hdl/icmp/icmp_build_reply.vhd
+@@ -82,6 +82,7 @@ begin
+     flipped_our_ip <= our_ip(7 downto 0)      & our_ip(15 downto 8)      & our_ip(23 downto 16)      & our_ip(31 downto 24);    
+ 
+ process(clk)
++    variable v_icmp_check : unsigned (16 downto 0); 
+     begin
+         if rising_edge(clk) then
+             -- This splits the IP checksumming over four cycles
+
+ParseResult:
+INS HdlIdDef@@v_icmp_check to body
+HdlIdDef: v_icmp_check
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: unsigned
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 16
+    HdlDirection: INTERNAL
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/icmp/icmp_build_reply.vhd
++++ b/hdl/icmp/icmp_build_reply.vhd
+@@ -109,11 +110,14 @@ process(clk)
+             end if;
+ 
+             if count = 0 and data_valid_in = '1' then
+-
++                v_icmp_check(15 downto 0) := unsigned(icmp_checksum);
++                v_icmp_check              := v_icmp_check + 8;
++                v_icmp_check              := v_icmp_check + v_icmp_check(16 downto 16);
++                 
+                 h_ether_src_mac   <= ether_src_mac;
+                 h_ip_src_ip       <= ip_src_ip;
+                 h_ip_length       <= ip_length;
+-                h_icmp_checksum   <= std_logic_vector(unsigned(icmp_checksum) + 8);
++                h_icmp_checksum   <= std_logic_vector(v_icmp_check(15 downto 0));
+                 h_icmp_identifier <= icmp_identifier;
+                 h_icmp_sequence   <= icmp_sequence;
+             end if;
+ParseResult:
+INS HdlStmAssign@@ to body
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: ADD
+        list: ops
+            HdlValueId: v_icmp_check
+            HdlValueInt: 8
+    HdlValueId: v_icmp_check
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlOp: ADD
+        list: ops
+            HdlValueId: v_icmp_check
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: v_icmp_check
+                    HdlOp: DOWNTO
+                        list: ops
+                            HdlValueInt: 16
+                            HdlValueInt: 16
+    HdlValueId: v_icmp_check
+
+UPD HdlStmAssign@@ to 
+    UPD HdlOp@@INDEX to INDEX
+        UPD HdlOp@@ADD to ADD
+            MOV HdlOp@@INDEX to ops
+            HdlOp: INDEX
+                list: ops
+                    HdlValueId: unsigned
+                    HdlValueId: icmp_checksum
+            DEL HdlValueInt@@8 from ops
+        UPD HdlOp@@ADD to INDEX
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@INDEX to 
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: v_icmp_check
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+
+
+CommitId: 212d8ff66e3664ae4c47049c4c233b55a63cb1cc
+Remove timing error from eth_tx interface
+--- a/hdl/tx/tx_rgmii.vhd
++++ b/hdl/tx/tx_rgmii.vhd
+@@ -50,9 +50,12 @@ architecture Behavioral of tx_rgmii is
+     signal second_quarter      : unsigned(6 downto 0) := (others => '0');
+     signal third_quarter       : unsigned(6 downto 0) := (others => '0');
+ 
+-    signal dout                : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
+-    signal doutctl             : STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
+-    signal doutclk             : STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
++    signal dout1               : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
++    signal doutctl1            : STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
++    signal doutclk1            : STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
++    signal dout0               : STD_LOGIC_VECTOR (7 downto 0) := (others => '0');
++    signal doutctl0            : STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
++    signal doutclk0            : STD_LOGIC_VECTOR (1 downto 0) := (others => '0');
+     signal hold_data           : STD_LOGIC_VECTOR (7 downto 0);
+     signal hold_valid          : STD_LOGIC;
+     signal hold_error          : STD_LOGIC;
+
+ParseResult:
+UPD HdlIdDef@@dout to dout1
+
+INS HdlIdDef@@doutctl1 to objs
+
+UPD HdlIdDef@@doutctl to doutclk1
+
+INS HdlIdDef@@dout0 to objs
+
+UPD HdlIdDef@@doutclk to doutctl0
+
+INS HdlIdDef@@doutclk0 to objs
+HdlIdDef: doutclk0
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: STD_LOGIC_VECTOR
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 1
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: INTERNAL
+
+UPD HdlIdDef@@dout1 to dout1
+    INS list@@value to dout1
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+
+UPD HdlIdDef@@doutctl1 to doutctl1
+    INS HdlOp@@INDEX to doutctl1
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: STD_LOGIC_VECTOR
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 1
+    INS HdlDirection@@INTERNAL to doutctl1
+
+UPD HdlIdDef@@dout to dout
+    MOV list@@value to dout
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+
+UPD HdlIdDef@@dout0 to dout0
+    INS HdlOp@@INDEX to dout0
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: STD_LOGIC_VECTOR
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    INS HdlDirection@@INTERNAL to dout0
+
+UPD HdlIdDef@@doutclk to doutclk
+    MOV list@@value to doutclk
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+
+UPD HdlIdDef@@doutctl0 to doutctl0
+    INS list@@value to doutctl0
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+
+
+CommitId: 212d8ff66e3664ae4c47049c4c233b55a63cb1cc
+Remove timing error from eth_tx interface
+--- a/hdl/tx/tx_rgmii.vhd
++++ b/hdl/tx/tx_rgmii.vhd
+@@ -70,9 +73,20 @@ begin
+     -- Map the data and control signals so that they
+     -- can be sent via the DDR registers
+     -------------------------------------------------
++process(clk90)
++    begin
++        if rising_edge(clk90) then
++            doutclk0 <= doutclk1;
++        end if;
++    end process;
++
+ process(clk)
+     begin
+         if rising_edge(clk) then
++            -- one cycle delay to improve timing 
++            dout0    <= dout1;
++            doutctl0 <= doutctl1;
++
+             first_quarter  <= "00" & enable_frequency(enable_frequency'high downto 2);
+             second_quarter <= "0"  & enable_frequency(enable_frequency'high downto 1);
+             third_quarter  <= times_3(times_3'high downto 2);
+
+ParseResult:
+INS HdlStmProcess@@ to objs
+HdlStmProcess
+    list: sensitivity
+        HdlValueId: clk90
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmIf
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: rising_edge
+                        HdlValueId: clk90
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueId: doutclk1
+                            HdlValueId: doutclk0
+                list: elifs
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueId: dout1
+    HdlValueId: dout0
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueId: doutctl1
+    HdlValueId: doutctl0
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/tcp_engine/tcp_engine.vhd
++++ b/hdl/tcp_engine/tcp_engine.vhd
+@@ -251,19 +274,21 @@ process(clk)
+                 when state_closed =>
+                     -- Passive open
+                     state <= state_listen;
++
+                 when state_listen =>
+                     -- Is this a SYN packet
+                     if tcp_rx_hdr_valid = '1' and tcp_rx_flag_syn = '1' then
+                         if tcp_rx_dst_port = x"0016" then
+-                            -- Send an empty ACK
++                            -- Send an empty SYN+ACK
+                             send_syn_ack <='1';                            
+                             -- Remeber current session state
+                             session_src_port <= tcp_rx_dst_port;
+                             session_dst_ip   <= tcp_rx_src_ip;
+                             session_dst_port <= tcp_rx_src_port;
+                             session_seq_num  <= random_seq_num;
+-                            session_ack_num  <= tcp_rx_seq_num;
++                            session_ack_num  <= std_logic_vector(unsigned(tcp_rx_seq_num)+1);
+                             session_window   <= x"2000";
++                            session_data_len <= (others => '0');
+                             state <= state_syn_rcvd;
+                         else
+                             send_rst  <='1';                            
+
+ParseResult:
+UPD HdlStmCase@@state to state
+    INS tuple@@ to cases
+    INS HdlValueId@@state_rx_data to 
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    list: src
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlValueId: session_data_len
+
+UPD HdlStmAssign@@ to 
+    MOV HdlValueId@@tcp_rx_seq_num to 
+    HdlValueId: tcp_rx_seq_num
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/tcp_engine/tcp_engine.vhd
++++ b/hdl/tcp_engine/tcp_engine.vhd
+@@ -274,36 +299,31 @@ process(clk)
+                             session_seq_num  <= (others => '0');
+                             session_ack_num  <= (others => '0');
+                             session_window   <= x"2000";
++                            session_data_len <= (others => '0');
+                             state <= state_syn_rcvd;
+                         end if;
+                     end if;
++
+                 when state_syn_rcvd =>
+                     -- Are we seeing a retransmit of the SYN packet
+                     if tcp_rx_hdr_valid = '1' then 
+                         if tcp_rx_flag_syn = '1' then                    
+                             if tcp_rx_dst_port = x"0016" then
+-                                -- Send an empty ACK
++                                -- Resend an empty SYN+ACK
+                                 send_syn_ack <='1';                            
+-                                -- Remeber current session state
+-                                session_src_port <= tcp_rx_dst_port;
+-                                session_dst_ip   <= tcp_rx_src_ip;
+-                                session_dst_port <= tcp_rx_src_port;
+-                                session_seq_num  <= random_seq_num;
+-                                session_ack_num  <= tcp_rx_seq_num;
+-                                session_window   <= x"2000";
+-                                state <= state_syn_rcvd;
+                             end if;
+                         elsif tcp_rx_flag_ack = '1' then
+                             -- Are we getting the ACK from the other end?
+                             if tcp_rx_dst_port = session_src_port and  tcp_rx_src_ip = session_dst_ip and tcp_rx_src_port = session_dst_port then 
+-                                if tcp_rx_ack_num = session_seq_num then
++                                if unsigned(tcp_rx_ack_num) = unsigned(session_seq_num) + 1 then
+                                     state <= state_established;
++                                    session_seq_num  <= tcp_rx_ack_num; 
+                                 end if;
+                             end if;    
+                         end if;
+                     else
+-                        if timeoute = '1' then
+-                            send_syn_rst  <='1';                            
++                        if timeout = '1' then
++                            send_rst  <='1';                            
+                             -- Remeber current session state
+                             session_src_port <= tcp_rx_dst_port;
+                             session_dst_ip   <= tcp_rx_src_ip;
+
+ParseResult:
+UPD HdlStmCase@@state to state
+    INS tuple@@ to cases
+    INS HdlValueId@@state_rx_data to 
+
+UPD HdlStmIf@@ to 
+    MOV HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmIf
+                HdlOp: EQ
+                    list: ops
+                        HdlValueId: tcp_rx_dst_port
+                        HdlValueInt: 0016
+                HdlStmBlock: SEQ
+                    list: body
+                        HdlStmAssign
+                            HdlValueInt: 1
+                            HdlValueId: send_syn_ack
+                        HdlStmAssign
+                            HdlValueId: tcp_rx_dst_port
+                            HdlValueId: session_src_port
+                        HdlStmAssign
+                            HdlValueId: tcp_rx_src_ip
+                            HdlValueId: session_dst_ip
+                        HdlStmAssign
+                            HdlValueId: tcp_rx_src_port
+                            HdlValueId: session_dst_port
+                        HdlStmAssign
+                            HdlValueId: random_seq_num
+                            HdlValueId: session_seq_num
+                        HdlStmAssign
+                            HdlValueId: tcp_rx_seq_num
+                            HdlValueId: session_ack_num
+                        HdlStmAssign
+                            HdlValueInt: 2000
+                            HdlValueId: session_window
+                        HdlStmAssign
+                            HdlValueId: state_syn_rcvd
+                            HdlValueId: state
+                list: elifs
+
+UPD HdlStmIf@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@tcp_rx_seq_num to tcp_rx_ack_num
+    UPD HdlValueId@@session_ack_num to session_seq_num
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@state_syn_rcvd to state_established
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    list: src
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlValueId: session_data_len
+
+INS HdlStmIf@@ to body
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@EQ to EQ
+        UPD HdlValueId@@timeoute to timeout
+
+UPD HdlStmAssign@@ to 
+    INS HdlOp@@INDEX to 
+    UPD HdlOp@@INDEX to INDEX
+        INS list@@ops to INDEX
+        INS HdlValueId@@std_logic_vector to ops
+        INS HdlOp@@ADD to ops
+        UPD HdlOp@@ADD to ADD
+            INS list@@ops to ADD
+            INS HdlOp@@INDEX to ops
+            INS HdlValueInt@@1 to ops
+            UPD HdlOp@@INDEX to INDEX
+                INS list@@ops to INDEX
+                INS HdlValueId@@unsigned to ops
+
+UPD HdlStmIf@@ to 
+    MOV HdlOp@@EQ to 
+    HdlOp: EQ
+        list: ops
+            HdlValueId: tcp_rx_dst_port
+            HdlValueInt: 0016
+    MOV list@@elifs to 
+    list: elifs
+
+UPD HdlStmIf@@ to 
+    INS HdlStmBlock@@SEQ to 
+    UPD HdlStmBlock@@SEQ to SEQ
+        INS list@@body to SEQ
+
+UPD HdlStmAssign@@ to 
+    UPD HdlValueId@@send_syn_rst to send_rst
+
+MOV HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueInt: 1
+    HdlValueId: send_syn_ack
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@EQ to EQ
+        INS HdlOp@@INDEX to ops
+        INS HdlOp@@ADD to ops
+        UPD HdlOp@@INDEX to INDEX
+            INS list@@ops to INDEX
+            INS HdlValueId@@unsigned to ops
+        UPD HdlOp@@ADD to ADD
+            INS list@@ops to ADD
+            INS HdlOp@@INDEX to ops
+            INS HdlValueInt@@1 to ops
+            UPD HdlOp@@INDEX to INDEX
+                INS list@@ops to INDEX
+                INS HdlValueId@@unsigned to ops
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueId: tcp_rx_ack_num
+    HdlValueId: session_seq_num
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@EQ to EQ
+        MOV HdlValueId@@tcp_rx_ack_num to ops
+        HdlValueId: tcp_rx_ack_num
+        MOV HdlValueId@@session_seq_num to ops
+        HdlValueId: session_seq_num
+
+DEL HdlStmAssign@@ from body
+HdlStmAssign
+    HdlValueId: random_seq_num
+    HdlValueId: session_seq_num
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/tcp_engine/tcp_engine.vhd
++++ b/hdl/tcp_engine/tcp_engine.vhd
+@@ -311,10 +331,13 @@ process(clk)
+                             session_seq_num  <= (others => '0');
+                             session_ack_num  <= (others => '0');
+                             session_window   <= x"2000";
++                            session_data_len <= (others => '0');
+                             state <= state_syn_rcvd;
+                         end if;
+                     end if;
++
+                 when state_syn_sent =>
++                    -- This is only used for active opens, so we don't use it.
+                     if tcp_rx_hdr_valid = '1' then
+                         if tcp_rx_dst_port = session_src_port and  tcp_rx_src_ip = session_dst_ip and tcp_rx_src_port = session_dst_port then 
+                             if tcp_rx_flag_ack = '1' then
+
+ParseResult:
+UPD HdlStmCase@@state to state
+    INS tuple@@ to cases
+    INS HdlValueId@@state_rx_data to 
+
+UPD HdlStmIf@@ to 
+    UPD HdlOp@@EQ to EQ
+        UPD HdlValueId@@timeoute to timeout
+
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    list: src
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlValueId: session_data_len
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/tcp_engine/tcp_engine.vhd
++++ b/hdl/tcp_engine/tcp_engine.vhd
+@@ -363,6 +405,7 @@ process(clk)
+                             end if;
+                         end if;                                        
+                     end if;                
++
+                 when state_fin_wait_2  =>
+                     if tcp_rx_dst_port = session_src_port and  tcp_rx_src_ip = session_dst_ip and tcp_rx_src_port = session_dst_port then 
+                         if tcp_rx_ack_num = session_seq_num then
+
+ParseResult:
+UPD HdlStmCase@@state to state
+    INS tuple@@ to cases
+    INS HdlValueId@@state_rx_data to 
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@EQ to 
+    HdlOp: EQ
+        list: ops
+            HdlValueId: tcp_rx_data_valid
+            HdlValueInt: 1
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: std_logic_vector
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: unsigned
+                                        HdlValueId: session_ack_num
+                                HdlValueInt: 1
+                HdlValueId: session_ack_num
+    INS list@@elifs to 
+
+
+CommitId: c86aaa1936ddbcbf12f3af067da29c497a3e90a8
+Debugging on TCP/IP - now able to keep a session running.
+--- a/hdl/tcp_engine/tcp_engine.vhd
++++ b/hdl/tcp_engine/tcp_engine.vhd
+@@ -372,23 +415,28 @@ process(clk)
+                             end if;
+                         end if;                                        
+                     end if;                
++
+                 when state_closing     =>
+                     if tcp_rx_hdr_valid = '1' then
+                         if tcp_rx_dst_port = session_src_port and  tcp_rx_src_ip = session_dst_ip and tcp_rx_src_port = session_dst_port then 
+                             if tcp_rx_ack_num = session_seq_num then
+                                 if tcp_rx_flag_ack = '1' then
+                                     state <= state_time_wait;
++
+                                 end if;
+                             end if;                                        
+                         end if;                
+                     end if;                
++
+                 when state_time_wait   =>
+                     if timeout = '1' then
+                         state <= state_closed;
+                     end if;
++
+                 when state_close_wait  =>
+                     send_fin <= '1';
+                     state <= state_last_ack; 
++
+                 when state_last_ack    =>
+                     if tcp_rx_hdr_valid = '1' then
+                         if tcp_rx_dst_port = session_src_port and  tcp_rx_src_ip = session_dst_ip and tcp_rx_src_port = session_dst_port then 
+
+ParseResult:
+UPD HdlStmCase@@state to state
+    INS tuple@@ to cases
+    INS HdlValueId@@state_rx_data to 
+
+UPD HdlStmIf@@ to 
+    INS HdlOp@@EQ to 
+    HdlOp: EQ
+        list: ops
+            HdlValueId: tcp_rx_data_valid
+            HdlValueInt: 1
+    INS HdlStmBlock@@SEQ to 
+    HdlStmBlock: SEQ
+        list: body
+            HdlStmAssign
+                HdlOp: INDEX
+                    list: ops
+                        HdlValueId: std_logic_vector
+                        HdlOp: ADD
+                            list: ops
+                                HdlOp: INDEX
+                                    list: ops
+                                        HdlValueId: unsigned
+                                        HdlValueId: session_ack_num
+                                HdlValueInt: 1
+                HdlValueId: session_ack_num
+    INS list@@elifs to 
+
+
+CommitId: a81742116058020ad571594fbfec2096b57ec042
+Second attempt at fixing ICMP checksum bug, and remove UDP padding.
+--- a/hdl/icmp/icmp_build_reply.vhd
++++ b/hdl/icmp/icmp_build_reply.vhd
+@@ -111,6 +111,7 @@ process(clk)
+ 
+             if count = 0 and data_valid_in = '1' then
+                 v_icmp_check(15 downto 0) := unsigned(icmp_checksum);
++                v_icmp_check(16)          := '0';
+                 v_icmp_check              := v_icmp_check + 8;
+                 v_icmp_check              := v_icmp_check + v_icmp_check(16 downto 16);
+                  
+
+ParseResult:
+INS HdlStmAssign@@ to body
+HdlStmAssign
+    HdlValueInt: 0
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: v_icmp_check
+            HdlValueInt: 16
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/main_design.vhd
++++ b/hdl/main_design.vhd
+@@ -25,8 +25,9 @@ use IEEE.STD_LOGIC_1164.ALL;
+ 
+ entity main_design is
+     generic (
+-        our_mac     : std_logic_vector(47 downto 0) := (others => '0');
+-        our_ip      : std_logic_vector(31 downto 0) := (others => '0'));
++        our_mac       : std_logic_vector(47 downto 0) := (others => '0');
++        our_netmask   : std_logic_vector(31 downto 0) := (others => '0');
++        our_ip        : std_logic_vector(31 downto 0) := (others => '0'));
+     Port ( 
+        clk125Mhz          : in  STD_LOGIC;
+        clk125Mhz90        : in  STD_LOGIC;
+
+ParseResult:
+INS HdlIdDef@@our_netmask to params
+HdlIdDef: our_netmask
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: IN
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/main_design.vhd
++++ b/hdl/main_design.vhd
+@@ -38,13 +39,22 @@ entity main_design is
+ 
+        phy_ready          : in  STD_LOGIC;
+        status             : out STD_LOGIC_VECTOR (3 downto 0);
+-       
++
++        -- data received over UDP
++        udp_rx_valid         : out std_logic := '0';
++        udp_rx_data          : out std_logic_vector(7 downto 0) := (others => '0');
++        udp_rx_src_ip        : out std_logic_vector(31 downto 0) := (others => '0');
++        udp_rx_src_port      : out std_logic_vector(15 downto 0) := (others => '0');
++        udp_rx_dst_broadcast : out std_logic := '0';
++        udp_rx_dst_port      : out std_logic_vector(15 downto 0) := (others => '0');
++   
+        eth_txck           : out std_logic := '0';
+        eth_txctl          : out std_logic := '0';
+        eth_txd            : out std_logic_vector(3 downto 0) := (others => '0'));
+ end main_design;
+ 
+ architecture Behavioral of main_design is
++    constant our_broadcast : std_logic_vector(31 downto 0) := our_ip or (not our_netmask);
+ 
+     component detect_speed_and_reassemble_bytes is
+     Port ( clk125Mhz      : in  STD_LOGIC;
+
+ParseResult:
+INS HdlIdDef@@udp_rx_valid to ports
+HdlIdDef: udp_rx_valid
+    HdlValueId: std_logic
+    HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_data to ports
+HdlIdDef: udp_rx_data
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_src_ip to ports
+HdlIdDef: udp_rx_src_ip
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_src_port to ports
+HdlIdDef: udp_rx_src_port
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_dst_broadcast to ports
+HdlIdDef: udp_rx_dst_broadcast
+    HdlValueId: std_logic
+    HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_rx_dst_port to ports
+HdlIdDef: udp_rx_dst_port
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 15
+    list: value
+        HdlOp: MAP_ASSOCIATION
+            list: ops
+                type
+                HdlValueInt: 0
+    HdlDirection: OUT
+
+INS HdlIdDef@@our_broadcast to objs
+HdlIdDef: our_broadcast
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: std_logic_vector
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 31
+    HdlOp: OR
+        list: ops
+            HdlValueId: our_ip
+            HdlOp: NEG
+                list: ops
+                    HdlValueId: our_netmask
+    HdlDirection: INTERNAL
+
+
+CommitId: 2c641194068af34dc8be965a0040dfcc44264cda
+* Fix ICMP Checksums (will test tonight)
+--- a/hdl/main_design.vhd
++++ b/hdl/main_design.vhd
+@@ -157,6 +204,11 @@ architecture Behavioral of main_design is
+            icmp_valid   : in  STD_LOGIC;
+            icmp_data    : in  STD_LOGIC_VECTOR (7 downto 0);
+            ---
++           udp_request : in  STD_LOGIC;
++           udp_granted : out STD_LOGIC;
++           udp_valid   : in  STD_LOGIC;
++           udp_data    : in  STD_LOGIC_VECTOR (7 downto 0);
++           ---
+            eth_txck    : out STD_LOGIC;
+            eth_txctl   : out STD_LOGIC;
+            eth_txd     : out STD_LOGIC_VECTOR (3 downto 0));
+
+ParseResult:
+INS HdlIdDef@@udp_request to ports
+HdlIdDef: udp_request
+    HdlValueId: STD_LOGIC
+    HdlDirection: IN
+
+INS HdlIdDef@@udp_granted to ports
+HdlIdDef: udp_granted
+    HdlValueId: STD_LOGIC
+    HdlDirection: OUT
+
+INS HdlIdDef@@udp_valid to ports
+HdlIdDef: udp_valid
+    HdlValueId: STD_LOGIC
+    HdlDirection: IN
+
+INS HdlIdDef@@udp_data to ports
+HdlIdDef: udp_data
+    HdlOp: INDEX
+        list: ops
+            HdlValueId: STD_LOGIC_VECTOR
+            HdlOp: DOWNTO
+                list: ops
+                    HdlValueInt: 7
+    HdlDirection: IN
+
+

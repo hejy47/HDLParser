@@ -1,0 +1,33 @@
+1ef83bd88b41b0001ca7e51704ff85bcfaeb9cbc
+axi_ad9671: Updated port names. Fixed synchronization of the rx_sof with the ad_jesd_align module, so that data valid is assigned correctly
+diff --git a/library/axi_ad9671/axi_ad9671.v b/library/axi_ad9671/axi_ad9671.v
+index 4e2ce1f9..27f4fbcb 100644
+--- a/library/axi_ad9671/axi_ad9671.v
++++ b/library/axi_ad9671/axi_ad9671.v
+@@ -46,7 +46,7 @@ module axi_ad9671 (
+ 
+   rx_clk,
+   rx_data,
+-  rx_data_sof,
++  rx_sof,
+ 
+   // dma interface
+ 
+@@ -95,7 +95,7 @@ module axi_ad9671 (
+ 
+   input                                 rx_clk;
+   input   [(64*PCORE_4L_2L_N)+63:0]     rx_data;
+-  input                                 rx_data_sof;
++  input                                 rx_sof;
+ 
+   // dma interface
+ 
+@@ -206,7 +206,7 @@ module axi_ad9671 (
+   ) i_if (
+     .rx_clk (rx_clk),
+     .rx_data (rx_data),
+-    .rx_data_sof (rx_data_sof),
++    .rx_sof (rx_sof),
+     .adc_clk (adc_clk),
+     .adc_rst (adc_rst),
+     .adc_valid (adc_valid_s),

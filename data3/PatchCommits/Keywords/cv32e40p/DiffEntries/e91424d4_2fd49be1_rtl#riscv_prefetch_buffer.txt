@@ -1,0 +1,23 @@
+e91424d463fdfd6fc224b04a3e0c74bfb618ad1e
+:bug: fix -jump lost if waiting for rvalid- bug
+diff --git a/rtl/riscv_prefetch_buffer.sv b/rtl/riscv_prefetch_buffer.sv
+index 7cdb333..28d910b 100644
+--- a/rtl/riscv_prefetch_buffer.sv
++++ b/rtl/riscv_prefetch_buffer.sv
+@@ -349,8 +349,16 @@ module riscv_prefetch_buffer
+               if(instr_err_pmp_i)
+                 NS = WAIT_JUMP;
+             end
++          end else begin
++            // we are still waiting for rvalid
++            // check if we should abort the previous request
++            if (branch_i) begin
++              addr_valid = 1'b1;
++              NS = WAIT_ABORTED;
++            end
+           end
+ 
++
+         end else begin
+           // just wait for rvalid and go back to IDLE, no new request
+ 

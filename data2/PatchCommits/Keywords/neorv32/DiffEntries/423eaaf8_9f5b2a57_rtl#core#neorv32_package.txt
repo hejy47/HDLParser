@@ -1,0 +1,15 @@
+423eaaf88b14ffbb124d81d5cd70a6d88b1d9ba8
+fixed _unprecise exceptions_ (mepc and mtval did not always show the correct values according to the instruction that caused the exception)
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index d0944b6..b19137d 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -41,7 +41,7 @@ package neorv32_package is
+   -- Architecture Constants -----------------------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+   constant data_width_c : natural := 32; -- data width - do not change!
+-  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01040500"; -- no touchy!
++  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01040501"; -- no touchy!
+   constant pmp_max_r_c  : natural := 8; -- max PMP regions - FIXED!
+   constant archid_c     : natural := 19; -- official NEORV32 architecture ID - hands off!
+ 

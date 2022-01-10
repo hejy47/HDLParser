@@ -1,0 +1,24 @@
+6dbbe2f1cae9a9fea4d29b2c0f31533c8015b66a
+altera/ad_mem_asym: Fix grounded bus for marco instance
+diff --git a/library/altera/common/ad_mem_asym.v b/library/altera/common/ad_mem_asym.v
+index 2d0c9e80..bcd6e61a 100644
+--- a/library/altera/common/ad_mem_asym.v
++++ b/library/altera/common/ad_mem_asym.v
+@@ -29,7 +29,7 @@
+ module ad_mem_asym #(
+ 
+   // parameters
+- 
++
+   parameter   A_ADDRESS_WIDTH =  8,
+   parameter   A_DATA_WIDTH = 256,
+   parameter   B_ADDRESS_WIDTH =   10,
+@@ -83,7 +83,7 @@ module ad_mem_asym #(
+     .clock1 (clkb),
+     .address_b (addrb),
+     .wren_b (1'b0),
+-    .data_b ('d0),
++    .data_b ({B_DATA_WIDTH{1'd0}}),
+     .rden_b (1'b1),
+     .q_b (doutb),
+     .address2_a (1'b1),

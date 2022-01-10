@@ -1,0 +1,15 @@
+8d1feca5f8e6548988bc5606c8b26bb9e20adc05
+[topgen] Improve matching of prefix when renaming parameters
+diff --git a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
+index 195093120..c5e834cb9 100644
+--- a/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
++++ b/hw/top_earlgrey/rtl/autogen/chip_earlgrey_nexysvideo.sv
+@@ -742,7 +742,7 @@ module chip_earlgrey_nexysvideo #(
+     .RomCtrlBootRomInitFile(BootRomInitFile),
+     .RvCoreIbexRegFile(ibex_pkg::RegFileFPGA),
+     .RvCoreIbexPipeLine(1),
+-    .SecRvCoreIbexureIbex(0),
++    .RvCoreIbexSecureIbex(0),
+     .SramCtrlRetAonInstrExec(0),
+     .SramCtrlMainInstrExec(1),
+     .PinmuxAonTargetCfg(PinmuxTargetCfg)

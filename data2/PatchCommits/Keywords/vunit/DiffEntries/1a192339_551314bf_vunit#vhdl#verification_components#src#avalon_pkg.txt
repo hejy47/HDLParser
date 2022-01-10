@@ -1,0 +1,15 @@
+1a1923390afef703c5f3ac580836021fc8a8e3ec
+Merge pull request #434 from bradleyharden/test_modelsim_fixup
+diff --git a/vunit/vhdl/verification_components/src/avalon_pkg.vhd b/vunit/vhdl/verification_components/src/avalon_pkg.vhd
+index a19dd82a..2da8270d 100644
+--- a/vunit/vhdl/verification_components/src/avalon_pkg.vhd
++++ b/vunit/vhdl/verification_components/src/avalon_pkg.vhd
+@@ -45,7 +45,7 @@ package body avalon_pkg is
+     return avalon_slave_t is
+   begin
+     return (p_actor => new_actor(name),
+-            p_ack_actor => new_actor(name&"_ack"),
++            p_ack_actor => new_actor(name&" read-ack"),
+             p_memory => to_vc_interface(memory, logger),
+             p_logger => logger,
+             readdatavalid_high_probability => readdatavalid_high_probability,

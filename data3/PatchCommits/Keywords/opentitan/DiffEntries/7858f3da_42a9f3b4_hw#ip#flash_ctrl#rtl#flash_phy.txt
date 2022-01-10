@@ -1,0 +1,22 @@
+7858f3da93d36ae9d2a5adaff1cc1333412ad328
+Add missing full_o output signal of prim_fifo_sync
+diff --git a/hw/ip/flash_ctrl/rtl/flash_phy.sv b/hw/ip/flash_ctrl/rtl/flash_phy.sv
+index cae21edc9..f2106dddb 100644
+--- a/hw/ip/flash_ctrl/rtl/flash_phy.sv
++++ b/hw/ip/flash_ctrl/rtl/flash_phy.sv
+@@ -108,6 +108,7 @@ module flash_phy import flash_ctrl_pkg::*; (
+     .wready_o(seq_fifo_rdy),
+     .wdata_i (host_bank_sel),
+     .depth_o (),
++    .full_o (),
+     .rvalid_o(seq_fifo_pending),
+     .rready_i(host_req_done_o),
+     .rdata_o (rsp_bank_sel)
+@@ -170,6 +171,7 @@ module flash_phy import flash_ctrl_pkg::*; (
+       .wready_o(host_rsp_avail[bank]),
+       .wdata_i ({rd_err[bank], rd_data[bank]}),
+       .depth_o (),
++      .full_o (),
+       .rvalid_o(host_rsp_vld[bank]),
+       .rready_i(host_rsp_ack[bank]),
+       .rdata_o ({host_rsp_err[bank], host_rsp_data[bank]})

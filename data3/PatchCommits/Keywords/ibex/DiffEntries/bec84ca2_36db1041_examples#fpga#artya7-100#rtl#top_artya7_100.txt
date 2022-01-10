@@ -1,0 +1,16 @@
+bec84ca2b171cc3a08f70a2b4d0063772f0a177a
+Add core_sleep_o to ibex interface
+diff --git a/examples/fpga/artya7-100/rtl/top_artya7_100.sv b/examples/fpga/artya7-100/rtl/top_artya7_100.sv
+index 8391f68a..056a41ad 100644
+--- a/examples/fpga/artya7-100/rtl/top_artya7_100.sv
++++ b/examples/fpga/artya7-100/rtl/top_artya7_100.sv
+@@ -78,7 +78,8 @@ module top_artya7_100 (
+ 
+      .debug_req_i           ('b0),
+ 
+-     .fetch_enable_i        ('b1)
++     .fetch_enable_i        ('b1),
++     .core_sleep_o          ()
+   );
+ 
+   // Connect Ibex to SRAM

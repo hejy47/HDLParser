@@ -1,0 +1,16 @@
+fcb163062f298940419baf849df99c9cbfe7fcb7
+adv7511 : Fix top for kcu105 and kc705
+diff --git a/projects/adv7511/kc705/system_top.v b/projects/adv7511/kc705/system_top.v
+index d40dfe12..0e43c09a 100644
+--- a/projects/adv7511/kc705/system_top.v
++++ b/projects/adv7511/kc705/system_top.v
+@@ -89,8 +89,7 @@ module system_top (
+   fan_pwm,
+ 
+   gpio_lcd,
+-  gpio_led,
+-  gpio_sw,
++  gpio_bd,
+ 
+   iic_rstn,
+   iic_scl,

@@ -1,0 +1,15 @@
+e6e3642c36f0efcf17d5dcf4ef2778cca1707375
+fix performance bug on load stall
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 7822b49..6453c5d 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -855,7 +855,7 @@ module riscv_controller
+            (wb_ready_i == 1'b0) && (regfile_we_wb_i == 1'b1)
+           ) &&
+           ( (reg_d_ex_is_reg_a_i == 1'b1) || (reg_d_ex_is_reg_b_i == 1'b1) || (reg_d_ex_is_reg_c_i == 1'b1) ||
+-            (is_decoding_o && (regfile_waddr_ex_i == regfile_alu_waddr_id_i)) )
++            (is_decoding_o && regfile_we_id_i && (regfile_waddr_ex_i == regfile_alu_waddr_id_i)) )
+        )
+     begin
+       deassert_we_o   = 1'b1;

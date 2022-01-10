@@ -1,0 +1,14 @@
+264a77f3f0a7453dab393df5c936bfa281121942
+[nmi_gen] Ignore intg_err_o output from reg_top
+diff --git a/hw/ip/nmi_gen/rtl/nmi_gen.sv b/hw/ip/nmi_gen/rtl/nmi_gen.sv
+index ec16a0807..d8e68db7a 100644
+--- a/hw/ip/nmi_gen/rtl/nmi_gen.sv
++++ b/hw/ip/nmi_gen/rtl/nmi_gen.sv
+@@ -43,6 +43,7 @@ module nmi_gen
+     .tl_o,
+     .reg2hw,
+     .hw2reg,
++    .intg_err_o(),
+     .devmode_i(1'b1)
+   );
+ 

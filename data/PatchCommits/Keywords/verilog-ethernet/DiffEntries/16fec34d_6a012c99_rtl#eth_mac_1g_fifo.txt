@@ -1,0 +1,17 @@
+16fec34ddc2262d6206731e214698d7c3611e95b
+Default FIFO size at least 2 MTU (3000 bytes)
+diff --git a/rtl/eth_mac_1g_fifo.v b/rtl/eth_mac_1g_fifo.v
+index a92eaa7..f99927b 100644
+--- a/rtl/eth_mac_1g_fifo.v
++++ b/rtl/eth_mac_1g_fifo.v
+@@ -33,8 +33,8 @@ module eth_mac_1g_fifo #
+ (
+     parameter ENABLE_PADDING = 1,
+     parameter MIN_FRAME_LENGTH = 64,
+-    parameter TX_FIFO_ADDR_WIDTH = 9,
+-    parameter RX_FIFO_ADDR_WIDTH = 9
++    parameter TX_FIFO_ADDR_WIDTH = 12,
++    parameter RX_FIFO_ADDR_WIDTH = 12
+ )
+ (
+     input  wire        rx_clk,

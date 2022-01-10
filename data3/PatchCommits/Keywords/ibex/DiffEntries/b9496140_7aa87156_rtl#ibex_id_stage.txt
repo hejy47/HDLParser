@@ -1,0 +1,22 @@
+b94961402cab9729cac4b0692a0710a840b108f0
+[RTL] Fix ebreak behaviour in U-mode
+diff --git a/rtl/ibex_id_stage.sv b/rtl/ibex_id_stage.sv
+index 71b7a0c9..66ee5114 100644
+--- a/rtl/ibex_id_stage.sv
++++ b/rtl/ibex_id_stage.sv
+@@ -108,6 +108,7 @@ module ibex_id_stage #(
+     input  logic                  debug_req_i,
+     input  logic                  debug_single_step_i,
+     input  logic                  debug_ebreakm_i,
++    input  logic                  debug_ebreaku_i,
+ 
+     // Write back signal
+     input  logic [31:0]           regfile_wdata_lsu_i,
+@@ -450,6 +451,7 @@ module ibex_id_stage #(
+       .debug_req_i                    ( debug_req_i            ),
+       .debug_single_step_i            ( debug_single_step_i    ),
+       .debug_ebreakm_i                ( debug_ebreakm_i        ),
++      .debug_ebreaku_i                ( debug_ebreaku_i        ),
+ 
+       // stall signals
+       .stall_lsu_i                    ( stall_lsu              ),

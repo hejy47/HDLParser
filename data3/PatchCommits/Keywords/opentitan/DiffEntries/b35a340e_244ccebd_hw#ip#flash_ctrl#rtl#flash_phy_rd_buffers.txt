@@ -1,0 +1,15 @@
+b35a340e8939d51bac1842b5edd72782286a8c04
+[flash] Design updates and clean-up
+diff --git a/hw/ip/flash_ctrl/rtl/flash_phy_rd_buffers.sv b/hw/ip/flash_ctrl/rtl/flash_phy_rd_buffers.sv
+index 3c621a5ea..abf4b0239 100644
+--- a/hw/ip/flash_ctrl/rtl/flash_phy_rd_buffers.sv
++++ b/hw/ip/flash_ctrl/rtl/flash_phy_rd_buffers.sv
+@@ -25,7 +25,7 @@ module flash_phy_rd_buffers import flash_phy_pkg::*; (
+   input alloc_i,
+   input update_i,
+   input wipe_i,
+-  input [PrimFlashAddrW-1:0] addr_i,
++  input [BankAddrW-1:0] addr_i,
+   input part_i,
+   input [DataWidth-1:0] data_i,
+   output rd_buf_t out_o

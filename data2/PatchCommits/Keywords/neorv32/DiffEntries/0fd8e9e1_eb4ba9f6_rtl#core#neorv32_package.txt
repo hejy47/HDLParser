@@ -1,0 +1,15 @@
+0fd8e9e15b7b65811eceb1abf9b0c16f4de5b4dd
+:bug: [rtl/system_integration] fixed connection of missing IRQ signals
+diff --git a/rtl/core/neorv32_package.vhd b/rtl/core/neorv32_package.vhd
+index 8b467b2..6852907 100644
+--- a/rtl/core/neorv32_package.vhd
++++ b/rtl/core/neorv32_package.vhd
+@@ -64,7 +64,7 @@ package neorv32_package is
+   -- Architecture Constants (do not modify!) ------------------------------------------------
+   -- -------------------------------------------------------------------------------------------
+   constant data_width_c : natural := 32; -- native data path width - do not change!
+-  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01060000"; -- no touchy!
++  constant hw_version_c : std_ulogic_vector(31 downto 0) := x"01060001"; -- no touchy!
+   constant archid_c     : natural := 19; -- official NEORV32 architecture ID - hands off!
+ 
+   -- External Interface Types ---------------------------------------------------------------

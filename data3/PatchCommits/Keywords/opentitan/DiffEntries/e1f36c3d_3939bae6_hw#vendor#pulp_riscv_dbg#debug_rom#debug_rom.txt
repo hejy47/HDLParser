@@ -1,0 +1,19 @@
+e1f36c3d2433c9003cf0405877e7fe23f4ee04a3
+Update pulp_riscv_dbg to pulp-platform/riscv-dbg@811b2d7
+diff --git a/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom.sv b/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom.sv
+index 2723816f1..fdf2fe8a2 100644
+--- a/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom.sv
++++ b/hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom.sv
+@@ -30,9 +30,9 @@ module debug_rom (
+     64'ha85ff06f_7b302573,
+     64'h7b202473_10052223,
+     64'h00100073_7b302573,
+-    64'h10052623_00c51513,
+-    64'h00c55513_00000517,
+-    64'h7b351073_fd5ff06f,
++    64'h7b202473_10052623,
++    64'h00c51513_00c55513,
++    64'h00000517_fd5ff06f,
+     64'hfa041ce3_00247413,
+     64'h40044403_00a40433,
+     64'hf1402473_02041c63,

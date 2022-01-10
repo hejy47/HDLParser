@@ -1,0 +1,218 @@
+======Commit: b90ca87a======
+======Short Message======
+15 bit support in mntgfx and some fixes
+======Full Message======
+15 bit support in mntgfx and some fixes
+
+
+
+======Commit: 200a2f57======
+======Short Message======
+1.8.2 beta 1 stable; slight pixel errors due to refresh
+======Full Message======
+1.8.2 beta 1 stable; slight pixel errors due to refresh
+
+
+
+======Commit: 0a7ad9a4======
+======Short Message======
+register, blitter, refresh restructuring, 32bit scaler fixed
+======Full Message======
+register, blitter, refresh restructuring, 32bit scaler fixed
+
+
+
+======Commit: 44578183======
+======Short Message======
+some refactoring and blitter fixes for release 1.4
+======Full Message======
+some refactoring and blitter fixes for release 1.4
+
+
+
+======Commit: 67d1d39f======
+======Short Message======
+added matze's clockfix and corrected palette fix
+======Full Message======
+added matze's clockfix and corrected palette fix
+
+
+
+======Commit: cc069bd2======
+======Short Message======
+reactivate blitter, capture mode, integrate matzes palette fix
+======Full Message======
+reactivate blitter, capture mode, integrate matzes palette fix
+
+
+
+======Commit: 822d5f88======
+======Short Message======
+introduce 2-word burst in ram controller; accidentally fix long-standing bug; stable hi-res capture
+======Full Message======
+introduce 2-word burst in ram controller; accidentally fix long-standing bug; stable hi-res capture
+
+
+
+======Commit: bda44e27======
+======Short Message======
+Merge pull request #1 from stephanIOA/patch-1
+======Full Message======
+Merge pull request #1 from stephanIOA/patch-1
+
+Update README.md
+
+
+======Commit: e8000b0a======
+======Short Message======
+stable point after lots of 3000/030 z3 debugging. adds DOE gate, fixes some write/read race conditions
+======Full Message======
+stable point after lots of 3000/030 z3 debugging. adds DOE gate, fixes some write/read race conditions
+
+
+
+======Commit: d0ca65a1======
+======Short Message======
+switch from xrdy to ovr/dtack mechanism; fix last glitches with default_data = ffff
+======Full Message======
+switch from xrdy to ovr/dtack mechanism; fix last glitches with default_data = ffff
+
+
+
+======Commit: d3ad14cb======
+======Short Message======
+debugged snapshot
+======Full Message======
+debugged snapshot
+
+
+
+======Commit: 6f4acf88======
+======Short Message======
+firmware 1.3rc1; fixes lockups and write errors switching between pixel clocks
+======Full Message======
+firmware 1.3rc1; fixes lockups and write errors switching between pixel clocks
+
+
+
+======Commit: 327b8247======
+======Short Message======
+WIP cfgin/cfgout sequencing; fix possible deadlock when switching resolutions; some blitter optimization; revision number
+======Full Message======
+WIP cfgin/cfgout sequencing; fix possible deadlock when switching resolutions; some blitter optimization; revision number
+
+
+
+======Commit: 62da816f======
+======Short Message======
+fix corrupted Picasso96Settings file; init refresh timer in driver
+======Full Message======
+fix corrupted Picasso96Settings file; init refresh timer in driver
+
+
+
+======Commit: f036fef3======
+======Short Message======
+a2000 tweaks (fixed read turd bug), working refresh
+======Full Message======
+a2000 tweaks (fixed read turd bug), working refresh
+
+
+
+======Commit: 09865f9c======
+======Short Message======
+fix SD card driver; much better timing
+======Full Message======
+fix SD card driver; much better timing
+
+
+
+======Commit: d8a08b1a======
+======Short Message======
+beta release WIP. 32bit, fix some timing problems, introduce custom refresh, fix sd card drivers, sd card CRC, custom resolutions, fix z3 register read model
+======Full Message======
+beta release WIP. 32bit, fix some timing problems, introduce custom refresh, fix sd card drivers, sd card CRC, custom resolutions, fix z3 register read model
+
+
+
+======Commit: a816a1cd======
+======Short Message======
+fix blitter driver for renderinfo offsets etc
+======Full Message======
+fix blitter driver for renderinfo offsets etc
+
+
+
+======Commit: feb6a57b======
+======Short Message======
+fix wip
+======Full Message======
+fix wip
+
+
+
+======Commit: 1678c637======
+======Short Message======
+scale fix
+======Full Message======
+scale fix
+
+
+
+======Commit: fdc318ab======
+======Short Message======
+fix gfx driver board flags
+======Full Message======
+fix gfx driver board flags
+
+
+
+======Commit: c17cb52d======
+======Short Message======
+2 faulty rows to go
+======Full Message======
+2 faulty rows to go
+
+
+
+======Commit: 47a1453a======
+======Short Message======
+debug uart; fix read/write addr noise
+======Full Message======
+debug uart; fix read/write addr noise
+
+
+
+======Commit: 40f71e03======
+======Short Message======
+WIP read/write mix debugging
+======Full Message======
+WIP read/write mix debugging
+
+
+
+======Commit: 403fa884======
+======Short Message======
+WIP cleaner high-level structure; sdram controller debugging
+======Full Message======
+WIP cleaner high-level structure; sdram controller debugging
+
+
+
+======Commit: 5095a260======
+======Short Message======
+Update README.md
+======Full Message======
+Update README.md
+
+Fixed typo
+
+
+======Commit: a8fb31b5======
+======Short Message======
+quite stable writes; fix weird 16bit 'pc' color interpretation
+======Full Message======
+quite stable writes; fix weird 16bit 'pc' color interpretation
+
+
+

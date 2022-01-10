@@ -1,0 +1,80 @@
+5c97310505eddbe36a429fd2fc9e0781ff89cd2f
+Merge pull request #516 from silabs-PaulZ/fix_todo__controller__flush_ex
+diff --git a/rtl/cv32e40p_id_stage.sv b/rtl/cv32e40p_id_stage.sv
+index 1ae3a78..5eed7d9 100644
+--- a/rtl/cv32e40p_id_stage.sv
++++ b/rtl/cv32e40p_id_stage.sv
+@@ -506,7 +506,6 @@ module cv32e40p_id_stage import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*
+   // clipping immediate, uses a small barrel shifter to pre-process the
+   // immediate and an adder to subtract 1
+   // The end result is a mask that has 1's set in the lower part
+-  // TODO: check if this can be shared with the bit-manipulation unit
+   assign imm_clip_type    = (32'h1 << instr[24:20]) - 1;
+ 
+   //-----------------------------------------------------------------------------
+@@ -634,8 +633,6 @@ module cv32e40p_id_stage import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*
+   //////////////////////////////////////////////////////
+ 
+   // Immediate Mux for operand B
+-  // TODO: check if sign-extension stuff works well here, maybe able to save
+-  // some area here
+   always_comb begin : immediate_b_mux
+     unique case (imm_b_mux_sel)
+       IMMB_I:      imm_b = imm_i_type;
+@@ -920,13 +917,14 @@ module cv32e40p_id_stage import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*
+   //                                                     //
+   /////////////////////////////////////////////////////////
+ 
+-  cv32e40p_register_file_test_wrap
++  cv32e40p_register_file
+   #(
+-    .ADDR_WIDTH(6),
+-    .FPU(FPU),
+-    .PULP_ZFINX(PULP_ZFINX)
++    .ADDR_WIDTH         ( 6                  ),
++    .DATA_WIDTH         ( 32                 ),
++    .FPU                ( FPU                ),
++    .PULP_ZFINX         ( PULP_ZFINX         )
+   )
+-  registers_i
++  register_file_i
+   (
+     .clk                ( clk                ),
+     .rst_n              ( rst_n              ),
+@@ -953,17 +951,7 @@ module cv32e40p_id_stage import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*
+     // Write port b
+     .waddr_b_i          ( regfile_alu_waddr_fw_i ),
+     .wdata_b_i          ( regfile_alu_wdata_fw_i ),
+-    .we_b_i             ( regfile_alu_we_fw_i ),
+-
+-     // BIST ENABLE
+-     .BIST        ( 1'b0                  ), // PLEASE CONNECT ME;
+-
+-     // BIST ports
+-     .CSN_T       ( 1'b0                ), // PLEASE CONNECT ME; Synthesis will remove me if unconnected
+-     .WEN_T       ( 1'b0                ), // PLEASE CONNECT ME; Synthesis will remove me if unconnected
+-     .A_T         ( 6'b0                ), // PLEASE CONNECT ME; Synthesis will remove me if unconnected
+-     .D_T         (32'b0                ), // PLEASE CONNECT ME; Synthesis will remove me if unconnected
+-     .Q_T         (                     )
++    .we_b_i             ( regfile_alu_we_fw_i )
+   );
+ 
+ 
+@@ -1800,6 +1788,17 @@ module cv32e40p_id_stage import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*
+     end
+     endgenerate
+ 
++   // Check that illegal instruction has no other side effects
++    property p_illegal_2;
++       @(posedge clk) disable iff (!rst_n) (illegal_insn_dec == 1'b1) |-> !(ebrk_insn || mret_insn_dec || uret_insn_dec || dret_insn_dec ||
++                                                                            ecall_insn_dec || wfi_insn_dec || fencei_insn_dec ||
++                                                                            alu_en || mult_int_en || mult_dot_en || apu_en ||
++                                                                            regfile_we_id || regfile_alu_we_id ||
++                                                                            csr_op != CSR_OP_READ || data_req_id);
++    endproperty
++
++    a_illegal_2 : assert property(p_illegal_2);
++
+   `endif
+ 
+ endmodule // cv32e40p_id_stage

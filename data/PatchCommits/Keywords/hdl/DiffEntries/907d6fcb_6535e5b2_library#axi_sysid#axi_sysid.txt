@@ -1,0 +1,14 @@
+907d6fcbd9775d2e40619efef3daa326aaff70d8
+sysid_intel: Fixed axi_sysid module name
+diff --git a/library/axi_sysid/axi_sysid.v b/library/axi_sysid/axi_sysid.v
+index 7a992e15..222705cc 100755
+--- a/library/axi_sysid/axi_sysid.v
++++ b/library/axi_sysid/axi_sysid.v
+@@ -1,6 +1,6 @@
+ `timescale 1ns / 1ps
+ 
+-module sys_id #(
++module axi_sysid #(
+   parameter ROM_WIDTH = 32,
+   parameter ROM_ADDR_BITS = 9)(
+ 

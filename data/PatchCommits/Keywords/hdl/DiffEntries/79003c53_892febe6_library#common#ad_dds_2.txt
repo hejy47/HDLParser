@@ -1,0 +1,15 @@
+79003c53db9231e3208a7e130842eb1fc83198f1
+ad_dds: Fix synthesis updates
+diff --git a/library/common/ad_dds_2.v b/library/common/ad_dds_2.v
+index 03d71fd6..81129f6e 100644
+--- a/library/common/ad_dds_2.v
++++ b/library/common/ad_dds_2.v
+@@ -37,8 +37,6 @@
+ 
+ module ad_dds_2 #(
+ 
+-  // Disable DDS
+-  parameter   DISABLE = 0,
+   // Range = 8-24
+   parameter   DDS_DW = 16,
+   // Range = 8-24

@@ -1,0 +1,15 @@
+fa976d438a9445b5389b8cbb70b972c9c365b883
+Update pulp_riscv_dbg to pulp-platform/riscv-dbg@6bef5d8
+diff --git a/hw/vendor/pulp_riscv_dbg/src/dmi_jtag.sv b/hw/vendor/pulp_riscv_dbg/src/dmi_jtag.sv
+index 60e67f46a..2039e2598 100644
+--- a/hw/vendor/pulp_riscv_dbg/src/dmi_jtag.sv
++++ b/hw/vendor/pulp_riscv_dbg/src/dmi_jtag.sv
+@@ -98,7 +98,7 @@ module dmi_jtag #(
+ 
+     dmi_req_valid = 1'b0;
+ 
+-    case (state_q)
++    unique case (state_q)
+       Idle: begin
+         // make sure that no error is sticky
+         if (dmi_access && update_dr && (error_q == DMINoError)) begin

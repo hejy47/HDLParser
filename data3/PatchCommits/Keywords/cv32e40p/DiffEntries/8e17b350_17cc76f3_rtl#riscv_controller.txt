@@ -1,0 +1,19 @@
+8e17b350100672ff9b476b28f04e121c5767ba57
+tmp fix of SW to the ITC followed by a CSRW to the IE. The interrupt request checking in the IRQ_FLUSH state of the controller should use the int_req from outiside, not the registered one.
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index 3243c79..d8a0b53 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -614,10 +614,11 @@ module riscv_controller
+ 
+         perf_pipeline_stall_o = data_load_event_i;
+ 
+-        if(irq_req_ctrl_i & irq_enable_int) begin
++        if(irq_i & irq_enable_int) begin
+           ctrl_fsm_ns = IRQ_TAKEN_ID;
+         end else begin
+           // we can go back to decode in case the IRQ is not taken (no ELW REPLAY)
++          exc_kill_o  = 1'b1;
+           ctrl_fsm_ns  = DECODE;
+         end
+       end

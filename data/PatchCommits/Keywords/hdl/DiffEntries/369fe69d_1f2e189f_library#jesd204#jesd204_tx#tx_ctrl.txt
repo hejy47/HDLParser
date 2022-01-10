@@ -1,0 +1,15 @@
+369fe69d34829a6ce18be60f7a6298d64156de43
+jesd204: tx_ctrl: Fix status_sync assignment
+diff --git a/library/jesd204/jesd204_tx/tx_ctrl.v b/library/jesd204/jesd204_tx/tx_ctrl.v
+index b0478e4f..1464da02 100644
+--- a/library/jesd204/jesd204_tx/tx_ctrl.v
++++ b/library/jesd204/jesd204_tx/tx_ctrl.v
+@@ -94,7 +94,7 @@ always @(posedge clk) begin
+   sync_sync <= {sync_sync[0],sync};
+ end
+ 
+-assign status_sync = sync_sync;
++assign status_sync = sync_sync[1];
+ 
+ always @(posedge clk) begin
+   if (reset == 1'b1) begin

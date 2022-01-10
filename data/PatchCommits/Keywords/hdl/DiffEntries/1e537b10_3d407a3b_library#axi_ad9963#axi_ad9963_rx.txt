@@ -1,0 +1,19 @@
+1e537b1083ecde14a66eb7612c3a17caa45f0ad0
+axi_ad9963: Fix warnings
+diff --git a/library/axi_ad9963/axi_ad9963_rx.v b/library/axi_ad9963/axi_ad9963_rx.v
+index ba055727..c9c5577b 100644
+--- a/library/axi_ad9963/axi_ad9963_rx.v
++++ b/library/axi_ad9963/axi_ad9963_rx.v
+@@ -237,9 +237,12 @@ module axi_ad9963_rx #(
+     .adc_start_code (),
+     .adc_sref_sync (),
+     .adc_sync (),
++    .adc_num_lanes (),
++    .adc_sdr_ddr_n (),
+     .up_pps_rcounter(32'h0),
+     .up_pps_status(1'b0),
+     .up_pps_irq_mask(),
++    .up_adc_r1_mode (),
+     .up_status_pn_err (up_status_pn_err),
+     .up_status_pn_oos (up_status_pn_oos),
+     .up_status_or (up_status_or),

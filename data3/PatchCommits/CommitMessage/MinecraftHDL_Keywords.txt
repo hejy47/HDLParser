@@ -1,0 +1,34 @@
+======Commit: c66690ae======
+======Short Message======
+Merge pull request #13 from jdan/patch-1
+======Full Message======
+Merge pull request #13 from jdan/patch-1
+
+if -> it
+
+
+======Commit: ae4c632a======
+======Short Message======
+Merge pull request #3 from orta/patch-1
+======Full Message======
+Merge pull request #3 from orta/patch-1
+
+Minor typos
+
+
+======Commit: bacf138e======
+======Short Message======
+fixed conflicts
+======Full Message======
+fixed conflicts
+
+
+
+======Commit: 94e1701f======
+======Short Message======
+fixed readme
+======Full Message======
+fixed readme
+
+
+

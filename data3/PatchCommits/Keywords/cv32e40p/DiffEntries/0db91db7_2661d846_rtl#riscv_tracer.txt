@@ -1,0 +1,15 @@
+0db91db7d28326474dc5e20c694b2dbdaeb9d45e
+:bug: fix tracer for sys calls as now depends on id_ready
+diff --git a/rtl/riscv_tracer.sv b/rtl/riscv_tracer.sv
+index 7cba438..ba0a7d2 100644
+--- a/rtl/riscv_tracer.sv
++++ b/rtl/riscv_tracer.sv
+@@ -908,7 +908,7 @@ module riscv_tracer (
+     instr_trace_t trace;
+ 
+     // special case for WFI because we don't wait for unstalling there
+-    if ( (id_valid || pipe_flush || mret || uret || ecall || ebreak || dret || fence) && is_decoding)
++    if ( id_valid && is_decoding)
+     begin
+       trace = new ();
+ 

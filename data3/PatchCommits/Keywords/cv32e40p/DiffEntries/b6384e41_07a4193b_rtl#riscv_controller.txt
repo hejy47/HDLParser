@@ -1,0 +1,15 @@
+b6384e41571f478136cc4f3e22d78f29cdcba1d5
+:hammer: fixing mcause value due to PMP fail accesses
+diff --git a/rtl/riscv_controller.sv b/rtl/riscv_controller.sv
+index b493629..23a6506 100644
+--- a/rtl/riscv_controller.sv
++++ b/rtl/riscv_controller.sv
+@@ -372,7 +372,7 @@ module riscv_controller
+ 
+             //no jump in this stage as we have to wait one cycle to go to Machine Mode
+ 
+-            csr_cause_o       = data_we_ex_i ? EXC_CAUSE_LOAD_FAULT : EXC_CAUSE_STORE_FAULT;
++            csr_cause_o       = data_we_ex_i ? EXC_CAUSE_STORE_FAULT : EXC_CAUSE_LOAD_FAULT;
+             ctrl_fsm_ns       = FLUSH_WB;
+ 
+           end  //data error

@@ -1,0 +1,15 @@
+48baa97c09a6d9c07db16dc2b3e4eeea82146f7c
+Correct data_island typing error, fixes #3
+diff --git a/modules/hdmi/verilog/hdmi.v b/modules/hdmi/verilog/hdmi.v
+index 24ee867..3e0078d 100644
+--- a/modules/hdmi/verilog/hdmi.v
++++ b/modules/hdmi/verilog/hdmi.v
+@@ -160,7 +160,7 @@ begin
+     // See Section 5.2.3.4, Section 5.3.1, Section 5.3.2
+     data_island_data[11:4] <= data[8:1];
+     data_island_data[3] <= cx != screen_start_x;
+-    data_island[2] <= data[0];
++    data_island_data[2] <= data[0];
+     data_island_data[1:0] <= {vsync, hsync};
+     control_data <= {{1'b0, data_island_preamble}, {1'b0, video_preamble || data_island_preamble}, {vsync, hsync}}; // ctrl3, ctrl2, ctrl1, ctrl0, vsync, hsync
+ end

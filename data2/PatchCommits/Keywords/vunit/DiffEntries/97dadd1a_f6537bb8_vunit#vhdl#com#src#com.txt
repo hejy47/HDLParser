@@ -1,0 +1,15 @@
+97dadd1ac03a4526b736623b97f34d086b95b4b6
+Moved com codecs to datatypes. Removed support for debug codecs.
+diff --git a/vunit/vhdl/com/src/com.vhd b/vunit/vhdl/com/src/com.vhd
+index 98101191..dafdf84b 100644
+--- a/vunit/vhdl/com/src/com.vhd
++++ b/vunit/vhdl/com/src/com.vhd
+@@ -9,7 +9,7 @@
+ library ieee;
+ use ieee.std_logic_1164.all;
+ 
+-use work.com_codec_pkg.all;
++use work.codec_pkg.all;
+ use work.com_support_pkg.all;
+ use work.com_messenger_pkg.all;
+ use work.com_common_pkg.all;

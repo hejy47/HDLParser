@@ -1,0 +1,15 @@
+36febf8591b87f500bd07fcf28b1064e7b090c92
+Merge branch 'master' into dev
+diff --git a/library/util_pmod_fmeter/util_pmod_fmeter.v b/library/util_pmod_fmeter/util_pmod_fmeter.v
+index eaee75f7..da5dc581 100644
+--- a/library/util_pmod_fmeter/util_pmod_fmeter.v
++++ b/library/util_pmod_fmeter/util_pmod_fmeter.v
+@@ -66,7 +66,7 @@ module util_pmod_fmeter (
+ 
+   // parameters
+ 
+-  parameter       PCORE_ID = 0;
++  parameter       ID = 0;
+ 
+   // physical interface
+ 

@@ -1,0 +1,58 @@
+f09b902609c1c40c726c0352a269af530633f210
+usdrx1- spi/mlo fixes
+diff --git a/projects/usdrx1/zc706/system_top.v b/projects/usdrx1/zc706/system_top.v
+index a0b1df8b..b30230ba 100644
+--- a/projects/usdrx1/zc706/system_top.v
++++ b/projects/usdrx1/zc706/system_top.v
+@@ -105,6 +105,8 @@ module system_top (
+   output                  spi_clk_clk,
+   inout                   spi_clk_sdio,
+ 
++  output                  afe_mlo_p,
++  output                  afe_mlo_n,
+   output                  afe_rst_p,
+   output                  afe_rst_n,
+   output                  afe_trig_p,
+@@ -125,18 +127,18 @@ module system_top (
+ 
+   // internal signals
+ 
+-  wire    [ 4:0]  spi_csn;
+-  wire            spi_clk;
+-  wire            spi_mosi;
+-  wire            spi_miso;
+-  wire            rx_ref_clk;
+-  wire            rx_sysref;
+-  wire            rx_sync;
+-  wire    [63:0]  gpio_i;
+-  wire    [63:0]  gpio_o;
+-  wire    [63:0]  gpio_t;
+-  wire    [15:0]  ps_intrs;
+-  wire            rx_clk;
++  wire        [ 4:0]      spi_csn;
++  wire                    spi_clk;
++  wire                    spi_mosi;
++  wire                    spi_miso;
++  wire                    rx_ref_clk;
++  wire                    rx_sysref;
++  wire                    rx_sync;
++  wire        [63:0]      gpio_i;
++  wire        [63:0]      gpio_o;
++  wire        [63:0]      gpio_t;
++  wire        [15:0]      ps_intrs;
++  wire                    rx_clk;
+ 
+   // spi assignments
+ 
+@@ -180,6 +182,11 @@ module system_top (
+     .O (afe_rst_p),
+     .OB (afe_rst_n));
+ 
++  OBUFDS i_obufds_afe_mlo (
++    .I (1'b0),
++    .O (afe_mlo_p),
++    .OB (afe_mlo_n));
++
+   assign dac_sleep  = gpio_o[44];
+   assign amp_disbn  = gpio_o[39];
+   assign gpio_i[38] = clk_status;

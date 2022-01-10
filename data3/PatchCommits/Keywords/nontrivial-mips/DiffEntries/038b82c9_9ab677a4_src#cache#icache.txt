@@ -1,0 +1,15 @@
+038b82c9e4ffb7f2576c0f5e46cff568952081dd
+Fix CACHE instruction. [func test]
+diff --git a/src/cache/icache.sv b/src/cache/icache.sv
+index 11101ac..d148a6a 100644
+--- a/src/cache/icache.sv
++++ b/src/cache/icache.sv
+@@ -231,7 +231,7 @@ always_comb begin
+ 			if(axi_resp.arready) 
+ 				state_d = FLUSH_RECEIVING;
+ 		RECEIVING, FLUSH_RECEIVING:
+-			if(axi_resp.rvalid & axi_resp.rlast) begin
++			if(axi_resp.rvalid & axi_resp.rlast & axi_req.rready) begin
+ 				state_d = REFILL;
+ 			end else if(pipe_flush) begin
+ 				state_d = FLUSH_RECEIVING;

@@ -1,0 +1,22 @@
+6a61e0ec0c9bcafc9760c9ddbb9b910f3403068f
+[rtl] Fix PMP NAPOT matching for 0 PMPGranularity
+diff --git a/rtl/ibex_pmp.sv b/rtl/ibex_pmp.sv
+index cbe21933..3c6bd37b 100644
+--- a/rtl/ibex_pmp.sv
++++ b/rtl/ibex_pmp.sv
+@@ -64,8 +64,13 @@ module ibex_pmp #(
+         //                  ^
+         //                  | This bit pos is the top of the mask, all lower bits set
+         // thus mask = 1111 0000
+-        assign region_addr_mask[r][b] = (csr_pmp_cfg_i[r].mode != PMP_MODE_NAPOT) |
+-                                        ~&csr_pmp_addr_i[r][b-1:PMPGranularity+1];
++        if (PMPGranularity == 0) begin : g_region_addr_mask_zero_granularity
++          assign region_addr_mask[r][b] = (csr_pmp_cfg_i[r].mode != PMP_MODE_NAPOT) |
++                                          ~&csr_pmp_addr_i[r][b-1:2];
++        end else begin : g_region_addr_mask_other_granularity
++          assign region_addr_mask[r][b] = (csr_pmp_cfg_i[r].mode != PMP_MODE_NAPOT) |
++                                          ~&csr_pmp_addr_i[r][b-1:PMPGranularity+1];
++        end
+       end
+     end
+   end

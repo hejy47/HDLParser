@@ -1,0 +1,21 @@
+9958d300638908a72a8d64e8e5b8f8034bedd6c0
+[DV] Fix latch in simple bus
+diff --git a/dv/riscv_compliance/rtl/bus.sv b/dv/riscv_compliance/rtl/bus.sv
+index 4491e9e1..188a2b83 100644
+--- a/dv/riscv_compliance/rtl/bus.sv
++++ b/dv/riscv_compliance/rtl/bus.sv
+@@ -104,12 +104,13 @@ module bus #(
+ 
+   always_comb begin
+     for (integer host = 0; host < NrHosts; host = host + 1) begin
++      host_gnt_o[host] = 1'b0;
++
+       if ($clog2(NrHosts)'(host) == host_sel_resp) begin
+         host_rvalid_o[host] = device_rvalid_i[device_sel_resp];
+         host_err_o[host]    = device_err_i[device_sel_resp];
+         host_rdata_o[host]  = device_rdata_i[device_sel_resp];
+       end else begin
+-        host_gnt_o[host]    = 1'b0;
+         host_rvalid_o[host] = 1'b0;
+         host_err_o[host]    = 1'b0;
+         host_rdata_o[host]  = 'b0;

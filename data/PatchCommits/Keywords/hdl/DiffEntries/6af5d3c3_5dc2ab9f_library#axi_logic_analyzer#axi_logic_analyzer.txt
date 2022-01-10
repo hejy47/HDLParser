@@ -1,0 +1,16 @@
+6af5d3c358ce1ead6fbbca7364aedd1ccedd2496
+axi_logic_analyzer: Improve external trigger
+diff --git a/library/axi_logic_analyzer/axi_logic_analyzer.v b/library/axi_logic_analyzer/axi_logic_analyzer.v
+index 8728dcdf..b8bf7a66 100644
+--- a/library/axi_logic_analyzer/axi_logic_analyzer.v
++++ b/library/axi_logic_analyzer/axi_logic_analyzer.v
+@@ -256,6 +256,9 @@ module axi_logic_analyzer #(
+ 
+   assign adc_valid = sample_valid_la;
+ 
++  always @(posedge clk_out) begin
++    trigger_m1 <= trigger_i;
++  end
+   // downsampler logic analyzer
+ 
+   always @(posedge clk_out) begin

@@ -1,0 +1,16 @@
+10220c5fb7cd6c1e095a4b41087c48aa05e30c59
+Deprecated external_error flag to test_runner_cleanup
+diff --git a/vunit/vhdl/run/src/run_api.vhd b/vunit/vhdl/run/src/run_api.vhd
+index 61fb9a1f..58e96c1f 100644
+--- a/vunit/vhdl/run/src/run_api.vhd
++++ b/vunit/vhdl/run/src/run_api.vhd
+@@ -53,8 +53,7 @@ package run_pkg is
+     return string;
+ 
+   procedure test_runner_cleanup (
+-    signal runner: inout runner_sync_t;
+-    constant external_failure : in boolean := false);
++    signal runner: inout runner_sync_t);
+ 
+   impure function test_suite_error (
+     constant err : boolean)
