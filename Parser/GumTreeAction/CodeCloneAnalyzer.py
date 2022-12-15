@@ -45,7 +45,7 @@ def getCodeEntryRedundancyList(itemNodes, prevFile, diffArr, outputPath, scope):
     itemRedundancy = [False for _ in itemNodes]
     prevRevisionPath = os.path.join(Configuration.REDUNDANCY_TREE_PATH, repoName, prevCommitId)
     for buggyFile in buggyFileList:
-        reBuggyFileWithouSuffixName = buggyFile.replace("../data/RedundancyData/", "").replace('/','#').split('.')[0]
+        reBuggyFileWithouSuffixName = buggyFile.replace(Configuration.REDUNDANCY_PATH, "").replace('/','#').split('.')[0]
         prevBuggyFileTreePath = os.path.join(prevRevisionPath, reBuggyFileWithouSuffixName+".txt")
         prevTreeStr = ""
         if os.path.exists(prevBuggyFileTreePath):
