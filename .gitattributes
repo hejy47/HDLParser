@@ -1,0 +1,4 @@
+*.v linguist-vendored
+*.vhd linguist-vendored
+*.vhdl linguist-vendored
+*.sv linguist-vendored
